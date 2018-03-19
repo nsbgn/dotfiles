@@ -47,46 +47,40 @@ bindsym $super+c fullscreen disable; exec telegram-desktop
 bindsym $super+m fullscreen disable; exec urxvt -e mutt
 
 
-bindsym $super+BackSpace mode "resize"
-
 set $step 10 px or 2 ppt
-mode "resize" {
-    bindsym $left mode "resize-left"
-    bindsym $right mode "resize-right"
-    bindsym $up mode "resize-up"
-    bindsym $down mode "resize-down"
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
-}
+bindsym $super+$ctrl+$left mode "resize-left"
+bindsym $super+$ctrl+$right mode "resize-right"
+bindsym $super+$ctrl+$up mode "resize-up"
+bindsym $super+$ctrl+$down mode "resize-down"
 mode "resize-left" {
-    bindsym $left resize grow left $step
-    bindsym $right resize shrink left $step
-    bindsym $up mode "resize-up"
-    bindsym $down mode "resize-down"
+    bindsym $super+$ctrl+$left resize grow left $step
+    bindsym $super+$ctrl+$right resize shrink left $step
+    bindsym $super+$ctrl+$up mode "resize-up"
+    bindsym $super+$ctrl+$down mode "resize-down"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
 mode "resize-right" {
-    bindsym $right resize grow right $step
-    bindsym $left resize shrink right $step
-    bindsym $up mode "resize-up"
-    bindsym $down mode "resize-down"
+    bindsym $super+$ctrl+$right resize grow right $step
+    bindsym $super+$ctrl+$left resize shrink right $step
+    bindsym $super+$ctrl+$up mode "resize-up"
+    bindsym $super+$ctrl+$down mode "resize-down"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
 mode "resize-up" {
-    bindsym $up resize grow up $step
-    bindsym $down resize shrink up $step
-    bindsym $left mode "resize-left"
-    bindsym $right mode "resize-right"
+    bindsym $super+$ctrl+$up resize grow up $step
+    bindsym $super+$ctrl+$down resize shrink up $step
+    bindsym $super+$ctrl+$left mode "resize-left"
+    bindsym $super+$ctrl+$right mode "resize-right"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
 mode "resize-down" {
-    bindsym $down resize grow down $step
-    bindsym $up resize shrink down $step
-    bindsym $left mode "resize-left"
-    bindsym $right mode "resize-right"
+    bindsym $super+$ctrl+$down resize grow down $step
+    bindsym $super+$ctrl+$up resize shrink down $step
+    bindsym $super+$ctrl+$left mode "resize-left"
+    bindsym $super+$ctrl+$right mode "resize-right"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
