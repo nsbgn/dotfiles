@@ -1,11 +1,13 @@
-theme.fg: #f3f4f5
-theme.bg: #2f343f
-theme.fgfocus: #ffffff
-theme.bgfocus: #676e7d
 urxvt.font: xft:Inconsolata:pixelsize=20
 urxvt*foreground: white
 urxvt*background: black
 urxvt*scrollBar: false
+*fg: #f3f4f5
+*bg: #2f343f
+*fgalt: #ffffff
+*bgalt: #676e7d
+*primary: #ffb52a
+*secondary: #e60053
 *color0:  #2E3436
 *color1:  #a40000
 *color2:  #4E9A06

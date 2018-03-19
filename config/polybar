@@ -1,11 +1,11 @@
 [colors]
-background = #2f343f
-background-alt = #676e7d
-foreground = #f3f4f5
-foreground-alt = #fff
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+
+background = ${xrdb:bg}
+background-alt = ${xrdb:bgalt}
+foreground = ${xrdb:fg}
+foreground-alt = ${xrdb:fgalt}
+primary = ${xrdb:primary}
+secondary = ${xrdb:secondary}
 
 
 [bar/base]
@@ -82,7 +82,7 @@ label-occupied = %index%
 label-occupied-padding = 2
 
 label-urgent = %index%!
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${colors.primary}
 label-urgent-padding = 2
 
 label-empty = %index%

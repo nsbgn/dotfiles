@@ -6,10 +6,10 @@ set $down s
 set $left a
 set $right d
 
-set $bg #2f343f
-set $fg #f3f4f5
-set $bg-attn #676e7d
-set $fg-attn #ffffff
+set_from_resource $bg i3wm.bg #2f343f
+set_from_resource $fg i3wm.fg #f3f4f5
+set_from_resource $bg-attn i3wm.bgalt #676e7d
+set_from_resource $fg-attn i3wm.fgalt #ffffff
 font pango:DejaVu Sans 10
 
 floating_modifier $super
