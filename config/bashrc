@@ -1,0 +1,35 @@
+export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin
+export EDITOR=vim
+export HISTCONTROL=ignoreboth:erasedups
+
+alias t="vim $HOME/notes/todo.txt"
+alias please='sudo "$BASH" -c "$(history -p !!)"'
+alias weather="curl wttr.in"
+alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
+alias flac2mp3="parallel -j4 ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: *.flac"
+alias pdflatex="pdflatex -file-line-error -halt-on-error"
+
+function fatmount {
+    sudo mount -t vfat $1 $2 -o rw,uid=1000,gid=1000
+}
+
+##############################################################################
+
+# Show directory in title bar
+if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' ]; then
+    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
+fi
+
+# Show git information in prompt
+for SRC in \
+        /etc/bash_completion.d/git-prompt \
+        /usr/share/git/completion/git-prompt.sh; do
+    if [ -f $SRC ]; then
+        source $SRC
+        break
+    fi
+done
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+gitBranch='$(__git_ps1)'
+export PS1="\W$gitBranch \\$ \[$(tput sgr0)\]" # [\u@\h]

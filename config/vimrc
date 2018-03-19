@@ -1,0 +1,119 @@
+source $VIMRUNTIME/defaults.vim
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Initialise plugins
+
+set nocompatible
+filetype off
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Layout & behaviour
+
+set ruler
+set number
+set wildmenu
+set guioptions -=T
+set guifont=Inconsolata\ 17
+
+" Move to previous/next line when pressing left/right at beginning/end
+set whichwrap=<,>,h,l,[,]
+
+" Tab completion behaviour
+set wildmode=longest,list,full
+
+" Copy to system clipboard by default
+set clipboard=unnamedplus
+
+" Highlight the last used search pattern
+if &t_Co > 2 || has("gui_running")
+  set hlsearch
+endif
+
+" Make the % command work better
+if has('syntax') && has('eval')
+  packadd matchit
+endif
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Editing
+
+set textwidth=79
+set autoindent
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
+" Do not automatically put two spaces after a sentence
+set nojoinspaces
+
+" Backspace over indentations
+set backspace=indent,eol,start
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocmd
+
+if has("autocmd")
+  augroup pandoc_syntax
+	  au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+	  autocmd FileType markdown.pandoc setlocal conceallevel=0
+	  autocmd FileType markdown.pandoc setlocal textwidth=78
+	  autocmd FileType markdown.pandoc setlocal formatoptions+=a formatoptions+=w
+  augroup END
+
+  augroup latex    
+          au! BufNewFile,BufRead,BufNewFile *.tex set filetype=tex
+	  autocmd FileType tex setlocal conceallevel=0
+	  autocmd FileType tex setlocal textwidth=78
+	  autocmd FileType tex setlocal formatoptions+=a formatoptions+=w
+
+          "autocmd FileType tex setlocal conceallevel=2
+          "autocmd FileType tex setlocal concealcursor=nvc
+          "autocmd FileType tex let g:tex_conceal="adgms"
+          "autocmd FileType tex hi Conceal cterm=NONE ctermbg=NONE ctermfg=lightblue
+  augroup END
+
+endif
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Functions
+
+" Fill the rest of the line with certain characters
+function! FillLine(str)
+    " Set desired textwidth
+    let tw = &textwidth
+    if tw==0 | let tw = 79 | endif
+
+    " Calculate total number of strings to insert, then insert
+    let rep = (tw - col("$") + 1) / len(a:str)
+    if rep > 0
+        .s/$/\=(repeat(a:str, rep))/
+    endif
+endfunction
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+
+nmap ; :
+nmap t :tabnew<CR>
+nmap . :tabnext<CR>
+nmap , :tabprevious<CR>
+
+" Insert lines
+nmap = o<Esc>79a=<Esc>0
+nmap - o<Esc>79a-<Esc>0
+nmap ~ o<Esc>79a~<Esc>0
+map \ :call FillLine(':')<CR> 

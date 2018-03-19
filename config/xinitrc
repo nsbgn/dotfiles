@@ -1,0 +1,47 @@
+# Load Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
+# Set background color, dmenu theme and path for dmenu_run
+export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:$HOME/.cabal/bin
+export DMENU_ARGS="-fn Inconsolata-15 -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
+xsetroot -solid '#2f343f'
+
+# Hide mouse when not in use for some time
+unclutter &
+
+# Set nighttime screen colours
+redshift &
+
+# Don't start terminal daemon because it doesn't work well with xcwd
+#urxvtd -q -f -o
+
+# Don't start notification daemon
+#dunst &
+
+# Set keyboard shortcuts
+keyboard-config &
+
+# Start music player
+dmenu-mpv --initialise &
+
+# Set my primary output screen so that i3 knows where to put tray icons
+if [ $HOSTNAME == "box" ] ; then
+    xrandr --output DVI-1 --primary &
+fi
+
+# For some reason, 50-synaptics.conf didn't work
+synclient TapButton1=1
+synclient TapButton2=3
+synclient TapButton3=2
+synclient VertScrollDelta=-40
+synclient HorizScrollDelta=-30
+synclient HorizTwoFingerScroll=1
+synclient ClickFinger1=1
+synclient ClickFinger2=3
+synclient ClickFinger3=2
+synclient MaxSpeed=6
+
+#exec startxfce4
+exec i3
+#sxhkd &
+#exec bspwm

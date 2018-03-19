@@ -1,0 +1,176 @@
+[colors]
+background = #2f343f
+background-alt = #676e7d
+foreground = #f3f4f5
+foreground-alt = #fff
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+
+[bar/base]
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = DejaVu Book:fontformat=truetype:size=10;0
+font-1 = FontAwesome:pixelsize=10;1
+font-2 = FontAwesome 5 Free Regular:pixelsize=10;1
+font-3 = FontAwesome 5 Free Solid:pixelsize=10;1
+
+width = 100%
+height = 24
+
+padding-left = 0
+padding-right = 1
+
+tray-position = right
+tray-padding = 1
+tray-maxsize = 21
+
+module-margin-left = 1
+module-margin-right = 2
+
+modules-left = xwindow 
+modules-center = 
+modules-right = mpris xbacklight volume battery date mouselock
+
+enable-ipc = true
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+[bar/i3]
+inherit = bar/base
+modules-left = i3 xwindow 
+;wm-restack = i3
+
+
+[bar/bspwm]
+inherit = bar/base
+modules-left = bspwm xwindow 
+;wm-restack = bspwm
+
+
+[module/mpris]
+type = custom/script
+exec = dmenu-mpv --monitor
+tail = true
+click-left = dmenu-mpv --toggle
+
+
+[module/mouselock]
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo ""
+initial = 2
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:120:...%
+
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${module/bspwm.label-focused-background}
+label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-padding = ${module/bspwm.label-focused-padding}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${module/bspwm.label-urgent-background}
+label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <label>
+label = " %percentage%%"
+
+
+[module/date]
+type = internal/date
+interval = 15
+date = "%Y-%m-%d"
+time = "%a %H:%M"
+label = " %date%   %time%"
+
+
+[module/volume]
+type = internal/volume
+format-volume = <ramp-volume> <label-volume>
+label-volume = "%percentage%%"
+ramp-volume-0 =  
+ramp-volume-1 =  
+ramp-volume-2 =  
+label-muted = " muted"
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 98
+poll-interval = 60
+format-full = <label-full>
+format-charging = <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-full =  %percentage%%
+label-charging =  %percentage%%
+label-discharging = %percentage%%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+
+[settings]
+screenchange-reload = true
+
+
+[global/wm]
+margin-top = 2
+margin-bottom = 2
+
+; vim:ft=dosini

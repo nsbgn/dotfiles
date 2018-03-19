@@ -1,0 +1,7 @@
+[user]
+	name = ns
+	email = ns@slak.ws
+[merge]
+	tool = meld
+[core]
+	editor = vim

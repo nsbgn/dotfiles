@@ -1,0 +1,35 @@
+XF86Audio{Prev,Next,Pause,Play}
+	dmenu-mpv {--previous,--next,--pause,--play}
+
+super + Return
+	bspc node --state ~fullscreen
+
+super + semicolon
+	dmenu_run
+
+super + x
+        bspc node -c
+
+super + {a,s,w,d}
+	bspc node -f {west,south,north,east}
+
+super + {0-9}
+	bspc desktop -f {0-9}
+
+super + {_,alt + }{a,s,w,d}
+	bspc node -{f,s} {west,south,north,east}
+
+{_,shift + ,super + }XF86MonBrightness{Down,Up}
+	bright {-1,-10,min,+1,+10,max}
+
+super + t
+	urxvt
+
+super + o ; {t,g,r,f,c,m}
+	{urxvt -cd "$(xcwd)",firefox,zathura,urxvt -e vifm "$(cwd)",telegram-desktop,urxvt -e mutt}
+
+super + alt + control + {h,j,k,l} ; {0-9}
+	bspc node @{west,south,north,east} -r 0.{0-9}
+
+super + alt + p
+	bspc config focus_follows_pointer {true,false}
