@@ -15,7 +15,7 @@ font pango:DejaVu Sans 10
 floating_modifier $super
 
 bindsym $super+x                kill
-bindsym $super+Escape           exec dmenu-json "$HOME/projects/scripts/menu/system.json"
+bindsym $super+Escape           exec dmenu-json "$HOME/.dmenu.json"
 bindsym $super+i                exec dmenu-pass
 bindsym $super+l                exec dmenu-thesaurus
 bindsym $super+$alt+p           exec dmenu-mpv

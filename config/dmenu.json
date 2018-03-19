@@ -1,0 +1,22 @@
+[   { "title": "lock"
+    , "body": "i3lock -c 000000 --ignore-empty-password" }
+,   { "title": "audio"
+    , "body": "pavucontrol" }
+,   { "title": "display"
+    , "body": "arandr" }
+,   { "title": "system"
+    , "body": 
+        [   { "title": "log out"
+            , "body": "i3-msg exit" }
+        ,   { "title": "reload"
+            , "body": "i3-msg restart" }
+        ,   { "title": "reboot"
+            , "body": "dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.Reboot boolean:true" }
+        ,   { "title": "suspend"
+            , "body": "dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true" }
+        ,   { "title": "shut down"
+            , "body": "dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.PowerOff boolean:true" }
+        ]
+    }
+]
+
