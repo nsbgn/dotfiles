@@ -6,15 +6,38 @@ set $down s
 set $left a
 set $right d
 
+exec_always --no-startup-id pkill polybar; polybar i3
+exec --no-startup-id nm-applet
+
+
+
+# Aesthetics ##################################################################
+
 set_from_resource $bg i3wm.bg #2f343f
 set_from_resource $fg i3wm.fg #f3f4f5
 set_from_resource $bg-attn i3wm.bgalt #676e7d
 set_from_resource $fg-attn i3wm.fgalt #ffffff
 font pango:DejaVu Sans 10
 
-floating_modifier $super
+#                       border     background text      indicator  child-border
+client.focused          $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg-attn 
+client.unfocused        $bg        $bg        $fg       $bg-attn   $bg
+client.focused_inactive $bg        $bg        $fg       $bg-attn   $bg
+client.urgent           $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg
+
+new_window pixel 2
+new_float pixel 15
+hide_edge_borders smart
+popup_during_fullscreen leave_fullscreen
+default_orientation horizontal
+workspace_layout default
+
+
+
+# Running ####################################################################
 
 bindsym $super+x                kill
+bindsym $super+semicolon        exec cd "`xcwd`" && dmenu_run -p "`dirs +0` $" $DMENU_ARGS
 bindsym $super+Escape           exec dmenu-json "$HOME/.dmenu.json"
 bindsym $super+i                exec dmenu-pass
 bindsym $super+l                exec dmenu-thesaurus
@@ -24,21 +47,8 @@ bindsym $super+backslash        exec --no-startup-id toggle-pointer
 bindsym Print                   exec --no-startup-id scrot "$HOME/screen-%Y-%m-%dT%H-%M-%S.png"
 bindsym $super+equal            exec --no-startup-id amixer -q sset Master 3%+
 bindsym $super+minus            exec --no-startup-id amixer -q sset Master 3%-
-bindsym XF86AudioRaiseVolume    exec --no-startup-id amixer -q sset Master 3%+
-bindsym XF86AudioLowerVolume    exec --no-startup-id amixer -q sset Master 3%-
-bindsym XF86AudioMute           exec --no-startup-id amixer -q sset Master toggle
-bindsym XF86AudioPlay           exec --no-startup-id dmenu-mpv --pause
-bindsym XF86AudioPause          exec --no-startup-id dmenu-mpv --play
-bindsym XF86AudioNext           exec --no-startup-id dmenu-mpv --next
-bindsym XF86AudioPrev           exec --no-startup-id dmenu-mpv --previous
-bindsym XF86MonBrightnessDown   exec --no-startup-id xbacklight -2%
-bindsym XF86MonBrightnessUp     exec --no-startup-id xbacklight +2%
 bindsym $super+$alt+minus       exec --no-startup-id xbacklight -2%
 bindsym $super+$alt+equal       exec --no-startup-id xbacklight +2%
-bindsym XF86KbdBrightnessDown   exec --no-startup-id set-kbd-backlight 0
-bindsym XF86KbdBrightnessUp     exec --no-startup-id set-kbd-backlight 3
-
-bindsym $super+semicolon exec cd "`xcwd`" && dmenu_run -p "`dirs +0` $" $DMENU_ARGS
 bindsym $super+t fullscreen disable; exec urxvt -cd "`xcwd`"
 bindsym $super+f fullscreen disable; exec urxvt -e vifm "`xcwd`"
 bindsym $super+r fullscreen disable; exec zathura
@@ -46,6 +56,32 @@ bindsym $super+g fullscreen disable; exec firefox
 bindsym $super+c fullscreen disable; exec telegram-desktop
 bindsym $super+m fullscreen disable; exec urxvt -e mutt
 
+
+
+# Movement, focus & resizing  ################################################
+
+bindsym $super+$left       fullscreen disable; focus left
+bindsym $super+$down       fullscreen disable; focus down
+bindsym $super+$up         fullscreen disable; focus up
+bindsym $super+$right      fullscreen disable; focus right
+bindsym $super+q           fullscreen disable; focus parent
+bindsym $super+e           fullscreen disable; focus child
+bindsym $super+$alt+$left  fullscreen disable; move left
+bindsym $super+$alt+$down  fullscreen disable; move down
+bindsym $super+$alt+$up    fullscreen disable; move up
+bindsym $super+$alt+$right fullscreen disable; move right
+
+bindsym $super+Return fullscreen toggle
+bindsym $super+$alt+Return bar mode toggle
+
+floating_modifier $super
+bindsym $super+j focus mode_toggle 
+bindsym $super+$alt+j floating toggle
+
+bindsym $super+n split vertical
+bindsym $super+y layout tabbed
+bindsym $super+u layout splitv
+bindsym $super+h layout splith
 
 set $step 10 px or 2 ppt
 bindsym $super+$ctrl+$left mode "resize-left"
@@ -85,29 +121,6 @@ mode "resize-down" {
     bindsym Return mode "default"
 }
 
-
-bindsym $super+$left fullscreen disable; focus left
-bindsym $super+$down fullscreen disable; focus down
-bindsym $super+$up fullscreen disable; focus up
-bindsym $super+$right fullscreen disable; focus right
-bindsym $super+q focus parent
-bindsym $super+e focus child
-bindsym $super+$alt+$left fullscreen disable; move left
-bindsym $super+$alt+$down fullscreen disable; move down
-bindsym $super+$alt+$up fullscreen disable; move up
-bindsym $super+$alt+$right fullscreen disable; move right
-
-bindsym $super+Return fullscreen toggle
-bindsym $super+$alt+Return bar mode toggle
-
-bindsym $super+j focus mode_toggle 
-bindsym $super+$alt+j floating toggle
-
-bindsym $super+n split vertical
-
-bindsym $super+y layout tabbed
-bindsym $super+u layout splitv
-bindsym $super+h layout splith
 
 
 # Workspace ###################################################################
@@ -153,24 +166,3 @@ bindsym $super+$alt+8 floating disable; move container to workspace $ws8; worksp
 bindsym $super+$alt+9 floating disable; move container to workspace $ws9; workspace $ws9
 bindsym $super+$alt+0 floating disable; move container to workspace $ws0; workspace $ws0
 
-
-
-
-# Aesthetics ##################################################################
-
-new_window pixel 2
-new_float pixel 15
-hide_edge_borders smart
-popup_during_fullscreen leave_fullscreen
-default_orientation horizontal
-workspace_layout default
-
-#                       border     background text      indicator  child-border
-client.focused          $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg-attn 
-client.unfocused        $bg        $bg        $fg       $bg-attn   $bg
-client.focused_inactive $bg        $bg        $fg       $bg-attn   $bg
-client.urgent           $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg
-
-
-exec_always --no-startup-id pkill polybar; polybar i3
-exec --no-startup-id nm-applet
