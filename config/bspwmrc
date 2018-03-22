@@ -1,14 +1,17 @@
 #!/bin/sh
 
-bspc monitor -d 1 2 3 4 5
-bspc config border_width         0
-bspc config focused_border_color "#ffffff"
-bspc config normal_border_color  "#000000" 
-bspc config window_gap           15 
-
-bspc config split_ratio          0.60
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true 
-bspc config initial_polarity 	 second_child
-
+bspc monitor --reset-desktops     1 2 3 4
+bspc config border_width          2
+bspc config focused_border_color  "#676e7d"
+bspc config normal_border_color   "#2f343f" 
+bspc config window_gap            0 
+bspc config split_ratio           0.55
+bspc config initial_polarity 	  second_child
 bspc config focus_follows_pointer true
+
+bspc rule -a '*:zathura' state=tiled
+
+xsetroot -cursor_name left_ptr
+
+pkill polybar; polybar bspwm &
+pkill nm-applet; nm-applet &

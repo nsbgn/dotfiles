@@ -12,22 +12,12 @@ unclutter &
 # Set nighttime screen colours
 redshift &
 
-# Don't start terminal daemon because it doesn't work well with xcwd
-#urxvtd -q -f -o
-
-# Don't start notification daemon
-#dunst &
-
 # Set keyboard shortcuts
 keyboard-config &
+sxhkd &
 
 # Start music player
 dmenu-mpv --initialise &
-
-# Set my primary output screen so that i3 knows where to put tray icons
-if [ $HOSTNAME == "box" ] ; then
-    xrandr --output DVI-1 --primary &
-fi
 
 # For some reason, 50-synaptics.conf didn't work
 synclient TapButton1=1
@@ -42,6 +32,5 @@ synclient ClickFinger3=2
 synclient MaxSpeed=6
 
 #exec startxfce4
-exec i3
-#sxhkd &
-#exec bspwm
+#exec i3
+exec bspwm

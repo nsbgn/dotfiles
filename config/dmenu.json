@@ -7,9 +7,9 @@
 ,   { "title": "system"
     , "body": 
         [   { "title": "log out"
-            , "body": "i3-msg exit" }
+            , "body": "bspc quit" }
         ,   { "title": "reload"
-            , "body": "i3-msg restart" }
+            , "body": "pkill -USR1 -x sxhkd" }
         ,   { "title": "reboot"
             , "body": "dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 org.freedesktop.login1.Manager.Reboot boolean:true" }
         ,   { "title": "suspend"

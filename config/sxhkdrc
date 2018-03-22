@@ -1,35 +1,53 @@
-XF86Audio{Prev,Next,Pause,Play}
-	dmenu-mpv {--previous,--next,--pause,--play}
 
+# Control ####################################################################
+
+# Toggle fullscreen
 super + Return
-	bspc node --state ~fullscreen
-
-super + semicolon
-	dmenu_run
-
-super + x
-        bspc node -c
+    bspc node --state ~fullscreen
 
 super + {a,s,w,d}
-	bspc node -f {west,south,north,east}
+    bspc node --focus {west,south,north,east}
 
-super + {0-9}
-	bspc desktop -f {0-9}
+super + alt + {a,s,w,d}
+    bspc node --swap {west,south,north,east}
+    #bspcpp to-node {west,south,north,east}
 
-super + {_,alt + }{a,s,w,d}
-	bspc node -{f,s} {west,south,north,east}
+super + {1-4}
+    bspc desktop --focus ^{1-4}
 
-{_,shift + ,super + }XF86MonBrightness{Down,Up}
-	bright {-1,-10,min,+1,+10,max}
+super + alt + {1-4}
+    INDEX={1-4}; \
+    bspc node --to-desktop ^$INDEX; \
+    bspc desktop --focus ^$INDEX
 
-super + t
-	urxvt
 
-super + o ; {t,g,r,f,c,m}
-	{urxvt -cd "$(xcwd)",firefox,zathura,urxvt -e vifm "$(cwd)",telegram-desktop,urxvt -e mutt}
+# Applications ###############################################################
 
-super + alt + control + {h,j,k,l} ; {0-9}
-	bspc node @{west,south,north,east} -r 0.{0-9}
+super + x
+    bspc node --close
+
+super + Escape
+    dmenu-json < ~/.dmenu.json
+
+super + {p,l,i}
+    dmenu-{mpv,thesaurus,pass}
 
 super + alt + p
-	bspc config focus_follows_pointer {true,false}
+    dmenu-mpv --toggle
+
+super + backslash
+    toggle-pointer
+
+super + {minus,equal}
+    amixer -q sset Master 3%{-,+}
+
+super + alt + {minus,equal}
+    xbacklight {-.+}2%
+
+super + {semicolon,t,f,m,g,r,c}
+    N=$(bspc query --nodes --node); \
+    bspc node $N --presel-dir south; \
+    {cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS,urxvt -cd "$(xcwd)",urxvt -e vifm "$(xcwd)",urxvt -e mutt,firefox,zathura,telegram-desktop}; \
+    bspc node $N --presel-dir cancel
+
+
