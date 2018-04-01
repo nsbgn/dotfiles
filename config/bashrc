@@ -15,6 +15,17 @@ function fatmount {
 
 ##############################################################################
 
+# Change the directory upon quitting lf
+function lf {
+    $(which lf) -last-dir-path="/tmp/lfdir" "$@"
+    dir="$(cat /tmp/lfdir)"
+    if [ -d "$dir" ] && [ "$PWD" != "$dir" ]; then
+        cd "$dir"
+    fi
+}
+
+##############################################################################
+
 # Show directory in title bar
 if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' ]; then
     PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'

@@ -75,11 +75,10 @@ type = internal/bspwm
 
 # %index%: %name%
 label-focused = 
-#label-focused-background = ${colors.background-alt}
-#label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
-label-occupied = 
+#label-occupied = 
+label-occupied = 
 label-occupied-padding = 2
 
 label-urgent = 
@@ -87,7 +86,6 @@ label-urgent-background = ${colors.primary}
 label-urgent-padding = 2
 
 label-empty = 
-label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 

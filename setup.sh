@@ -19,7 +19,7 @@ link config/muttrc                      ~/.muttrc
 link config/mailcap                     ~/.mailcap
 link config/gitconfig                   ~/.gitconfig
 link config/dmenu.json                  ~/.dmenu.json
-link config/vifmrc                      ~/.config/vifm/vifmrc
+link config/lfrc                        ~/.config/lf/lfrc
 link config/zathurarc                   ~/.config/zathura/zathurarc
 link config/i3                          ~/.config/i3/config
 link config/polybar                     ~/.config/polybar/config

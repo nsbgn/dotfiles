@@ -9,16 +9,16 @@ super + {a,s,w,d}
     bspc node --focus {west,south,north,east}
 
 super + alt + {a,s,w,d}
-    bspc node --swap {west,south,north,east}
-    #bspcpp to-node {west,south,north,east}
+    bspcpp to-node {west,south,north,east}
 
-super + {1-4}
-    bspc desktop --focus ^{1-4}
+super + {1-9}
+    bspcpp focus-desktop ^{1-9}; \
+    bspcpp clean-desktop
 
-super + alt + {1-4}
-    INDEX={1-4}; \
-    bspc node --to-desktop ^$INDEX; \
-    bspc desktop --focus ^$INDEX
+super + alt + {1-9}
+    N=$(bspc query --nodes --node); \
+    ID=$(bspcpp focus-desktop ^{1-9}); \
+    bspc node $N --to-desktop $ID
 
 
 # Applications ###############################################################
@@ -47,7 +47,7 @@ super + alt + {minus,equal}
 super + {semicolon,t,f,m,g,r,c}
     N=$(bspc query --nodes --node); \
     bspc node $N --presel-dir south; \
-    {cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS,urxvt -cd "$(xcwd)",urxvt -e vifm "$(xcwd)",urxvt -e mutt,firefox,zathura,telegram-desktop}; \
+    {cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS,urxvt -cd "$(xcwd)",urxvt -e lf "$(xcwd)",urxvt -e mutt,firefox,zathura,telegram-desktop}; \
     bspc node $N --presel-dir cancel
 
 
