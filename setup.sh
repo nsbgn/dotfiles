@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function link { 
-    if [ -f "$1" ]; then
+    if [ -e "$1" ]; then
         mkdir -p -- "$(dirname -- "$2")" \
             && ln -T -s -i -- "$(realpath "$1")" "$2"
     else
@@ -9,6 +9,7 @@ function link {
     fi
 }
 
+link dmenu/                             ~/.dmenu
 link config/bashrc                      ~/.bashrc
 link config/bash_profile                ~/.bash_profile
 link config/Xresources                  ~/.Xresources
@@ -18,7 +19,6 @@ link config/vimrc                       ~/.vimrc
 link config/muttrc                      ~/.muttrc
 link config/mailcap                     ~/.mailcap
 link config/gitconfig                   ~/.gitconfig
-link config/dmenu.json                  ~/.dmenu.json
 link config/lfrc                        ~/.config/lf/lfrc
 link config/zathurarc                   ~/.config/zathura/zathurarc
 link config/i3                          ~/.config/i3/config

@@ -36,21 +36,23 @@ workspace_layout default
 
 # Running ####################################################################
 
-bindsym $super+x                kill
-bindsym $super+semicolon        exec cd "`xcwd`" && dmenu_run -p "`dirs +0` $" $DMENU_ARGS
-bindsym $super+Escape           exec dmenu-json "$HOME/.dmenu.json"
-bindsym $super+i                exec dmenu-pass
-bindsym $super+l                exec dmenu-thesaurus
-bindsym $super+$alt+p           exec dmenu-mpv
-bindsym $super+p                exec --no-startup-id dmenu-mpv --toggle
-bindsym $super+backslash        exec --no-startup-id toggle-pointer
-bindsym Print                   exec --no-startup-id scrot "$HOME/screen-%Y-%m-%dT%H-%M-%S.png"
-bindsym $super+equal            exec --no-startup-id amixer -q sset Master 3%+
-bindsym $super+minus            exec --no-startup-id amixer -q sset Master 3%-
-bindsym $super+$alt+minus       exec --no-startup-id xbacklight -2%
-bindsym $super+$alt+equal       exec --no-startup-id xbacklight +2%
-bindsym $super+t fullscreen disable; exec urxvt -cd "`xcwd`"
-bindsym $super+f fullscreen disable; exec urxvt -e vifm "`xcwd`"
+bindsym $super+x kill
+bindsym $super+semicolon exec cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS
+bindsym $super+Escape exec dmenu-json "$HOME/.dmenu/system.json"
+bindsym $super+l exec dmenu-json "$HOME/.dmenu/thesaurus.json"
+bindsym $super+i exec dmenu-pass
+bindsym $super+p exec dmenu-mpv
+bindsym $super+$alt+p exec --no-startup-id dmenu-mpv --toggle
+bindsym $super+backslash exec --no-startup-id toggle-pointer
+bindsym Print exec xfce4-screenshooter
+#scrot "$HOME/screen-%Y-%m-%dT%H-%M-%S.png"
+bindsym $super+equal exec --no-startup-id amixer -q sset Master 3%+
+bindsym $super+minus exec --no-startup-id amixer -q sset Master 3%-
+bindsym $super+$alt+minus exec --no-startup-id xbacklight -2%
+bindsym $super+$alt+equal exec --no-startup-id xbacklight +2%
+bindsym $super+t fullscreen disable; exec urxvt -cd "$(xcwd)"
+bindsym $super+f fullscreen disable; exec urxvt -e bash -c lf 
+# --rcfile <(echo "source $HOME/.bashrc && cd $(xcwd)")
 bindsym $super+r fullscreen disable; exec zathura
 bindsym $super+g fullscreen disable; exec firefox
 bindsym $super+c fullscreen disable; exec telegram-desktop
