@@ -1,5 +1,0 @@
-# Auto-run startx when logging in to tty1
-if [[ "$(tty)" == '/dev/tty1' ]]; then
-    [[ -f "/usr/bin/startx" && -z "$DISPLAY$SSH_TTY$(pgrep xinit)" ]] && \
-    exec /usr/bin/startx
-fi
