@@ -264,6 +264,8 @@ EOF
 # Add architecture (needed for PCSX2 emulator)
 sudo dpkg --add-architecture i386
 
+
+
 # Update sources
 sudo apt update
 
@@ -297,7 +299,6 @@ sudo dpkg -i /tmp/pandoc.deb
 wget -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.49/hugo_extended_0.49_Linux-64bit.deb
 sudo dpkg -i /tmp/hugo.deb
 
-
 # lf file manager
 go get -u github.com/gokcehan/lf
 
@@ -325,5 +326,12 @@ git clone https://github.com/vim-pandoc/vim-pandoc-syntax.git # Highlight markdo
 git clone https://github.com/vim-syntastic/syntastic.git # Check code syntax
 git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell development
 
-update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 # Change pinentry from terminal to GTK
+# Change pinentry from terminal to GTK
+update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
 
+# Dina font
+wget https://www.donationcoder.com/Software/Jibz/Dina/downloads/Dina.zip
+unzip -d /usr/share/fonts/Dina Dina.zip
+cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir
+dpkg-reconfigure fontconfig-config
+fc-cache -f
