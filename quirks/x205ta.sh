@@ -3,6 +3,10 @@
 # Install kernel. Don't forget to boot with intel_idle.max_cstate=1 if not running a patched kernel
 sudo apt install -t stretch-backports "linux-image-4.18.0-0.bpo.1-amd64"
 
+# Add kernel parameter to prevent crashes
+sed --in-place 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 intel_idle.max_cstate=1"/g' /etc/default/grub
+update-grub
+
 # A micro SD card holds my music, since space is limited
 sudo tee -a /etc/fstab << EOF
 UUID=<UUID> /home/niels/data/music ext2 defaults,noatime,ro,nofail 0 0
