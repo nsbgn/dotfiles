@@ -1,0 +1,7 @@
+set autocalc=1
+set numeric=0
+set overlap=0
+set xlsx_readformulas=1
+set ignorecase=1
+set autobackup=0
+tm_gmtoff=-3600

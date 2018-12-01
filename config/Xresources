@@ -1,11 +1,13 @@
-urxvt.font: xft:Inconsolata:pixelsize=20
+urxvt.fontold: xft:Inconsolata:pixelsize=20
+urxvt*font: xft:Dina:size=11
+urxvt*boldFont: xft:Dina:size=11:style=bold
 urxvt*foreground: white
 urxvt*background: black
 urxvt*scrollBar: false
 *fg: #f3f4f5
 *bg: #2f343f
 *fgalt: #ffffff
-*bgalt: #676e7d
+*bgalt: #555555
 *primary: #ffb52a
 *secondary: #e60053
 *color0:  #2E3436

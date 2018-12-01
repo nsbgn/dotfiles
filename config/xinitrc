@@ -5,19 +5,26 @@
 export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:$HOME/.cabal/bin
 export DMENU_ARGS="-fn Inconsolata-15 -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
 xsetroot -solid '#2f343f'
+#
+#export DMENU_ARGS="-fn Inconsolata-15 -nb #222222 -sb #555555 -nf #ffffff -sf #ffffff"
+#xsetroot -solid '#222222'
 
-# Hide mouse when not in use for some time
-unclutter &
+# Hide mouse when not in use for two seconds
+unclutter -root -idle 2 &
 
 # Set nighttime screen colours
 redshift &
 
 # Set keyboard shortcuts
+#xmodmap -e "pointer = 3 2 1 4 5"
 keyboard-config &
-sxhkd &
+
+# Start terminal daemon
+urxvtd -q -f -o
 
 # Start music player
 dmenu-mpv --initialise &
+
 
 # For some reason, 50-synaptics.conf didn't work
 synclient TapButton1=1
@@ -31,6 +38,14 @@ synclient ClickFinger2=3
 synclient ClickFinger3=2
 synclient MaxSpeed=6
 
+#polybar i3 &
+exec i3
+
+#sxhkd &
+#exec windowchef
+#pytyle &
+#exec bspwm
+# xmonad
 #exec startxfce4
-#exec i3
-exec bspwm
+#exec openbox
+#exec fluxbox

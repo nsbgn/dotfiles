@@ -17,8 +17,10 @@ link dmenu/                             ~/.dmenu
 link config/bashrc                      ~/.bashrc
 link config/Xresources                  ~/.Xresources
 link config/xinitrc                     ~/.xinitrc
+link config/keynavrc                    ~/.keynavrc
 link config/taskrc                      ~/.taskrc
 link config/vimrc                       ~/.vimrc
+link config/scimrc                      ~/.scimrc
 link config/muttrc                      ~/.muttrc
 link config/mailcap                     ~/.mailcap
 link config/gitconfig                   ~/.gitconfig
@@ -28,5 +30,4 @@ link config/i3                          ~/.config/i3/config
 link config/polybar                     ~/.config/polybar/config
 link config/sxhkdrc                     ~/.config/sxhkd/sxhkdrc
 link config/bspwmrc                     ~/.config/bspwm/bspwmrc
-link config/compton.conf                ~/.config/compton.conf
 link config/user-dirs.dirs              ~/.config/user-dirs.dirs

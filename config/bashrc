@@ -1,19 +1,57 @@
-export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin
+export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin:$HOME/.go/bin
+export GOPATH=$HOME/.go
 export EDITOR=vim
+export BROWSER=firefox
 export HISTCONTROL=ignoreboth:erasedups
+export CLICOLOR=1
 
-alias t="vim $HOME/notes/todo.txt"
-alias please='sudo "$BASH" -c "$(history -p !!)"'
+alias c="ncal -w -M -A 2"
+alias t="vim $HOME/notes/todo.md"
+alias u="sudo snap refresh firefox; sudo apt update; sudo apt upgrade"
+alias plz='sudo "$BASH" -c "$(history -p !!)"'
 alias weather="curl wttr.in"
 alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
 alias flac2mp3="parallel -j4 ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: *.flac"
 alias pdflatex="pdflatex -file-line-error -halt-on-error"
+alias ls="ls --color=always"
+alias rs="java -jar ~/.runelite/RuneLite.jar"
+alias tz="sudo dpkg-reconfigure tzdata"
+alias scim="sc-im"
+alias del="gvfs-trash"
 
-function fatmount {
-    sudo mount -t vfat $1 $2 -o rw,uid=1000,gid=1000
-}
+# Color escapes
+export COLOR_NC='\e[0m' # No Color
+export COLOR_WHITE='\e[1;37m'
+export COLOR_BLACK='\e[0;30m'
+export COLOR_BLUE='\e[0;34m'
+export COLOR_LIGHT_BLUE='\e[1;34m'
+export COLOR_GREEN='\e[0;32m'
+export COLOR_LIGHT_GREEN='\e[1;32m'
+export COLOR_CYAN='\e[0;36m'
+export COLOR_LIGHT_CYAN='\e[1;36m'
+export COLOR_RED='\e[0;31m'
+export COLOR_LIGHT_RED='\e[1;31m'
+export COLOR_PURPLE='\e[0;35m'
+export COLOR_LIGHT_PURPLE='\e[1;35m'
+export COLOR_BROWN='\e[0;33m'
+export COLOR_YELLOW='\e[1;33m'
+export COLOR_GRAY='\e[0;30m'
+export COLOR_LIGHT_GRAY='\e[0;37m'
+
 
 ##############################################################################
+
+# I like to keep a list of my media
+function mkdb {
+    LOC="$HOME/notes/journal/tracking"
+    MUS="$HOME/data/music"
+    DOC="$HOME/data/documents"
+    VID="$HOME/data/video"
+
+    find $MUS -mindepth 2 -maxdepth 2 -type d | cut -d'/' -f 6- | sort > $LOC/music.txt
+    find $DOC -mindepth 2 -type f | cut -d'/' -f 6- | sort > $LOC/literature.txt
+    find $VID -mindepth 2 -type f -not -path '*/\.*' | cut -sd / -f 6- | sort > $LOC/film.txt
+}
 
 # Change the directory upon quitting lf
 function lf {
@@ -27,7 +65,7 @@ function lf {
 ##############################################################################
 
 # Show directory in title bar
-if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' ]; then
+if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' -o $TERM == 'rxvt-unicode' ]; then
     PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
 fi
 
@@ -43,4 +81,4 @@ done
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 gitBranch='$(__git_ps1)'
-export PS1="\W$gitBranch \\$ \[$(tput sgr0)\]" # [\u@\h]
+export PS1="$COLOR_LIGHT_GRAY\W$gitBranch \$ $COLOR_NC\[$(tput sgr0)\]" # [\u@\h]

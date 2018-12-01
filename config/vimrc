@@ -1,8 +1,13 @@
 source $VIMRUNTIME/defaults.vim
 
+" Reminders
+" - gq reformats selected wrapped text
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Initialise plugins
+
+
+"let g:pathogen_disabled = ["syntastic"] " hdevtools
 
 set nocompatible
 filetype off
@@ -10,16 +15,41 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Haskell
+
+" I use Unite to browse haddock documentation.
+call unite#custom_default_action('haddock', 'browse_remote')
+
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsInfo<CR>
+au FileType haskell nnoremap <buffer> <F3> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F4> :HdevtoolsClear<CR>
+au FileType haskell nnoremap <buffer> <silent> <F5> :Unite haddock<CR>
+
+au FileType haskell set shiftwidth=3
+au FileType haskell set softtabstop=3
+
+"let g:haddock_browser="/snap/bin/firefox"
+"let g:haddock_docdir="/home/niels/.advise-me/share/doc/x86_64-linux-ghc-7.10.3/" "sandbox?
+"let s:haddock_indexfile="/home/niels/.vim/haddock_index.vim"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Layout & behaviour
+
+" Set colors for the sign column 
+highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+
 
 set ruler
 set number
 set wildmenu
 set guioptions -=T
 set guifont=Inconsolata\ 17
+
+
+set switchbuf=useopen
+
 
 " Move to previous/next line when pressing left/right at beginning/end
 set whichwrap=<,>,h,l,[,]
@@ -40,7 +70,13 @@ if has('syntax') && has('eval')
   packadd matchit
 endif
 
-
+" Switch between relative numbering and absolute numbering on insert mode vs 
+":set number relativenumber
+":augroup numbertoggle
+":  autocmd!
+":  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+":  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+":augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editing
@@ -63,6 +99,9 @@ set backspace=indent,eol,start
 " Autocmd
 
 if has("autocmd")
+
+  au BufRead /tmp/mutt-* set tw=72
+
   augroup pandoc_syntax
 	  au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
 	  autocmd FileType markdown.pandoc setlocal conceallevel=0
@@ -105,9 +144,9 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use lf to select and open file(s) in vim (adapted from ranger).
 
-function! LF()
+function! LF(bang)
     let temp = tempname()
-    exec 'silent !lf -selection-path=' . shellescape(temp)
+    exec 'silent !lf -selection-path=' . shellescape(temp) . ' ' . shellescape(expand('%:p:h'))
     if !filereadable(temp)
         redraw!
         return
@@ -117,15 +156,24 @@ function! LF()
         redraw!
         return
     endif
+    if (a:bang) && !(line('$') == 1 && getline(1) == '')
+        exec 'tabnew'
+    endif
     exec 'edit ' . fnameescape(names[0])
     for name in names[1:]
         exec 'argadd ' . fnameescape(name)
     endfor
     redraw!
 endfunction
-command! -bar LF call LF()
+command! -bar -bang LF call LF(<bang>0)
 
-nnoremap <leader>l :LF<cr>
+nmap z :LF!<cr>
+nmap Z :LF<cr>
+nmap <F1> :!urxvt &<CR><CR>
+
+" open linked file under cursor in new tab. does not work within the
+" buffer created by HdevtoolsInfo...?
+nnoremap gF <C-W>gF
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings

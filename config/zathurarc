@@ -3,8 +3,11 @@ set selection-clipboard clipboard
 set zoom-step 4
 set scroll-step 80
 
-set default-bg "#2f343f"
-set completion-bg "#2f343f"
+#set default-bg "#2f343f"
+#set completion-bg "#2f343f"
+set default-bg "#000000"
+set completion-bg "#000000"
+
 
 map / search
 map , search backward

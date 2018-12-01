@@ -1,3 +1,5 @@
+set editor='vim'
+
 # Source mailboxes
 set mbox_type=MH
 set folder=~/mail

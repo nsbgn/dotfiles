@@ -6,7 +6,7 @@ set $down s
 set $left a
 set $right d
 
-exec_always --no-startup-id pkill polybar; polybar i3
+exec --no-startup-id polybar i3
 exec --no-startup-id nm-applet
 
 
@@ -25,13 +25,13 @@ client.unfocused        $bg        $bg        $fg       $bg-attn   $bg
 client.focused_inactive $bg        $bg        $fg       $bg-attn   $bg
 client.urgent           $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg
 
+#for_window [class="^.*$"] floating enable
 new_window pixel 2
-new_float pixel 15
+new_float pixel 2
 hide_edge_borders smart
 popup_during_fullscreen leave_fullscreen
 default_orientation horizontal
 workspace_layout default
-
 
 
 # Running ####################################################################
@@ -50,14 +50,19 @@ bindsym $super+equal exec --no-startup-id amixer -q sset Master 3%+
 bindsym $super+minus exec --no-startup-id amixer -q sset Master 3%-
 bindsym $super+$alt+minus exec --no-startup-id xbacklight -2%
 bindsym $super+$alt+equal exec --no-startup-id xbacklight +2%
-bindsym $super+t fullscreen disable; exec urxvt -cd "$(xcwd)"
-bindsym $super+f fullscreen disable; exec urxvt -e bash -c lf 
+bindsym $super+t fullscreen disable; exec urxvtc
+bindsym $super+f fullscreen disable; exec urxvtc -e "$HOME/.go/bin/lf"
+
+#-e bash -c lf 
 # --rcfile <(echo "source $HOME/.bashrc && cd $(xcwd)")
+
 bindsym $super+r fullscreen disable; exec zathura
 bindsym $super+g fullscreen disable; exec firefox
 bindsym $super+c fullscreen disable; exec telegram-desktop
-bindsym $super+m fullscreen disable; exec urxvt -e mutt
+bindsym $super+m fullscreen disable; exec urxvtc -e mutt
 
+
+#bindsym $super+t fullscreen disable; exec [ $(xprop -id $(xdotool getactivewindow) 'WM_CLASS' | cut -d'"' -f2) == "urxvt" ] && urxvt -cd "$(xcwd)" || urxvt
 
 
 # Movement, focus & resizing  ################################################
@@ -66,26 +71,26 @@ bindsym $super+$left       fullscreen disable; focus left
 bindsym $super+$down       fullscreen disable; focus down
 bindsym $super+$up         fullscreen disable; focus up
 bindsym $super+$right      fullscreen disable; focus right
-bindsym $super+q           fullscreen disable; focus parent
-bindsym $super+e           fullscreen disable; focus child
 bindsym $super+$alt+$left  fullscreen disable; move left
 bindsym $super+$alt+$down  fullscreen disable; move down
 bindsym $super+$alt+$up    fullscreen disable; move up
 bindsym $super+$alt+$right fullscreen disable; move right
 
-bindsym $super+Return fullscreen toggle
-bindsym $super+$alt+Return bar mode toggle
+bindsym $super+space fullscreen toggle
 
 floating_modifier $super
-bindsym $super+j focus mode_toggle 
-bindsym $super+$alt+j floating toggle
+bindsym $super+Return focus mode_toggle
+bindsym $super+$alt+Return floating toggle
 
-bindsym $super+n split vertical
-bindsym $super+y layout tabbed
+bindsym $super+q           fullscreen disable; focus parent
+bindsym $super+e           fullscreen disable; focus child
+bindsym $super+j split vertical
+bindsym $super+alt+j layout stacked; move up; focus down; layout splitv
+#bindsym $super+y layout tabbed
 bindsym $super+u layout splitv
 bindsym $super+h layout splith
 
-set $step 10 px or 2 ppt
+set $step 20 px or 2 ppt
 bindsym $super+$ctrl+$left mode "resize-left"
 bindsym $super+$ctrl+$right mode "resize-right"
 bindsym $super+$ctrl+$up mode "resize-up"
@@ -141,7 +146,7 @@ set $ws0 "10"
 # switch to workspace
 bindsym $super+comma workspace prev
 bindsym $super+period workspace next
-bindsym $super+space scratchpad show
+#bindsym $super+space scratchpad show
 bindsym $super+1 workspace $ws1
 bindsym $super+2 workspace $ws2
 bindsym $super+3 workspace $ws3
@@ -156,7 +161,7 @@ bindsym $super+0 workspace $ws0
 # move focused container to workspace
 bindsym $super+$alt+comma move container to workspace prev; workspace prev
 bindsym $super+$alt+period move container to workspace next; workspace next
-bindsym $super+$alt+space move scratchpad; scratchpad show
+#bindsym $super+$alt+space move scratchpad; scratchpad show
 bindsym $super+$alt+1 floating disable; move container to workspace $ws1; workspace $ws1
 bindsym $super+$alt+2 floating disable; move container to workspace $ws2; workspace $ws2
 bindsym $super+$alt+3 floating disable; move container to workspace $ws3; workspace $ws3

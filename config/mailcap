@@ -1,2 +1,5 @@
-text/html; firefox -new-tab %s && sleep 1; test=test -n "$DISPLAY";
-text/html; links -codepage %{charset} -html-numbered-links 1 -dump %s; nametemplate=%s.html; copiousoutput;
+#text/html; uzbl %s && sleep 1; test=test -n "$DISPLAY";
+application/pdf; zathura %s && sleep 1; test=test -n "$DISPLAY";
+text/html; firefox -new-tab %s && sleep 3; test=test -n "$DISPLAY";
+text/html; elinks -dump "$FILE"; nametemplate=%s.html; copiousoutput;
+#text/html; links -codepage %{charset} -html-numbered-links 1 -dump %s; nametemplate=%s.html; copiousoutput;

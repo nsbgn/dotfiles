@@ -7,9 +7,12 @@ GENERAL=(
 
     # Drivers
     cups printer-driver-gutenprint # Printing drivers
+    linux-firmware # Non-free... Unfortunately needed
     xserver-xorg xinit x11-common # X display server
-    xserver-xorg-video-{fbdev,nouveau,intel} # X video drivers
-    xserver-xorg-input-{synaptics,mouse,kbd,evdev} # X input drivers
+    #xserver-xorg-video-{fbdev,nouveau,intel,amdgpu} # X video drivers
+    xserver-xorg-video-{fbdev,radeon} # X video drivers
+    xserver-xorg-input-{synaptics,mouse,kbd,evdev,joystick} # X input drivers
+    libgles2-mesa libgl1-mesa-dri
 
     # Window manager & utilities
     bspwm # Tiling window manager
@@ -19,6 +22,7 @@ GENERAL=(
     x11-xkb-utils # X keyboard utilities (setxkbmap, xkbcomp, etc)
     xinput # Testing and configuring X devices
     xcape # Make modifier keys act as other keys when tapped
+    keynav # Allow mouse navigation via keyboard
     xbacklight # Configure screen backlight
     xclip # Command line access to X clipboard
     xsel # Command line access to X clipboard and selection
@@ -83,17 +87,20 @@ GENERAL=(
     ideviceinstaller ifuse # For connecting iPhones, iPods and iPads
     gvfs-bin # Includes gvfs-trash for trashing files from command line
     libimage-exiftool-perl # Inspect EXIF data of media files
+    epub-utils # Contains einfo, for inspecting EPUB metadata
     #mediainfo # Inspect EXIF data of media files
 
     # File conversion tools
     ffmpeg # Conversion of various media formats
     imagemagick # Conversion of images
     pdf2djvu # Conversion of PDF to DJVU
+    webp # Convert WebP pictures
     ebook2epub # Conversion of various ebook formats to EPUB
     jp2a # Convert JPEG images to ASCII
     wit # Conversion of GameCube and Wii ISOs
     handbrake # Conversion of multimedia files
     mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
+    subtitleeditor # Subtitle editor
     cuetools # Manipulating CUE files from CD rips
     shntool # Manipulating WAV audio files
     qpdf # Manipulating PDF files (decryption, etc)
@@ -101,6 +108,8 @@ GENERAL=(
     ocrodjvu # Perform OCR on DJVU documents
     cups-pdf # Print to PDF
     odf2txt # Convert Open Document files to text
+    catdoc # Convert Word documents to text
+    docx2txt # Convert Word XML documents to text
 
     # Internet tools
     wget # Retrieve files from the web
@@ -112,27 +121,37 @@ GENERAL=(
     elinks # Text internet browser
     transmission-{gtk,cli} # BitTorrent client
     nicotine # Soulseek client
-    youtube-dl # Downloading streaming videos and subtitles
+    #youtube-dl # Downloading streaming videos and subtitles - is outdated
     httrack # Downloading websites
     mutt # E-mail client
+    weechat # IRC client
     ring # Distributed chat & video client
     #qtox # Distributed chat & video client
     #ricochet-im # Distributed chat client
 
     # Other tools, editors & viewers
     rxvt-unicode # Terminal emulator
+    dvtm # Tiling window manager for the terminal
+    subversion # Version control system
     git tig # Version control system & ncurses interface
     taskwarrior vit # Todo list & ncurses interface
+    #tudu # Also a todo list tracker
     timewarrior # Time tracker
+    sqlitebrowser # View SQLite databases
     vim{,-gui-common,-pathogen} # Text editor
+    sc # Vim-like spreadsheet editor
     texlive{,-latex-extra,-fonts-extra} # Document typesetting
     libreoffice-{impress,calc,writer,gtk3} # Word processor
     pspp # Statistical analysis software (SPSS replacement)
+    scribus # Document publishing
     inkscape # Vector graphics
+    kodi # Media center
     gimp # Image editor
+    blender # 3D modeller/renderer
     fontforge # Font editor
     mkvtoolnix{,-gui} # MKV media container editor
     sigil # Ebook editor
+    #grisbi gnucash # Budgetting software
     puddletag # Audio tag editor
     gnuplot # Plotting graphics
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
@@ -157,12 +176,17 @@ GENERAL=(
     dialog # Generic terminal menu application
     whiptail # Generic terminal menu application
 
+    # Matlab-like
+    #scilab # MATLAB-like numerical analysis software
+    octave # MATLAB-compatible numerical analysis software
+
     # More user-friendly GUI version of applications
     synaptic # Package manager
     gnome-software # Software center
     gnome-packagekit # Package manager, update notifier (see update-notifier)
     software-properties-gtk # Manage repositories
     vlc # Media player
+    timidity # Playing MIDI files
     ristretto # Image viewer
     lxterminal # Terminal emulator
     pcmanfm # File manager
@@ -180,12 +204,21 @@ DEVELOPMENT=(
     ghc # Haskell compiler
     python # Python interpreter
     phantomjs # Headless browser with JavaScript API
+    sassc # SASS CSS precompiler
+    bison # YACC parser generator
+    "libclang1-6.0"
 
     # Libraries that I often need to compile this or other
     libx11-dev
     libxcb-icccm4-dev 
     libxcb-ewmh-dev 
     libxcb-util0-dev
+    libncursesw5-dev
+    libgtk2.0-dev # termite
+    libgtk-3-dev # Termite
+    gtk-doc-tools # Termite
+    intltool # Termite
+    libgirepository1.0-dev # Termite
 )
 
 # Gaming
@@ -241,14 +274,29 @@ sudo apt install \
     "${GAMES[@]}" \
     "${LAPTOP[@]}"
 sudo apt search -t stretch-backports \
-    telegram-desktop golang
+    telegram-desktop \
+    golang \
+    0ad
 
 # Use snap for latest Firefox instead of Debian's ESR version
 sudo snap install firefox
 
+# Xonotic also via snap
+sudo snap install xonotic # maybe 0ad too?
+
+# Install reddit viewer
+pip3 install rtv
+
+pip3 install youtube-dl
+
 # pandoc document converter
 wget -O /tmp/pandoc.deb https://github.com/jgm/pandoc/releases/download/2.2.3.2/pandoc-2.2.3.2-1-amd64.deb
-dpkg -i /tmp/pandoc.deb
+sudo dpkg -i /tmp/pandoc.deb
+
+# hugo static site generator
+wget -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.49/hugo_extended_0.49_Linux-64bit.deb
+sudo dpkg -i /tmp/hugo.deb
+
 
 # lf file manager
 go get -u github.com/gokcehan/lf
@@ -265,13 +313,17 @@ mkdir ~/repositories && cd ~/repositories
 git clone --recursive https://github.com/jaagr/polybar.git # Status bar
 git clone https://github.com/schischi/xcwd.git # Report current directory
 git clone https://github.com/cgag/hostblock.git # Block sites via /etc/hosts
+git clone https://github.com/andmarti1424/sc-im # Improved spreadsheet editor
+git clone https://gitlab.com/interception/linux/plugins/caps2esc # Like xcape
 
 # Install vim plugins
 mkdir -p ~/.vim/autoload ~/.vim/bundle && cd ~/.vim/bundle
-git clone https://github.com/airblade/vim-gitgutter.git # Show git changes
+git clone https://github.com/airblade/vim-rooter.git # Sets cwd to project root
+git clone https://github.com/mhinz/vim-signify # Show git or svn changes
 git clone https://github.com/jamessan/vim-gnupg.git # Open encrypted files
 git clone https://github.com/vim-pandoc/vim-pandoc-syntax.git # Highlight markdown
 git clone https://github.com/vim-syntastic/syntastic.git # Check code syntax
+git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell development
 
-# Change pinentry from terminal to GTK
-update-alternatives --config pinentry
+update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 # Change pinentry from terminal to GTK
+
