@@ -9,7 +9,7 @@ update-grub
 
 # A micro SD card holds my music, since space is limited
 sudo tee -a /etc/fstab << EOF
-UUID=<UUID> /home/niels/data/music ext2 defaults,noatime,ro,nofail 0 0
+UUID=0b53ded4-868d-4876-853e-6539a6aac5ba /home/niels/data/music ext2 defaults,noatime,ro,nofail 0 0
 EOF
 
 ##############################################################################
