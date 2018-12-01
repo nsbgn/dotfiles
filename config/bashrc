@@ -53,6 +53,11 @@ function mkdb {
     find $VID -mindepth 2 -type f -not -path '*/\.*' | cut -sd / -f 6- | sort > $LOC/film.txt
 }
 
+# For cleaning up trashed mail files
+function clean-mail {
+    find ~/mail -maxdepth 1 -name '*@*' -type d -print0 | xargs -0 -I{} gvfs-trash "{}/,"*
+}
+
 # Change the directory upon quitting lf
 function lf {
     $(which lf) -last-dir-path="/tmp/lfdir" "$@"
