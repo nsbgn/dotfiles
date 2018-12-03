@@ -55,7 +55,9 @@ function mkdb {
 
 # For cleaning up trashed mail files
 function clean-mail {
-    find ~/mail -maxdepth 1 -name '*@*' -type d -print0 | xargs -0 -I{} gvfs-trash "{}/,"*
+    find ~/mail -maxdepth 1 -name '*@*' -type d \
+        | xargs -I{} find {} -iname ',*' \
+        | xargs -I{} gvfs-trash {}
 }
 
 # Change the directory upon quitting lf
