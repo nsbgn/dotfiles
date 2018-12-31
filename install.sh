@@ -264,7 +264,7 @@ EOF
 # Add architecture (needed for PCSX2 emulator)
 sudo dpkg --add-architecture i386
 
-
+#echo "tmpfs /tmp tmpfs rw,nosuid,nodev" | sudo tee -a /etc/fstab
 
 # Update sources
 sudo apt update
@@ -283,6 +283,10 @@ sudo apt search -t stretch-backports \
 # Use snap for latest Firefox instead of Debian's ESR version
 sudo snap install firefox
 
+# Otherwise:
+#wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+#tar xjf /tmp/firefox.tar.bz2 -C/opt
+
 # Xonotic also via snap
 sudo snap install xonotic # maybe 0ad too?
 
@@ -292,11 +296,17 @@ pip3 install rtv
 pip3 install youtube-dl
 
 # pandoc document converter
-wget -O /tmp/pandoc.deb https://github.com/jgm/pandoc/releases/download/2.2.3.2/pandoc-2.2.3.2-1-amd64.deb
+wget -O /tmp/pandoc.deb "$(\
+    curl -s https://api.github.com/repos/jgm/pandoc/releases/latest \
+    | jq -r 'first(.assets[].browser_download_url | select(endswith("amd64.deb")))'\
+    )"
 sudo dpkg -i /tmp/pandoc.deb
 
 # hugo static site generator
-wget -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.49/hugo_extended_0.49_Linux-64bit.deb
+wget -O /tmp/hugo.deb "$(\
+    curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
+    | jq -r 'first(.assets[].browser_download_url | select(endswith("64bit.deb")))'\
+    )"
 sudo dpkg -i /tmp/hugo.deb
 
 # lf file manager
