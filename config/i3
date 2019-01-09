@@ -20,14 +20,14 @@ set_from_resource $fg-attn i3wm.fgalt #ffffff
 font pango:DejaVu Sans 10
 
 #                       border     background text      indicator  child-border
-client.focused          $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg-attn 
+client.focused          $bg-attn   $bg-attn   $fg-attn  $bg-attn   #00ff00 
 client.unfocused        $bg        $bg        $fg       $bg-attn   $bg
 client.focused_inactive $bg        $bg        $fg       $bg-attn   $bg
 client.urgent           $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg
 
 #for_window [class="^.*$"] floating enable
-new_window pixel 2
-new_float pixel 2
+new_window pixel 1
+new_float pixel 1
 hide_edge_borders smart
 popup_during_fullscreen leave_fullscreen
 default_orientation horizontal
