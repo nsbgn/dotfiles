@@ -1,18 +1,33 @@
 #!/bin/bash
 
+function confirm {
+    read -e -p "$@ (y/N) " ANSWER
+    case "$ANSWER" in
+        [yY][eE][sS]|[yY])
+            echo 0
+            ;;
+        *)
+            echo 1
+            ;;
+    esac
+}
+
 ##############################################################################
 # Packages
 
-GENERAL=(
-
+DRIVERS=(
     # Drivers
-    cups printer-driver-gutenprint # Printing drivers
     linux-firmware # Non-free... Unfortunately needed
     xserver-xorg xinit x11-common # X display server
-    #xserver-xorg-video-{fbdev,nouveau,intel,amdgpu} # X video drivers
-    xserver-xorg-video-{fbdev,radeon} # X video drivers
-    xserver-xorg-input-{synaptics,mouse,kbd,evdev,joystick} # X input drivers
-    libgles2-mesa libgl1-mesa-dri
+    xserver-xorg-video-{fbdev,intel} # X video drivers
+    xserver-xorg-video-{nouveau,radeon,amdgpu} # X video drivers
+    xserver-xorg-input-{synaptics,mouse,kbd,evdev} # X input drivers
+)
+
+GENERAL=(
+    # Printing
+    cups printer-driver-gutenprint 
+    cups-pdf # Print to PDF
 
     # Window manager & utilities
     bspwm # Tiling window manager
@@ -53,7 +68,7 @@ GENERAL=(
     apt-file # Search for package contents
 
     # System utilities
-    snapd # Alternative package manager
+    #snapd # Alternative package manager
     util-linux # System utilities like checking filesystem, block devices, etc
     ntp # Time daemon to automatically set time
     lm-sensors # Temperature sensors, etc
@@ -98,16 +113,11 @@ GENERAL=(
     ebook2epub # Conversion of various ebook formats to EPUB
     jp2a # Convert JPEG images to ASCII
     wit # Conversion of GameCube and Wii ISOs
-    handbrake # Conversion of multimedia files
-    mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
-    subtitleeditor # Subtitle editor
     cuetools # Manipulating CUE files from CD rips
     shntool # Manipulating WAV audio files
     qpdf # Manipulating PDF files (decryption, etc)
     minidjvu # Conversion of pages to DJVU
     ocrodjvu # Perform OCR on DJVU documents
-    cups-pdf # Print to PDF
-    odf2txt # Convert Open Document files to text
     catdoc # Convert Word documents to text
     docx2txt # Convert Word XML documents to text
 
@@ -119,15 +129,8 @@ GENERAL=(
     curl # Command line tool to transfer data
     w3m # Text internet browser
     elinks # Text internet browser
-    transmission-{gtk,cli} # BitTorrent client
-    nicotine # Soulseek client
-    #youtube-dl # Downloading streaming videos and subtitles - is outdated
-    httrack # Downloading websites
-    mutt # E-mail client
-    weechat # IRC client
-    ring # Distributed chat & video client
-    #qtox # Distributed chat & video client
-    #ricochet-im # Distributed chat client
+    urlview # Selecting urls from email text
+    highlight # Universal source code highlighter
 
     # Other tools, editors & viewers
     rxvt-unicode # Terminal emulator
@@ -135,65 +138,83 @@ GENERAL=(
     subversion # Version control system
     git tig # Version control system & ncurses interface
     taskwarrior vit # Todo list & ncurses interface
-    #tudu # Also a todo list tracker
-    timewarrior # Time tracker
-    sqlitebrowser # View SQLite databases
     vim{,-gui-common,-pathogen} # Text editor
-    sc # Vim-like spreadsheet editor
+    zathura-{pdf-poppler,cb,ps,djvu} # Document reader
+    sxiv # Image viewer
+    fbreader # Ebook reader
+    mpv # Media player
+    pass # Simple password manager based on gnupg
+    paperkey # Dump secret information of gnupg keys for backup
+    jq # Query and manipulate JSON text
+    #dialog # Generic terminal menu application
+    whiptail # Generic terminal menu application
+    asciinema # Record terminal sessions
+
+    pcmanfm # File manager
+    vlc # Media player
+    file-roller # Integration of archives into file managers
+    xfce4-screenshooter # Screenshot application
+    simple-scan # Scan utility
+)
+
+SUITES=(
     texlive{,-latex-extra,-fonts-extra} # Document typesetting
     libreoffice-{impress,calc,writer,gtk3} # Word processor
+    handbrake # Conversion of multimedia files
+    mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
+    subtitleeditor # Subtitle editor
+    httrack # Downloading websites
+    transmission-{gtk,cli} # BitTorrent client
+    nicotine # Soulseek client
+    mutt # E-mail client
+    weechat # IRC client
+    ring # Distributed chat & video client
+    #qtox # Distributed chat & video client
+    #ricochet-im # Distributed chat client
+    sqlitebrowser # View SQLite databases
     pspp # Statistical analysis software (SPSS replacement)
     scribus # Document publishing
-    inkscape # Vector graphics
     kodi # Media center
-    gimp # Image editor
     blender # 3D modeller/renderer
     fontforge # Font editor
     mkvtoolnix{,-gui} # MKV media container editor
     sigil # Ebook editor
     #grisbi gnucash # Budgetting software
     puddletag # Audio tag editor
+    inkscape # Vector graphics
+    gimp # Image editor
     gnuplot # Plotting graphics
-    zathura-{pdf-poppler,cb,ps,djvu} # Document reader
-    feh # Image viewer
-    sxiv # Image viewer
-    fbreader # Ebook reader
-    mpv # Media player
     marble # Map software
     qmapshack # GPS map manager
-    simple-scan # Scan utility
     scrot # Screenshot application
-    xfce4-screenshooter # Screenshot application
     meld # Graphical tool to diff files
     gpick # Color picker
     gparted # Partition editor
-    urlview # Selecting urls from email text
-    highlight # Universal source code highlighter
-    pass # Simple password manager based on gnupg
-    paperkey # Dump secret information of gnupg keys for backup
-    jq # Query and manipulate JSON text
-    asciinema # Record terminal sessions
-    dialog # Generic terminal menu application
-    whiptail # Generic terminal menu application
-
-    # Matlab-like
-    #scilab # MATLAB-like numerical analysis software
+    scilab # MATLAB-like numerical analysis software
     octave # MATLAB-compatible numerical analysis software
-
-    # More user-friendly GUI version of applications
     synaptic # Package manager
     gnome-software # Software center
     gnome-packagekit # Package manager, update notifier (see update-notifier)
     software-properties-gtk # Manage repositories
-    vlc # Media player
     timidity # Playing MIDI files
     ristretto # Image viewer
     lxterminal # Terminal emulator
-    pcmanfm # File manager
-    file-roller # Integration of archives into file managers
-    claws-mail # Email application
     geany # Generic text editor/IDE
     evince # PDF viewer
+    claws-mail # Email application
+)
+
+GAMES=(
+    # Emulators
+    dolphin-emu # Wii and Gamecube emulator
+    visualboyadvance-gtk # GameBoy emulator
+    mupen64plus # Nintendo 64 emulator
+    pcsx2:i386 # Playstation 2 emulator
+
+    # Games
+    #0ad # Strategy game
+    #xonotic # Shooter (fork of nexuiz)
+    #openmw # Role playing game (reimplementation of Morrowind)
 )
 
 # Development tools and dependencies
@@ -221,20 +242,6 @@ DEVELOPMENT=(
     libgirepository1.0-dev # Termite
 )
 
-# Gaming
-GAMES=(
-    # Emulators
-    dolphin-emu # Wii and Gamecube emulator
-    visualboyadvance-gtk # GameBoy emulator
-    mupen64plus # Nintendo 64 emulator
-    pcsx2:i386 # Playstation 2 emulator
-
-    # Games
-    #0ad # Strategy game
-    #xonotic # Shooter (fork of nexuiz)
-    #openmw # Role playing game (reimplementation of Morrowind)
-)
-
 # Laptop-specific applications
 LAPTOP=(
     tlp # Laptop power saving
@@ -251,14 +258,16 @@ OUTDATED=(
 )
 
 BACKPORTS=(
-    golang
-    telegram-desktop
-    0ad
+    golang # Go compiler
+    telegram-desktop # Chat application
 )
+
 
 
 ##############################################################################
 # Installation script
+
+if [ "$(confirm "Add backports repository?")" -eq 0 ]; then
 
 # Add backports repository
 sudo tee -a /etc/apt/sources.list << EOF
@@ -266,23 +275,43 @@ deb http://ftp.nl.debian.org/debian/ stretch-backports main non-free contrib
 deb-src http://ftp.nl.debian.org/debian/ stretch-backports main non-free contrib
 EOF
 
-# Add architecture (needed for PCSX2 emulator)
-sudo dpkg --add-architecture i386
+fi
+
 
 #echo "tmpfs /tmp tmpfs rw,nosuid,nodev" | sudo tee -a /etc/fstab
 
-# Update sources
-sudo apt update
-sudo apt install \
-    "${GENERAL[@]}" \
-    "${DEVELOPMENT[@]}" \
-    "${GAMES[@]}" \
-    "${LAPTOP[@]}"
-sudo apt search -t stretch-backports \
-    "${BACKPORTS[@]}"
 
-# Change pinentry from terminal to GTK
-update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
+if [ "$(confirm "Install packages?")" -eq 0 ]; then
+
+    PACKAGES=()
+
+    for i in "${GENERAL[@]}"
+    do PACKAGES+=("$i" "" 1)
+    done
+
+    for i in "${DRIVERS[@]}" "${LAPTOP[@]}" "${DEVELOPMENT[@]}" "${GAMES[@]}" "${SUITES[@]}"
+    do PACKAGES+=("$i" "" 0)
+    done
+
+    SELECTED_PACKAGES=($(whiptail --separate-output \
+        --title "Package selection" --checklist "Select packages." \
+        $(stty size) 30 \
+        "${PACKAGES[@]}" 3>&1 1>&2 2>&3))
+
+    # Add architecture (needed for PCSX2 emulator)
+    sudo dpkg --add-architecture i386
+
+    # Update sources
+    sudo apt update
+    sudo apt install \
+        "${SELECTED_PACKAGES[@]}"
+    sudo apt search -t stretch-backports \
+        "${BACKPORTS[@]}"
+
+    # Change pinentry from terminal to GTK
+    update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
+
+fi
 
 
 
@@ -290,52 +319,66 @@ update-alternatives --set pinentry /usr/bin/pinentry-gtk-2
 # Software from other sources than official repositories
 
 # lf - File manager
-go get -u github.com/gokcehan/lf
+if [ "$(confirm "Install lf?")" -eq 0 ]; then
+    go get -u github.com/gokcehan/lf
+fi
 
 # youtube-dl - Streaming video downloader
-pip3 install youtube-dl
+if [ "$(confirm "Install youtube-dl?")" -eq 0 ]; then
+    pip3 install youtube-dl
+fi
 
 # firefox - Web browser
 # The version in the official repositories is ESR, but I want the latest
 # version. Could also use snap (sudo apt install snapd; snap install firefox)
 # but this way is faster and doesn't put a 'snap' directory in my $HOME…)
-wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
-tar xjf /tmp/firefox.tar.bz2 -C/opt
+if [ "$(confirm "Install firefox?")" -eq 0 ]; then
+    wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+    tar xjf /tmp/firefox.tar.bz2 -C/opt
+fi
 
 # pandoc - Document converter
-wget -O /tmp/pandoc.deb "$(\
-    curl -s https://api.github.com/repos/jgm/pandoc/releases/latest \
-    | jq -r 'first(.assets[].browser_download_url | select(endswith("amd64.deb")))'\
-    )"
-sudo dpkg -i /tmp/pandoc.deb
+if [ "$(confirm "Install pandoc?")" -eq 0 ]; then
+    wget -O /tmp/pandoc.deb "$(\
+        curl -s https://api.github.com/repos/jgm/pandoc/releases/latest \
+        | jq -r 'first(.assets[].browser_download_url | select(endswith("amd64.deb")))'\
+        )"
+    sudo dpkg -i /tmp/pandoc.deb
+fi
 
 # hugo - Static site generator
-wget -O /tmp/hugo.deb "$(\
-    curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
-    | jq -r 'first(.assets[].browser_download_url | select(endswith("64bit.deb")))'\
-    )"
-sudo dpkg -i /tmp/hugo.deb
+if [ "$(confirm "Install hugo?")" -eq 0 ]; then
+    wget -O /tmp/hugo.deb "$(\
+        curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
+        | jq -r 'first(.assets[].browser_download_url | select(endswith("64bit.deb")))'\
+        )"
+    sudo dpkg -i /tmp/hugo.deb
+fi
 
 # Dina - Font
-wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
-unzip -d /usr/share/fonts/Dina Dina.zip
-cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir; cd -
-dpkg-reconfigure fontconfig-config
-fc-cache -f
+if [ "$(confirm "Install Dina?")" -eq 0 ]; then
+    wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
+    unzip -d /usr/share/fonts/Dina Dina.zip
+    cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir; cd -
+    dpkg-reconfigure fontconfig-config
+    fc-cache -f
+fi
 
 # Applications from github
-mkdir ~/repositories && cd ~/repositories
-git clone --recursive https://github.com/jaagr/polybar.git # Status bar
-git clone https://github.com/schischi/xcwd.git # Report current directory
-#git clone https://github.com/cgag/hostblock.git # Block sites via /etc/hosts
-#git clone https://github.com/andmarti1424/sc-im # Improved spreadsheet editor
-#git clone https://gitlab.com/interception/linux/plugins/caps2esc # Like xcape
+if [ "$(confirm "Copy github repositories?")" -eq 0 ]; then
+    mkdir ~/repositories && cd ~/repositories
+    git clone --recursive https://github.com/jaagr/polybar.git # Status bar
+    git clone https://github.com/schischi/xcwd.git # Report current directory
+    #git clone https://github.com/cgag/hostblock.git # Block sites via /etc/hosts
+    #git clone https://github.com/andmarti1424/sc-im # Improved spreadsheet editor
+    #git clone https://gitlab.com/interception/linux/plugins/caps2esc # Like xcape
 
-# Install vim plugins
-mkdir -p ~/.vim/autoload ~/.vim/bundle && cd ~/.vim/bundle
-git clone https://github.com/airblade/vim-rooter.git # Sets cwd to project root
-git clone https://github.com/mhinz/vim-signify # Show git or svn changes
-git clone https://github.com/jamessan/vim-gnupg.git # Open encrypted files
-git clone https://github.com/vim-pandoc/vim-pandoc-syntax.git # Highlight markdown
-git clone https://github.com/vim-syntastic/syntastic.git # Check code syntax
-git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell development
+    # Install vim plugins
+    mkdir -p ~/.vim/autoload ~/.vim/bundle && cd ~/.vim/bundle
+    git clone https://github.com/airblade/vim-rooter.git # Sets cwd to project root
+    git clone https://github.com/mhinz/vim-signify # Show git or svn changes
+    git clone https://github.com/jamessan/vim-gnupg.git # Open encrypted files
+    git clone https://github.com/vim-pandoc/vim-pandoc-syntax.git # Highlight markdown
+    git clone https://github.com/vim-syntastic/syntastic.git # Check code syntax
+    git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell development
+fi
