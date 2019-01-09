@@ -18,8 +18,8 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Haskell
 
-" I use Unite to browse haddock documentation.
-call unite#custom_default_action('haddock', 'browse_remote')
+"let g:hdevtools_options = '-g-fdefer-type-errors'
+let g:syntastic_haskell_hdevtools_args = '-g-fdefer-type-errors'
 
 au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsInfo<CR>
 au FileType haskell nnoremap <buffer> <F3> :HdevtoolsType<CR>
@@ -28,10 +28,6 @@ au FileType haskell nnoremap <buffer> <silent> <F5> :Unite haddock<CR>
 
 au FileType haskell set shiftwidth=3
 au FileType haskell set softtabstop=3
-
-"let g:haddock_browser="/snap/bin/firefox"
-"let g:haddock_docdir="/home/niels/.advise-me/share/doc/x86_64-linux-ghc-7.10.3/" "sandbox?
-"let s:haddock_indexfile="/home/niels/.vim/haddock_index.vim"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
