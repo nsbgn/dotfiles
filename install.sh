@@ -340,8 +340,8 @@ git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell develo
 update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
 
 # Dina font
-wget https://www.donationcoder.com/Software/Jibz/Dina/downloads/Dina.zip
+wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
 unzip -d /usr/share/fonts/Dina Dina.zip
-cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir
+cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir; cd -
 dpkg-reconfigure fontconfig-config
 fc-cache -f
