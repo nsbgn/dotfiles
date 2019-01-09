@@ -250,6 +250,11 @@ OUTDATED=(
     nodejs{,-legacy} # Node.js compiler
 )
 
+BACKPORTS=(
+    golang
+    telegram-desktop
+    0ad
+)
 
 
 ##############################################################################
@@ -268,64 +273,63 @@ sudo dpkg --add-architecture i386
 
 # Update sources
 sudo apt update
-
-# Install packages
 sudo apt install \
     "${GENERAL[@]}" \
     "${DEVELOPMENT[@]}" \
     "${GAMES[@]}" \
     "${LAPTOP[@]}"
 sudo apt search -t stretch-backports \
-    telegram-desktop \
-    golang \
-    0ad
+    "${BACKPORTS[@]}"
 
-# Use snap for latest Firefox instead of Debian's ESR version
-sudo snap install firefox
+# Change pinentry from terminal to GTK
+update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
 
-# Otherwise:
-#wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
-#tar xjf /tmp/firefox.tar.bz2 -C/opt
 
-# Xonotic also via snap
-sudo snap install xonotic # maybe 0ad too?
 
-# Install reddit viewer
-pip3 install rtv
+##############################################################################
+# Software from other sources than official repositories
 
+# lf - File manager
+go get -u github.com/gokcehan/lf
+
+# youtube-dl - Streaming video downloader
 pip3 install youtube-dl
 
-# pandoc document converter
+# firefox - Web browser
+# The version in the official repositories is ESR, but I want the latest
+# version. Could also use snap (sudo apt install snapd; snap install firefox)
+# but this way is faster and doesn't put a 'snap' directory in my $HOME…)
+wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+tar xjf /tmp/firefox.tar.bz2 -C/opt
+
+# pandoc - Document converter
 wget -O /tmp/pandoc.deb "$(\
     curl -s https://api.github.com/repos/jgm/pandoc/releases/latest \
     | jq -r 'first(.assets[].browser_download_url | select(endswith("amd64.deb")))'\
     )"
 sudo dpkg -i /tmp/pandoc.deb
 
-# hugo static site generator
+# hugo - Static site generator
 wget -O /tmp/hugo.deb "$(\
     curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
     | jq -r 'first(.assets[].browser_download_url | select(endswith("64bit.deb")))'\
     )"
 sudo dpkg -i /tmp/hugo.deb
 
-# lf file manager
-go get -u github.com/gokcehan/lf
+# Dina - Font
+wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
+unzip -d /usr/share/fonts/Dina Dina.zip
+cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir; cd -
+dpkg-reconfigure fontconfig-config
+fc-cache -f
 
-# Add repository for nodejs/npm and install latest version. Be careful, piping to shell.
-#curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-#sudo apt install nodejs
-
-# Install latest haskell stack. Be careful, piping to shell.
-#curl -sSL https://get.haskellstack.org/ | sh
-
-# Applications from other sources
+# Applications from github
 mkdir ~/repositories && cd ~/repositories
 git clone --recursive https://github.com/jaagr/polybar.git # Status bar
 git clone https://github.com/schischi/xcwd.git # Report current directory
-git clone https://github.com/cgag/hostblock.git # Block sites via /etc/hosts
-git clone https://github.com/andmarti1424/sc-im # Improved spreadsheet editor
-git clone https://gitlab.com/interception/linux/plugins/caps2esc # Like xcape
+#git clone https://github.com/cgag/hostblock.git # Block sites via /etc/hosts
+#git clone https://github.com/andmarti1424/sc-im # Improved spreadsheet editor
+#git clone https://gitlab.com/interception/linux/plugins/caps2esc # Like xcape
 
 # Install vim plugins
 mkdir -p ~/.vim/autoload ~/.vim/bundle && cd ~/.vim/bundle
@@ -335,13 +339,3 @@ git clone https://github.com/jamessan/vim-gnupg.git # Open encrypted files
 git clone https://github.com/vim-pandoc/vim-pandoc-syntax.git # Highlight markdown
 git clone https://github.com/vim-syntastic/syntastic.git # Check code syntax
 git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell development
-
-# Change pinentry from terminal to GTK
-update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
-
-# Dina font
-wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
-unzip -d /usr/share/fonts/Dina Dina.zip
-cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir; cd -
-dpkg-reconfigure fontconfig-config
-fc-cache -f
