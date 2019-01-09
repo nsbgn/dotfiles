@@ -93,4 +93,6 @@ done
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 gitBranch='$(__git_ps1)'
-export PS1="$COLOR_LIGHT_GRAY\W$gitBranch \$ $COLOR_NC\[$(tput sgr0)\]" # [\u@\h]
+export PS1="\[$COLOR_LIGHT_GRAY\]\W$gitBranch \$ \[$COLOR_NC\]\[$(tput sgr0)\]" # [\u@\h]
+
+# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
