@@ -2,12 +2,9 @@
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
 # Set background color, dmenu theme and path for dmenu_run
-export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:$HOME/.cabal/bin
+export PATH=/opt/firefox:$HOME/projects/scripts:$HOME/.local/bin:$PATH:$HOME/.cabal/bin
 export DMENU_ARGS="-fn Inconsolata-15 -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
 xsetroot -solid '#2f343f'
-#
-#export DMENU_ARGS="-fn Inconsolata-15 -nb #222222 -sb #555555 -nf #ffffff -sf #ffffff"
-#xsetroot -solid '#222222'
 
 # Hide mouse when not in use for two seconds
 unclutter -root -idle 2 &
@@ -24,7 +21,6 @@ urxvtd -q -f -o
 
 # Start music player
 dmenu-mpv --initialise &
-
 
 # For some reason, 50-synaptics.conf didn't work
 synclient TapButton1=1

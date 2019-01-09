@@ -1,4 +1,4 @@
-export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin:$HOME/.go/bin
+export PATH=/opt/firefox:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin:$HOME/.go/bin
 export GOPATH=$HOME/.go
 export EDITOR=vim
 export BROWSER=firefox
@@ -7,7 +7,7 @@ export CLICOLOR=1
 
 alias c="ncal -w -M -A 2"
 alias t="vim $HOME/notes/todo.md"
-alias u="sudo snap refresh firefox; sudo apt update; sudo apt upgrade"
+alias u="sudo apt update; sudo apt upgrade"
 alias plz='sudo "$BASH" -c "$(history -p !!)"'
 alias weather="curl wttr.in"
 alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
@@ -18,6 +18,7 @@ alias rs="java -jar ~/.runelite/RuneLite.jar"
 alias tz="sudo dpkg-reconfigure tzdata"
 alias scim="sc-im"
 alias del="gvfs-trash"
+alias yt-subs="youtube-dl --all-subs --convert-subs srt --skip-download"
 
 # Color escapes
 export COLOR_NC='\e[0m' # No Color
@@ -67,6 +68,10 @@ function lf {
     if [ -d "$dir" ] && [ "$PWD" != "$dir" ]; then
         cd "$dir"
     fi
+}
+
+function touchd {
+    touch "$(date +%Y%m%d)-$@"
 }
 
 ##############################################################################

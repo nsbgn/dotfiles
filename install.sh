@@ -334,7 +334,7 @@ fi
 # but this way is faster and doesn't put a 'snap' directory in my $HOME…)
 if [ "$(confirm "Install firefox?")" -eq 0 ]; then
     wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
-    tar xjf /tmp/firefox.tar.bz2 -C/opt
+    sudo tar xjf /tmp/firefox.tar.bz2 -C/opt
 fi
 
 # pandoc - Document converter
@@ -359,9 +359,10 @@ fi
 if [ "$(confirm "Install Dina?")" -eq 0 ]; then
     wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
     unzip -d /usr/share/fonts/Dina Dina.zip
-    cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir; cd -
+    cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir
     dpkg-reconfigure fontconfig-config
     fc-cache -f
+    cd -
 fi
 
 # Applications from github
