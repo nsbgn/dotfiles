@@ -224,6 +224,7 @@ DEVELOPMENT=(
     binutils gcc # Assembler, linker, C compiler
     ghc # Haskell compiler
     python # Python interpreter
+    python-pip3
     phantomjs # Headless browser with JavaScript API
     sassc # SASS CSS precompiler
     bison # YACC parser generator
@@ -258,7 +259,7 @@ OUTDATED=(
 )
 
 BACKPORTS=(
-    golang # Go compiler
+    golang-1.10 # Go compiler
     telegram-desktop # Chat application
 )
 
@@ -357,7 +358,7 @@ fi
 
 # Dina - Font
 if [ "$(confirm "Install Dina?")" -eq 0 ]; then
-    wget "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
+    wget -O Dina.zip "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
     unzip -d /usr/share/fonts/Dina Dina.zip
     cd /usr/share/fonts/Dina/BDF && mkfontscale && mkfontdir
     dpkg-reconfigure fontconfig-config
