@@ -18,9 +18,7 @@ link config/bashrc                      ~/.bashrc
 link config/Xresources                  ~/.Xresources
 link config/xinitrc                     ~/.xinitrc
 link config/keynavrc                    ~/.keynavrc
-link config/taskrc                      ~/.taskrc
 link config/vimrc                       ~/.vimrc
-link config/scimrc                      ~/.scimrc
 link config/muttrc                      ~/.muttrc
 link config/mailcap                     ~/.mailcap
 link config/gitconfig                   ~/.gitconfig
