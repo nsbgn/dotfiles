@@ -1,22 +1,5 @@
 #!/bin/bash
-
-LOCALBUILDS="$HOME/.local-builds"
-mkdir -p "$LOCALBUILDS"
-
-function confirm {
-    read -e -p "$@ (y/N) " ANSWER
-    case "$ANSWER" in
-        [yY][eE][sS]|[yY])
-            echo 0
-            ;;
-        *)
-            echo 1
-            ;;
-    esac
-}
-
-##############################################################################
-# Packages
+# Installs lots of packages
 
 PACKAGES=(
     # Theme & fonts
@@ -55,6 +38,8 @@ PACKAGES=(
 
     # System utilities & window managers
     rxvt-unicode # Terminal emulator
+    qemu qemu-kvm # Virtualization (like VirtualBox or VMWare)
+    virt-manager # Virtualization (like VirtualBox or VMWare)
     git tig # Version control system & ncurses interface
     subversion # Version control system
     taskwarrior vit # Todo list & ncurses interface
@@ -82,13 +67,11 @@ PACKAGES=(
     rofi # Generic menu
     i3lock # Screen locker
     dunst # Notification daemon
-    libnotify-send # Notifications
     alsa-utils # Audio configuration
     pavucontrol # Audio configuration frontend
     arandr # Display configuration frontend
     network-manager ppp network-manager-gnome # Network configuration & frontend
     pinentry-gtk2 # For keyring
-    gksu # For admin rights
     file-roller # Integration of archives into file managers
     scrot # Screenshot application
     xfce4-screenshooter # Screenshot application
@@ -96,7 +79,7 @@ PACKAGES=(
     ntp # Time daemon to automatically set time
     lm-sensors # Temperature sensors, etc
     htop # System monitor
-    net-tools # Contains ifconfig, netstat, ...
+    net-tools # Contains ifconfig, netstat, route ...
     nethogs # Network monitor 
     pv # Meter data that is passed through UNIX pipeline
     socat # Communicate with sockets
@@ -130,7 +113,7 @@ PACKAGES=(
     fuseiso # Mount ISOs
     sshfs # Mount filesystem via SSH
     fatsort # Sort FAT filesystems (for hardware audio players)
-    ms-sys # For Windows master boot record writing
+    # ms-sys # For Windows master boot record writing. No longer in repos? http://ms-sys.sourceforge.net/
     fdupes # Remove duplicate files
     e2fsprogs exfat-utils dosfstools hfsplus hfsprogs # Filesystem utilities
     ideviceinstaller ifuse # For connecting iPhones, iPods and iPads
@@ -143,6 +126,7 @@ PACKAGES=(
     hugo # Static site generator
     handbrake # Conversion of multimedia files
     mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
+    calibre # Ebook library and conversion suite
     ffmpeg # Conversion of various media formats
     imagemagick # Conversion of images
     paperkey # Dump secret information of gnupg keys for backup
@@ -165,6 +149,7 @@ PACKAGES=(
     dtrx atool zip unzip p7zip-full bzip2 rpm unar # Extract/compress archives
 
     # Media
+    firefox-esr # Web browser. Current version not from repositories
     mpv # Media player
     vlc # Media player
     timidity # Playing MIDI files
@@ -202,7 +187,8 @@ PACKAGES=(
     lxterminal # Terminal emulator
 
     # Messaging
-    mutt # E-mail client
+    #mutt # E-mail client
+    neomutt # E-mail client
     weechat # IRC client
     telegram-desktop # Chat application
     ring # Distributed chat & video client
@@ -228,9 +214,12 @@ PACKAGES=(
 
     # Emulators
     dolphin-emu # Wii and Gamecube emulator
-    visualboyadvance-gtk # GameBoy emulator
-    mupen64plus # Nintendo 64 emulator
-    pcsx2:i386 # Playstation 2 emulator
+    visualboyadvance mgba # GameBoy emulator
+    mupen64plus-ui-console cen64 # Nintendo 64 emulator
+    pcsxr # PlayStation emulator
+    pcsx2:i386 # PlayStation 2 emulator
+    desmume # Nintendo DS emulator
+    zsnes # SNES emulator
 
     # Games
     0ad # Strategy game
@@ -246,18 +235,17 @@ PACKAGES=(
     apt-file # Search for package contents
 
     # Development tools
-    build-essential # Assorted build tools
+    build-essential cmake # Assorted build tools
     binutils gcc # Assembler, linker, C compiler
     ghc cabal-install hdevtools # Haskell compiler & tools
-    rustc cargo # Rust compiler & tools
-    golang # Go compiler
-    nodejs{,-legacy} npm # Node.js compiler & package manager
-    python python-pip3 # Python interpreter & package manager
+    python python3-pip # Python interpreter & package manager
     phantomjs # Headless browser with JavaScript API
     sassc # SASS CSS precompiler
     bison # YACC parser generator
 
     # Libraries that I often need to compile this or other
+    python3-bs4 python3-lxml # For the thesaurus script
+    dbus-x11 # Contains dbus-launch, which I use for mpris stuff
     libx11-dev
     libxcb-icccm4-dev 
     libxcb-ewmh-dev 
@@ -269,136 +257,19 @@ PACKAGES=(
     gnutls-bin libgnutls28-dev # Termite
     gperf # Termite
     gtk-doc-tools # Termite
+    libgirepository1.0-dev # Termite (and mpris.so?)
     intltool # Termite
-    libgirepository1.0-dev # Termite
-    python3-bs4 # thesaurus
-    python3-lxml # thesaurus
     "libclang1-6.0"
-    libmpv-dev # Music player dev files, for mpris.so
 )
 
+# Install packages
+sudo dpkg --add-architecture i386 # add architecture (needed for PCSX2 emulator)
+sudo apt update
+sudo apt install "${PACKAGES[@]}"
 
-if [ "$(confirm "Install packages?")" -eq 0 ]; then
+# Change pinentry from terminal to GTK
+sudo update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
 
-    sudo apt update
-    sudo apt install whiptail
-
-    PACKAGES2=()
-    for i in "${PACKAGES[@]}"; do 
-        PACKAGES2+=("$i" "" 1)
-    done
-
-    SELECTED_PACKAGES=($(whiptail --separate-output \
-        --title "Package selection" --checklist "Select packages." \
-        $(stty size) 30 \
-        "${PACKAGES2[@]}" 3>&1 1>&2 2>&3))
-
-    # Add architecture (needed for PCSX2 emulator)
-    sudo dpkg --add-architecture i386
-
-    # Update sources
-    sudo apt update
-    sudo apt install "${SELECTED_PACKAGES[@]}"
-fi
-
-if [ "$(confirm "Configure?")" -eq 0 ]; then
-
-    # Change pinentry from terminal to GTK
-    sudo update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
-
-    # Turn off services
-    sudo systemctl disable smbd
-    sudo systemctl disable apache2
-
-    # Make /tmp a tmpfs
-    if [ grep -q '^tmpfs\s\+/tmp\s' /etc/fstab ]; then
-        echo "tmpfs /tmp tmpfs rw,nosuid,nodev" | sudo tee -a /etc/fstab
-    fi
-fi
-
-###############################################################################
-# Software from other sources than official repositories
-
-# firefox - Web browser (one in official repositories is ESR)
-if [ "$(confirm "Install firefox?")" -eq 0 ]; then
-    wget -O /tmp/firefox.tar.bz2 --content-disposition "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
-    sudo tar xjf /tmp/firefox.tar.bz2 -C/opt
-fi
-
-# lf - File manager
-if [ "$(confirm "Install lf?")" -eq 0 ]; then
-    go get -u github.com/gokcehan/lf
-fi
-
-# youtube-dl - Streaming video downloader
-if [ "$(confirm "Install youtube-dl?")" -eq 0 ]; then
-    pip3 install youtube-dl
-fi
-
-# Fx - JSON viewer
-if [ "$(confirm "Install fx?")" -eq 0 ]; then
-    npm install -g fx
-fi
-
-# Dina - Font
-if [ "$(confirm "Install Dina?")" -eq 0 ]; then
-    wget -O Dina.zip "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
-    sudo unzip -d /usr/share/fonts/Dina Dina.zip
-    cd /usr/share/fonts/Dina/BDF && sudo mkfontscale && sudo mkfontdir
-    sudo dpkg-reconfigure fontconfig-config
-    fc-cache -f
-    cd -
-fi
-
-# mpv-mpris - MPRIS support for MPV
-if [ "$(confirm "Install mpv-mpris?")" -eq 0 ]; then
-    git clone https://github.com/hoyon/mpv-mpris "$LOCALBUILDS/mpv-mpris"
-    cd "$LOCALBUILDS/mpv-mpris"
-    make install
-    cd -
-fi
-
-# hostblock - Blocking via /etc/hosts
-if [ "$(confirm "Install hostblock?")" -eq 0 ]; then
-    git clone https://github.com/cgag/hostblock.git "$LOCALBUILDS/hostblock"
-    cd "$LOCALBUILDS/hostblock"
-    cargo build --release && sudo cp target/release/hostblock /usr/sbin/
-    cd -
-fi
-
-# polybar - Status bar
-if [ "$(confirm "Install polybar?")" -eq 0 ]; then
-    URL="$( \ 
-    curl -s 'https://api.github.com/repos/polybar/polybar/releases/latest' \
-    | jq -r 'first(.assets[].browser_download_url) | select(endswith(".tar"))' \
-    )"
-    DIR1="$PWD"
-    DIR2="$LOCALBUILDS/polybar"
-
-    wget -O /tmp/polybar.tar "$URL"
-    mkdir -p "$DIR2"; cd "$DIR2"; tar xvf /tmp/polybar.tar
-    cd "$DIR2/polybar"; ./build.sh
-    cd "$DIR1"
-fi
-
-# vim plugins
-if [ "$(confirm "Install vim plugins?")" -eq 0 ]; then
-    mkdir -p ~/.vim/autoload ~/.vim/bundle && cd ~/.vim/bundle
-    git clone https://github.com/airblade/vim-rooter.git # Sets cwd to project root
-    git clone https://github.com/jamessan/vim-gnupg.git # Open encrypted files
-    git clone https://github.com/vim-syntastic/syntastic.git # Check code syntax
-    git clone https://github.com/bitc/vim-hdevtools.git # Interactive Haskell development
-    git clone https://github.com/vim-pandoc/vim-pandoc-syntax.git # Highlight markdown
-    git clone https://github.com/ledger/vim-ledger.git # ledger/hledger journal writing
-    git clone https://github.com/mhinz/vim-signify # Show git or svn changes
-    git clone https://github.com/tpope/vim-fugitive.git # Git wrapper to see blame etc
-    git clone git://repo.or.cz/vcscommand.git # VCS wrapper to see blame
-    cd -
-fi
-
-# Other interesting software
-#https://gitlab.com/interception/linux/plugins/caps2esc # Like xcape
-#https://github.com/TES3MP/openmw-tes3mp/wiki/Running-TES3MP-server-on-an-Raspberry-PI
-#https://dl.xonotic.org/xonotic-0.8.2.zip # Shooter
-#https://git.suckless.org/quark # static website hosting
-#https://git.sr.ht/~sircmpwn/aerc2 # email client
+# Turn off services
+sudo systemctl disable smbd
+sudo systemctl disable apache2

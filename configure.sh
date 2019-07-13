@@ -26,6 +26,4 @@ link config/lfrc                        ~/.config/lf/lfrc
 link config/zathurarc                   ~/.config/zathura/zathurarc
 link config/i3                          ~/.config/i3/config
 link config/polybar                     ~/.config/polybar/config
-link config/sxhkdrc                     ~/.config/sxhkd/sxhkdrc
-link config/bspwmrc                     ~/.config/bspwm/bspwmrc
 link config/user-dirs.dirs              ~/.config/user-dirs.dirs
