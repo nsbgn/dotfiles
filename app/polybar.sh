@@ -7,7 +7,7 @@ INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/polybar"
 sudo apt install \
     build-essential git cmake cmake-data pkg-config i3-wm \
     python3-sphinx python-xcbgen xcb-proto \
-    lib{cairo2,xcb1,asound2,pulse,jsoncpp,curl4-openssl,libnl-genl-3}-dev
+    lib{cairo2,xcb1,asound2,pulse,jsoncpp,curl4-openssl,nl-genl-3}-dev \
     libxcb-{util0,randr0,composite0,image0,ewmh,icccm4,xkb,xrm,cursor}-dev 
 
 
