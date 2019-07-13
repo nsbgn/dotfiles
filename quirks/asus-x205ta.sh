@@ -77,6 +77,16 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     sudo cp HiFi.conf /usr/share/alsa/ucm/chtrt5645/
 fi
 
+##############################################################################
+# Backlight
+
+tee -a /usr/share/X11/xorg.conf.d/51-backlight.conf << EOF
+Section "Device"
+	Identifier "Card0"
+	Driver "intel"
+	Option "Backlight" "/sys/devices/pci0000\:00/0000\:00\:02.0/drm/card0/card0-eDP-1/intel_backlight"
+EndSection
+EOF
 
 ##############################################################################
 # Solve conflict between sdhci-acpi and brcmfmac
