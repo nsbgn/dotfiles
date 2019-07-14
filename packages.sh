@@ -16,20 +16,17 @@ PACKAGES=(
     fonts-nanum-coding # Korean monospace font
 
     # Drivers
-    linux-firmware # Non-free... Needed, unfortunately
     xserver-xorg xinit x11-common # X display server
     xserver-xorg-video-{fbdev,intel} # X video drivers
-    xserver-xorg-video-{nouveau,radeon,amdgpu} # X video drivers
     xserver-xorg-input-{libinput,mouse,kbd,evdev} # X input drivers
 
     # Printing, scanning, bluetooth
-    bluetooth 
-    bluez 
-    bluez-tools 
-    rfkill 
-    blueman 
-    pulseaudio-module-bluetooth 
-    bluez-cups
+    bluez bluez-tools # Bluetooth support, tools and daemons
+    rfkill # Enabling & disabling wireless
+    blueman # Bluetooth manager GUI
+    btscanner # Bluetooth manager for terminal
+    pulseaudio-module-bluetooth # Bluetooth for sound server
+    bluez-cups # Bluetooth for printer driver
     cups printer-driver-gutenprint printer-driver-cups-pdf # Print to PDF
     smbclient samba # Print via Samba
     system-config-printer gtklp # Printer configuration
@@ -97,8 +94,6 @@ PACKAGES=(
     urlview # Selecting urls from email text
     highlight # Universal source code highlighter
     cloc # Count lines of code
-    #dialog # Generic terminal menu application
-    whiptail # Generic terminal menu application
     playerctl # Control MPRIS media players
     asciinema # Record terminal sessions
 
@@ -113,7 +108,6 @@ PACKAGES=(
     fuseiso # Mount ISOs
     sshfs # Mount filesystem via SSH
     fatsort # Sort FAT filesystems (for hardware audio players)
-    # ms-sys # For Windows master boot record writing. No longer in repos? http://ms-sys.sourceforge.net/
     fdupes # Remove duplicate files
     e2fsprogs exfat-utils dosfstools hfsplus hfsprogs # Filesystem utilities
     ideviceinstaller ifuse # For connecting iPhones, iPods and iPads
@@ -187,7 +181,6 @@ PACKAGES=(
     lxterminal # Terminal emulator
 
     # Messaging
-    #mutt # E-mail client
     neomutt # E-mail client
     weechat # IRC client
     telegram-desktop # Chat application
@@ -228,7 +221,8 @@ PACKAGES=(
 
     # Laptop-specific applications
     tlp # Laptop power saving
-    #bumblebee primus # Switch discrete graphics card on/off
+    acpi # Information on acpi devices
+    #bumblebee primus bbswitch # Switch discrete graphics card on/off
 
     # Debian-specific applications
     popularity-contest # Vote for used software
@@ -243,27 +237,13 @@ PACKAGES=(
     sassc # SASS CSS precompiler
     bison # YACC parser generator
 
-    # Libraries that I often need to compile this or other
+    # Libraries
     python3-bs4 python3-lxml # For the thesaurus script
     dbus-x11 # Contains dbus-launch, which I use for mpris stuff
-    libx11-dev
-    libxcb-icccm4-dev 
-    libxcb-ewmh-dev 
-    libxcb-util0-dev
-    libncursesw5-dev
-    libgtk2.0-dev # termite
-    libgtk-3-dev # Termite
-    libpcre2-dev
-    gnutls-bin libgnutls28-dev # Termite
-    gperf # Termite
-    gtk-doc-tools # Termite
-    libgirepository1.0-dev # Termite (and mpris.so?)
-    intltool # Termite
-    "libclang1-6.0"
 )
 
 # Install packages
-sudo dpkg --add-architecture i386 # add architecture (needed for PCSX2 emulator)
+sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install "${PACKAGES[@]}"
 
