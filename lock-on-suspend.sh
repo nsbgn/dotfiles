@@ -3,19 +3,25 @@
 
 sudo tee /etc/systemd/system/wakelock.service << EOF
 [Unit]
-Description=Lock on suspend
-After=sleep.target
+Description=Lock on suspend and forget GPG password
+Before=sleep.target
 
 [Service]
-User=%i
-Type=forking
+User=$USER
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/i3lock
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=
+ExecStart=/bin/sh -c "echo RELOADAGENT | gpg-connect-agent; i3lock"
 
 [Install]
 WantedBy=suspend.target
-WantedBy=sleep.target
 EOF
 
-sudo chmod +x /etc/systemd/wakelock.service
+# Before=sleep.target
+#$USER
+#Type=forking
+#Type=oneshot
+
+sudo chmod +x /etc/systemd/system/wakelock.service
 sudo systemctl enable wakelock
