@@ -42,6 +42,7 @@ PACKAGES=(
     taskwarrior vit # Todo list & ncurses interface
     ledger # Budgetting software. see also hledger and hledger-ui 
     pass # Simple password manager based on gnupg
+    lxpolkit # Just a small policykit thing
     bspwm # Tiling window manager
     i3-wm # Tiling window manager
     dvtm # Tiling window manager for the terminal
