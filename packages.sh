@@ -29,11 +29,14 @@ PACKAGES=(
     bluez-cups # Bluetooth for printer driver
     cups printer-driver-gutenprint printer-driver-cups-pdf # Print to PDF
     smbclient samba # Print via Samba
+    cups-bsd enscript # CLI printing
     system-config-printer gtklp # Printer configuration
     sane-utils # Contains "scanimage" for scanning
     simple-scan # Scan GUI utility
 
     # System utilities & window managers
+    gpp # General purpose preprocessor
+    glyrc # Music metadata finder for CLI
     rxvt-unicode # Terminal emulator
     qemu qemu-kvm # Virtualization (like VirtualBox or VMWare)
     virt-manager # Virtualization (like VirtualBox or VMWare)
@@ -142,6 +145,7 @@ PACKAGES=(
     ytnef-tools # For opening winmail.dat files in emails, via console
     parchive # Archives for data repair
     dtrx atool zip unzip p7zip-full bzip2 rpm unar # Extract/compress archives
+    xz-utils xzdec # XZ-format compression and decompression
 
     # Media
     firefox-esr # Web browser. Current version not from repositories
@@ -152,6 +156,7 @@ PACKAGES=(
     sxiv # Image viewer
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
     fbreader # Ebook reader
+    ebook-speaker # Ebook speaker
 
     # Editors
     vim{,-gui-common,-pathogen} # Text editor
@@ -183,6 +188,8 @@ PACKAGES=(
 
     # Messaging
     neomutt # E-mail client
+    notmuch # Email search
+    mailsync # Sync IMAP mails
     weechat # IRC client
     telegram-desktop # Chat application
     ring # Distributed chat & video client
@@ -202,18 +209,23 @@ PACKAGES=(
     r-base # R statistical analysis software
     pspp # Statistical analysis software (SPSS replacement)
     gnuplot # Plotting graphics
+    qgis # Geographic Information System 
     saga # System for automated geoscientific analysis
+    ossim-core
     scilab # MATLAB-like numerical analysis software
     octave # MATLAB-compatible numerical analysis software
+    transcriber # For transcribing speech
 
     # Emulators
     dolphin-emu # Wii and Gamecube emulator
-    visualboyadvance mgba # GameBoy emulator
+    mednafen # Multisystem emulator (SNES, GameBoy, Sega, Playstation…)
+    mgba-qt # GameBoy (Advance) emulator
     mupen64plus-ui-console cen64 # Nintendo 64 emulator
     pcsxr # PlayStation emulator
     pcsx2:i386 # PlayStation 2 emulator
     desmume # Nintendo DS emulator
-    zsnes # SNES emulator
+    retroarch libretro-bsnes-mercury-balanced libretro-beetle-psx
+    libretro-desmume libretro-mgba libretro-mupen64plus libretro-nestopia
 
     # Games
     0ad # Strategy game
@@ -254,3 +266,4 @@ sudo update-alternatives --set pinentry /usr/bin/pinentry-gtk-2
 # Turn off services
 sudo systemctl disable smbd
 sudo systemctl disable apache2
+sudo systemctl disable sshd

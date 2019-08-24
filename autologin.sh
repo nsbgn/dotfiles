@@ -17,8 +17,14 @@ ExecStart=-/sbin/agetty --autologin $USER --noclear %I \$TERM
 EOF
 
 # Auto-run startx when logging in to TTY1
-tee -a ~/.bash_profile << EOF
+tee ~/.bash_profile << EOF
 if [[ "\$(tty)" == '/dev/tty1' ]]; then
     [[ -f "/usr/bin/startx" && -z "\$DISPLAY\$SSH_TTY\$(pgrep xinit)" ]] && exec /usr/bin/startx
+    # exec /usr/bin/"$(whiptail --menu --notags --nocancel "Choose your session" 40 80 10 \
+    #    "startx" "Graphical session" \
+    #    "echo -n" "Terminal" \
+    #    "kodi-standalone" "Media center" \
+    #    "retroarch" "Games" \
+    #    3>&2 2>&1 1>&3 )"
 fi
 EOF

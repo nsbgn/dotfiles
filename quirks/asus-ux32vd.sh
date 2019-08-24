@@ -5,6 +5,7 @@
 # https://github.com/Bumblebee-Project/bbswitch#disable-card-on-boot
 # https://help.ubuntu.com/community/AsusZenbookPrime
 # http://www.linlap.com/asus_ux32vd
+# https://wiki.ubuntu.com/Kernel/PowerManagement/PowerSavingTweaks
 
 # Install bumblebee to turn off nVidia Optimus card, and autostart it even with
 # our xinit setup (check status with `sudo cat /proc/acpi/bbswitch`)
@@ -18,7 +19,7 @@ sudo systemctl enable bumblebeed
 
 # Various small, hopefully power-saving tweaks
 sudo apt install tlp powertop 
-sed --in-place 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 pcie_aspm=force drm.vblankoffdelay=1 i915.semaphores=1 nmi_watchdog=0"/g' /etc/default/grub
+sudo sed --in-place 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 pcie_aspm=force drm.vblankoffdelay=1 i915.semaphores=1 nmi_watchdog=0"/g' /etc/default/grub
 sudo update-grub
 
 # After disconnecting USB3 device, xhci_hcd apparently sets latency timer (see
@@ -30,8 +31,12 @@ EOF
 # No longer issue hard resets to SSD after waking up from suspend, which
 # apparently solves issue reconnecting SATA connection after suspend when HDD
 # is replaced with SSD.
-sed --in-place 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 libata.force=nohrst"/g' /etc/default/grub
+sudo sed --in-place 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 libata.force=nohrst"/g' /etc/default/grub
 sudo update-grub
+
+
+# ALSO LOOK AT THIS
+# https://www.tecmint.com/tlp-increase-and-optimize-linux-battery-life/
 
 ###############################################################################
 # Encryption

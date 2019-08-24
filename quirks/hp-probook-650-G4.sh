@@ -7,18 +7,6 @@ Section "Device"
 EndSection
 EOF
 
-
-sudo tee '/etc/X11/xorg.conf.d/40-libinput.conf' << EOF
-Section "InputClass"
-        Identifier "libinput touchpad catchall"
-        MatchIsTouchpad "on"
-        MatchDevicePath "/dev/input/event*"
-        Driver "libinput"
-        Option "Tapping" "on"
-EndSection
-EOF
-
-
 sudo tee '/etc/modprobe.d/pcspkr-blacklist.conf' << EOF
 blacklist pcspkr
 EOF

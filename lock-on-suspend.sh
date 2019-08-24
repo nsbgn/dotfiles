@@ -1,27 +1,24 @@
 #!/bin/bash
 # Lock on suspend
+# See https://wiki.archlinux.org/index.php/Power_management#Sleep_hooks
+# See https://askubuntu.com/questions/263867/ubuntu-suspend-works-only-once-through-lid-close
 
-sudo tee /etc/systemd/system/wakelock.service << EOF
+sudo tee '/etc/systemd/system/suspend@.service' << EOF
 [Unit]
-Description=Lock on suspend and forget GPG password
+Description=User suspend actions
 Before=sleep.target
 
 [Service]
-User=$USER
+User=%I
+Type=forking
 Environment=DISPLAY=:0
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=
-ExecStart=/bin/sh -c "echo RELOADAGENT | gpg-connect-agent; i3lock"
+ExecStartPre= -/bin/sh -c "echo RELOADAGENT | gpg-connect-agent" ; /usr/bin/playerctl pause
+ExecStart= /usr/bin/i3lock
+ExecStartPost=/usr/bin/sleep 1
 
 [Install]
-WantedBy=suspend.target
+WantedBy=sleep.target
 EOF
 
-# Before=sleep.target
-#$USER
-#Type=forking
-#Type=oneshot
-
-sudo chmod +x /etc/systemd/system/wakelock.service
-sudo systemctl enable wakelock
+sudo chmod +x '/etc/systemd/system/suspend@.service'
+sudo systemctl enable "suspend@$USER"
