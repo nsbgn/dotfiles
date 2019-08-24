@@ -17,16 +17,6 @@ u cut-right,cut-up
 n cut-left,cut-down
 m cut-right,cut-down
 
-#7 cell-select 1x1
-#8 cell-select 2x1
-#9 cell-select 3x1
-#y cell-select 1x2
-#i cell-select 2x2
-#o cell-select 3x2
-#j cell-select 1x2
-#l cell-select 2x2
-#k cell-select 3x2
-
 super+h move-left .5
 super+j move-down .5
 super+k move-up .5

@@ -10,10 +10,9 @@ function link {
 }
 
 # Make expected XDG directories
-mkdir -p ~/.templates ~/.public ~/data/{downloads,documents,music,pictures,video}
+mkdir -p ~/.templates ~/.public ~/data/{downloads,documents,audio/music,pictures,video}
 
 # Link configuration files to the ones in this repository
-link dmenu/                             ~/.dmenu
 link config/bashrc                      ~/.bashrc
 link config/Xresources                  ~/.Xresources
 link config/xinitrc                     ~/.xinitrc

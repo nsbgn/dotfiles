@@ -51,6 +51,7 @@ cmd open ${{
         image/*) sxiv $f & ;;
         application/epub+zip) nohup FBReader $f > /dev/null & ;;
         application/pdf) nohup zathura $f > /dev/null & ;;
+        #application/x-gba-rom)
         *) for f in $fx; do xdg-open $f > /dev/null 2> /dev/null & done;;
     esac
 }}
@@ -67,7 +68,8 @@ cmd rename ${{
         mv $f $1
     fi
 }}
-map r push :rename<space>
+#map r push :rename<space>
+map r $lf -remote "send $id push :rename<space>'$(basename $f | sed 's/ /<space>/g')'<left>"
 
 # show disk usage
 cmd usage !{{du -hs . | more}}
@@ -76,7 +78,7 @@ cmd usage !{{du -hs . | more}}
 # (also see 'man mv' for backup/overwrite options)
 #cmd trash $mv $fx ~/.trash
 cmd trash ${{
-    whiptail --yesno "Are you sure you want to delete file(s)?" 10 35 --defaultno && gvfs-trash $fx
+    whiptail --yesno "Are you sure you want to delete file(s)?" 10 35 --defaultno && gio trash $fx
 }}
 
 # remove current file or selected files (prompting)

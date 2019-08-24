@@ -1,7 +1,7 @@
 [user]
-	name = ns
-	email = ns@slak.ws
-[merge]
-	tool = meld
+	name = nsv
+	email = nsv@valk.ws
 [core]
 	editor = vim
+[merge]
+	tool = meld

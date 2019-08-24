@@ -1,19 +1,19 @@
 [colors]
 
-background = ${xrdb:bg}
-background-alt = ${xrdb:bgalt}
-foreground = ${xrdb:fg}
-foreground-alt = ${xrdb:fgalt}
-primary = ${xrdb:primary}
-secondary = ${xrdb:secondary}
-
+background = #2f343f
+background-alt = #555555
+foreground = #f3f4f5
+foreground-alt = #ffffff
+primary = #ffb52a
+secondary = #e60053
 
 [bar/base]
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 # For some reason, using pixelsize instead of size wrecks the fonts on Debian
-font-0 = DejaVu Book:fontformat=truetype:size=10;0
+font-0 = Dina:size=8;0
+#font-0 = DejaVu Book:fontformat=truetype:size=10;0
 font-1 = FontAwesome:size=9;1
 font-2 = FontAwesome 5 Free Regular:pixelsize=10;1
 font-3 = FontAwesome 5 Free Solid:pixelsize=10;1
@@ -23,6 +23,8 @@ height = 24
 
 padding-left = 0
 padding-right = 1
+padding-top = 2
+padding-bottom = 2
 
 tray-position = right
 tray-padding = 1
@@ -31,9 +33,9 @@ tray-maxsize = 21
 module-margin-left = 1
 module-margin-right = 2
 
-modules-left = xwindow 
+modules-left = xwindow  
 modules-center = 
-modules-right = mpris xbacklight volume battery date mouselock
+modules-right = mpris xbacklight pulseaudio battery date mouselock
 
 enable-ipc = true
 cursor-click = pointer
@@ -54,7 +56,7 @@ wm-restack = bspwm
 
 [module/mpris]
 type = custom/script
-exec = sleep 1 && dmenu-mpv --monitor
+exec = dmenu-mpv --monitor
 tail = true
 click-left = dmenu-mpv --toggle
 
@@ -129,18 +131,16 @@ label = " %percentage%%"
 [module/date]
 type = internal/date
 interval = 15
-date = "%Y-%m-%d"
-time = "%a %H:%M"
-label = " %time%    %date%"
-
-[module/sunlight]
-type = custom/script
-exec = sunlight
-interval = 3600
+#date = "%Y-%m-%d"
+#time = "%a %H:%M"
+#label = " %time%    %date%"
+date = "%Y/%m/%d %a"
+time = "%H:%M"
+label = " %date% %time%"
 
 
-[module/volume]
-type = internal/volume
+[module/pulseaudio]
+type = internal/pulseaudio
 format-volume = <ramp-volume> <label-volume>
 label-volume = "%percentage%%"
 ramp-volume-0 =  
@@ -148,13 +148,10 @@ ramp-volume-1 = 
 ramp-volume-2 =  
 label-muted = " muted"
 
-
 [module/battery]
 type = internal/battery
-#battery = BAT0
-#adapter = AC0
-battery = BATC
-adapter = ADP1
+battery = ${env:BATTERY:BAT0}
+adapter = ${env:POWER_ADAPTER:AC0}
 full-at = 98
 poll-interval = 60
 format-full = <label-full>

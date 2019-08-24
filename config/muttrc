@@ -19,6 +19,8 @@ set copy=yes #keep copies of outgoing mail.
 set send_charset="utf-8"
 set sort=reverse-date-received
 
+# set pop_last = yes
+
 # Sidebar
 set mail_check_stats
 set sidebar_visible = yes

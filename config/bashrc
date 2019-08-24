@@ -1,24 +1,54 @@
-export PATH=/opt/firefox:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin:$HOME/.go/bin
+export PATH=/usr/local/go/bin:/opt/firefox:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin:$HOME/.go/bin
 export GOPATH=$HOME/.go
 export EDITOR=vim
 export BROWSER=firefox
-export HISTCONTROL=ignoreboth:erasedups
 export CLICOLOR=1
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+export LOCALBUILDS=$HOME/.local-builds
+export SCANDIR=$HOME/notes/post
 
+export LEDGER_FILE=$HOME/notes/tracking/finances/personal/2019.ledger
+export LEDGER_PRICE_DB=$HOME/notes/tracking/finances/price-database.ledger
+
+
+# If not running interactively, don't do anything else
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+alias forget="echo RELOADAGENT | gpg-connect-agent"
+alias ledger="ledger --strict -f $LEDGER_FILE"
+alias ls="ls --color=always"
+alias trash="gio trash"
+alias supertrash="srm -l"
+alias l="vim $LEDGER_FILE"
+alias ll="ledger --market balance ^assets ^liabilities"
 alias c="ncal -w -M -A 2"
 alias t="vim $HOME/notes/todo.md"
 alias u="sudo apt update; sudo apt upgrade"
-alias plz='sudo "$BASH" -c "$(history -p !!)"'
-alias weather="curl wttr.in"
 alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
 alias flac2mp3="parallel -j4 ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: *.flac"
-alias pdflatex="pdflatex -file-line-error -halt-on-error"
-alias ls="ls --color=always"
-alias rs="java -jar ~/.runelite/RuneLite.jar"
 alias tz="sudo dpkg-reconfigure tzdata"
-alias scim="sc-im"
-alias del="gvfs-trash"
 alias yt-subs="youtube-dl --all-subs --convert-subs srt --skip-download"
+alias router="sudo route -n"
+alias index="tree -f -J -D --timefmt '%Y%m%d%H%M'"
+alias find-nocover="find . -mindepth 2 -maxdepth 2 -type d '!' -exec test -e "{}/cover.jpg" ';' -print"
+alias remove-exif="exiftool -all='' "
+alias keygen="ssh-keygen -C "$(whoami)@$(hostname)-$(date -I)""
 
 # Color escapes
 export COLOR_NC='\e[0m' # No Color
@@ -44,21 +74,25 @@ export COLOR_LIGHT_GRAY='\e[0;37m'
 
 # I like to keep a list of my media
 function mkdb {
-    LOC="$HOME/notes/journal/tracking"
-    MUS="$HOME/data/music"
+    LOC="$HOME/notes/tracking/items"
+    MUS="$HOME/data/audio/music"
     DOC="$HOME/data/documents"
     VID="$HOME/data/video"
 
-    find $MUS -mindepth 2 -maxdepth 2 -type d | cut -d'/' -f 6- | sort > $LOC/music.txt
+    find $MUS -mindepth 2 -maxdepth 2 -type d | cut -d'/' -f 7- | sort > $LOC/music.txt
     find $DOC -mindepth 2 -type f | cut -d'/' -f 6- | sort > $LOC/literature.txt
     find $VID -mindepth 2 -type f -not -path '*/\.*' | cut -sd / -f 6- | sort > $LOC/film.txt
+}
+
+function findsize {
+    find "$@" -print0 | du --files0-from=- -hc
 }
 
 # For cleaning up trashed mail files
 function clean-mail {
     find ~/mail -maxdepth 1 -name '*@*' -type d \
         | xargs -I{} find {} -iname ',*' \
-        | xargs -I{} gvfs-trash {}
+        | xargs -I{} gio trash {}
 }
 
 # Change the directory upon quitting lf
@@ -70,11 +104,11 @@ function lf {
     fi
 }
 
-function touchd {
-    touch "$(date +%Y%m%d)-$@"
+# Split FLAC according to CUE file
+function split {
+    cuebreakpoints "$1" | shnsplit -o flac "$2"
+    cuetag.sh "$1" split-*.flac
 }
-
-##############################################################################
 
 # Show directory in title bar
 if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' -o $TERM == 'rxvt-unicode' ]; then
@@ -82,6 +116,7 @@ if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' -o $TERM == 'rxvt-unicode' ]
 fi
 
 # Show git information in prompt
+# Keep in mind https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
 for SRC in \
         /etc/bash_completion.d/git-prompt \
         /usr/share/git/completion/git-prompt.sh; do
@@ -95,4 +130,3 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 gitBranch='$(__git_ps1)'
 export PS1="\[$COLOR_LIGHT_GRAY\]\W$gitBranch \$ \[$COLOR_NC\]\[$(tput sgr0)\]" # [\u@\h]
 
-# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly

@@ -6,7 +6,7 @@ source $VIMRUNTIME/defaults.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Initialise plugins
 
-
+let g:pathogen_blacklist = []
 "let g:pathogen_disabled = ["syntastic"] " hdevtools
 
 set nocompatible
@@ -19,15 +19,17 @@ filetype plugin indent on
 " Haskell
 
 "let g:hdevtools_options = '-g-fdefer-type-errors'
-let g:syntastic_haskell_hdevtools_args = '-g-fdefer-type-errors'
+"let g:hdevtools_options = '-f-c xlsx'
+"let g:syntastic_haskell_hdevtools_args = '-g-fdefer-type-errors'
 
-au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsInfo<CR>
-au FileType haskell nnoremap <buffer> <F3> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F4> :HdevtoolsClear<CR>
-au FileType haskell nnoremap <buffer> <silent> <F5> :Unite haddock<CR>
+au FileType haskell nnoremap <buffer> <silent> <F1> :HdevtoolsInfo<CR>
+au FileType haskell nnoremap <buffer> <F2> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
 
 au FileType haskell set shiftwidth=3
 au FileType haskell set softtabstop=3
+au FileType cabal set shiftwidth=3
+au FileType cabal set softtabstop=3
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -165,7 +167,6 @@ command! -bar -bang LF call LF(<bang>0)
 
 nmap z :LF!<cr>
 nmap Z :LF<cr>
-nmap <F1> :!urxvt &<CR><CR>
 
 " open linked file under cursor in new tab. does not work within the
 " buffer created by HdevtoolsInfo...?

@@ -8,6 +8,7 @@ set $right d
 
 exec --no-startup-id polybar i3
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 
 
 
@@ -38,11 +39,11 @@ workspace_layout default
 
 bindsym $super+x kill
 bindsym $super+semicolon exec cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS
-bindsym $super+Escape exec dmenu-json "$HOME/.dmenu/system.json"
-bindsym $super+l exec dmenu-json "$HOME/.dmenu/thesaurus.json"
+bindsym $super+Escape exec dmenu-system
+bindsym $super+l exec dmenu-thesaurus
 bindsym $super+i exec dmenu-pass
 bindsym $super+p exec dmenu-mpv
-bindsym $super+$alt+p exec --no-startup-id dmenu-mpv --toggle
+bindsym $super+$alt+p exec --no-startup-id playerctl --player=mpv play-pause
 bindsym $super+backslash exec --no-startup-id toggle-pointer
 bindsym Print exec xfce4-screenshooter
 #scrot "$HOME/screen-%Y-%m-%dT%H-%M-%S.png"
@@ -50,20 +51,16 @@ bindsym $super+equal exec --no-startup-id amixer -q sset Master 3%+
 bindsym $super+minus exec --no-startup-id amixer -q sset Master 3%-
 bindsym $super+$alt+minus exec --no-startup-id xbacklight -2%
 bindsym $super+$alt+equal exec --no-startup-id xbacklight +2%
-bindsym $super+t fullscreen disable; exec urxvtc
-bindsym $super+f fullscreen disable; exec urxvtc -e "$HOME/.go/bin/lf"
 
-#-e bash -c lf 
-# --rcfile <(echo "source $HOME/.bashrc && cd $(xcwd)")
+bindsym $super+y exec notify-send "$(xcwd.sh)"
+bindsym $super+t exec urxvtc -cd "$(xcwd.sh)"
 
-bindsym $super+r fullscreen disable; exec zathura
+bindsym $super+f fullscreen disable; exec urxvtc -e "$HOME/.go/bin/lf $(xcwd.sh)"
+
+bindsym $super+r fullscreen disable; exec "cd $(xcwd.sh); zathura"
 bindsym $super+g fullscreen disable; exec firefox
 bindsym $super+c fullscreen disable; exec telegram-desktop
 bindsym $super+m fullscreen disable; exec urxvtc -e mutt
-
-
-#bindsym $super+t fullscreen disable; exec [ $(xprop -id $(xdotool getactivewindow) 'WM_CLASS' | cut -d'"' -f2) == "urxvt" ] && urxvt -cd "$(xcwd)" || urxvt
-
 
 # Movement, focus & resizing  ################################################
 
