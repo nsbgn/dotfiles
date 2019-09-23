@@ -1,4 +1,4 @@
-export PATH=/usr/local/go/bin:/opt/firefox:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cabal/bin:$HOME/.go/bin
+export PATH=/usr/local/go/bin:$HOME/projects/scripts:$HOME/.local/bin:$PATH:/opt/firefox:~/.cabal/bin:$HOME/.go/bin
 export GOPATH=$HOME/.go
 export EDITOR=vim
 export BROWSER=firefox
@@ -49,6 +49,10 @@ alias index="tree -f -J -D --timefmt '%Y%m%d%H%M'"
 alias find-nocover="find . -mindepth 2 -maxdepth 2 -type d '!' -exec test -e "{}/cover.jpg" ';' -print"
 alias remove-exif="exiftool -all='' "
 alias keygen="ssh-keygen -C "$(whoami)@$(hostname)-$(date -I)""
+alias compress-pdf="gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=compressed.pdf"
+alias fd="fdfind"
+alias rtv="rtv --enable-media"
+alias open-ports="sudo netstat -pln"
 
 # Color escapes
 export COLOR_NC='\e[0m' # No Color

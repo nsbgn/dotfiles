@@ -15,15 +15,14 @@ Desktop environment
 - [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) as my terminal.
 - [lf](https://github.com/gokcehan/lf) as my file manager.
 - [vim](https://www.vim.org/) as my text editor.
-- [mpv](https://mpv.io/) as my media player with 
-  [mpv-mpris](https://github.com/hoyon/mpv-mpris).
+- [mpv](https://mpv.io/) as my media player, with the
+  [mpv-mpris](https://github.com/hoyon/mpv-mpris) plugin.
 - [zathura](https://pwmt.org/projects/zathura/) as my PDF reader.
-- [Firefox](http://www.mozilla.org) as my browser, with 
-  [Vimium](https://addons.mozilla.org/en-US/firefox/addon/vimium-ff/), [uBlock 
-  Origin](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/) and 
-  [uMatrix](https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/). 
-  I've tried [uzbl](https://github.com/uzbl/uzbl), but lack of content 
-  blocking is a dealbreaker.
+- [Firejail](https://github.com/netblue30/firejail)ed 
+  [Firefox](http://www.mozilla.org) as my browser, with [Vim 
+  Vixen](https://github.com/ueokande/vim-vixen), [uBlock 
+  Origin](https://github.com/gorhill/uBlock) and 
+  [uMatrix](https://github.com/gorhill/uMatrix).
 - The configurations also assume that my 
   [scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`.
 
