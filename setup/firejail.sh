@@ -13,10 +13,6 @@ sudo tee /etc/firejail/firefox.local << EOF
 # Turn on AppArmor
 apparmor
 
-# Nope
-#x11 xpra
-#x11 xephyr
-
 # Mount new home directory in this directory
 private $SANDBOX_HOME
 EOF
@@ -27,6 +23,10 @@ EOF
 # Note that you could also just run `firecfg` to link *all* programs for which
 # firejail has a profile.
 ln -s /usr/bin/firejail /usr/local/bin/firefox
+
+# Note that `xdg-settings get default-web-browser` indicated I had some
+# .desktop file in my `.local/share/applications` that was circumventing
+# firejail when opened in some ways, so I had to delete that.
 
 # There should be a new page that I can set for new windows on which Vim Vixen
 # will work
