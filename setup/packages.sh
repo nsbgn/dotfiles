@@ -95,11 +95,14 @@ PACKAGES=(
     xxd # Hex editor CLI
     w3m # Text internet browser
     elinks # Text internet browser
+    rtv # Terminal reddit viewer
     urlview # Selecting urls from email text
     highlight # Universal source code highlighter
     cloc # Count lines of code
     playerctl # Control MPRIS media players
     asciinema # Record terminal sessions
+    fd-find # Alternative to the `find` command
+    chafa # Image-to-text converter for terminal
 
     # File & filesystem tools
     util-linux # System utilities like checking filesystem, block devices, etc
@@ -126,7 +129,8 @@ PACKAGES=(
     mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
     calibre # Ebook library and conversion suite
     ffmpeg # Conversion of various media formats
-    imagemagick # Conversion of images
+    imagemagick # Conversion and batch editing of images
+    libvips # Fast conversion and batch editing of images
     paperkey # Dump secret information of gnupg keys for backup
     pdf2djvu # Conversion of PDF to DJVU
     webp # Convert WebP pictures
@@ -229,11 +233,19 @@ PACKAGES=(
 
     # Games
     0ad # Strategy game
-    openmw # Role playing game (reimplementation of Morrowind)
+    openmw # Role playing game (reimplementation of Morrowind, no data files)
+    quake quake2 quake3 quake4 # Classic shooter (no data files)
     minetest # Minecraft clone
+    supertuxkart # Mario Kart like game
+    hedgewars # Worms clone
+    freeciv # Civ 2 clone
+    wesnoth # Turn-based fantasy strategy
+    flightgear # Flight simulator
+    assaultcube # WWII shooter
 
     # Laptop-specific applications
-    tlp # Laptop power saving
+    tlp # Laptop power saving (auto)
+    powertop # Power saving (manual)
     acpi # Information on acpi devices
     #bumblebee primus bbswitch # Switch discrete graphics card on/off
 
