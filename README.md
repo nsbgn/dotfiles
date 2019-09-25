@@ -26,3 +26,37 @@ Desktop environment
 - The configurations also assume that my 
   [scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`.
 
+
+Smartphone
+-------------------------------------------------------------------------------
+
+Phones distract me, so I limit the apps almost completely to communication, 
+navigation and audio. Notably: no web browser.
+
+- [OsmAnd](https://f-droid.org/en/packages/net.osmand.plus/) for offline maps 
+  and directions, [Offi](https://f-droid.org/en/packages/de.schildbach.oeffi/) 
+  for public transport planning.
+- [muPDF](https://f-droid.org/en/packages/com.artifex.mupdf.mini.app/) for PDF 
+  viewing.
+- [Battery Charge 
+  Limit](https://f-droid.org/en/packages/com.slash.batterychargelimit/) to 
+  save my battery health.
+- [Suntimes](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) 
+  for setting my alarm to the sunrise. 
+- [Kiwix](https://f-droid.org/en/packages/org.kiwix.kiwixmobile/) and
+  [E-numbers](https://f-droid.org/en/packages/org.uaraven.e/) for information.
+- For chatting, I mostly use 
+  [Telegram](https://f-droid.org/en/packages/org.telegram.messenger/): it's 
+  widely used, and at least the source is open. Of course, I'd prefer 
+  [Pattle](https://f-droid.org/en/packages/im.pattle.app/), 
+  [Jami](https://f-droid.org/en/packages/cx.ring/), or 
+  [Briar](https://f-droid.org/en/packages/org.briarproject.briar.android). 
+  Unfortunately, for groups, WhatsApp is still the norm.
+  [Yalp](https://f-droid.org/en/packages/com.github.kiliakin.yalpstore/) can 
+  help there. [Jitsi](https://meet.jit.si), though [not yet on 
+  F-Droid](https://gitlab.com/fdroid/rfp/issues/73), is open source and nice 
+  for video chatting. 
+- [Vanilla 
+  Music](https://f-droid.org/en/packages/ch.blinkenlights.android.vanilla/) 
+  for playing music albums and 
+  [Voice](https://f-droid.org/en/packages/de.ph1b.audiobook/) for audiobooks.
