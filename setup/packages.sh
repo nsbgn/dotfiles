@@ -65,7 +65,9 @@ PACKAGES=(
     unclutter # Hide mouse pointer after inactivity
     redshift # Change screen color at night
     suckless-tools # Tiny single-purpose software, like dmenu (generic menu)
+    rover # Terminal update-alternatives frontent
     rofi # Generic menu
+    surf # Small web browser - just used for small tasks when firefox isn't needed
     i3lock # Screen locker
     dunst # Notification daemon
     alsa-utils # Audio configuration
