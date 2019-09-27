@@ -4,24 +4,16 @@
 
 sudo apt install firejail
 
-SANDBOX_HOME="$HOME/.firejail/firefox"
-
-mkdir -p "$SANDBOX_HOME"
-
 # Additions to the firejail profile; see FIREJAIL-PROFILE(5) 
 sudo tee /etc/firejail/firefox.local << EOF
-# Turn on AppArmor
-apparmor
-
-# Mount new home directory in this directory
-private $SANDBOX_HOME
+whitelist $HOME/.blank.html
+whitelist $HOME/.mutt.html
 EOF
-
 for $PROGRAM in telegram transmission-gtk; do
 sudo tee /etc/firejail/$PROGRAM.local << EOF
 join-or-start $PROGRAM
 EOF
-
+done
 
 # Setting a symlink to firejail with the name of the program will run the
 # program in the firejail. Make sure that the symlink is the first one that
@@ -53,6 +45,6 @@ xdg-settings get default-web-browser firefox
 
 # There should be a new page that I can set for new windows on which Vim Vixen
 # will work
-tee "$SANDBOX_HOME/blank.html" << EOF
-<html><head><title>new page</title></head><body></body></html>
+tee "$HOME/.blank.html" << EOF
+<html><head><title>New page</title></head><body></body></html>
 EOF
