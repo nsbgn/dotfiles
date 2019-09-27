@@ -2,6 +2,6 @@
 application/pdf; zathura %s && sleep 1; test=test -n "$DISPLAY";
 #text/html; surf -idns %s && sleep 1; test=test -n "$DISPLAY";
 #text/html; qutebrowser file:///%s && sleep 1; test=test -n "$DISPLAY";
-text/html; firefox %s && sleep 1; test=test -n "$DISPLAY";
+text/html; cp %s $HOME/.mutt.html && firefox $HOME/.mutt.html && sleep 1; test=test -n "$DISPLAY";
 text/html; elinks -dump "$FILE"; nametemplate=%s.html; copiousoutput;
 #text/html; links -codepage %{charset} -html-numbered-links 1 -dump %s; nametemplate=%s.html; copiousoutput;

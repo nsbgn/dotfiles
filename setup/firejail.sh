@@ -21,7 +21,7 @@ done
 # because it won't be found in /opt
 sudo firecfg
 sudo ln -s /usr/bin/firejail /usr/local/bin/firefox
-sudo rm /usr/local/bin/mpv
+sudo rm /usr/local/bin/{mutt,mpv}
 
 # Note that `xdg-settings get default-web-browser` indicated I had some
 # .desktop file in my `.local/share/applications` that was circumventing
