@@ -38,9 +38,6 @@ navigation and audio. Notably: no web browser.
   for public transport planning.
 - [muPDF](https://f-droid.org/en/packages/com.artifex.mupdf.mini.app/) for PDF 
   viewing.
-- [Battery Charge 
-  Limit](https://f-droid.org/en/packages/com.slash.batterychargelimit/) to 
-  save my battery health.
 - [Suntimes](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) 
   for setting my alarm to the sunrise. 
 - [Kiwix](https://f-droid.org/en/packages/org.kiwix.kiwixmobile/) and
@@ -51,9 +48,9 @@ navigation and audio. Notably: no web browser.
   [Pattle](https://f-droid.org/en/packages/im.pattle.app/), 
   [Jami](https://f-droid.org/en/packages/cx.ring/), or 
   [Briar](https://f-droid.org/en/packages/org.briarproject.briar.android). 
-  Unfortunately, for groups, WhatsApp is still the norm.
-  [Yalp](https://f-droid.org/en/packages/com.github.kiliakin.yalpstore/) can 
-  help there. [Jitsi](https://meet.jit.si), though [not yet on 
+  Unfortunately, for groups, 
+  [WhatsApp](https://f-droid.org/en/packages/com.javiersantos.whatsappbetaupdater) 
+  is still the norm. [Jitsi](https://meet.jit.si), though [not yet on 
   F-Droid](https://gitlab.com/fdroid/rfp/issues/73), is open source and nice 
   for video chatting. 
 - [Vanilla 
