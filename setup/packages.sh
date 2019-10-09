@@ -253,6 +253,7 @@ PACKAGES=(
 
     # Debian-specific applications
     popularity-contest # Vote for used software
+    jigdo-file # Download installation media
     apt-file # Search for package contents
 
     # Development tools
