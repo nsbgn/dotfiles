@@ -12,3 +12,12 @@
 
 sudo apt install python3-pip 
 pip3 install pubs
+
+# Also activate autocompletion
+sudo apt install python3-argcomplete
+sudo activate-global-python-argcomplete3
+
+# I'm not entirely sure why, but the completion isn't picked up automatically.
+# For now I'll do it manually but I really need to clean up my shell
+# source /etc/bash_completion
+# eval "$(register-python-argcomplete3 pubs)"
