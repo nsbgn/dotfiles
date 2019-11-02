@@ -1,4 +1,4 @@
-export PATH=/usr/local/go/bin:$HOME/projects/scripts:$HOME/.local/bin:$PATH:/opt/firefox:~/.cabal/bin:$HOME/.go/bin
+export PATH=/usr/local/go/bin:$HOME/projects/scripts:$HOME/.local/bin:$PATH:/opt/firefox:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin
 export GOPATH=$HOME/.go
 export EDITOR=vim
 export BROWSER=firefox
@@ -9,8 +9,8 @@ export HISTFILESIZE=2000
 export LOCALBUILDS=$HOME/.local-builds
 export SCANDIR=$HOME/notes/post
 
-export LEDGER_FILE=$HOME/notes/tracking/finances/personal/2019.ledger
-export LEDGER_PRICE_DB=$HOME/notes/tracking/finances/price-database.ledger
+export LEDGER_FILE=$HOME/notes/log/finance/personal-2019.ledger
+export LEDGER_PRICE_DB=$HOME/notes/log/finance/pricedb.ledger
 
 
 # If not running interactively, don't do anything else
@@ -78,7 +78,7 @@ export COLOR_LIGHT_GRAY='\e[0;37m'
 
 # I like to keep a list of my media
 function mkdb {
-    LOC="$HOME/notes/tracking/items"
+    LOC="$HOME/notes/log/database"
     MUS="$HOME/data/audio/music"
     DOC="$HOME/data/documents"
     VID="$HOME/data/video"
