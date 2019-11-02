@@ -51,6 +51,7 @@ PACKAGES=(
     dvtm # Tiling window manager for the terminal
     byobu # Tiling window manager for the terminal
     screen # Attach and detach from terminal sessions
+    tmux # Attach and detach from terminal sessions/tiling for terminal
     x11-utils # X querying utilities (xev, xprop, etc)
     x11-xserver-utils # X server utilities (xrandr, xmodmap, xsetroot, etc)
     x11-xkb-utils # X keyboard utilities (setxkbmap, xkbcomp, etc)
@@ -105,6 +106,7 @@ PACKAGES=(
     asciinema # Record terminal sessions
     fd-find # Alternative to the `find` command
     chafa # Image-to-text converter for terminal
+    hexyl # Hex output
 
     # File & filesystem tools
     util-linux # System utilities like checking filesystem, block devices, etc

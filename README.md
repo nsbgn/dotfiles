@@ -18,6 +18,7 @@ Desktop environment
 - [mpv](https://mpv.io/) as my media player, with the
   [mpv-mpris](https://github.com/hoyon/mpv-mpris) plugin.
 - [zathura](https://pwmt.org/projects/zathura/) as my PDF reader.
+- [pubs](https://github.com/pubs/pubs) for bibliography management.
 - [Firejail](https://github.com/netblue30/firejail)ed 
   [Firefox](http://www.mozilla.org) as my browser, with [Vim 
   Vixen](https://github.com/ueokande/vim-vixen), [uBlock 
