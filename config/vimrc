@@ -11,6 +11,9 @@ call plug#begin()
     " Sets working directory to project root
     Plug 'https://github.com/airblade/vim-rooter.git'
 
+    " Browse within vim using the `lf` file manager
+    Plug 'https://github.com/ptzz/lf.vim'
+
     " Asynchronous linting
     "Plug 'prabirshrestha/async.vim.git'
     "Plug 'prabirshrestha/vim-lsp.git'
@@ -101,41 +104,16 @@ endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File opening using `lf`
 
-function! LF(bang)
-    let temp = tempname()
-    exec 'silent !lf -selection-path=' . shellescape(temp) . ' ' . shellescape(expand('%:p:h'))
-    if !filereadable(temp)
-        redraw!
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        return
-    endif
-    if (a:bang) && !(line('$') == 1 && getline(1) == '')
-        exec 'tabnew'
-    endif
-    exec 'edit ' . fnameescape(names[0])
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
-command! -bar -bang LF call LF(<bang>0)
-
-nmap z :LF!<cr>
-nmap Z :LF<cr>
+" Remap LF 
+let g:lf_map_keys = 0
+let g:lf_replace_netrw = 1 " open lf when vim open a directory
+nmap z :Lf<cr>
 
 " open linked file under cursor in new tab. does not work within the
 " buffer created by HdevtoolsInfo...?
 nnoremap gF <C-W>gF
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mappings
 
 nmap ; :
 nmap t :tabnew<CR>
