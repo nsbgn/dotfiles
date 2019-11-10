@@ -2,13 +2,13 @@ set editor='vim'
 
 # Source mailboxes
 set mbox_type=MH
-set folder=~/mail
+set folder=~/post/email
 set record=+/sent
 set postponed=+/draft
-source "~/mail/mailboxes"
+source "~/post/email/mailboxes"
 
 # Source aliases file
-set alias_file= ~/mail/aliases
+set alias_file= ~/post/email/aliases
 set sort_alias= alias
 set reverse_alias=yes
 source $alias_file
