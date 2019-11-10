@@ -1,47 +1,29 @@
-# interpreter for shell commands (needs to be POSIX compatible)
-set shell sh
+# Configuration ##############################################################
 
-# set internal field separator (IFS) to "\n" for shell commands
-# This is useful to automatically split file names in $fs and $fx properly
-# since default file separator used in these variables (i.e. 'filesep' option)
-# is newline. You need to consider the values of these options and create your
-# commands accordingly.
-set ifs "\n"
+set shell sh # interpreter for shell commands (needs to be POSIX compatible)
+set shellopts '-eu' # Safer shell commands
+set ifs "\n" # split $fs and $fx properly because default file sep is newline
+set ratios 1:3:3 # set ratio of panes
+set timefmt "2006-01-02 Mon 15:04" # set time format
+set color256 on # surn on colors
+set previewer preview # previewer script
+set scrolloff 10 # leave some space at the top and the bottom of the screen
 
-set ratios 1:3:3
 
-set timefmt "2006-01-02 Mon 15:04"
-set color256 on
+# Commands ###################################################################
 
-set previewer preview
+# Move current file or selected files to trash folder
+cmd trash ${{
+    whiptail \
+        --yesno "Are you sure you want to delete file(s)?" 10 35 --defaultno \
+        && gio trash $fx
+}}
 
-# leave some space at the top and the bottom of the screen
-set scrolloff 10
+# Creating a new directory
+cmd mkdir %mkdir -p "$(echo $* | tr ' ' '\ ')"
+cmd mkfile %touch "$(echo $* | tr ' ' '\ ')"
 
-# use enter for shell commands
-#map <enter> read-shell
-
-#map <esc> quit
-map <enter> open
-map ~ cd ~
-map x trash
-map X cd ~/.local/share/Trash
-
-# execute current file (must be executable)
-#map x $$f
-#map X !$f
-
-# dedicated keys for file opener actions
-#map o &mimeopen $f
-#map O $mimeopen --ask $f
-
-# show documentation (overrides 'search-back' command)
-map ? $lf -doc | less
-
-# define a custom 'open-file' command
-# 'open-file' is called by 'open' when current file is not a directory. You may
-# want to use either file extensions and/or mime types here. Below uses an
-# editor for text files and a file opener for the rest.
+# File opening (called by o)
 cmd open ${{
     case $(file --dereference --mime-type $f -b) in
         inode/x-empty) vim $fx ;;
@@ -57,67 +39,19 @@ cmd open ${{
     esac
 }}
 
-
-
-
-
-# rename current file without overwrite
-cmd rename ${{
-    if [ -e $1 ]; then
-        lf -remote "send $id echo file exists"
-    else
-        mv $f $1
-    fi
-}}
-#map r push :rename<space>
-map r $lf -remote "send $id push :rename<space>'$(basename $f | sed 's/ /<space>/g')'<left>"
-
 # show disk usage
 cmd usage !{{du -hs . | more}}
 
-# move current file or selected files to trash folder
-# (also see 'man mv' for backup/overwrite options)
-#cmd trash $mv $fx ~/.trash
-cmd trash ${{
-    whiptail --yesno "Are you sure you want to delete file(s)?" 10 35 --defaultno && gio trash $fx
-}}
 
-# remove current file or selected files (prompting)
-cmd remove ${{
-    printf "$fx\n"
-    printf "remove?[y/n]"
-    read ans
-    [ $ans = "y" ] && rm -rf $fx
-}}
+# Keyboard mappings ##########################################################
 
-# extract the current file with the right command
-# (xkcd link: https://xkcd.com/1168/)
-cmd extract ${{
-    set -f
-    case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
-    esac
-}}
+map <esc> quit
+map <enter> open
+map ~ cd ~
+map x trash
+map X cd ~/.local/share/Trash
+map a push :mkfile<space>
+map A push :mkdir<space>
 
-# compress current file or selected files with tar and gunzip
-cmd tar ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    tar czf $1.tar.gz $1
-    rm -rf $1
-}}
-
-# compress current file or selected files with zip
-cmd zip ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    zip -r $1.zip $1
-    rm -rf $1
-}}
+# show documentation (overrides 'search-back' command)
+map ? $lf -doc | less
