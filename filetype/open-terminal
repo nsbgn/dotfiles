@@ -1,0 +1,51 @@
+#!/bin/sh
+# Open a file under the assumption that no X display is available
+
+f="${1}"
+
+# Things to consider:
+# - Prefer terminal?
+# - Suppress terminal output?
+# - Is X running? (xset q &>/dev/null)
+
+case $(file --dereference --mime-type "$f" -b) in
+    inode/x-empty) 
+        vim "$f" 
+        ;;
+    text/*) 
+        vim "$f"
+        ;;
+    video/*) 
+        mpv --no-terminal "$f" &
+        # use --vo=gpu --gpu-context=drm if no X server
+        ;;
+    audio/midi)
+        timidity "$f"
+        ;;
+    audio/*) 
+        mpv "$f"
+        ;;
+    image/*) 
+        sxiv -a "$f" "$(dirname "$f")" &
+        ;;
+    application/epub+zip) 
+        mupdf "$f" &
+        #epr "$f" within terminal
+        ;;
+    application/pdf) 
+        zathura "$f" &
+        ;;
+    application/x-gba-rom|application/x-gameboy-rom)
+        mgba -C "savegamePath=$HOME/.gamestates" -C "savestatePath=$HOME/.gamestates" "$f" &
+        ;;
+    application/x-wii-rom)
+        dolphin-emu --exec="$f" &
+        ;;
+    application/zlib)
+        zsnes -m "$f" &
+        ;;
+    *)
+        xdg-open "$f"
+        ;;
+esac
+

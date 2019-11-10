@@ -23,24 +23,11 @@ cmd trash ${{
 cmd mkdir %mkdir -p "$(echo $* | tr ' ' '\ ')"
 cmd mkfile %touch "$(echo $* | tr ' ' '\ ')"
 
-# File opening (called by o)
-cmd open ${{
-    case $(file --dereference --mime-type $f -b) in
-        inode/x-empty) vim $fx ;;
-        text/*) vim $fx;;
-        video/*) nohup vlc $fx > /dev/null & ;;
-        audio/midi) timidity $fx ;;
-        audio/*) nohup vlc $fx > /dev/null & ;;
-        image/*) sxiv $f & ;;
-        application/epub+zip) nohup FBReader $f > /dev/null & ;;
-        application/pdf) nohup zathura $f > /dev/null & ;;
-        #application/x-gba-rom)
-        *) for f in $fx; do xdg-open $f > /dev/null 2> /dev/null & done;;
-    esac
-}}
+# File opening
+cmd open ${{ open-terminal "$f" }}
 
 # show disk usage
-cmd usage !{{du -hs . | more}}
+#cmd usage :echo !{{du -hs . | more}}<CR>
 
 
 # Keyboard mappings ##########################################################
@@ -52,6 +39,7 @@ map x trash
 map X cd ~/.local/share/Trash
 map a push :mkfile<space>
 map A push :mkdir<space>
+# map e $$EDITOR $f
 
 # show documentation (overrides 'search-back' command)
 map ? $lf -doc | less
