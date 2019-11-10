@@ -168,6 +168,7 @@ PACKAGES=(
 
     # Editors
     vim{,-gui-common,-pathogen} # Text editor
+    kakoune # Another text editor
     inkscape # Vector graphics
     gimp # Image editor
     krita # Image editor

@@ -14,7 +14,8 @@ Desktop environment
   [polybar](https://github.com/jaagr/polybar) as status bar.
 - [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) as my terminal.
 - [lf](https://github.com/gokcehan/lf) as my file manager.
-- [vim](https://www.vim.org/) as my text editor.
+- [vim](https://www.vim.org/) as my text editor. I'm experimenting with 
+  [kakoune](http://kakoune.org/).
 - [mpv](https://mpv.io/) as my media player, with the
   [mpv-mpris](https://github.com/hoyon/mpv-mpris) plugin.
 - [zathura](https://pwmt.org/projects/zathura/) as my PDF reader.
