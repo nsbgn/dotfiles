@@ -1,0 +1,30 @@
+# The ~/.profile file is a good place to put environment variables. This file
+# is not read by bash if ~/.bash_profile or ~/.bash_login exists.
+
+export PATH=/usr/local/go/bin:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin
+export GOPATH=$HOME/.go
+export EDITOR=vim
+export BROWSER=firefox
+export CLICOLOR=1
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+
+export LOCALBUILDS=$HOME/.local-builds
+export SCANDIR=$HOME/post
+export LEDGER_FILE=$HOME/log/finance/personal-2019.ledger
+export LEDGER_PRICE_DB=$HOME/log/finance/pricedb.ledger
+export DMENU_ARGS="-fn Inconsolata-15 -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
+
+# If running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# Autostart X on login
+if [[ "$(tty)" == '/dev/tty1' ]]; then
+    [[ -f "/usr/bin/startx" && -z "$DISPLAY$SSH_TTY$(pgrep xinit)" ]] && exec /usr/bin/startx
+fi

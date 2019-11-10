@@ -1,6 +1,4 @@
 # Set background color, dmenu theme and path for dmenu_run
-export PATH=$HOME/projects/scripts:$HOME/.local/bin:$PATH:/opt/firefox:$HOME/.cabal/bin
-export DMENU_ARGS="-fn Inconsolata-15 -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
 xsetroot -solid '#2f343f'
 xrdb $HOME/.Xresources # load Xresources
 

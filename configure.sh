@@ -14,6 +14,7 @@ mkdir -p ~/.templates ~/.public ~/data/{downloads,documents,audio/music,pictures
 
 # Link configuration files to the ones in this repository
 link config/bashrc                      ~/.bashrc
+link config/profile                     ~/.profile
 link config/Xresources                  ~/.Xresources
 link config/xinitrc                     ~/.xinitrc
 link config/keynavrc                    ~/.keynavrc

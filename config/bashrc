@@ -1,24 +1,3 @@
-export PATH=/usr/local/go/bin:$HOME/projects/scripts:$HOME/.local/bin:$PATH:/opt/firefox:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin
-export GOPATH=$HOME/.go
-export EDITOR=vim
-export BROWSER=firefox
-export CLICOLOR=1
-export HISTCONTROL=ignoreboth:erasedups
-export HISTSIZE=1000
-export HISTFILESIZE=2000
-export LOCALBUILDS=$HOME/.local-builds
-export SCANDIR=$HOME/notes/post
-
-export LEDGER_FILE=$HOME/notes/log/finance/personal-2019.ledger
-export LEDGER_PRICE_DB=$HOME/notes/log/finance/pricedb.ledger
-
-
-# If not running interactively, don't do anything else
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -78,7 +57,7 @@ export COLOR_LIGHT_GRAY='\e[0;37m'
 
 # I like to keep a list of my media
 function mkdb {
-    LOC="$HOME/notes/log/database"
+    LOC="$HOME/log/database"
     MUS="$HOME/data/audio/music"
     DOC="$HOME/data/documents"
     VID="$HOME/data/video"
@@ -94,7 +73,7 @@ function findsize {
 
 # For cleaning up trashed mail files
 function clean-mail {
-    find ~/mail -maxdepth 1 -name '*@*' -type d \
+    find ~/post/email -maxdepth 1 -name '*@*' -type d \
         | xargs -I{} find {} -iname ',*' \
         | xargs -I{} gio trash {}
 }
