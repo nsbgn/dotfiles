@@ -12,7 +12,9 @@ call plug#begin()
     Plug 'https://github.com/airblade/vim-rooter.git'
 
     " Browse within vim using the `lf` file manager
-    Plug 'https://github.com/ptzz/lf.vim'
+    " This is commented out because the LF() function below does not have the
+    " issue that new tabs are highlighted incorrectly
+    "Plug 'https://github.com/ptzz/lf.vim'
 
     " Asynchronous linting
     "Plug 'prabirshrestha/async.vim.git'
@@ -105,11 +107,36 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Remap LF 
-let g:lf_map_keys = 0
-let g:lf_replace_netrw = 1 " open lf when vim open a directory
-nmap z :Lf<cr>
+" Use lf to select and open file(s) in vim (adapted from ranger).
 
+function! LF(bang)
+    let temp = tempname()
+    exec 'silent !lf -selection-path=' . shellescape(temp) . ' ' . shellescape(expand('%:p:h'))
+    if !filereadable(temp)
+        redraw!
+        return
+    endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        return
+    endif
+    if (a:bang) && !(line('$') == 1 && getline(1) == '')
+        exec 'tabnew'
+    endif
+    exec 'edit ' . fnameescape(names[0])
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
+    redraw!
+endfunction
+command! -bar -bang LF call LF(<bang>0)
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nmap z :LF!<cr>
+nmap Z :LF<cr>
 " open linked file under cursor in new tab. does not work within the
 " buffer created by HdevtoolsInfo...?
 nnoremap gF <C-W>gF
