@@ -33,7 +33,7 @@ call plug#begin()
     Plug 'https://github.com/vito-c/jq.vim'
 
     " Highlight ledger/hledger journals
-    Plug 'https://github.com/ledger/vim-ledger.git' 
+    Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
 
     " Show git/svn changes
     Plug 'https://github.com/mhinz/vim-signify.git'
