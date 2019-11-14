@@ -44,6 +44,14 @@ case $(file --dereference --mime-type "$f" -b) in
     application/zlib)
         zsnes -m "$f" &
         ;;
+    application/octet-stream)
+        EXT="$(echo "${f##*.}" | tr '[:upper:]' '[:lower:]')"
+        case $EXT in
+            zim)
+                kiwix-desktop "$f"
+            ;;
+        esac
+        ;;
     *)
         xdg-open "$f"
         ;;
