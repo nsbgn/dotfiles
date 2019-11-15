@@ -108,6 +108,7 @@ PACKAGES=(
     ripgrep # Search directories for a regex pattern
     chafa # Image-to-text converter for terminal
     hexyl # Hex output
+    concalc # Command-line calculator
 
     # File & filesystem tools
     util-linux # System utilities like checking filesystem, block devices, etc
@@ -149,6 +150,7 @@ PACKAGES=(
     ocrodjvu # Perform OCR on DJVU documents
     catdoc # Convert Word documents to text
     docx2txt # Convert Word XML documents to text
+    python-mutagen # Includes command line MP3 tag editor mid3v2 
     gimagereader # Graphical interface for optical character recognition using tesseract
     ktnef # For opening pesky winmail.dat files in emails
     ytnef-tools # For opening winmail.dat files in emails, via console
@@ -202,9 +204,9 @@ PACKAGES=(
     mailsync # Sync IMAP mails
     weechat # IRC client
     telegram-desktop # Chat application
-    ring # Distributed chat & video client
-    qtox # Distributed chat & video client
-    ricochet-im # Distributed chat client
+    jami # Distributed chat & video client
+    #qtox # Distributed chat & video client
+    utox # Distrubted chat & video client
 
     # Downloading
     httrack # Website downloader
