@@ -24,7 +24,7 @@ cmd mkdir %mkdir -p "$(echo $* | tr ' ' '\ ')"
 cmd mkfile %touch "$(echo $* | tr ' ' '\ ')"
 
 # File opening
-cmd open ${{ open-terminal "$f" }}
+cmd open ${{ open "$f" }}
 
 # show disk usage
 #cmd usage :echo !{{du -hs . | more}}<CR>
