@@ -16,8 +16,9 @@ alias trash="gio trash"
 alias supertrash="srm -l"
 alias l="vim $LEDGER_FILE"
 alias ll="ledger --market balance ^assets ^liabilities"
-alias c="ncal -w -M -A 2"
-alias t="vim $HOME/notes/todo.md"
+alias cal="ncal -w -M -A 2"
+alias c="concalc"
+alias t="vim $HOME/log/todo.md"
 alias u="sudo apt update; sudo apt upgrade"
 alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
 alias flac2mp3="parallel -j4 ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: *.flac"
@@ -32,26 +33,6 @@ alias compress-pdf="gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=
 alias fd="fdfind"
 alias rtv="rtv --enable-media"
 alias open-ports="sudo netstat -pln"
-
-# Color escapes
-export COLOR_NC='\e[0m' # No Color
-export COLOR_WHITE='\e[1;37m'
-export COLOR_BLACK='\e[0;30m'
-export COLOR_BLUE='\e[0;34m'
-export COLOR_LIGHT_BLUE='\e[1;34m'
-export COLOR_GREEN='\e[0;32m'
-export COLOR_LIGHT_GREEN='\e[1;32m'
-export COLOR_CYAN='\e[0;36m'
-export COLOR_LIGHT_CYAN='\e[1;36m'
-export COLOR_RED='\e[0;31m'
-export COLOR_LIGHT_RED='\e[1;31m'
-export COLOR_PURPLE='\e[0;35m'
-export COLOR_LIGHT_PURPLE='\e[1;35m'
-export COLOR_BROWN='\e[0;33m'
-export COLOR_YELLOW='\e[1;33m'
-export COLOR_GRAY='\e[0;30m'
-export COLOR_LIGHT_GRAY='\e[0;37m'
-
 
 ##############################################################################
 
@@ -111,6 +92,8 @@ done
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 gitBranch='$(__git_ps1)'
+export COLOR_NC='\e[0m' # No Color
+export COLOR_LIGHT_GRAY='\e[0;37m'
 export PS1="\[$COLOR_LIGHT_GRAY\]\W$gitBranch \$ \[$COLOR_NC\]\[$(tput sgr0)\]" # [\u@\h]
 
 # I'm not entirely sure why, but the completion isn't picked up automatically.
