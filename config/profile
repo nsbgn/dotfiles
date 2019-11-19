@@ -3,7 +3,7 @@
 
 export PATH=/usr/local/bin:/usr/local/go/bin:$HOME/projects/dotfiles/filetype:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin:/opt/firefox
 export GOPATH=$HOME/.go
-export EDITOR=vim
+export EDITOR=nvim
 export BROWSER=firefox
 export CLICOLOR=1
 export HISTCONTROL=ignoreboth:erasedups

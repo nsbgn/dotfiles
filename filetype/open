@@ -10,13 +10,13 @@ f="${1}"
 
 case $(file --dereference --mime-type "$f" -b) in
     inode/x-empty) 
-        vim "$f" 
+        nvim "$f" 
         ;;
     text/html)
         firefox "$f"
         ;;
     text/*) 
-        vim "$f"
+        nvim "$f"
         ;;
     video/*) 
         mpv --no-terminal "$f" &

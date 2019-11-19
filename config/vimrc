@@ -1,9 +1,11 @@
-source $VIMRUNTIME/defaults.vim
+" needed for vim but not nvim
+"source $VIMRUNTIME/defaults.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Plugins
-call plug#begin()
+"call plug#begin()
+call plug#begin(stdpath('data') . '/plugged')
 
     " Work with GPG-encrypted files
     Plug 'https://github.com/jamessan/vim-gnupg.git'
@@ -18,9 +20,10 @@ call plug#begin()
 
     " Autocompletion
     " Also needs pip3 install pynvim
-    Plug 'https://github.com/Shougo/deoplete.nvim'
+    "Plug 'https://github.com/Shougo/deoplete.nvim'
+    Plug 'https://github.com/ncm2/ncm2'
     Plug 'https://github.com/roxma/nvim-yarp'
-    Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
+    "Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
 
     " IDE capabilities for vim through LSP
     Plug 'https://github.com/autozimu/LanguageClient-neovim.git', { 'branch': 'next', 'do': 'bash install.sh' }
@@ -154,10 +157,11 @@ nmap ~ o<Esc>79a~<Esc>0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete configuration
 
-let g:deoplete#enable_at_startup = 1
-"call deoplete#custom#option({
-"\   'ignore_sources': {'_': ['member', 'buffer', 'around', 'omni']}
-"\ })
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
 
 " Close preview when completion is done
 autocmd CompleteDone * pclose

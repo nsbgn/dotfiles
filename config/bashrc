@@ -9,6 +9,7 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
+alias vim="nvim"
 alias forget="echo RELOADAGENT | gpg-connect-agent"
 alias ledger="ledger --strict -f $LEDGER_FILE"
 alias ls="ls --color=always"
