@@ -18,7 +18,7 @@ link config/profile                     ~/.profile
 link config/Xresources                  ~/.Xresources
 link config/xinitrc                     ~/.xinitrc
 link config/keynavrc                    ~/.keynavrc
-link config/vimrc                       ~/.vimrc
+link config/vimrc                       ~/.config/nvim/init.vim
 link config/muttrc                      ~/.muttrc
 link config/mailcap                     ~/.mailcap
 link config/gitconfig                   ~/.gitconfig
