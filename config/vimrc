@@ -16,18 +16,20 @@ call plug#begin()
     " issue that new tabs are highlighted incorrectly
     "Plug 'https://github.com/ptzz/lf.vim'
 
-    " Asynchronous linting
-    "Plug 'prabirshrestha/async.vim.git'
-    "Plug 'prabirshrestha/vim-lsp.git'
+    " Autocompletion
+    " Also needs pip3 install pynvim
+    Plug 'https://github.com/Shougo/deoplete.nvim'
+    Plug 'https://github.com/roxma/nvim-yarp'
+    Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
+
+    " IDE capabilities for vim through LSP
+    Plug 'https://github.com/autozimu/LanguageClient-neovim.git', { 'branch': 'next', 'do': 'bash install.sh' }
 
     " Check code syntax
     "Plug 'https://github.com/vim-syntastic/syntastic.git'
 
-    " Interactive Haskell development
-    "Plug 'https://github.com/bitc/vim-hdevtools.git'
-
     " Highlight Pandoc-flavoured Markdown
-    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git' 
+    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git', { 'for': 'markdown' }
 
     " Highlight jq scripts
     Plug 'https://github.com/vito-c/jq.vim'
@@ -84,10 +86,6 @@ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 if has("autocmd")
     au BufRead /tmp/mutt-* set tw=72
 
-    "au FileType haskell nnoremap <buffer> <silent> <F1> :HdevtoolsInfo<CR>
-    "au FileType haskell nnoremap <buffer> <F2> :HdevtoolsType<CR>
-    "au FileType haskell nnoremap <buffer> <silent> <F3> :HdevtoolsClear<CR>
-
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
         autocmd FileType markdown.pandoc setlocal conceallevel=0
@@ -135,8 +133,8 @@ command! -bar -bang LF call LF(<bang>0)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap z :LF!<cr>
-nmap Z :LF<cr>
+nmap zf :LF!<cr>
+nmap zF :LF<cr>
 " open linked file under cursor in new tab. does not work within the
 " buffer created by HdevtoolsInfo...?
 nnoremap gF <C-W>gF
@@ -151,3 +149,38 @@ nmap , :tabprevious<CR>
 nmap = o<Esc>79a=<Esc>0
 nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocomplete configuration
+
+let g:deoplete#enable_at_startup = 1
+"call deoplete#custom#option({
+"\   'ignore_sources': {'_': ['member', 'buffer', 'around', 'omni']}
+"\ })
+
+" Close preview when completion is done
+autocmd CompleteDone * pclose
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP configuration
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+set rtp+=~/.vim/plugged/LanguageClient-neovim
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie-wrapper'],
+    \ 'python': ['pyls'], 
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'], 
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nmap zr :call LanguageClient#textDocument_rename()<CR>
+nmap zk :call LanguageClient#textDocument_hover()<CR>
+nmap zd :call LanguageClient#textDocument_definition()<CR>
+nmap zF :call LanguageClient#textDocument_formatting()<CR>
+nmap zr :call LanguageClient#textDocument_references()<CR>
+nmap za :call LanguageClient#textDocument_codeAction()<CR>
+nmap zs :call LanguageClient#textDocument_documentSymbol()<CR>
