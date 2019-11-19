@@ -20,16 +20,11 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Autocompletion
     " Also needs pip3 install pynvim
-    "Plug 'https://github.com/Shougo/deoplete.nvim'
     Plug 'https://github.com/ncm2/ncm2'
     Plug 'https://github.com/roxma/nvim-yarp'
-    "Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
 
     " IDE capabilities for vim through LSP
     Plug 'https://github.com/autozimu/LanguageClient-neovim.git', { 'branch': 'next', 'do': 'bash install.sh' }
-
-    " Check code syntax
-    "Plug 'https://github.com/vim-syntastic/syntastic.git'
 
     " Highlight Pandoc-flavoured Markdown
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git', { 'for': 'markdown' }
@@ -45,6 +40,9 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Git wrapper to show things like blame
     Plug 'https://github.com/tpope/vim-fugitive.git'
+
+    " Buffer tabs
+    Plug 'https://github.com/ap/vim-buftabline'
 
 call plug#end()
 
@@ -136,17 +134,15 @@ command! -bar -bang LF call LF(<bang>0)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap zf :LF!<cr>
-nmap zF :LF<cr>
-" open linked file under cursor in new tab. does not work within the
-" buffer created by HdevtoolsInfo...?
-nnoremap gF <C-W>gF
-
+"nmap zf :LF!<cr>
+"nmap zF :LF<cr>
 
 nmap ; :
-nmap t :tabnew<CR>
-nmap . :tabnext<CR>
-nmap , :tabprevious<CR>
+nmap . :bnext<CR>
+nmap , :bprevious<CR>
+"nmap t :tabnew<CR>
+"nmap . :tabnext<CR>
+"nmap , :tabprevious<CR>
 
 " Insert lines
 nmap = o<Esc>79a=<Esc>0
