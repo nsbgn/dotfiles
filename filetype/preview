@@ -19,10 +19,13 @@ case "$EXT" in
     epub) einfo "$FILE";;
     torrent) transmission-show "$FILE";;
     jpg|jpeg|gif|png|tiff|bmp|svg)
+        #/usr/bin/w3m -o 'ext_image_viewer=off' "$FILE";;
         chafa --work=1 --symbols=block --fill=block --stretch --colors=256 --size "$(expr $(tput cols) \* 2 / 5)x" "$FILE";;
     mkv|mp4|mka|mp3|mp4|wav|flac|webm) 
-        #ffmpegthumbnailer -q0 -i 5\ Centimeters\ per\ Second\ \(Makoto\ Shinkai\,\ 2007\).mkv -o - -c png -f | chafa  --work=1 --symbols=block --fill=block --stretch --colors=256 --size "$(expr $(tput cols) \* 2 / 5)x" -
-        exiftool "$FILE";;
+        exiftool "$FILE"
+        #ffmpegthumbnailer -q0 -i "$FILE" -o - -c png -f \
+        #    | chafa  --work=1 --symbols=block --fill=block --stretch --colors=256 --size "$(expr $(tput cols) \* 2 / 5)x" -
+        ;;
     *) bat --style=plain --italic-text=always --decorations=always --color=always "$1" # (/usr/bin/highlight -F user -O ansi "$1" || cat "$1");; # | fmt --split-only --width=79;;
 esac
 
