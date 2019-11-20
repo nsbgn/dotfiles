@@ -1,6 +1,9 @@
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
+    " Color schemes
+    "Plug 'https://github.com/chriskempson/base16-vim'
+
     " Work with GPG-encrypted files
     Plug 'https://github.com/jamessan/vim-gnupg.git'
 
@@ -14,18 +17,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Autocompletion
     " Also needs pip3 install pynvim
-    "Plug 'https://github.com/ncm2/ncm2'
-    "Plug 'https://github.com/ncm2/ncm2-path'
-    "Plug 'https://github.com/roxma/nvim-yarp'
     Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    "Plug 'https://github.com/lifepillar/vim-mucomplete.git'
-
-    " Completion preview window that doesn't mess up the rest of the window
-    " Needs nvim >= 0.4
-    "Plug 'https://github.com/ncm2/float-preview.nvim'
-
-    " Show info about autocompletions
-    "Plug 'https://github.com/Shougo/echodoc.vim'
 
     " IDE capabilities for vim through LSP
     "Plug 'https://github.com/dense-analysis/ale'
@@ -115,17 +107,14 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete configuration
 
-
-let g:deoplete#enable_at_startup = 1
-"let g:echodoc#enable_at_startup = 1
-"let g:echodoc#type = 'virtual'
-
 "set completeopt+=longest " complete to common substring (conflicts noinsert)
 set completeopt+=menuone " show completions even if there is only one option
 set completeopt+=noinsert " don't auto-insert until selection
 set completeopt+=noselect " don't autoselect a match
 set completeopt+=preview " show extra information
 set shortmess+=c " hide 'match x of y' message
+
+let g:deoplete#enable_at_startup = 1
 
 " Set sources for autocompletion
 " Default available sources: around, buffer, file, member, omni
@@ -140,6 +129,10 @@ call deoplete#custom#option('sources', {
 "autocmd CompleteDone * pclose
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
+" Somehow I want to get documentation as I select autocompletions.
+" See issue at https://github.com/autozimu/LanguageClient-neovim/issues/875
+" Also - https://github.com/wincent/wincent/issues/78
+"autocmd CompleteChanged * call LanguageClient#completionItem_resolve()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP configuration
