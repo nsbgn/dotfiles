@@ -10,11 +10,19 @@ export HISTCONTROL=ignoreboth:erasedups
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 
+
+export MYPY_CACHE_DIR=/tmp/mypycache
+
 export LOCALBUILDS=$HOME/.local-builds
 export SCANDIR=$HOME/post
 export LEDGER_FILE=$HOME/log/finance/personal-2019.ledger
 export LEDGER_PRICE_DB=$HOME/log/finance/pricedb.ledger
 export DMENU_ARGS="-fn Inconsolata-15 -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
+
+# Source Nix environment
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ];
+    then . $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
 
 # If running bash
 if [ -n "$BASH_VERSION" ]; then
