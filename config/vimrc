@@ -14,6 +14,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/ptzz/lf.vim'
     Plug 'https://github.com/rbgrouleff/bclose.vim'
     let g:lf_map_keys = 0
+    let g:lf_command_override = 'lf -command "map e; map i; map w"'
 
     " Autocompletion
     " Also needs pip3 install pynvim
@@ -85,6 +86,11 @@ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 " File-specific configuration
 
 if has("autocmd")
+
+
+    au TermEnter * setlocal nonumber
+    au TermLeave * setlocal number
+
     au BufRead /tmp/mutt-* set tw=72
 
     augroup pandoc_syntax
@@ -171,7 +177,7 @@ nmap zs :call LanguageClient#textDocument_documentSymbol()<CR> " list symbols in
 " Navigating buffers
 nmap td :bd<CR> " close buffer
 nmap tD :bd!<CR> " force close buffer 
-nmap tt :Lf<CR> " open file in buffer
+map tt :Lf<CR>
 nmap . :bnext<CR> " next buffer
 nmap , :bprevious<CR> " previous buffer
 
