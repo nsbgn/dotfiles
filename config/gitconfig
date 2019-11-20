@@ -2,7 +2,7 @@
 	name = nsv
 	email = nsv@valk.ws
 [core]
-	editor = vim
+	editor = nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [merge]
 	tool = meld
