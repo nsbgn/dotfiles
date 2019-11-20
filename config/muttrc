@@ -1,4 +1,4 @@
-set editor='vim'
+set editor='nvim'
 
 # Source mailboxes
 set mbox_type=MH

@@ -41,3 +41,6 @@ stack ./install.hs stack-install-cabal
 # Install hie LTS
 stack ./install.hs hie-8.4.4
 stack ./install.hs build-data
+
+# Generate fallback hoogle database
+stack --stack-yaml=$INSTALL/stack-8.4.4.yml exec hoogle generate
