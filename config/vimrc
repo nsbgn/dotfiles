@@ -13,28 +13,27 @@ call plug#begin(stdpath('data') . '/plugged')
     " Browse within vim using the `lf` file manager
     Plug 'https://github.com/ptzz/lf.vim'
     Plug 'https://github.com/rbgrouleff/bclose.vim'
-    let g:lf_map_keys = 0
-    let g:lf_command_override = 'lf -command "map e; map i; map w"'
 
-    " Autocompletion
-    " Also needs `pip3 install pynvim`
+    " Autocompletion (also needs `pip3 install pynvim`)
     Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
     " IDE capabilities for vim through LSP
     Plug 'https://github.com/autozimu/LanguageClient-neovim.git', { 'branch': 'next', 'do': 'bash install.sh' }
-    "Plug 'https://github.com/liuchengxu/vista.vim'
-
-    " Manage Pandoc files
-    "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
-    
-    " Distraction-free writing
-    Plug 'https://github.com/junegunn/goyo.vim'
 
     " Highlight Pandoc-flavoured Markdown
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
 
-    " Floating windows like nvim >= 0.4
-    Plug 'https://github.com/ncm2/float-preview.nvim'
+    " Floating windows for previews in nvim >= 0.4
+    "Plug 'https://github.com/ncm2/float-preview.nvim'
+
+    " Navigate symbols in the document
+    "Plug 'https://github.com/liuchengxu/vista.vim'
+
+    " Manage Pandoc files
+    "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
+
+    " Distraction-free writing
+    "Plug 'https://github.com/junegunn/goyo.vim'
 
     " Highlight jq scripts
     Plug 'https://github.com/vito-c/jq.vim'
@@ -51,7 +50,17 @@ call plug#begin(stdpath('data') . '/plugged')
     " Buffer tabs
     Plug 'https://github.com/ap/vim-buftabline'
 
+    " Improved status line
+    Plug 'https://github.com/vim-airline/vim-airline'
+
+    " Browse the undo tree
+    Plug 'https://github.com/sjl/gundo.vim'
+
 call plug#end()
+
+" Don't show the mode in the command bar --- because it's already displayed in
+" the status bar via airline
+set noshowmode
 
 " Enable mouse support
 set mouse=a
@@ -121,7 +130,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocomplete configuration
 
-"set completeopt+=longest " complete to common substring (conflicts noinsert)
 set completeopt+=menuone " show completions even if there is only one option
 set completeopt+=noinsert " don't auto-insert until selection
 set completeopt+=noselect " don't autoselect a match
@@ -142,13 +150,13 @@ call deoplete#custom#option('sources', {
     \ })
 
 " Close preview when completion is done
-"autocmd CompleteDone * pclose
+" autocmd CompleteDone * pclose
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Somehow I want to get documentation as I select autocompletions.
 " See issue at https://github.com/autozimu/LanguageClient-neovim/issues/875
 " Also - https://github.com/wincent/wincent/issues/78
-"autocmd CompleteChanged * call LanguageClient#completionItem_resolve(deepcopy(v:event)["completed_item"])
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP configuration
@@ -167,35 +175,50 @@ let g:LanguageClient_serverCommands = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pandoc. Mostly for the :TOC command and bibliography completion
 
-"let g:pandoc#modules#enabled = ["bibliographies", "completion", "toc", "hypertext"]
+"let g:pandoc#modules#enabled = ['bibliographies', 'completion', 'toc', 'hypertext']
 "call deoplete#custom#var('omni', 'input_patterns', {
 "    \ 'pandoc': '@'
 "    \})
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use :Goyo to toggle goyo
 " Quit with :q even when goyo is active
 
-function! s:goyo_enter()
-  let b:quitting = 0
-  let b:quitting_bang = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-endfunction
+"function! s:goyo_enter()
+"  let b:quitting = 0
+"  let b:quitting_bang = 0
+"  autocmd QuitPre <buffer> let b:quitting = 1
+"  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+"endfunction
+"
+"function! s:goyo_leave()
+"  " Quit Vim if this is the only remaining buffer
+"  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+"    if b:quitting_bang
+"      qa!
+"    else
+"      qa
+"    endif
+"  endif
+"endfunction
+"
+"autocmd! User GoyoEnter call <SID>goyo_enter()
+"autocmd! User GoyoLeave call <SID>goyo_leave()
 
-function! s:goyo_leave()
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    if b:quitting_bang
-      qa!
-    else
-      qa
-    endif
-  endif
-endfunction
 
-autocmd! User GoyoEnter call <SID>goyo_enter()
-autocmd! User GoyoLeave call <SID>goyo_leave()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Other configuration
+
+" Show buffers in tabline, but only if there is more than one
+let g:buftabline_show = 1
+
+" Unmap default lf key
+let g:lf_map_keys = 0
+
+" Unmap e, i and w in lf within vim to make sure we only use it to open a file
+" and not to start other programs within the lf session
+let g:lf_command_override = 'lf -command "map e; map i; map w"'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -203,19 +226,35 @@ autocmd! User GoyoLeave call <SID>goyo_leave()
 
 nmap ; :
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nmap zr :call LanguageClient#textDocument_rename()<CR> " rename current symbol
-nmap zi :call LanguageClient#textDocument_hover()<CR> " show hover information (documentation etc)
-nmap zd :call LanguageClient#textDocument_definition()<CR> " go to definition of current symbol
-nmap zk :call LanguageClient#textDocument_references()<CR> " list where current symbol is referenced
-nmap zs :call LanguageClient#textDocument_documentSymbol()<CR> " list symbols in the document
+" Language
+nnoremap <F6> :call LanguageClient_contextMenu()<CR>
+" rename current symbol:
+nmap zr :call LanguageClient#textDocument_rename()<CR>
+" show hover information (documentation etc):
+nmap zi :call LanguageClient#textDocument_hover()<CR>
+" go to definition of current symbol:
+nmap zd :call LanguageClient#textDocument_definition()<CR>
+" list where current symbol is referenced:
+nmap zk :call LanguageClient#textDocument_references()<CR>
+" list symbols in the document:
+nmap zs :call LanguageClient#textDocument_documentSymbol()<CR>
+" suggestions for actions to take:
+nmap za :call LanguageClient#textDocument_codeAction()<CR>
+
+" View undo tree
+nnoremap <F5> :GundoToggle<CR>
 
 " Navigating buffers
-nmap td :bd<CR> " close buffer
-nmap tD :bd!<CR> " force close buffer 
+" close buffer:
+nmap td :bd<CR> 
+" force close buffer: 
+nmap tD :bd!<CR> 
+" open new file:
 map tt :Lf<CR>
-nmap . :bnext<CR> " next buffer
-nmap , :bprevious<CR> " previous buffer
+" next buffer:
+nmap . :bnext<CR>
+" previous buffer:
+nmap , :bprevious<CR> 
 
 " Insert lines
 nmap = o<Esc>79a=<Esc>0
