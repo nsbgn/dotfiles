@@ -17,15 +17,24 @@ call plug#begin(stdpath('data') . '/plugged')
     let g:lf_command_override = 'lf -command "map e; map i; map w"'
 
     " Autocompletion
-    " Also needs pip3 install pynvim
+    " Also needs `pip3 install pynvim`
     Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
     " IDE capabilities for vim through LSP
-    "Plug 'https://github.com/dense-analysis/ale'
     Plug 'https://github.com/autozimu/LanguageClient-neovim.git', { 'branch': 'next', 'do': 'bash install.sh' }
+    "Plug 'https://github.com/liuchengxu/vista.vim'
+
+    " Manage Pandoc files
+    "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
+    
+    " Distraction-free writing
+    Plug 'https://github.com/junegunn/goyo.vim'
 
     " Highlight Pandoc-flavoured Markdown
-    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git', { 'for': 'markdown' }
+    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+
+    " Floating windows like nvim >= 0.4
+    Plug 'https://github.com/ncm2/float-preview.nvim'
 
     " Highlight jq scripts
     Plug 'https://github.com/vito-c/jq.vim'
@@ -87,7 +96,6 @@ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
 if has("autocmd")
 
-
     au TermEnter * setlocal nonumber
     au TermLeave * setlocal number
 
@@ -126,9 +134,11 @@ let g:deoplete#enable_at_startup = 1
 " Default available sources: around, buffer, file, member, omni
 call deoplete#custom#option('sources', {
     \ '_':['file'], 
-    \ 'haskell':['file','LanguageClient','ale','ghc'], 
-    \ 'python':['file','LanguageClient','ale'], 
-    \ 'rust':['file','LanguageClient','ale'], 
+    \ 'haskell':['file','LanguageClient','ale','lsp','ghc'], 
+    \ 'python':['file','LanguageClient','ale','lsp'], 
+    \ 'rust':['file','LanguageClient','ale','lsp'], 
+    \ 'pandoc': ['file','omni'],
+    \ 'markdown': ['file','omni']
     \ })
 
 " Close preview when completion is done
@@ -138,7 +148,7 @@ call deoplete#custom#option('sources', {
 " Somehow I want to get documentation as I select autocompletions.
 " See issue at https://github.com/autozimu/LanguageClient-neovim/issues/875
 " Also - https://github.com/wincent/wincent/issues/78
-"autocmd CompleteChanged * call LanguageClient#completionItem_resolve()
+"autocmd CompleteChanged * call LanguageClient#completionItem_resolve(deepcopy(v:event)["completed_item"])
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP configuration
@@ -155,24 +165,50 @@ let g:LanguageClient_serverCommands = {
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pandoc. Mostly for the :TOC command and bibliography completion
+
+"let g:pandoc#modules#enabled = ["bibliographies", "completion", "toc", "hypertext"]
+"call deoplete#custom#var('omni', 'input_patterns', {
+"    \ 'pandoc': '@'
+"    \})
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use :Goyo to toggle goyo
+" Quit with :q even when goyo is active
+
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keybindings
 
 nmap ; :
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nmap zr :call LanguageClient#textDocument_rename()<CR> " rename current symbol
-nmap zk :call LanguageClient#textDocument_hover()<CR> " show hover information (documentation etc)
+nmap zi :call LanguageClient#textDocument_hover()<CR> " show hover information (documentation etc)
 nmap zd :call LanguageClient#textDocument_definition()<CR> " go to definition of current symbol
-nmap zt :call LanguageClient#textDocument_typeDefinition()<CR> " goto type definition
-nmap zi :call LanguageClient#textDocument_implementation()<CR> " goto implementation 
-nmap zr :call LanguageClient#textDocument_references()<CR> " list where current symbol is referenced
+nmap zk :call LanguageClient#textDocument_references()<CR> " list where current symbol is referenced
 nmap zs :call LanguageClient#textDocument_documentSymbol()<CR> " list symbols in the document
-
-"nmap zr :call ALERename()<CR> " rename current symbol
-"nmap zk :call ALEHover()<CR> " show hover information (documentation etc)
-"nmap zd :call ALEGoToDefinition()<CR> " go to definition of current symbol
-"nmap zr :call ALEFindReferences()<CR> " list where current symbol is referenced
-"nmap zs :call ALESymbolSearch()<CR> " list symbols in the document
 
 " Navigating buffers
 nmap td :bd<CR> " close buffer
