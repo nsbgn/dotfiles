@@ -9,6 +9,9 @@ f="${1}"
 # - Is X running? (xset q &>/dev/null)
 
 case $(file --dereference --mime-type "$f" -b) in
+    inode/directory)
+        lf "$f"
+        ;;
     inode/x-empty) 
         nvim "$f" 
         ;;
