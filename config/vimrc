@@ -15,9 +15,8 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/rbgrouleff/bclose.vim'
 
     " Autocompletion (also needs `pip3 install pynvim`)
-    "Plug 'https://github.com/Shougo/deoplete.nvim', 
-    "    \ { 'do': ':UpdateRemotePlugins' }
-    "    \ , 'for': ['haskell', 'python', 'rust'] }
+    Plug 'https://github.com/Shougo/deoplete.nvim', 
+        \ { 'do': ':UpdateRemotePlugins' }
 
     " IDE capabilities for vim through LSP
     Plug 'https://github.com/autozimu/LanguageClient-neovim.git', 
@@ -144,7 +143,8 @@ endif
 
 if PlugLoaded('deoplete.nvim')
 
-    let g:deoplete#enable_at_startup = 1
+    "let g:deoplete#enable_at_startup = 1
+    nmap <F7> :call deoplete#toggle()<CR>
 
     set completeopt+=menuone " show completions even if there is only one option
     set completeopt+=noinsert " don't auto-insert until selection
