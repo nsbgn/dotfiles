@@ -12,6 +12,7 @@ PACKAGES=(
     fonts-inconsolata # Monospace font
     xfonts-terminus # Monospace bitmap font
     fonts-font-awesome # Icon font
+    fonts-powerline # Coding fonts
     fonts-nanum # Korean font
     fonts-nanum-coding # Korean monospace font
 
