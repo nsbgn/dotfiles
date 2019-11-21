@@ -27,7 +27,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
 
     " Floating windows for previews in nvim >= 0.4
-    "Plug 'https://github.com/ncm2/float-preview.nvim'
+    Plug 'https://github.com/ncm2/float-preview.nvim'
 
     " Navigate symbols in the document
     "Plug 'https://github.com/liuchengxu/vista.vim'
@@ -149,7 +149,6 @@ if PlugLoaded('deoplete.nvim')
     set completeopt+=menuone " show completions even if there is only one option
     set completeopt+=noinsert " don't auto-insert until selection
     set completeopt+=noselect " don't autoselect a match
-    set completeopt+=preview " show extra information
     set shortmess+=c " hide 'match x of y' message
 
     " Set sources for autocompletion
@@ -204,6 +203,14 @@ if PlugLoaded('lf.vim')
     " and not to start other programs within the lf session
     let g:lf_command_override = 'lf -command "map e; map i; map w"'
 endif
+
+if PlugLoaded('float-preview.nvim')
+    set completeopt-=preview " extra info will now be shown in floating window
+    let g:float_preview#docked = 1
+    let g:float_preview#max_height = 50
+    "let g:float_preview#max_width = 80
+endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keybindings
