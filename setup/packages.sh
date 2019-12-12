@@ -128,6 +128,7 @@ PACKAGES=(
     libglib2.0-bin # Includes gio for trashing files from command line
     libimage-exiftool-perl # Inspect EXIF data of media files
     epub-utils # Contains einfo, for inspecting EPUB metadata
+    dict dictd dict-gcide dict-freedict-{fra-nld,deu-nld,eng-nld,eng-deu,eng-fra} # Dictionaries + 
 
     # File conversion tools
     pandoc pandoc-citeproc # Document converter
