@@ -16,9 +16,10 @@ lxpolkit & # policy kit
 dunst & # notification daemon
 unclutter -root -idle 2 & # hide mouse when not in use for two seconds
 redshift & # nighttime screen colours
-urxvtd -q -f -o # terminal daemon
-lf -server # file manager daemon
+urxvtd -q -f -o & # terminal daemon
+lf -server & # file manager daemon
 dmenu-mpv --initialise & # mpv daemon
+
 #polybar i3 & # status bar
 #nm-applet & # network manager applet
 #blueman-applet & # bluetooth manager applet
