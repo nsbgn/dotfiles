@@ -1,5 +1,5 @@
 # Set background color, dmenu theme and path for dmenu_run
-xsetroot -solid '#2f343f'
+#xsetroot -solid '#2f343f'
 xrdb $HOME/.Xresources # load Xresources
 
 # Set battery and power adapter names

@@ -1,3 +1,4 @@
+URxvt.internalBorder: 5
 urxvt.fontold: xft:Inconsolata:pixelsize=20
 urxvt.boldFontoldj: xft:Inconsolata:pixelsize=20:style=bold
 urxvt*font: xft:Dina:size=11

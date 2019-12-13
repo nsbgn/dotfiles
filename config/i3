@@ -14,21 +14,22 @@ exec --no-startup-id blueman-applet
 
 # Aesthetics ##################################################################
 
-set_from_resource $bg i3wm.bg #2f343f
+#set_from_resource $bg i3wm.bg #2f343f
+set $bg #000000
 set_from_resource $fg i3wm.fg #f3f4f5
 set_from_resource $bg-attn i3wm.bgalt #676e7d
 set_from_resource $fg-attn i3wm.fgalt #ffffff
 font pango:DejaVu Sans 10
 
 #                       border     background text      indicator  child-border
-client.focused          $bg-attn   $bg-attn   $fg-attn  $bg-attn   #00ff00 
+client.focused          $bg-attn   $bg-attn   $fg-attn  $bg-attn   #ffffff 
 client.unfocused        $bg        $bg        $fg       $bg-attn   $bg
 client.focused_inactive $bg        $bg        $fg       $bg-attn   $bg
 client.urgent           $bg-attn   $bg-attn   $fg-attn  $bg-attn   $bg
 
 #for_window [class="^.*$"] floating enable
-new_window pixel 1
-new_float pixel 1
+new_window pixel 2
+new_float pixel 2
 hide_edge_borders smart
 popup_during_fullscreen leave_fullscreen
 default_orientation horizontal

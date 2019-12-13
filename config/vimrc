@@ -2,7 +2,7 @@
 call plug#begin(stdpath('data') . '/plugged')
 
     " Color schemes
-    "Plug 'https://github.com/chriskempson/base16-vim'
+    Plug 'https://github.com/chriskempson/base16-vim'
 
     " Work with GPG-encrypted files
     Plug 'https://github.com/jamessan/vim-gnupg.git'
@@ -83,7 +83,8 @@ set textwidth=79
 set ruler
 
 " Show line numbers in left margin
-set number
+"set number
+set nonumber
 
 " Indentation behaviour
 set autoindent " Copy indentation from previous line
@@ -110,6 +111,11 @@ set clipboard=unnamedplus
 " Turn off background on the sign column (except when there are signs)  
 highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
+"set background=dark
+"let base16colorspace=256
+"colorscheme base16-woodland
+
+let g:netrw_browsex_viewer = "firefox"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File-specific configuration

@@ -1,6 +1,7 @@
 [colors]
 
-background = #2f343f
+#background = #2f343f
+background = #000000
 background-alt = #555555
 foreground = #f3f4f5
 foreground-alt = #ffffff
@@ -19,7 +20,7 @@ font-2 = FontAwesome 5 Free Regular:pixelsize=10;1
 font-3 = FontAwesome 5 Free Solid:pixelsize=10;1
 
 width = 100%
-height = 24
+height = 19
 
 padding-left = 0
 padding-right = 1
