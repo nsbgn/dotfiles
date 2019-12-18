@@ -17,7 +17,7 @@ export LOCALBUILDS=$HOME/.local-builds
 export SCANDIR=$HOME/post
 export LEDGER_FILE=$HOME/log/finance/personal-2019.ledger
 export LEDGER_PRICE_DB=$HOME/log/finance/pricedb.ledger
-#export DMENU_ARGS="-fn Inconsolata-15"  # -nb #2f343f -sb #676e7d -nf #f3f4f5 -sf #ffffff"
+export DMENU_ARGS="-fn Dina-10 -nb #000000 -sb #ffffff -nf #ffffff -sf #000000"
 
 # Source Nix environment
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ];
