@@ -1,6 +1,8 @@
 #!/bin/bash
 # Touchpad configuration
 # See "configuration details" of libinput
+set -euo pipefail
+IFS=$'\n\t'
 
 sudo tee '/usr/share/X11/xorg.conf.d/41-libinput.conf' << EOF
 Section "InputClass"

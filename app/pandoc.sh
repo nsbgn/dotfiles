@@ -1,5 +1,7 @@
 #!/bin/bash
 # Pandoc. The version in the debian repos is outdated
+set -euo pipefail
+IFS=$'\n\t'
 
 wget -O /tmp/pandoc.deb "$( \ 
     curl -s 'https://api.github.com/repos/jgm/pandoc/releases/latest' \

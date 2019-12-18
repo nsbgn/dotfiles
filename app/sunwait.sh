@@ -1,5 +1,7 @@
 #!/bin/bash
 # Sunwait - Calculating sunrise or sunset times
+set -euo pipefail
+IFS=$'\n\t'
 
 INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/sunwait"
 

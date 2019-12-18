@@ -1,5 +1,7 @@
 #!/bin/bash
 # Reimplementation of Rollercoaster Tycoon 2
+set -euo pipefail
+IFS=$'\n\t'
 
 INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/openrct2"
 

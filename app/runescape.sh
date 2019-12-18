@@ -1,5 +1,7 @@
 #!/bin/bash
 # Old school RuneScape client. Not free software!
+set -euo pipefail
+IFS=$'\n\t'
 
 INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/runescape"
 rm -rf "$INSTALL"

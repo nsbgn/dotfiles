@@ -1,6 +1,8 @@
 #!/bin/bash
 # Sets up a sandbox for Firefox (also helpful for other applications, see
 # manual and other resources) 
+set -euo pipefail
+IFS=$'\n\t'
 
 sudo apt install firejail
 

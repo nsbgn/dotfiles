@@ -1,5 +1,7 @@
 #!/bin/bash
 # polybar - Status bar
+set -euo pipefail
+IFS=$'\n\t'
 
 INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/polybar"
 

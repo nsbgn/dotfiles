@@ -1,5 +1,7 @@
 #!/bin/bash
 # Termite - Terminal emulator
+set -euo pipefail
+IFS=$'\n\t'
 
 TERMITE="${LOCALBUILDS:-$HOME/.local-builds}/termite"
 VTE="${LOCALBUILDS:-$HOME/.local-builds}/vte-ng"

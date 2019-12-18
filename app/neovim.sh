@@ -2,6 +2,8 @@
 # Neovim - Text editor
 # I need version >= 0.4 for floating windows and better LSP support
 # Id rather not use AppImages, but in this case it's easier.
+set -euo pipefail
+IFS=$'\n\t'
 
 /usr/bin/wget "$( \
     curl -s 'https://api.github.com/repos/neovim/neovim/releases/latest' \

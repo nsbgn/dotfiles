@@ -1,5 +1,7 @@
 #!/bin/bash
 # Installs lots of packages
+set -euo pipefail
+IFS=$'\n\t'
 
 PACKAGES=(
     # Theme & fonts
@@ -252,6 +254,7 @@ PACKAGES=(
     wesnoth # Turn-based fantasy strategy
     flightgear # Flight simulator
     assaultcube # WWII shooter
+    openttd # transport tycoon deluxe
 
     # Laptop-specific applications
     tlp # Laptop power saving (auto)

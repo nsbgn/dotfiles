@@ -2,6 +2,8 @@
 # Lock on suspend
 # See https://wiki.archlinux.org/index.php/Power_management#Sleep_hooks
 # See https://askubuntu.com/questions/263867/ubuntu-suspend-works-only-once-through-lid-close
+set -euo pipefail
+IFS=$'\n\t'
 
 sudo tee '/etc/systemd/system/suspend@.service' << EOF
 [Unit]

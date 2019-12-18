@@ -1,6 +1,8 @@
 #!/bin/bash
 # ms-sys - For Windows master boot record writing 
 # http://ms-sys.sourceforge.net/
+set -euo pipefail
+IFS=$'\n\t'
 
 INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/ms-sys"
 
