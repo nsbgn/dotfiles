@@ -5,7 +5,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-/usr/bin/wget "$( \
+/usr/bin/wget -O ~/.local/bin/nvim "$( \
     curl -s 'https://api.github.com/repos/neovim/neovim/releases/latest' \
     | jq -r '.assets[] | select(.name=="nvim.appimage") | .browser_download_url' \
 )"
