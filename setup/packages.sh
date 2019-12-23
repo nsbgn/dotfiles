@@ -112,6 +112,7 @@ PACKAGES=(
     chafa # Image-to-text converter for terminal
     hexyl # Hex output
     concalc # Command-line calculator
+    arbtt # Rule-based time tracker
 
     # File & filesystem tools
     util-linux # System utilities like checking filesystem, block devices, etc
