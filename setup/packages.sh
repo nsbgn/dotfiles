@@ -7,8 +7,7 @@ PACKAGES=(
     # Theme & fonts
     lxappearance # Changing GTK themes
     menulibre # Menu editor
-    arc-theme # GTK theme
-    faenza-icon-theme # Icon theme
+    #{faenza,numix,papirus}-icon-theme # Icon theme
     dmz-cursor-theme # White cursor theme
     fonts-dejavu # Standard font
     fonts-inconsolata # Monospace font
@@ -38,21 +37,20 @@ PACKAGES=(
     simple-scan # Scan GUI utility
 
     # System utilities & window managers
-    gpp # General purpose preprocessor
-    glyrc # Music metadata finder for CLI
+    #gpp # General purpose preprocessor
+    #glyrc # Music metadata finder for CLI
     rxvt-unicode # Terminal emulator
-    qemu qemu-kvm # Virtualization (like VirtualBox or VMWare)
-    virt-manager # Virtualization (like VirtualBox or VMWare)
+    qemu qemu-kvm virt-manager # Virtualization (like VirtualBox or VMWare)
     git tig # Version control system & ncurses interface
     subversion # Version control system
-    taskwarrior vit # Todo list & ncurses interface
+    #taskwarrior vit # Todo list & ncurses interface
     ledger # Budgetting software. see also hledger and hledger-ui 
     pass # Simple password manager based on gnupg
     lxpolkit # Just a small policykit thing
-    bspwm # Tiling window manager
+    #bspwm # Tiling window manager
     i3-wm # Tiling window manager
-    dvtm # Tiling window manager for the terminal
-    byobu # Tiling window manager for the terminal
+    #dvtm # Tiling window manager for the terminal
+    #byobu # Tiling window manager for the terminal
     screen # Attach and detach from terminal sessions
     tmux # Attach and detach from terminal sessions/tiling for terminal
     x11-utils # X querying utilities (xev, xprop, etc)
@@ -71,7 +69,7 @@ PACKAGES=(
     suckless-tools # Tiny single-purpose software, like dmenu (generic menu)
     rover # Terminal update-alternatives frontent
     rofi # Generic menu
-    surf # Small web browser - just used for small tasks when firefox isn't needed
+    #surf # Small web browser
     i3lock # Screen locker
     dunst # Notification daemon
     alsa-utils # Audio configuration
@@ -82,7 +80,7 @@ PACKAGES=(
     file-roller # Integration of archives into file managers
     scrot # Screenshot application
     xfce4-screenshooter # Screenshot application
-    wakeonlan # See https://wiki.debian.org/WakeOnLan
+    #wakeonlan # See https://wiki.debian.org/WakeOnLan
     ntp # Time daemon to automatically set time
     lm-sensors # Temperature sensors, etc
     htop # System monitor
@@ -118,7 +116,7 @@ PACKAGES=(
     util-linux # System utilities like checking filesystem, block devices, etc
     gparted # Partition editor
     rsync # Synchronise files
-    secure-delete # Delete files securely, like shred
+    secure-delete # Delete files & directories securely, like shred
     cryptsetup # Encrypt filesystems
     gnupg # Encrypt files and emails
     pmount # Mount filesystems as normal user
@@ -172,46 +170,46 @@ PACKAGES=(
     sxiv # Image viewer
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
     fbreader # Ebook reader
-    ebook-speaker # Ebook speaker
+    #ebook-speaker # Ebook speaker
 
     # Editors
     vim{,-gui-common,-pathogen} # Text editor
     kakoune # Another text editor
     inkscape # Vector graphics
     gimp # Image editor
-    krita # Image editor
+    #krita # Image editor
     mkvtoolnix{,-gui} # MKV media container editor
     sigil # Ebook editor
     sqlitebrowser # SQLite database editor
     puddletag # Audio tag editor
-    scribus # Document publishing
-    blender # 3D modeller/renderer
+    #scribus # Document publishing
+    #blender # 3D modeller/renderer
     fontforge # Font editor
     subtitleeditor # Subtitle editor
-    meld # Graphical tool to diff files
+    #meld # Graphical tool to diff & merge files
     gpick # Color picker
 
     # GUI alternatives
-    synaptic # Package manager
-    gnome-software # Software center
+    #synaptic # Package manager
+    #gnome-software # Software center
     gnome-packagekit # Package manager, update notifier (see update-notifier)
     software-properties-gtk # Manage repositories
     pcmanfm # File manager
-    claws-mail # Email application
+    #claws-mail # Email application
     evince # PDF viewer
-    geany # Generic text editor/IDE
-    ristretto # Image viewer
+    #geany # Generic text editor/IDE
     lxterminal # Terminal emulator
+    #ristretto # Image viewer
 
     # Messaging
     neomutt # E-mail client
-    notmuch # Email search
-    mailsync # Sync IMAP mails
-    weechat # IRC client
+    #notmuch # Email search
+    #mailsync # Sync IMAP mails
+    #weechat # IRC client
     telegram-desktop # Chat application
     jami # Distributed chat & video client
     #qtox # Distributed chat & video client
-    utox # Distrubted chat & video client
+    #utox # Distrubted chat & video client
 
     # Downloading
     httrack # Website downloader
@@ -221,23 +219,23 @@ PACKAGES=(
     # Science
     texlive{,-latex-extra,-fonts-extra} # Document typesetting
     libreoffice-{impress,calc,writer,gtk3} # Word processor
-    marble # Map software
-    qmapshack # GPS map manager
     r-base # R statistical analysis software
-    pspp # Statistical analysis software (SPSS replacement)
     gnuplot # Plotting graphics
-    qgis # Geographic Information System 
-    saga # System for automated geoscientific analysis
-    ossim-core
-    scilab # MATLAB-like numerical analysis software
-    octave # MATLAB-compatible numerical analysis software
-    transcriber # For transcribing speech
+    #transcriber # Help transcribing speech
+    #marble # Map software
+    #qmapshack # GPS map manager
+    #pspp # Statistical analysis software (SPSS replacement)
+    #qgis # Geographic Information System 
+    #saga # System for automated geoscientific analysis
+    #ossim-core
+    #scilab # MATLAB-like numerical analysis software
+    #octave # MATLAB-compatible numerical analysis software
 
     # Emulators
     dolphin-emu # Wii and Gamecube emulator
     mednafen # Multisystem emulator (SNES, GameBoy, Sega, Playstation…)
     mgba-qt # GameBoy (Advance) emulator
-    mupen64plus-ui-console cen64 # Nintendo 64 emulator
+    mupen64plus-ui-console cen64 # Nintendo 64 emulators
     pcsxr # PlayStation emulator
     pcsx2:i386 # PlayStation 2 emulator
     desmume # Nintendo DS emulator
@@ -247,15 +245,10 @@ PACKAGES=(
     # Games
     0ad # Strategy game
     openmw # Role playing game (reimplementation of Morrowind, no data files)
-    quake quake2 quake3 quake4 # Classic shooter (no data files)
     minetest # Minecraft clone
-    supertuxkart # Mario Kart like game
     hedgewars # Worms clone
     freeciv # Civ 2 clone
-    wesnoth # Turn-based fantasy strategy
-    flightgear # Flight simulator
-    assaultcube # WWII shooter
-    openttd # transport tycoon deluxe
+    #flightgear # Flight simulator
 
     # Laptop-specific applications
     tlp # Laptop power saving (auto)
