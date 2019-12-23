@@ -1,7 +1,10 @@
 #!/bin/bash
-
-# General: https://ubuntuforums.org/showthread.php?t=2379657&p=13719125#post13719125
-# Ubuntu: https://ubuntuforums.org/showthread.php?t=2254322&page=178&p=13681047#post13681047
+# This makes the Asus X205TA netbook usable.
+# See for more documentation:
+# [General](https://ubuntuforums.org/showthread.php?t=2379657&p=13719125#post13719125)
+# [Ubuntu](https://ubuntuforums.org/showthread.php?t=2254322&page=178&p=13681047#post13681047)
+set -euo pipefail
+IFS=$'\n\t'
 
 # Add kernel parameter to prevent crashes
 sed --in-place 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 intel_idle.max_cstate=1 button.lid_init_state=open"/g' /etc/default/grub

@@ -1,5 +1,7 @@
 #!/bin/bash
 # This script sets the configuration for my AMD Radeon HD 7950.
+set -euo pipefail
+IFS=$'\n\t'
 
 # Check that SI support was on in the kernel
 if ! grep -q "^CONFIG_DRM_AMDGPU_SI=[y|Y]$" "/boot/config-$(uname -r)"; then

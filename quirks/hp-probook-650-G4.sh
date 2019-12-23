@@ -1,3 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
 sudo tee '/usr/share/X11/xorg.conf.d/20-intel.conf' << EOF
 Section "Device"
     Identifier "Intel Graphics"
