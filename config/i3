@@ -56,7 +56,7 @@ bindsym $super+$alt+equal exec --no-startup-id xbacklight +2%
 bindsym $super+y exec notify-send "$(xcwd.sh)"
 bindsym $super+t exec urxvtc -cd "$(xcwd.sh)"
 
-bindsym $super+f fullscreen disable; exec urxvtc -e "$HOME/.go/bin/lf $(xcwd.sh)"
+bindsym $super+f fullscreen disable; exec urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
 
 bindsym $super+r fullscreen disable; exec "cd $(xcwd.sh); zathura"
 bindsym $super+g fullscreen disable; exec firefox
