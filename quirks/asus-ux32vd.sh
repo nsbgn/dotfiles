@@ -1,4 +1,7 @@
 #!/bin/bash
+# This makes the Asus UX32VD Zenbook usable.
+set -euo pipefail
+IFS=$'\n\t'
 
 ###############################################################################
 # Power saving
