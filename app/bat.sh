@@ -4,4 +4,5 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+sudo apt install llvm clang
 cargo install bat
