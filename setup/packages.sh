@@ -16,6 +16,7 @@ PACKAGES=(
     fonts-powerline # Coding fonts
     fonts-nanum # Korean font
     fonts-nanum-coding # Korean monospace font
+    fonts-gnutypewriter # Typewriter font
 
     # Drivers
     xserver-xorg xinit x11-common # X display server
@@ -111,6 +112,7 @@ PACKAGES=(
     hexyl # Hex output
     concalc # Command-line calculator
     arbtt # Rule-based time tracker
+    pdd # Stopwatch, time diff calculator
 
     # File & filesystem tools
     util-linux # System utilities like checking filesystem, block devices, etc
@@ -230,6 +232,8 @@ PACKAGES=(
     #ossim-core
     #scilab # MATLAB-like numerical analysis software
     #octave # MATLAB-compatible numerical analysis software
+    #kalzium # KDE 
+    #gperiodic # Periodic table application
 
     # Emulators
     dolphin-emu # Wii and Gamecube emulator
