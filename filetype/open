@@ -35,8 +35,30 @@ case $(file --dereference --mime-type "$f" -b) in
         sxiv -a "$f" "$(dirname "$f")" &
         ;;
     application/epub+zip) 
-        mupdf "$f" &
+        mupdf -r 70 "$f" &
         #epr "$f" within terminal
+        ;;
+    application/zip)
+        EXT="$(echo "${f##*.}" | tr '[:upper:]' '[:lower:]')"
+        case $EXT in
+            cbz)
+                zathura "$f" &
+                ;;
+            *)
+                xdg-open "$f"
+                ;;
+        esac
+        ;;
+    application/x-rar)
+        EXT="$(echo "${f##*.}" | tr '[:upper:]' '[:lower:]')"
+        case $EXT in
+            cbr)
+                zathura "$f" &
+                ;;
+            *)
+                xdg-open "$f"
+                ;;
+        esac
         ;;
     application/pdf) 
         zathura "$f" &
@@ -57,6 +79,9 @@ case $(file --dereference --mime-type "$f" -b) in
                 kiwix-desktop "$f"
             ;;
         esac
+        ;;
+    message/rfc822)
+        kmail --view "$f" &
         ;;
     *)
         xdg-open "$f"
