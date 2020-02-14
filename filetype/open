@@ -63,20 +63,33 @@ case $(file --dereference --mime-type "$f" -b) in
     application/pdf) 
         zathura "$f" &
         ;;
-    application/x-gba-rom|application/x-gameboy-rom)
-        mgba -C "savegamePath=$HOME/.gamestates" -C "savestatePath=$HOME/.gamestates" "$f" &
-        ;;
     application/x-wii-rom)
         dolphin-emu --exec="$f" &
         ;;
-    application/zlib)
-        zsnes -m "$f" &
+    application/x-gba-rom|application/x-gameboy-rom)
+        retroarch \
+            -L "/usr/lib/x86_64-linux-gnu/libretro/mgba_libretro.so" "$f"
+        ;;
+    application/x-n64-rom)
+        retroarch \
+            -L "/usr/lib/x86_64-linux-gnu/libretro/mupen64plus_libretro.so" "$f"
+        ;;
+    application/x-nintendo-ds-rom)
+        retroarch \
+            -L "/usr/lib/x86_64-linux-gnu/libretro/desmume_libretro.so" "$f"
+        ;;
+    application/x-nes-rom)
+        retroarch \
+            -L "/usr/lib/x86_64-linux-gnu/libretro/nestopia_libretro.so" "$f"
         ;;
     application/octet-stream)
         EXT="$(echo "${f##*.}" | tr '[:upper:]' '[:lower:]')"
         case $EXT in
             zim)
                 kiwix-desktop "$f"
+            ;;
+            sfc)
+                retroarch -L "/usr/lib/x86_64-linux-gnu/libretro/bsnes_mercury_balanced.so" "$f"
             ;;
         esac
         ;;
