@@ -40,6 +40,7 @@ PACKAGES=(
     # System utilities & window managers
     #gpp # General purpose preprocessor
     #glyrc # Music metadata finder for CLI
+    command-not-found # Suggest packages to install for missing commands
     rxvt-unicode # Terminal emulator
     qemu qemu-kvm virt-manager # Virtualization (like VirtualBox or VMWare)
     git tig # Version control system & ncurses interface

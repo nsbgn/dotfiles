@@ -29,7 +29,7 @@ case $(file --dereference --mime-type "$f" -b) in
         timidity "$f"
         ;;
     audio/*) 
-        mpv "$f"
+        mpv --no-audio-display "$f"
         ;;
     image/*) 
         sxiv -a "$f" "$(dirname "$f")" &
@@ -88,7 +88,7 @@ case $(file --dereference --mime-type "$f" -b) in
             zim)
                 kiwix-desktop "$f"
             ;;
-            sfc)
+            sfc|smc)
                 retroarch -L "/usr/lib/x86_64-linux-gnu/libretro/bsnes_mercury_balanced.so" "$f"
             ;;
         esac

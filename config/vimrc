@@ -89,6 +89,7 @@ set nonumber
 " Indentation behaviour
 set autoindent " Copy indentation from previous line
 set expandtab " Convert tabs to spaces
+set tabstop=4
 set shiftwidth=4 " Number of characters for indentation (> and <)
 set softtabstop=4 " Tab and backspace insert and delete correct number of spaces
 
@@ -135,10 +136,17 @@ if has("autocmd")
     augroup END
 
     augroup latex    
-        au! BufNewFile,BufRead,BufNewFile *.tex set filetype=tex
+        au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
         autocmd FileType tex setlocal conceallevel=0
         autocmd FileType tex setlocal textwidth=78
         autocmd FileType tex setlocal formatoptions+=a formatoptions+=w
+    augroup END
+
+    augroup haskell
+        au! BufNewFile,BufFilePre,BufRead *.hs set filetype=haskell
+        autocmd FileType haskell setlocal tabstop=2
+        autocmd FileType haskell setlocal shiftwidth=2
+        autocmd FileType haskell setlocal softtabstop=2
     augroup END
 
 endif
