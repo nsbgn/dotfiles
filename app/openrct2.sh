@@ -1,5 +1,6 @@
 #!/bin/bash
-# Reimplementation of Rollercoaster Tycoon 2
+# openrct2 - Reimplementation of Rollercoaster Tycoon 2
+# See https://openrct2.org/
 set -euo pipefail
 IFS=$'\n\t'
 

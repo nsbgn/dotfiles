@@ -4,4 +4,4 @@ set -euo pipefail
 IFS=$'\n\t'
 
 sudo apt install golang
-go get -u github.com/charmbracelet
+go get -u github.com/charmbracelet/glow
