@@ -3,6 +3,11 @@
 
 [ -z "$1" ] && exit 1
 
+if [ -z "${FANCY_PREVIEW}" ]; then
+    head -n 80 "$1"
+    exit
+fi
+
 FILE="${1}"
 EXT="$(echo "${FILE##*.}" | tr '[:upper:]' '[:lower:]')"
 
