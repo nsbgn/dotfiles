@@ -47,6 +47,7 @@ PACKAGES=(
     subversion # Version control system
     #taskwarrior vit # Todo list & ncurses interface
     ledger # Budgetting software. see also hledger and hledger-ui 
+    rename # Like `rename 's/S([0-9]*)E([0-9]*) (.*)/$1x$2 $3/g' *.mkv`
     pass # Simple password manager based on gnupg
     lxpolkit # Just a small policykit thing
     #bspwm # Tiling window manager
