@@ -76,6 +76,18 @@ function split {
     cuetag.sh "$1" split-*.flac
 }
 
+function compress-pdf {
+    gs \
+        -sDEVICE=pdfwrite \
+        -dCompatibilityLevel=1.4 \
+        -dPDFSETTINGS=/screen \
+        -dNOPAUSE \
+        -dQUIET \
+        -dBATCH \
+        -sOutputFile="compressed-$1" \
+        "$1"
+}
+
 # Show directory in title bar
 if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' -o $TERM == 'rxvt-unicode' ]; then
     PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
