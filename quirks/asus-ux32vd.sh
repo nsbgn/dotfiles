@@ -65,8 +65,9 @@ sudo update-grub
 #Apparently, there's a problem with 11n since wireless works fine with the following:
 #rmmod iwlwifi ; modprobe iwlwifi 11n_disable=1
 #So, permanently disable it: 
-# echo "options iwlwifi 11n_disable=1" > /etc/modprobe.d/51-disable-6235-11n.conf
-
+sudo tee -a /etc/modprobe.d/51-disable-6235-11n.conf << EOF
+options iwlwifi 11n_disable=1
+EOF
 
 ###############################################################################
 # External mic
