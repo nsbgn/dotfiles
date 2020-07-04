@@ -13,13 +13,14 @@ alias vim="nvim"
 alias forget="echo RELOADAGENT | gpg-connect-agent"
 alias ledger="ledger --strict -f $LEDGER_FILE"
 alias ls="ls --color=always"
+alias du="ncdu"
 alias trash="gio trash"
 alias supertrash="srm -l"
 alias l="vim $LEDGER_FILE"
 alias ll="ledger --market balance ^assets ^liabilities"
 alias composetable="cat /usr/share/X11/locale/$LANG/Compose"
 alias cal="ncal -w -M -A 2"
-alias c="concalc"
+alias c="kalk_cli"
 alias t="vim $HOME/log/todo.md"
 alias u="sudo apt update; sudo apt upgrade"
 alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
@@ -46,16 +47,42 @@ function d {
     fi
 }
 
+# Create a markdown entry with the current date.
+function entry {
+if [ $# -gt 0 ]; then
+tee $(d "$@") << EOF
+---
+title: $@
+date: $(date +'%Y-%m-%d')
+author: $USER
+tags: []
+---
+
+…
+EOF
+fi
+}
+
+
 # I like to keep a list of my media
 function mkdb {
-    LOC="$HOME/log/database"
+    LOC="$HOME/log/.media-database.txt"
     MUS="$HOME/data/audio/music"
     DOC="$HOME/data/documents"
     VID="$HOME/data/video"
 
-    find $MUS -mindepth 2 -maxdepth 2 -type d | cut -d'/' -f 7- | sort > $LOC/music.txt
-    find $DOC -mindepth 2 -type f | cut -d'/' -f 6- | sort > $LOC/literature.txt
-    find $VID -mindepth 2 -type f -not -path '*/\.*' | cut -sd / -f 6- | sort > $LOC/film.txt
+    echo "Music" > "$LOC"
+    echo "===" >> "$LOC"
+    find $MUS -mindepth 2 -maxdepth 2 -type d | cut -d'/' -f 7- | sort >> "$LOC"
+    echo >> "$LOC"
+    echo "Literature" >> "$LOC"
+    echo "===" >> "$LOC"
+    find $DOC -mindepth 2 -type f | cut -d'/' -f 6- | sort >> "$LOC"
+    echo >> "$LOC"
+    echo "Videos" >> "$LOC"
+    echo "===" >> "$LOC"
+    find $VID -mindepth 2 -type f -not -path '*/\.*' | cut -sd / -f 6- \
+        | sort >> "$LOC"
 }
 
 function findsize {
