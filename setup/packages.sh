@@ -109,6 +109,8 @@ PACKAGES=(
     playerctl # Control MPRIS media players
     asciinema # Record terminal sessions
     fd-find # Alternative to the `find` command
+    ncdu # See size of direcotries
+    tldr # Quickly see how to use a command
     ripgrep # Search directories for a regex pattern
     chafa # Image-to-text converter for terminal
     hexyl # Hex output
