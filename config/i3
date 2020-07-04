@@ -38,7 +38,6 @@ workspace_layout default
 
 # Running ####################################################################
 
-bindsym $super+k exec sh -c "uuidgen -r | xdotool type --clearmodifiers --file -"
 bindsym $super+x kill
 bindsym $super+semicolon exec cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS
 bindsym $super+Escape exec dmenu-system

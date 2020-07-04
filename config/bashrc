@@ -41,7 +41,7 @@ alias open-ports="sudo netstat -pln"
 
 # Add date to a title and remove spaces
 function d {
-    TITLE=$(echo $@ | tr ' ' '-')
+    TITLE=$(echo $@ | tr ' [:upper:]' '-[:lower:]')
     if ! (echo "${TITLE}" | grep -q '^[0-9]\{8\}'); then
         echo "$(date +'%Y%m%d')-${TITLE}"
     fi
@@ -50,11 +50,12 @@ function d {
 # Create a markdown entry with the current date.
 function entry {
 if [ $# -gt 0 ]; then
-tee $(d "$@") << EOF
+tee "$(d "$@").md" << EOF
 ---
 title: $@
 date: $(date +'%Y-%m-%d')
 author: $USER
+uuid: $(uuidgen -r)
 tags: []
 ---
 
