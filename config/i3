@@ -38,6 +38,7 @@ workspace_layout default
 
 # Running ####################################################################
 
+bindsym $super+k exec sh -c "uuidgen -r | xdotool type --clearmodifiers --file -"
 bindsym $super+x kill
 bindsym $super+semicolon exec cd "$(xcwd)" && dmenu_run -p "$(dirs +0) $" $DMENU_ARGS
 bindsym $super+Escape exec dmenu-system
@@ -83,7 +84,7 @@ bindsym $super+$alt+Return floating toggle
 bindsym $super+q           fullscreen disable; focus parent
 bindsym $super+e           fullscreen disable; focus child
 bindsym $super+j split vertical
-bindsym $super+alt+j layout stacked; move up; focus down; layout splitv
+bindsym $super+$alt+j layout stacked; move up; focus down; layout splitv
 #bindsym $super+y layout tabbed
 bindsym $super+u layout splitv
 bindsym $super+h layout splith
