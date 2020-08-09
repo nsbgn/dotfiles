@@ -1,5 +1,5 @@
 #!/bin/bash
-# Make /tmp a tmpfs
+# Make /tmp a temporary file system
 set -euo pipefail
 IFS=$'\n\t'
 

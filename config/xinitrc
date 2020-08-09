@@ -2,6 +2,10 @@
 #xsetroot -solid '#2f343f'
 xrdb $HOME/.Xresources # load Xresources
 
+# for siji
+xset +fp /home/niels/.local/share/fonts
+xset fp rehash
+
 # Set battery and power adapter names
 export POWER_ADAPTER="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
     | xargs -I{} sh -c "grep -qw {}/type -e Mains && echo {}" \

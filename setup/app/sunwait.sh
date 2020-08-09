@@ -1,5 +1,5 @@
 #!/bin/bash
-# Sunwait - Calculating sunrise or sunset times
+# sunwait - Calculating sunrise or sunset times
 set -euo pipefail
 IFS=$'\n\t'
 

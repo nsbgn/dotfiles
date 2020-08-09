@@ -1,6 +1,8 @@
+Xcursor.theme: Chicago95 Standard Cursors
 URxvt.internalBorder: 5
+#urxvt*font: xft:Inconsolata:size=15
+#urxvt*font: xft:Dina:size=10
 urxvt*font: xft:Dina:size=10
-urxvt*boldFont: xft:Dina:size=10:style=bold
 urxvt*foreground: white
 urxvt*background: black
 urxvt*scrollBar: false

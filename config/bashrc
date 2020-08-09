@@ -10,6 +10,7 @@ shopt -s checkwinsize
 shopt -s globstar
 
 alias vim="nvim"
+alias e="pdentry"
 alias forget="echo RELOADAGENT | gpg-connect-agent"
 alias ledger="ledger --strict -f $LEDGER_FILE"
 alias ls="ls --color=always"
@@ -46,24 +47,6 @@ function d {
         echo "$(date +'%Y%m%d')-${TITLE}"
     fi
 }
-
-# Create a markdown entry with the current date.
-function entry {
-if [ $# -gt 0 ]; then
-tee "$(d "$@").md" << EOF
----
-title: $@
-date: $(date +'%Y-%m-%d')
-author: $USER
-uuid: $(uuidgen -r)
-tags: []
----
-
-…
-EOF
-fi
-}
-
 
 # I like to keep a list of my media
 function mkdb {
@@ -142,9 +125,9 @@ done
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 gitBranch='$(__git_ps1)'
-export COLOR_NC='\e[0m' # No Color
-export COLOR_LIGHT_GRAY='\e[0;37m'
-export PS1="\[$COLOR_LIGHT_GRAY\]\W$gitBranch \$ \[$COLOR_NC\]\[$(tput sgr0)\]" # [\u@\h]
+export COLOR_NORMAL='\e[0m' # No color
+export COLOR_PROMPT='\e[0;37m' # Light gray
+export PS1="\[$COLOR_NORMAL\]\W$gitBranch \$ \[$COLOR_NORMAL\]\[$(tput sgr0)\]" # [\u@\h]
 
 # I'm not entirely sure why, but the completion isn't picked up automatically.
 # For now I'll do it manually but I really need to clean up my shell

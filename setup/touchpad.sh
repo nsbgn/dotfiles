@@ -1,5 +1,5 @@
 #!/bin/bash
-# Touchpad configuration
+# Set up touchpad configuration for two finger scrolling and tap clicking
 # See "configuration details" of libinput
 set -euo pipefail
 IFS=$'\n\t'

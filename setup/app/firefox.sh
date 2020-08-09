@@ -1,5 +1,5 @@
 #!/bin/bash
-# Firefox - Web browser
+# firefox - Web browser
 set -euo pipefail
 IFS=$'\n\t'
 

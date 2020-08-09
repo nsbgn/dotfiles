@@ -1,5 +1,5 @@
 #!/bin/bash
-# Print HTML to PDF. Alternative to wkhtmltopdf
+# weasyprint - Print HTML to PDF. Alternative to wkhtmltopdf
 set -euo pipefail
 IFS=$'\n\t'
 

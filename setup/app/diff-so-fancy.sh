@@ -1,5 +1,5 @@
 #!/bin/bash
-# Diffs with diff within lines too
+# diff-so-fancy - Diffs with diff within lines too
 # See https://github.com/so-fancy/diff-so-fancy
 set -euo pipefail
 IFS=$'\n\t'

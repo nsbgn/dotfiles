@@ -7,7 +7,7 @@ PACKAGES=(
     # Theme & fonts
     lxappearance # Changing GTK themes
     menulibre # Menu editor
-    #{faenza,numix,papirus}-icon-theme # Icon theme
+    faenza-icon-theme # Icon theme
     dmz-cursor-theme # White cursor theme
     fonts-dejavu # Standard font
     fonts-inconsolata # Monospace font
@@ -35,7 +35,7 @@ PACKAGES=(
     cups-bsd enscript # CLI printing
     system-config-printer gtklp # Printer configuration
     sane-utils # Contains "scanimage" for scanning
-    simple-scan # Scan GUI utility
+    simple-scan # GUI scan utility
 
     # System utilities & window managers
     #gpp # General purpose preprocessor
@@ -166,6 +166,7 @@ PACKAGES=(
     parchive # Archives for data repair
     dtrx atool zip unzip p7zip-full bzip2 rpm unar # Extract/compress archives
     xz-utils xzdec # XZ-format compression and decompression
+    python3-breadability # Readability implementation in python
 
     # Media
     firefox-esr # Web browser. Current version not from repositories
@@ -205,7 +206,8 @@ PACKAGES=(
     evince # PDF viewer
     #geany # Generic text editor/IDE
     lxterminal # Terminal emulator
-    #ristretto # Image viewer
+    mirage # Image viewer
+    nomacs # Image viewer
 
     # Messaging
     neomutt # E-mail client
@@ -221,6 +223,7 @@ PACKAGES=(
     httrack # Website downloader
     transmission-{gtk,cli} # BitTorrent client
     nicotine # Soulseek client
+    syncthing # Decentralized synchronization of directories between devices
 
     # Science
     texlive{,-latex-extra,-fonts-extra} # Document typesetting

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Command-line bibliography manager
+# pubs - Command-line bibliography manager
 # See https://github.com/pubs/pubs
 #
 # It's very convenient to manage references and associated documents on the

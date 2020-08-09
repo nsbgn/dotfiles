@@ -1,7 +1,7 @@
 # The ~/.profile file is a good place to put environment variables. This file
 # is not read by bash if ~/.bash_profile or ~/.bash_login exists.
 
-export PATH=$HOME/.npm-global/bin:/usr/local/bin:/usr/local/go/bin:$HOME/projects/dotfiles/filetype:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin:/opt/firefox
+export PATH=$HOME/.npm-global/bin:/usr/local/bin:/usr/local/go/bin:$HOME/projects/scripts:$HOME/.local/bin:$PATH:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin:/opt/firefox
 export GOPATH=$HOME/.go
 export EDITOR=nvim
 export PRINTER="HL1110"

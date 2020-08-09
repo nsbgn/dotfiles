@@ -1,5 +1,6 @@
 #!/bin/bash
-# Pandoc. The version in the debian repos is outdated
+# pandoc - Document conversion
+# The version in the debian repos is outdated
 set -euo pipefail
 IFS=$'\n\t'
 

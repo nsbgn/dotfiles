@@ -6,6 +6,7 @@ set $down s
 set $left a
 set $right d
 
+#exec --no-startup-id xfce4-panel --disable-wm-check
 exec --no-startup-id polybar i3
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet

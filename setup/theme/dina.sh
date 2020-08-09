@@ -1,5 +1,5 @@
 #!/bin/bash
-# Dina - Font
+# Dina - Monospace bitmap font
 set -euo pipefail
 IFS=$'\n\t'
 
