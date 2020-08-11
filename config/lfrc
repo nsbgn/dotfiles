@@ -19,9 +19,9 @@ cmd trash ${{
         && gio trash $fx
 }}
 
-# Creating a new directory
+# Creating a new directory or file
 cmd mkdir %mkdir -p "$(echo $* | tr ' ' '\ ')"
-cmd mkfile %touch "$(echo $* | tr ' ' '\ ')"
+cmd mkfile %file-new "$(echo $* | tr ' ' '\ ')"
 
 # File opening
 cmd open ${{ file-open "$f" }}

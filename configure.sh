@@ -10,9 +10,10 @@ function link {
 }
 
 # Make expected XDG directories
-mkdir -p ~/.templates ~/.public ~/data/{downloads,documents,audio/music,pictures,video}
+mkdir -p ~/.public ~/data/{downloads,documents,audio/music,pictures,video}
 
 # Link configuration files to the ones in this repository
+link templates                          ~/.templates
 link config/gtk2                        ~/.gtkrc-2.0
 link config/gtk3                        ~/.config/gtk-3.0/settings.ini
 link config/bashrc                      ~/.bashrc
