@@ -1,5 +1,6 @@
 # Set background color, dmenu theme and path for dmenu_run
 #xsetroot -solid '#2f343f'
+xsetroot -solid '#008080'
 xrdb $HOME/.Xresources # load Xresources
 
 # for siji
