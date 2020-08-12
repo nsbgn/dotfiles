@@ -1,86 +1,22 @@
-# append to the history file, don't overwrite it
-shopt -s histappend
+shopt -s histappend # append to the history file, don't overwrite it
+shopt -s checkwinsize # update values of LINES and COLUMNS if winsize changes
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# Show directory in title bar
+if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
+    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
+fi
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-shopt -s globstar
+# Git prompt. Wrap non-printables in \[\], see unix.stackexchange.com/q/105958
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+export PS1="\W\$(__git_ps1) \$ \[$(tput sgr0)\]" # [\u@\h]
 
-alias vim="nvim"
-alias e="pdentry"
-alias forget="echo RELOADAGENT | gpg-connect-agent"
-alias ledger="ledger --strict -f $LEDGER_FILE"
-alias ls="ls --color=always"
-alias du="ncdu"
-alias trash="gio trash"
-alias supertrash="srm -l"
-alias l="vim $LEDGER_FILE"
-alias ll="ledger --market balance ^assets ^liabilities"
-alias composetable="cat /usr/share/X11/locale/$LANG/Compose"
-alias cal="ncal -w -M -A 2"
-alias c="kalk_cli"
-alias t="vim $HOME/log/todo.md"
-alias u="sudo apt update; sudo apt upgrade"
-alias thumb="convert cover.* -resize 96x96! -quality 65% \"folder.jpg\""
-alias flac2mp3="parallel -j4 ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: *.flac"
-alias tz="sudo dpkg-reconfigure tzdata"
-alias yt-subs="youtube-dl --all-subs --convert-subs srt --skip-download"
-alias router="sudo route -n"
-alias index="tree -f -J -D --timefmt '%Y%m%d%H%M'"
-alias find-nocover="find . -mindepth 2 -maxdepth 2 -type d '!' -exec test -e "{}/cover.jpg" ';' -print"
-alias remove-exif="exiftool -all='' "
-alias keygen="ssh-keygen -C "$(whoami)@$(hostname)-$(date -I)""
-alias compress-pdf="gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=compressed.pdf"
-alias fd="fdfind"
-alias rtv="rtv --enable-media"
-alias open-ports="sudo netstat -pln"
+source "$HOME/.bash_aliases"
+source /etc/bash_completion
+eval "$(register-python-argcomplete3 pubs)" # ~/.local/bin/pubs adds layer of
+# indirection, hiding "PYTHON_ARGCOMPLETE_OK" (kislyuk.github.io/argcomplete)
 
-##############################################################################
-
-# Add date to a title and remove spaces
-function d {
-    TITLE=$(echo $@ | tr ' [:upper:]' '-[:lower:]')
-    if ! (echo "${TITLE}" | grep -q '^[0-9]\{8\}'); then
-        echo "$(date +'%Y%m%d')-${TITLE}"
-    fi
-}
-
-# I like to keep a list of my media
-function mkdb {
-    LOC="$HOME/log/.media-database.txt"
-    MUS="$HOME/data/audio/music"
-    DOC="$HOME/data/documents"
-    VID="$HOME/data/video"
-
-    echo "Music" > "$LOC"
-    echo "===" >> "$LOC"
-    find $MUS -mindepth 2 -maxdepth 2 -type d | cut -d'/' -f 7- | sort >> "$LOC"
-    echo >> "$LOC"
-    echo "Literature" >> "$LOC"
-    echo "===" >> "$LOC"
-    find $DOC -mindepth 2 -type f | cut -d'/' -f 6- | sort >> "$LOC"
-    echo >> "$LOC"
-    echo "Videos" >> "$LOC"
-    echo "===" >> "$LOC"
-    find $VID -mindepth 2 -type f -not -path '*/\.*' | cut -sd / -f 6- \
-        | sort >> "$LOC"
-}
-
-function findsize {
-    find "$@" -print0 | du --files0-from=- -hc
-}
-
-# For cleaning up trashed mail files
-function clean-mail {
-    find ~/post/email -maxdepth 1 -name '*@*' -type d \
-        | xargs -I{} find {} -iname ',*' \
-        | xargs -I{} gio trash {}
-}
-
-# Change the directory upon quitting lf
+# Change directory after browsing with file manager `lf`
 function lf {
     $(which lf) -last-dir-path="/tmp/lfdir" "$@"
     dir="$(cat /tmp/lfdir)"
@@ -88,48 +24,3 @@ function lf {
         cd "$dir"
     fi
 }
-
-# Split FLAC according to CUE file
-function split {
-    cuebreakpoints "$1" | shnsplit -o flac "$2"
-    cuetag.sh "$1" split-*.flac
-}
-
-function compress-pdf {
-    gs \
-        -sDEVICE=pdfwrite \
-        -dCompatibilityLevel=1.4 \
-        -dPDFSETTINGS=/screen \
-        -dNOPAUSE \
-        -dQUIET \
-        -dBATCH \
-        -sOutputFile="compressed-$1" \
-        "$1"
-}
-
-# Show directory in title bar
-if [ ! -z $TERM -a $TERM == 'rxvt-unicode-256color' -o $TERM == 'rxvt-unicode' ]; then
-    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
-fi
-
-# Show git information in prompt
-# Keep in mind https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
-for SRC in \
-        /etc/bash_completion.d/git-prompt \
-        /usr/share/git/completion/git-prompt.sh; do
-    if [ -f $SRC ]; then
-        source $SRC
-        break
-    fi
-done
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-gitBranch='$(__git_ps1)'
-export COLOR_NORMAL='\e[0m' # No color
-export COLOR_PROMPT='\e[0;37m' # Light gray
-export PS1="\[$COLOR_NORMAL\]\W$gitBranch \$ \[$COLOR_NORMAL\]\[$(tput sgr0)\]" # [\u@\h]
-
-# I'm not entirely sure why, but the completion isn't picked up automatically.
-# For now I'll do it manually but I really need to clean up my shell
-source /etc/bash_completion
-eval "$(register-python-argcomplete3 pubs)"
