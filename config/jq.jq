@@ -1,3 +1,12 @@
+# Convert number to hexadecimals
+def hex:
+    def aux:
+        if (. / 16|floor) > 0 then (./16|floor|aux) else empty end,
+        [range(48;58), range(65;71)][. % 16]
+    ;
+    [aux] | "0x" + implode 
+;
+
 # Format a date into its wordy equivalent.
 def format_date:
     try

@@ -7,29 +7,17 @@ export EDITOR=nvim
 export PRINTER="HL1110"
 export BROWSER=firefox
 export CLICOLOR=1
-export HISTCONTROL=ignoreboth:erasedups
-export HISTSIZE=1000
-export HISTFILESIZE=2000
-
-# Use fancy programs for preview
-export FANCY_PREVIEW=yes
-
-export MYPY_CACHE_DIR=/tmp/mypycache
-
-export LOCALBUILDS=$HOME/.local-builds
-export SCANDIR=$HOME/post
-export LEDGER_FILE=$HOME/log/finance/personal-2019.ledger
-export LEDGER_PRICE_DB=$HOME/log/finance/pricedb.ledger
 export DMENU_ARGS="-fn Dina-10 -nb #000000 -sb #ffffff -nf #ffffff -sf #000000"
+export MYPY_CACHE_DIR=/tmp/mypycache
+export LOCALBUILDS=$HOME/.builds
+export LEDGER=$HOME/log/finance/personal.ledger
 
-# Source Nix environment
-if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
-    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
-fi
-
-# If running bash
 if [ -n "$BASH_VERSION" -a -e "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
+fi
+
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
 
 # Autostart X on login, but only if system has just booted, to avoid loops
