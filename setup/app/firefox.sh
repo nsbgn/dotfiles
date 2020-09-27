@@ -12,3 +12,6 @@ sudo apt install firefox-esr
 
 declare -a ADDONS=( umatrix ublock-origin decentraleyes vim-vixen fire2000 )
 ADDONS=("${ADDONS[@]/#/'https://addons.mozilla.org/firefox/addon/'}")
+
+
+# Could also use webext-ublock-origin webext-umatrix
