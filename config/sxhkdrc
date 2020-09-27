@@ -1,0 +1,115 @@
+# wm independent hotkeys
+
+# terminal emulator
+super + t
+	urxvtc -cd $(xcwd.sh)
+
+super + g
+	firefox
+
+super + f
+	urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
+
+super + m
+	urxvtc -e mutt
+
+super + r 
+	cd $(xcwd.sh); zathura
+
+super + c
+	telegram-desktop
+
+super + backslash
+	toggle-pointer
+
+Print
+	scrot "$HOME/screen-%Y-%m-%dT%H-%M-%S.png"
+
+super + {minus,equal}
+	amixer -q sset Master 3%{-,+}
+
+super + alt + {minus,equal}
+	xbacklight {-,+}2%
+
+super + l
+	dmenu-thesaurus
+
+super + i
+	dmenu-pass
+
+super + {_,alt} + p
+	{dmenu-mpv,playerctl --player=mpv play-pause}
+
+XF86Audio{Prev,Next,Pause,Play}
+	playerctl --player=mpv {previous,next,pause,play}
+
+super + semicolon
+	dmenu_run
+
+super + Escape
+	dmenu-system
+
+super + x
+	bspc node -c
+
+#############################
+# bspwm hotkeys
+
+# make sxhkd reload its configuration files:
+super + shift + Escape
+	pkill -USR1 -x sxhkd
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# close and kill
+#super + {_,shift + }w
+#	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + @space
+	bspc desktop --layout next
+
+# swap the current node and the biggest window
+#super + d
+#	bspc node -s biggest.window
+
+# state/flags
+
+# focus/swap the node in the given direction
+super + {_,alt + }{a,s,w,d,q,e}
+	bspc node --{focus,swap} {west,south,north,east,@parent,@first}
+
+# Send node
+super + shift + {a,s,w,d}
+	bsp-arrange {west,south,north,east}
+
+# focus/swap the desktop in the given direction
+super + {_,alt +}{comma,period}
+	bspc desktop --{focus,bubble} {prev,next}
+
+# focus the node for the given path jump
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+#super + {_,shift + }c
+#	bspc node -f {next,prev}.local.!hidden.window
+
+# focus/send to given desktop
+super + {_,alt} + {1-9,0}
+#	send={false,true}; \
+#	d="^{1-9,10}"; \
+#	if ! bspc query --desktops --desktop "$d" 2> /dev/null; then d="$(uuidgen | cut -d'-' -f1)"; bspc monitor --add-desktops "$d"; fi; \
+#	if $send; then bspc node --to-desktop "$d" --follow; else bspc desktop --focus "$d"; fi; \
+#	for b in $(bspc query --desktops --desktop '.!occupied.!focused'); do bspc desktop "$b" --remove; done
+
+
+super + {1-9,0} + {_, alt}
+	desktop="^{1-9,10}"; \
+	if ! bspc query --desktops --desktop "$desktop" 2> /dev/null 1> /dev/null; then \
+		desktop="$(uuidgen | cut -d'-' -f1)"; \
+		bspc monitor --add-desktops "$desktop"; \
+	fi; \
+	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}

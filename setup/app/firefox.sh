@@ -10,6 +10,5 @@ sudo apt install firefox-esr
 #    && sudo rm -rf /opt/firefox \
 #    && sudo tar xjf /tmp/firefox.tar.bz2 -C/opt
 
-declare -a ADDONS=( umatrix ublock-origin decentraleyes vim-vixen )
+declare -a ADDONS=( umatrix ublock-origin decentraleyes vim-vixen fire2000 )
 ADDONS=("${ADDONS[@]/#/'https://addons.mozilla.org/firefox/addon/'}")
-

@@ -1,11 +1,4 @@
-# Set background color, dmenu theme and path for dmenu_run
-#xsetroot -solid '#2f343f'
-xsetroot -solid '#008080'
 xrdb $HOME/.Xresources # load Xresources
-
-# for siji
-xset +fp /home/niels/.local/share/fonts
-xset fp rehash
 
 # Set battery and power adapter names
 export POWER_ADAPTER="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
@@ -25,9 +18,4 @@ urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon
 dmenu-mpv --initialise & # mpv daemon
 
-#polybar i3 & # status bar
-#nm-applet & # network manager applet
-#blueman-applet & # bluetooth manager applet
-exec i3
-#exec startxfce4
-#exec openbox
+exec bspwm

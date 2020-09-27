@@ -26,6 +26,8 @@ link config/vimrc                       ~/.config/nvim/init.vim
 link config/muttrc                      ~/.muttrc
 link config/mailcap                     ~/.mailcap
 link config/gitconfig                   ~/.gitconfig
+link config/sxhkdrc                     ~/.config/sxhkd/sxhkdrc
+link config/bspwmrc                     ~/.config/bspwm/bspwmrc
 link config/lfrc                        ~/.config/lf/lfrc
 link config/zathurarc                   ~/.config/zathura/zathurarc
 link config/i3                          ~/.config/i3/config

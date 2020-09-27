@@ -1,9 +1,14 @@
 [colors]
 
 #background = #2f343f
-background = #000000
+
+background = #c0c0c0
+
+
+#background = #008080
 background-alt = #555555
-foreground = #f3f4f5
+foreground = #000000
+#foreground = #ffffff
 foreground-alt = #ffffff
 primary = #ffb52a
 secondary = #e60053
@@ -17,25 +22,24 @@ secondary = #e60053
 
 
 [bar/base]
+bottom = true
 background = ${colors.background}
 foreground = ${colors.foreground}
+
+border-top-size = 1
+border-top-color = #fafafa
 
 # For some reason, using pixelsize instead of size wrecks the fonts on Debian
 #font-0 = Dina:size=8;0
 font-0 = MS Sans Serif:size=8;0
-#font-0 = DejaVu Book:fontformat=truetype:size=10;0
-font-1 = FontAwesome:pixelsize=12;1
-#font-1 = Siji:pixelsize=12;1
-#font-2 = FontAwesome 5 Free Regular:pixelsize=10;1
-#font-3 = FontAwesome 5 Free Solid:pixelsize=10;1
+font-1 = FontAwesome:antialias=false:pixelsize=11;1
+font-2 = Unifont:pixelsize=10;1
 
 width = 100%
-height = 19
+height = 24
 
-padding-left = 0
+padding-left = 2
 padding-right = 0
-padding-top = 3
-padding-bottom = 0
 
 tray-position = right
 tray-padding = 3
@@ -44,8 +48,7 @@ tray-maxsize = 21
 module-margin-left = 1
 module-margin-right = 2
 
-modules-left = xwindow  
-modules-center = 
+modules-left = xwindow
 modules-right = mpris xbacklight pulseaudio battery date mouselock
 
 enable-ipc = true
@@ -62,6 +65,7 @@ modules-left = i3 xwindow
 [bar/bspwm]
 inherit = bar/base
 modules-left = bspwm xwindow 
+#bspfocus
 wm-restack = bspwm
 
 
@@ -70,6 +74,11 @@ type = custom/script
 exec = dmenu-mpv --monitor
 tail = true
 click-left = dmenu-mpv --toggle
+
+[module/bspfocus]
+type = custom/script
+exec = bspc subscribe node_focus | while read event monitor desktop node; do echo $node; done
+tail = true
 
 
 [module/mouselock]
@@ -86,58 +95,47 @@ label = %title:0:120:...%
 
 [module/bspwm]
 type = internal/bspwm
+format = <label-state><label-mode>
 
-# %index%: %name%
-label-focused = 
-label-focused-padding = 2
+label-separator = "   "
+label-separator-foreground = #606060
+
+# 
+label-empty = "%name%"
+label-empty-foreground = #c0c0c0
+label-empty-background = #606060
+
+# 
+label-focused = "%name%"
+#label-focused-foreground = #000000
+
+label-focused-foreground = #c0c0c0
+label-focused-background = #000000
+
 
 #label-occupied = 
-label-occupied = 
-label-occupied-padding = 2
-
-label-urgent = 
-label-urgent-background = ${colors.primary}
-label-urgent-padding = 2
-
-label-empty = 
-label-empty-padding = 2
+# 
+label-occupied = "%name%"
+label-occupied-foreground = #c0c0c0
+label-occupied-background = #606060
 
 
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = true
-wrapping-scroll = false
+# 
+label-urgent = "%name%"
+label-urgent-foreground = #ffffff
+label-urgent-background = #000080
 
-label-mode-padding = 2
-label-mode-foreground = #000
-label-mode-background = ${colors.primary}
-
-; focused = Active workspace on focused monitor
-label-focused = %index%
-label-focused-foreground = ${colors.foreground-alt}
-label-focused-background = ${colors.background-alt}
-label-focused-underline = ${colors.primary}
-label-focused-padding = 2
-
-; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
-label-unfocused-padding = 2
-
-; visible = Active workspace on unfocused monitor
-label-visible = %index%
-label-visible-padding = 2
-
-; urgent = Workspace with urgency hint set
-label-urgent = %index%
-label-urgent-background = ${colors.primary}
-label-urgent-padding = 2
+label-empty-padding = 1
+label-focused-padding = 1
+label-occupied-padding = 1
+label-urgent-padding = 1
 
 
 [module/xbacklight]
 type = internal/xbacklight
 format = <label>
 label = " %percentage%%"
+#label = " %percentage%%"
 
 
 [module/date]
@@ -146,19 +144,21 @@ interval = 15
 #date = "%Y-%m-%d"
 #time = "%a %H:%M"
 #label = " %time%    %date%"
-date = "%Y/%m/%d %a"
+date = "%Y-%m-%d %a"
 time = "%H:%M"
-label = " %date% %time% "
+label = "%date% %time% "
+#label = " %date% %time% "
+format = " <label>"
 
 
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <ramp-volume> <label-volume>
+label-muted = " muted"
 label-volume = "%percentage%%"
 ramp-volume-0 =  
 ramp-volume-1 =  
 ramp-volume-2 =  
-label-muted = " muted"
 
 [module/battery]
 type = internal/battery
@@ -180,6 +180,8 @@ ramp-capacity-4 = 
 
 
 [settings]
+
+; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = true
 
 

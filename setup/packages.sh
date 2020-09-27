@@ -114,6 +114,8 @@ PACKAGES=(
     ripgrep # Search directories for a regex pattern
     chafa # Image-to-text converter for terminal
     hexyl # Hex output
+    hexer # Hex editing
+    wuzz # interactive HTTP request inspection tool
     concalc # Command-line calculator
     arbtt # Rule-based time tracker
     pdd # Stopwatch, time diff calculator
@@ -194,7 +196,9 @@ PACKAGES=(
     fontforge # Font editor
     subtitleeditor # Subtitle editor
     #meld # Graphical tool to diff & merge files
+    icdiff # Terminal side-by-side diff
     gpick # Color picker
+    kdenlive # Video editing software
 
     # GUI alternatives
     #synaptic # Package manager
@@ -208,6 +212,8 @@ PACKAGES=(
     lxterminal # Terminal emulator
     mirage # Image viewer
     nomacs # Image viewer
+    scantailor # Book digitization
+    libtiff-tools # tiff2pdf
 
     # Messaging
     neomutt # E-mail client
@@ -218,6 +224,9 @@ PACKAGES=(
     jami # Distributed chat & video client
     #qtox # Distributed chat & video client
     #utox # Distrubted chat & video client
+    nheko # Distributed chat client for Matrix
+    #spectral # Distributed chat client for Matrix
+    #quaternion # Distributed chat client for Matrix
 
     # Downloading
     httrack # Website downloader

@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# Fix issue with Java applications not resizing
+wmname LG3D
+
+xsetroot -cursor_name left_ptr
+xsetroot -solid '#000000'
+bspc config border_width 1
+bspc config window_gap 5
+bspc config normal_border_color '#404040' # '#104010' # '#c0c0c0'
+bspc config focused_border_color '#ffffff' # '#50a050' # '#80ff80'
+
+bspc config split_ratio 0.6
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config paddingless_monocle false
+bspc config single_monocle true
+bspc config directional_focus_tightness high
+bspc config initial_polarity second_child
+bspc config automatic_scheme alternate # not in debian buster's bspwm version
+bspc config removal_adjustment true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+autorun(){
+    if ! pidof -x "$1" > /dev/null; then
+        "$@" &
+    fi
+}
+
+
+autorun bspwm-desktop-title
+autorun bspwm-desktop-clean
+
+autorun sxhkd
+autorun nm-applet
+autorun blueman-applet
+autorun polybar bspwm
