@@ -1,73 +1,72 @@
-[colors]
-
-#background = #2f343f
-
+[color]
 background = #c0c0c0
-
-
-#background = #008080
-background-alt = #555555
 foreground = #000000
-#foreground = #ffffff
-foreground-alt = #ffffff
-primary = #ffb52a
-secondary = #e60053
-
-#background = #c0c0c0
-#background-alt = #000080
-#foreground = #000000
-#foreground-alt = #ffffff
-#primary = #ffffff
-#secondary = #000000
-
+border = #fafafa
+active = #000000
+inactive = #606060
+selection = #000080
 
 [bar/base]
-bottom = true
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-border-top-size = 1
-border-top-color = #fafafa
-
-# For some reason, using pixelsize instead of size wrecks the fonts on Debian
-#font-0 = Dina:size=8;0
 font-0 = MS Sans Serif:size=8;0
 font-1 = FontAwesome:antialias=false:pixelsize=11;1
 font-2 = Unifont:pixelsize=10;1
-
+background = ${color.background}
+foreground = ${color.foreground}
+border-top-color = ${color.border}
+border-top-size = 1
 width = 100%
 height = 24
-
+bottom = true
 padding-left = 2
 padding-right = 0
-
 tray-position = right
 tray-padding = 3
 tray-maxsize = 21
-
 module-margin-left = 1
 module-margin-right = 2
-
 modules-left = xwindow
 modules-right = mpris xbacklight pulseaudio battery date mouselock
-
 enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-
-[bar/i3]
-inherit = bar/base
-modules-left = i3 xwindow 
-;wm-restack = i3
-
-
 [bar/bspwm]
 inherit = bar/base
-modules-left = bspwm xwindow 
-#bspfocus
+modules-left = bspwm xwindow
 wm-restack = bspwm
 
+[module/bspwm]
+; empty circle:  ; full circle:  ; dotted: 
+type = internal/bspwm
+format = <label-state><label-mode>
+label-separator = "  "
+label-separator-foreground = ${color.inactive}
+label-empty = "%name%"
+label-empty-padding = 1
+label-empty-foreground = ${color.background}
+label-empty-background = ${color.inactive}
+label-focused = "%name%"
+label-focused-padding = 1
+label-focused-foreground = ${color.background}
+label-focused-background = ${color.active}
+label-occupied = "%name%"
+label-occupied-padding = 1
+label-occupied-foreground = ${color.background}
+label-occupied-background = ${color.inactive}
+label-urgent = "%name%"
+label-urgent-padding = 1
+label-urgent-foreground = ${color.background}
+label-urgent-background = ${color.selection}
+
+[module/bspwmfocus]
+type = custom/script
+exec = bspc subscribe node_focus | while read event monitor desktop node; do echo $node; done
+tail = true
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <label>
+label = " %percentage%%"
 
 [module/mpris]
 type = custom/script
@@ -75,81 +74,23 @@ exec = dmenu-mpv --monitor
 tail = true
 click-left = dmenu-mpv --toggle
 
-[module/bspfocus]
-type = custom/script
-exec = bspc subscribe node_focus | while read event monitor desktop node; do echo $node; done
-tail = true
-
-
 [module/mouselock]
 type = custom/ipc
 hook-0 = echo ""
 hook-1 = echo ""
 initial = 2
 
-
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:120:...%
-
-
-[module/bspwm]
-type = internal/bspwm
-format = <label-state><label-mode>
-
-label-separator = "   "
-label-separator-foreground = #606060
-
-# 
-label-empty = "%name%"
-label-empty-foreground = #c0c0c0
-label-empty-background = #606060
-
-# 
-label-focused = "%name%"
-#label-focused-foreground = #000000
-
-label-focused-foreground = #c0c0c0
-label-focused-background = #000000
-
-
-#label-occupied = 
-# 
-label-occupied = "%name%"
-label-occupied-foreground = #c0c0c0
-label-occupied-background = #606060
-
-
-# 
-label-urgent = "%name%"
-label-urgent-foreground = #ffffff
-label-urgent-background = #000080
-
-label-empty-padding = 1
-label-focused-padding = 1
-label-occupied-padding = 1
-label-urgent-padding = 1
-
-
-[module/xbacklight]
-type = internal/xbacklight
-format = <label>
-label = " %percentage%%"
-#label = " %percentage%%"
-
+label = %title:0:150:...%
 
 [module/date]
 type = internal/date
 interval = 15
-#date = "%Y-%m-%d"
-#time = "%a %H:%M"
-#label = " %time%    %date%"
 date = "%Y-%m-%d %a"
 time = "%H:%M"
 label = "%date% %time% "
-#label = " %date% %time% "
 format = " <label>"
-
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -178,12 +119,9 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-
 [settings]
-
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = true
-
 
 [global/wm]
 margin-top = 2

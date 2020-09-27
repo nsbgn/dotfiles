@@ -1,19 +1,10 @@
 Xcursor.theme: Chicago95 Standard Cursors
 URxvt.internalBorder: 10
-# urxvt*font: xft:Inconsolata:size=15
-# urxvt*font: xft:Dina:size=10
-# urxvt*font: -slavfox-Cozette-Medium-R-Normal--13-120-75-75-M-60-ISO10646-1
-urxvt*font: xft:Dina:size=10
+URxvt.font: xft:Dina:size=10
 URxvt.depth: 32
-urxvt*foreground: white
-urxvt*background: [80]#000000
-urxvt*scrollBar: false
-*fg: #f3f4f5
-*bg: #2f343f
-*fgalt: #ffffff
-*bgalt: #555555
-*primary: #ffb52a
-*secondary: #e60053
+URxvt.foreground: white
+URxvt.background: [80]#000000
+URxvt.scrollBar: false
 *color0:  #2E3436
 *color1:  #a40000
 *color2:  #4E9A06
