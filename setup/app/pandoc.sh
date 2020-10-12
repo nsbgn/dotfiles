@@ -1,6 +1,6 @@
 #!/bin/bash
 # pandoc - Document conversion
-# The version in the debian repos is outdated
+# The version in Debian buster is outdated; need >2.8
 set -euo pipefail
 IFS=$'\n\t'
 

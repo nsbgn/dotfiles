@@ -1,5 +1,7 @@
 #!/bin/bash
 # bspwm - window manager
+# The version in the Debian buster repos is too outdated; I want to set the
+# automatic scheme
 set -euo pipefail
 
 sudo apt install libxcb-xinerama0-dev libxcb-keysyms1-dev
