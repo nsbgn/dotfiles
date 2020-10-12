@@ -65,8 +65,8 @@ super + {_,alt + }{a,s,w,d,q,e}
 	bspc node --{focus,swap} {west,south,north,east,@parent,@first}
 
 # send node
-super + shift + {a,s,w,d}
-	bsp-arrange {west,south,north,east}
+super + ctrl + {a,s,w,d}
+	bspwm-push {west,south,north,east}
 
 # increase window size ratio
 super + {_,alt} + Return

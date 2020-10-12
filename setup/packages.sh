@@ -1,12 +1,10 @@
 #!/bin/bash
 # Installs lots of packages
 set -euo pipefail
-IFS=$'\n\t'
 
 PACKAGES=(
     # Theme & fonts
     lxappearance # Changing GTK themes
-    menulibre # Menu editor
     faenza-icon-theme # Icon theme
     dmz-cursor-theme # White cursor theme
     fonts-dejavu # Standard font
@@ -16,7 +14,6 @@ PACKAGES=(
     fonts-powerline # Coding fonts
     fonts-nanum # Korean font
     fonts-nanum-coding # Korean monospace font
-    fonts-gnutypewriter # Typewriter font
 
     # Drivers
     xserver-xorg xinit x11-common # X display server
@@ -38,13 +35,10 @@ PACKAGES=(
     simple-scan # GUI scan utility
 
     # System utilities & window managers
-    #gpp # General purpose preprocessor
     #glyrc # Music metadata finder for CLI
     command-not-found # Suggest packages to install for missing commands
     rxvt-unicode # Terminal emulator
-    qemu qemu-kvm virt-manager # Virtualization (like VirtualBox or VMWare)
     git tig # Version control system & ncurses interface
-    subversion # Version control system
     #taskwarrior vit # Todo list & ncurses interface
     ledger # Budgetting software. see also hledger and hledger-ui 
     rename # Like `rename 's/S([0-9]*)E([0-9]*) (.*)/$1x$2 $3/g' *.mkv`
@@ -72,7 +66,6 @@ PACKAGES=(
     suckless-tools # Tiny single-purpose software, like dmenu (generic menu)
     rover # Terminal update-alternatives frontent
     rofi # Generic menu
-    #surf # Small web browser
     i3lock # Screen locker
     dunst # Notification daemon
     alsa-utils # Audio configuration
@@ -88,7 +81,7 @@ PACKAGES=(
     lm-sensors # Temperature sensors, etc
     htop # System monitor
     net-tools # Contains ifconfig, netstat, route ...
-    nethogs # Network monitor 
+    nethogs # Network monitor
     pv # Meter data that is passed through UNIX pipeline
     socat # Communicate with sockets
     parallel # Execute commands in parallel
@@ -116,7 +109,6 @@ PACKAGES=(
     hexyl # Hex output
     hexer # Hex editing
     wuzz # interactive HTTP request inspection tool
-    concalc # Command-line calculator
     arbtt # Rule-based time tracker
     pdd # Stopwatch, time diff calculator
 
@@ -150,6 +142,7 @@ PACKAGES=(
     libvips # Fast conversion and batch editing of images
     paperkey # Dump secret information of gnupg keys for backup
     pdf2djvu # Conversion of PDF to DJVU
+    libtiff-tools # tiff2pdf
     webp # Convert WebP pictures
     ebook2epub # Conversion of various ebook formats to EPUB
     jp2a # Convert JPEG images to ASCII
@@ -170,7 +163,7 @@ PACKAGES=(
     xz-utils xzdec # XZ-format compression and decompression
     python3-breadability # Readability implementation in python
 
-    # Media
+    # Media, software suites
     firefox-esr # Web browser. Current version not from repositories
     mpv # Media player
     vlc # Media player
@@ -179,9 +172,6 @@ PACKAGES=(
     sxiv # Image viewer
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
     fbreader # Ebook reader
-    #ebook-speaker # Ebook speaker
-
-    # Editors
     vim{,-gui-common,-pathogen} # Text editor
     kakoune # Another text editor
     inkscape # Vector graphics
@@ -191,16 +181,12 @@ PACKAGES=(
     sigil # Ebook editor
     sqlitebrowser # SQLite database editor
     puddletag # Audio tag editor
-    #scribus # Document publishing
-    #blender # 3D modeller/renderer
     fontforge # Font editor
     subtitleeditor # Subtitle editor
     #meld # Graphical tool to diff & merge files
     icdiff # Terminal side-by-side diff
     gpick # Color picker
     kdenlive # Video editing software
-
-    # GUI alternatives
     #synaptic # Package manager
     #gnome-software # Software center
     gnome-packagekit # Package manager, update notifier (see update-notifier)
@@ -209,13 +195,15 @@ PACKAGES=(
     #claws-mail # Email application
     evince # PDF viewer
     #geany # Generic text editor/IDE
-    lxterminal # Terminal emulator
+    lxterminal # Terminal emulatou
     mirage # Image viewer
-    nomacs # Image viewer
     scantailor # Book digitization
-    libtiff-tools # tiff2pdf
+    httrack # Website downloader
+    transmission-{gtk,cli} # BitTorrent client
+    nicotine # Soulseek client
+    syncthing # Decentralized synchronization of directories between devices
 
-    # Messaging
+    # Communication
     neomutt # E-mail client
     #notmuch # Email search
     #mailsync # Sync IMAP mails
@@ -227,12 +215,6 @@ PACKAGES=(
     nheko # Distributed chat client for Matrix
     #spectral # Distributed chat client for Matrix
     #quaternion # Distributed chat client for Matrix
-
-    # Downloading
-    httrack # Website downloader
-    transmission-{gtk,cli} # BitTorrent client
-    nicotine # Soulseek client
-    syncthing # Decentralized synchronization of directories between devices
 
     # Science
     texlive{,-latex-extra,-fonts-extra} # Document typesetting
@@ -250,25 +232,17 @@ PACKAGES=(
     #octave # MATLAB-compatible numerical analysis software
     #kalzium # KDE 
     #gperiodic # Periodic table application
+    #scribus # Document publishing
+    #blender # 3D modeller/renderer
 
-    # Emulators
+    # Emulators & games
     dolphin-emu # Wii and Gamecube emulator
-    mednafen # Multisystem emulator (SNES, GameBoy, Sega, Playstation…)
-    mgba-qt # GameBoy (Advance) emulator
-    mupen64plus-ui-console cen64 # Nintendo 64 emulators
-    pcsxr # PlayStation emulator
     pcsx2:i386 # PlayStation 2 emulator
     desmume # Nintendo DS emulator
     retroarch libretro-bsnes-mercury-balanced libretro-beetle-psx
     libretro-desmume libretro-mgba libretro-mupen64plus libretro-nestopia
-
-    # Games
     0ad # Strategy game
     openmw # Role playing game (reimplementation of Morrowind, no data files)
-    minetest # Minecraft clone
-    hedgewars # Worms clone
-    freeciv # Civ 2 clone
-    #flightgear # Flight simulator
 
     # Laptop-specific applications
     tlp # Laptop power saving (auto)
@@ -289,10 +263,6 @@ PACKAGES=(
     phantomjs # Headless browser with JavaScript API
     sassc # SASS CSS precompiler
     bison # YACC parser generator
-
-    # Libraries
-    python3-bs4 python3-lxml # For the thesaurus script
-    dbus-x11 # Contains dbus-launch, which I use for mpris stuff
 )
 
 # Install packages
@@ -301,7 +271,7 @@ sudo apt update
 sudo apt install "${PACKAGES[@]}"
 
 # Change pinentry from terminal to GTK
-sudo update-alternatives --set pinentry /usr/bin/pinentry-gtk-2 
+sudo update-alternatives --set pinentry /usr/bin/pinentry-gtk-2
 
 # Turn off services
 sudo systemctl disable smbd
