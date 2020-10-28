@@ -25,3 +25,10 @@ function lf {
         cd "$dir"
     fi
 }
+
+# Create and open new files in one swoop
+function o {
+if [ ! -z "${1:-}" ]; then
+    file-new "$1" && file-open "$1"
+fi
+}
