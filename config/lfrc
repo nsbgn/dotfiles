@@ -5,7 +5,7 @@ set shellopts '-eu' # Safer shell commands
 set ifs "\n" # split $fs and $fx properly because default file sep is newline
 set ratios 1:3:3 # set ratio of panes
 set timefmt "2006-01-02 Mon 15:04" # set time format
-set color256 on # surn on colors
+#set color256 on # surn on colors
 set previewer file-preview # previewer script
 set scrolloff 10 # leave some space at the top and the bottom of the screen
 

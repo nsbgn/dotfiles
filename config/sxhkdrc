@@ -12,7 +12,7 @@ super + f
 	urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
 
 super + m
-	urxvtc -e mutt
+	urxvtc -e aerc
 
 super + r 
 	cd $(xcwd.sh); zathura
