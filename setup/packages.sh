@@ -124,6 +124,7 @@ PACKAGES=(
     sshfs # Mount filesystem via SSH
     fatsort # Sort FAT filesystems (for hardware audio players)
     fdupes # Remove duplicate files
+    findimagedupes # Find image duplicates even if theyve been resized etc
     e2fsprogs exfat-utils dosfstools hfsplus hfsprogs # Filesystem utilities
     ideviceinstaller ifuse # For connecting iPhones, iPods and iPads
     libglib2.0-bin # Includes gio for trashing files from command line
@@ -142,6 +143,7 @@ PACKAGES=(
     libvips # Fast conversion and batch editing of images
     paperkey # Dump secret information of gnupg keys for backup
     pdf2djvu # Conversion of PDF to DJVU
+    krop # Crop PDFs
     libtiff-tools # tiff2pdf
     webp # Convert WebP pictures
     ebook2epub # Conversion of various ebook formats to EPUB
@@ -204,7 +206,6 @@ PACKAGES=(
     syncthing # Decentralized synchronization of directories between devices
 
     # Communication
-    neomutt # E-mail client
     #notmuch # Email search
     #mailsync # Sync IMAP mails
     #weechat # IRC client
