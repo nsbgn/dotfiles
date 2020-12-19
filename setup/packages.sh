@@ -185,9 +185,9 @@ PACKAGES=(
     puddletag # Audio tag editor
     fontforge # Font editor
     subtitleeditor # Subtitle editor
-    #meld # Graphical tool to diff & merge files
+    imediff # Graphical merge tool for the terminal
     icdiff # Terminal side-by-side diff
-    wdiff dwdiff # Word diff
+    dwdiff # Word diff
     diffpdf # PDF comparison
     gpick # Color picker
     kdenlive # Video editing software

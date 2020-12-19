@@ -3,8 +3,7 @@
 	email = nsv@valk.ws
 [core]
 	editor = nvim
-    #pager = diff-so-fancy | less --tabs=4 -RFX
 [merge]
-	tool = meld
+	tool = imediff
 [icdiff]
 	options = --highlight --line-numbers
