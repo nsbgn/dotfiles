@@ -104,7 +104,7 @@ ramp-volume-2 = 
 [module/battery]
 type = internal/battery
 battery = ${env:BATTERY:BAT0}
-adapter = ${env:POWER_ADAPTER:AC0}
+adapter = ${env:ADAPTER:AC0}
 full-at = 98
 poll-interval = 60
 format-full = <label-full>

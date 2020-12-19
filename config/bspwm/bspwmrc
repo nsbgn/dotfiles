@@ -3,8 +3,6 @@
 # Fix issue with Java applications not resizing
 wmname LG3D
 
-xsetroot -cursor_name left_ptr
-xsetroot -solid '#000000'
 bspc config border_width 1
 bspc config window_gap 5
 bspc config normal_border_color '#404040' # '#104010' # '#c0c0c0'
@@ -20,23 +18,24 @@ bspc config initial_polarity second_child
 bspc config automatic_scheme alternate # not in debian buster's bspwm version
 bspc config removal_adjustment true
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
-
 autorun(){
     if ! pidof -x "$1" > /dev/null; then
         "$@" &
     fi
 }
 
-
 autorun bspwm-desktop-title
 autorun bspwm-desktop-clean
 
-autorun sxhkd
-autorun nm-applet
-autorun blueman-applet
-autorun polybar bspwm
+autorun keyboard-config # keyboard settings
+autorun sxhkd # keyboard shortcuts
+autorun lxpolkit # policy kit
+autorun unclutter -root -idle 2 # hide mouse when not in use for two seconds
+autorun redshift # nighttime screen colours
+autorun dunst # notifications
+autorun urxvtd -q -f -o # terminal daemon
+autorun lf -server # file manager daemon
+autorun dmenu-mpv --initialise # music player daemon
+autorun nm-applet # wifi applet
+autorun blueman-applet # bluetooth applet
+autorun polybar bspwm # taskbar

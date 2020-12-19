@@ -187,6 +187,8 @@ PACKAGES=(
     subtitleeditor # Subtitle editor
     #meld # Graphical tool to diff & merge files
     icdiff # Terminal side-by-side diff
+    wdiff dwdiff # Word diff
+    diffpdf # PDF comparison
     gpick # Color picker
     kdenlive # Video editing software
     #synaptic # Package manager
