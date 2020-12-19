@@ -1,7 +1,6 @@
 #!/bin/bash
 # mpv-mpris - MPRIS support for MPV
 set -euo pipefail
-IFS=$'\n\t'
 
 INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/mpv-mpris"
 

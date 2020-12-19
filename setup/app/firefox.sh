@@ -1,7 +1,6 @@
 #!/bin/bash
 # firefox - Web browser
 set -euo pipefail
-IFS=$'\n\t'
 
 sudo apt install firefox-esr
 

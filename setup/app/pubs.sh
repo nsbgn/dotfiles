@@ -10,7 +10,6 @@
 # intuitive (more idiosyncratic), so I'm using `pubs` for now. Perhaps also see
 # [paperboy](https://github.com/2mol/pboy)
 set -euo pipefail
-IFS=$'\n\t'
 
 sudo apt install python3-pip 
 pip3 install pubs

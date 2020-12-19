@@ -1,7 +1,6 @@
 #!/bin/bash
 # This installs support for some languages via the Language Server Protocol
 set -euo pipefail
-IFS=$'\n\t'
 
 # The  LSP server protocol is supported in vim through plugins like:
 # - https://github.com/prabirshrestha/vim-lsp.git

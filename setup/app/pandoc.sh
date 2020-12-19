@@ -2,7 +2,6 @@
 # pandoc - Document conversion
 # The version in Debian buster is outdated; need >2.8
 set -euo pipefail
-IFS=$'\n\t'
 
 wget -O /tmp/pandoc.deb "$( \ 
     curl -s 'https://api.github.com/repos/jgm/pandoc/releases/latest' \

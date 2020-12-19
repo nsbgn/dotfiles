@@ -1,5 +1,5 @@
 #!/bin/bash
-# A benchmarking tool
+# hyperfine - A benchmarking tool
 set -euo pipefail
 
 cargo install hyperfine

@@ -3,7 +3,6 @@
 # makes sense for me because my system is single-user and full-disk encryption
 # blocks physical access.
 set -euo pipefail
-IFS=$'\n\t'
 
 # System should boot to TTY rather than display manager. Set to
 # graphical.target to reverse.

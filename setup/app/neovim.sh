@@ -3,7 +3,6 @@
 # I need version >= 0.4 for floating windows and better LSP support
 # Id rather not use AppImages, but in this case it's easier.
 set -euo pipefail
-IFS=$'\n\t'
 
 mkdir -p ~/.local/bin
 /usr/bin/wget -O ~/.local/bin/nvim "$( \
