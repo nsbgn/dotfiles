@@ -4,30 +4,46 @@ call plug#begin(stdpath('data') . '/plugged')
     " Color schemes
     Plug 'https://github.com/chriskempson/base16-vim'
 
+    " Syntax highlighting
+    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    Plug 'https://github.com/vito-c/jq.vim'
+    Plug 'https://github.com/kovetskiy/sxhkd-vim'
+    Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
+
     " Work with GPG-encrypted files
     Plug 'https://github.com/jamessan/vim-gnupg.git'
 
     " Sets working directory to project root
     Plug 'https://github.com/airblade/vim-rooter.git'
 
+    " Show git/svn changes
+    Plug 'https://github.com/mhinz/vim-signify.git'
+    " Plug 'https://github.com/tpope/vim-fugitive.git'
+
+    " Buffer tabs
+    Plug 'https://github.com/ap/vim-buftabline'
+
+    " Browse the undo tree
+    Plug 'https://github.com/sjl/gundo.vim'
+
     " Browse within vim using the `lf` file manager
     Plug 'https://github.com/ptzz/lf.vim'
     Plug 'https://github.com/rbgrouleff/bclose.vim'
 
+    " Language server protocol
+    Plug 'https://github.com/natebosch/vim-lsc'
+
     " Autocompletion (also needs `pip3 install pynvim`)
-    Plug 'https://github.com/Shougo/deoplete.nvim', 
-        \ { 'do': ':UpdateRemotePlugins' }
+    " Plug 'https://github.com/Shougo/deoplete.nvim', 
+    "    \ { 'do': ':UpdateRemotePlugins' }
 
-    " IDE capabilities for vim through LSP
-    Plug 'https://github.com/autozimu/LanguageClient-neovim.git', 
-        \ { 'branch': 'next'
-        \ , 'do': 'bash install.sh' }
-
-    " Highlight Pandoc-flavoured Markdown
-    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    " Language server protocol
+    "Plug 'https://github.com/autozimu/LanguageClient-neovim.git', 
+    "    \ { 'branch': 'next'
+    "    \ , 'do': 'bash install.sh' }
 
     " Floating windows for previews in nvim >= 0.4
-    Plug 'https://github.com/ncm2/float-preview.nvim'
+    "Plug 'https://github.com/ncm2/float-preview.nvim'
 
     " Navigate symbols in the document
     "Plug 'https://github.com/liuchengxu/vista.vim'
@@ -37,31 +53,6 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     "Plug 'https://github.com/junegunn/goyo.vim'
-
-    " Highlight jq scripts
-    Plug 'https://github.com/vito-c/jq.vim'
-
-    " Highlight sxhkd config
-    Plug 'kovetskiy/sxhkd-vim'
-
-    " Highlight ledger/hledger journals
-    Plug 'https://github.com/ledger/vim-ledger', 
-        \ { 'tag': 'v1.2.0' }
-
-    " Show git/svn changes
-    Plug 'https://github.com/mhinz/vim-signify.git'
-
-    " Git wrapper to show things like blame
-    "Plug 'https://github.com/tpope/vim-fugitive.git'
-
-    " Buffer tabs
-    Plug 'https://github.com/ap/vim-buftabline'
-
-    " Improved status line
-    "Plug 'https://github.com/vim-airline/vim-airline'
-
-    " Browse the undo tree
-    Plug 'https://github.com/sjl/gundo.vim'
 
 call plug#end()
 
@@ -164,6 +155,34 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
 
+if PlugLoaded('vim-pandoc')
+    let g:pandoc#modules#enabled = ['bibliographies', 'completion', 'toc', 'hypertext']
+    call deoplete#custom#var('omni', 'input_patterns', {
+        \ 'pandoc': '@'
+        \})
+endif
+
+if PlugLoaded('vim-buftabline')
+    " Show buffers in tabline, but only if there is more than one
+    let g:buftabline_show = 1
+endif
+
+if PlugLoaded('lf.vim')
+    " Unmap default lf key
+    let g:lf_map_keys = 0
+
+    " Unmap e, i and w in lf within vim to make sure we only use it to open a file
+    " and not to start other programs within the lf session
+    let g:lf_command_override = 'lf -command "map e; map i; map w"'
+endif
+
+if PlugLoaded('float-preview.nvim')
+    set completeopt-=preview " extra info will now be shown in floating window
+    let g:float_preview#docked = 1
+    let g:float_preview#max_height = 50
+    "let g:float_preview#max_width = 80
+endif
+
 if PlugLoaded('deoplete.nvim')
 
     "let g:deoplete#enable_at_startup = 1
@@ -206,39 +225,27 @@ if PlugLoaded('LanguageClient-neovim')
         \ }
 endif
 
-if PlugLoaded('vim-pandoc')
-    let g:pandoc#modules#enabled = ['bibliographies', 'completion', 'toc', 'hypertext']
-    call deoplete#custom#var('omni', 'input_patterns', {
-        \ 'pandoc': '@'
-        \})
+if PlugLoaded('vim-lsc')
+    set shortmess-=F " avoid suppressing errors
+    let g:lsc_server_commands = {'python': 'pyls'}
+    let g:lsc_enable_autocomplete = v:false
+    let g:lsc_auto_map = {
+        \ 'GoToDefinition': '<C-]>',
+        \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+        \ 'FindReferences': 'gr',
+        \ 'NextReference': '<C-n>',
+        \ 'PreviousReference': '<C-p>',
+        \ 'FindImplementations': 'gI',
+        \ 'FindCodeActions': 'ga',
+        \ 'Rename': 'gR',
+        \ 'ShowHover': v:true,
+        \ 'DocumentSymbol': 'go',
+        \ 'WorkspaceSymbol': 'gS',
+        \ 'SignatureHelp': 'gm',
+        \ 'Completion': 'completefunc',
+        \}
 endif
 
-if PlugLoaded('vim-buftabline')
-    " Show buffers in tabline, but only if there is more than one
-    let g:buftabline_show = 1
-endif
-
-if PlugLoaded('lf.vim')
-    " Unmap default lf key
-    let g:lf_map_keys = 0
-
-    " Unmap e, i and w in lf within vim to make sure we only use it to open a file
-    " and not to start other programs within the lf session
-    let g:lf_command_override = 'lf -command "map e; map i; map w"'
-endif
-
-if PlugLoaded('float-preview.nvim')
-    set completeopt-=preview " extra info will now be shown in floating window
-    let g:float_preview#docked = 1
-    let g:float_preview#max_height = 50
-    "let g:float_preview#max_width = 80
-endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Keybindings
-
-nmap ; :
 
 if PlugLoaded('LanguageClient-neovim')
     " Language
@@ -262,17 +269,20 @@ if PlugLoaded('gundo.vim')
     nnoremap <F5> :GundoToggle<CR>
 endif
 
+
+nmap ; :
+
 " Navigating buffers
 " close buffer:
-nmap td :bd<CR> 
-" force close buffer: 
-nmap tD :bd!<CR> 
+nmap td :bd<CR>
+" force close buffer:
+nmap tD :bd!<CR>
 " open new file:
 map tt :Lf<CR>
 " next buffer:
 nmap . :bnext<CR>
 " previous buffer:
-nmap , :bprevious<CR> 
+nmap , :bprevious<CR>
 
 " Insert lines
 nmap = o<Esc>79a=<Esc>0
