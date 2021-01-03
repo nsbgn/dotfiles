@@ -123,8 +123,8 @@ if has("autocmd")
 
     autocmd Filetype lua setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
-    au TermEnter * setlocal nonumber
-    au TermLeave * setlocal number
+    "au TermEnter * setlocal nonumber
+    "au TermLeave * setlocal number
 
     au BufRead /tmp/mutt-* set tw=72
 
@@ -246,6 +246,9 @@ if PlugLoaded('vim-lsc')
         \}
 endif
 
+if PlugLoaded('vim-rooter')
+    let g:rooter_silent_chdir = 1
+endif
 
 if PlugLoaded('LanguageClient-neovim')
     " Language
