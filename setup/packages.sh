@@ -164,6 +164,7 @@ PACKAGES=(
     dtrx atool zip unzip p7zip-full bzip2 rpm unar # Extract/compress archives
     xz-utils xzdec # XZ-format compression and decompression
     python3-breadability # Readability implementation in python
+    bpython3 # Interactive Python interpreter --- helpful!
 
     # Media, software suites
     firefox-esr # Web browser. Current version not from repositories

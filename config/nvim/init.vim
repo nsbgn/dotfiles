@@ -2,7 +2,7 @@
 call plug#begin(stdpath('data') . '/plugged')
 
     " Color schemes
-    Plug 'https://github.com/chriskempson/base16-vim'
+    "Plug 'https://github.com/chriskempson/base16-vim'
 
     " Syntax highlighting
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
@@ -32,6 +32,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Language server protocol
     Plug 'https://github.com/natebosch/vim-lsc'
+    "Plug 'https://github.com/prabirshrestha/vim-lsp'
 
     " Autocompletion (also needs `pip3 install pynvim`)
     " Plug 'https://github.com/Shougo/deoplete.nvim', 
@@ -111,7 +112,7 @@ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
 "set background=dark
 "let base16colorspace=256
-"colorscheme base16-woodland
+"colorscheme base16-default
 
 let g:netrw_browsex_viewer = "firefox"
 
@@ -121,7 +122,9 @@ let g:netrw_browsex_viewer = "firefox"
 if has("autocmd")
 
 
-    autocmd Filetype lua setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
+
+    autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
     "au TermEnter * setlocal nonumber
     "au TermLeave * setlocal number
@@ -136,10 +139,18 @@ if has("autocmd")
     augroup END
 
     augroup latex    
+    "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
+    "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
         au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
         autocmd FileType tex setlocal conceallevel=0
-        autocmd FileType tex setlocal textwidth=78
-        autocmd FileType tex setlocal formatoptions+=a formatoptions+=w
+        "autocmd FileType tex setlocal textwidth=78
+        "autocmd FileType tex setlocal formatoptions+=a formatoptions+=w
+        autocmd FileType tex setlocal wrap linebreak nolist textwidth=0 wrapmargin=0
+
+        autocmd FileType tex noremap <buffer> <silent> k gk
+        autocmd FileType tex noremap <buffer> <silent> j gj
+        autocmd FileType tex noremap <buffer> <silent> 0 g0
+        autocmd FileType tex noremap <buffer> <silent> $ g$
     augroup END
 
     augroup haskell
@@ -244,6 +255,42 @@ if PlugLoaded('vim-lsc')
         \ 'SignatureHelp': 'gm',
         \ 'Completion': 'completefunc',
         \}
+endif
+
+if PlugLoaded('vim-lsp')
+    if executable('pyls')
+        " pip install python-language-server
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': {server_info->['pyls']},
+            \ 'allowlist': ['python'],
+            \ })
+    endif
+
+    function! s:on_lsp_buffer_enabled() abort
+        setlocal omnifunc=lsp#complete
+        setlocal signcolumn=yes
+        if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+        nmap <buffer> gd <plug>(lsp-definition)
+        nmap <buffer> gr <plug>(lsp-references)
+        nmap <buffer> gi <plug>(lsp-implementation)
+        nmap <buffer> gt <plug>(lsp-type-definition)
+        nmap <buffer> <leader>rn <plug>(lsp-rename)
+        nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+        nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+        nmap <buffer> K <plug>(lsp-hover)
+
+        let g:lsp_format_sync_timeout = 1000
+        autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+        
+        " refer to doc to add more commands
+    endfunction
+
+    augroup lsp_install
+        au!
+        " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    augroup END
 endif
 
 if PlugLoaded('vim-rooter')

@@ -45,7 +45,7 @@ XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
 super + semicolon
-	dmenu_run
+	dmenu_run ${DMENU_ARGS}
 
 super + Escape
 	dmenu-system

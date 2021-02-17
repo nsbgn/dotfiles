@@ -7,8 +7,10 @@ export EDITOR=nvim
 export PRINTER="HL1110"
 export BROWSER=firefox
 export CLICOLOR=1
-export DMENU_ARGS="-fn Dina-10 -nb #000000 -sb #ffffff -nf #ffffff -sf #000000"
+export DMENU_ARGS="-fn Dina-10"
+#export DMENU_ARGS="-fn Dina-10 -nb #c0c0c0 -sb #ffffff -nf #ffffff -sf #000000"
 #export DMENU_ARGS="-l $((1080/13 - 1)) -nb '#c0c0c0' -nf '#000000' -fn 'MS Sans Serif-8'"
+#export DMENU_ARGS=-nb '#c0c0c0' -nf '#000000' -sb '#000080' -sf '#ffffff' -fn 'MS Sans Serif-8'
 
 export MYPY_CACHE_DIR=/tmp/mypycache
 export LOCALBUILDS=$HOME/.builds
