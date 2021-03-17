@@ -138,14 +138,14 @@ if has("autocmd")
         autocmd FileType markdown.pandoc setlocal formatoptions+=a formatoptions+=w
     augroup END
 
-    augroup latex    
+    augroup latex
     "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
     "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
         au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
         autocmd FileType tex setlocal conceallevel=0
         "autocmd FileType tex setlocal textwidth=78
         "autocmd FileType tex setlocal formatoptions+=a formatoptions+=w
-        autocmd FileType tex setlocal wrap linebreak nolist textwidth=0 wrapmargin=0
+        autocmd FileType tex setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 tabstop=2 shiftwidth=2 softtabstop=2
 
         autocmd FileType tex noremap <buffer> <silent> k gk
         autocmd FileType tex noremap <buffer> <silent> j gj
