@@ -58,6 +58,10 @@ call plug#begin(stdpath('data') . '/plugged')
 
 call plug#end()
 
+" Show file in window title
+set title
+set titlestring=%{expand(\"%:p:h\")}/%t\ %m
+
 " Check if a plugin is loaded
 function! PlugLoaded(name)
     return (
@@ -296,6 +300,7 @@ endif
 
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
+    let g:rooter_change_directory_for_non_project_files = 'current'
 endif
 
 if PlugLoaded('LanguageClient-neovim')
