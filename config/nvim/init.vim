@@ -29,6 +29,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Browse within vim using the `lf` file manager
     Plug 'https://github.com/ptzz/lf.vim'
     Plug 'https://github.com/rbgrouleff/bclose.vim'
+    Plug 'voldikss/vim-floaterm'
 
     " Language server protocol
     Plug 'https://github.com/natebosch/vim-lsc'

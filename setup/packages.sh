@@ -40,6 +40,7 @@ PACKAGES=(
     rxvt-unicode # Terminal emulator
     git tig # Version control system & ncurses interface
     #taskwarrior vit # Todo list & ncurses interface
+    watson # Time management CLI tool
     ledger # Budgetting software. see also hledger and hledger-ui 
     rename # Like `rename 's/S([0-9]*)E([0-9]*) (.*)/$1x$2 $3/g' *.mkv`
     pass # Simple password manager based on gnupg

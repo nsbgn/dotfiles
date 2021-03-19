@@ -6,6 +6,9 @@ super + t
 	urxvtc -cd $(xcwd.sh)
 
 super + g
+	vimb
+
+super + G
 	firefox
 
 super + f

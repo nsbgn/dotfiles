@@ -21,3 +21,9 @@ flatpak install flathub org.xonotic.Xonotic
 
 # OpenRCT2 Rollercoaster Tycoon reimplementation because it not in Debian
 flatpak install flathub io.openrct2.OpenRCT2
+
+# Nicotine+ is in debian but bit old
+flatpak install flathub org.nicotine_plus.Nicotine
+
+# Netsurf is in debian but not on stable yet
+flatpak install flathub org.netsurf_browser.NetSurf
