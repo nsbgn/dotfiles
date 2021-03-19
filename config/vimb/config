@@ -71,4 +71,4 @@ set input-css=color:#d3d0c8;background-color:#393939;font:10pt Dina;
 set input-error-css=color:#f2777a;background-color:#393939;font:10pt Dina;
 set status-css=color:#ffcc66;background-color:#393939;font:10pt Dina;
 set status-ssl-css=color:#99cc99;background-color:#393939;font:10pt Dina;
-set stat
+#set stat

@@ -4,8 +4,8 @@
 wmname LG3D
 
 bspc config border_width 1
-bspc config window_gap 3
-bspc config top_padding -1
+bspc config window_gap 4
+bspc config top_padding 0
 bspc config normal_border_color '#505050' # '#104010' # '#c0c0c0'
 bspc config focused_border_color '#ffffff' # '#50a050' # '#80ff80'
 

@@ -3,7 +3,8 @@
 
 # terminal emulator
 super + t
-	urxvtc -cd $(xcwd.sh)
+	alacritty --working-directory "$(xcwd)"
+#	urxvtc -cd $(xcwd.sh)
 
 super + g
 	vimb
@@ -12,10 +13,12 @@ super + G
 	firefox
 
 super + f
-	urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
+	alacritty --working-directory "$(xcwd)" -e "$HOME/.go/bin/lf"
+#	urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
 
 super + m
-	urxvtc -e aerc
+	alacritty --working-directory "$(xcwd)" -e aerc
+#	urxvtc -e aerc
 
 super + r 
 	cd $(xcwd.sh); zathura
@@ -47,8 +50,11 @@ super + {_,alt} + p
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
+super + Return
+	rofi -show window
+
 super + semicolon
-	dmenu_run ${DMENU_ARGS}
+	rofi -show drun
 
 super + Escape
 	dmenu-system
@@ -72,7 +78,7 @@ super + ctrl + {a,s,w,d}
 	bspwm-push {west,south,north,east}
 
 # increase window size ratio
-super + {_,alt} + Return
+super + {_,alt} + Tab
 	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
 	then bspc node '@parent' --ratio '+10'; \
 	else bspc node '@parent' --ratio '-10'; \
