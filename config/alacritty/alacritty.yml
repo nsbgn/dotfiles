@@ -281,7 +281,7 @@ colors:
     yellow:  '0xebc17a'
     blue:    '0x7eaac7'
     magenta: '0xaa6292'
-    cyan:    '0x86d3ce'
+    cyan:    '0xadeaea' #'0x86d3ce'
     white:   '0xcacaca'
 
   # Bright colors
@@ -458,7 +458,7 @@ colors:
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
-#working_directory: None
+working_directory: ~
 
 # Send ESC (\x1b) before characters when alt is pressed.
 #alt_send_esc: true

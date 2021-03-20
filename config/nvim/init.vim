@@ -60,7 +60,7 @@ call plug#end()
 
 " Show file in window title
 set title
-set titlestring=%{expand(\"%:p:h\")}/%t\ %m
+set titlestring=%F\ %m
 
 " Check if a plugin is loaded
 function! PlugLoaded(name)
@@ -69,9 +69,10 @@ function! PlugLoaded(name)
         \ stridx(&rtp, substitute(g:plugs[a:name].dir,"/$","","")) >= 0)
 endfunction
 
-" Don't show the mode in the command bar --- because it's already displayed in
-" the status bar via airline
-set noshowmode
+" Show the mode in the command bar, don't show status bar, etc
+set showmode
+set laststatus=0
+set noshowcmd
 
 " Enable mouse support
 set mouse=a
@@ -300,7 +301,7 @@ endif
 
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
-    let g:rooter_change_directory_for_non_project_files = 'current'
+    "let g:rooter_change_directory_for_non_project_files = 'current'
 endif
 
 if PlugLoaded('LanguageClient-neovim')

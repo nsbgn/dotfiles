@@ -1,5 +1,5 @@
 [color]
-background = #d0d0d0
+background = #c0c0c0
 foreground = #000000
 border = #fafafa
 active = #000000
@@ -17,14 +17,14 @@ width = 100%
 height = 22
 top = true
 padding-left = 2
-padding-right = 0
+padding-right = 1
 tray-position = right
 tray-padding = 3
 tray-maxsize = 21
 module-margin-left = 1
 module-margin-right = 2
 modules-left = xwindow
-modules-right = mpris xbacklight pulseaudio battery date mouselock
+modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date
 enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -65,7 +65,7 @@ tail = true
 [module/xbacklight]
 type = internal/xbacklight
 format = <label>
-label = " %percentage%%"
+label = " %percentage%%"
 
 [module/mpris]
 type = custom/script
@@ -75,7 +75,7 @@ click-left = dmenu-mpv --toggle
 
 [module/mouselock]
 type = custom/ipc
-hook-0 = echo ""
+hook-0 = echo " mouse"
 hook-1 = echo ""
 initial = 2
 
@@ -94,11 +94,23 @@ format = "<label>"
 [module/pulseaudio]
 type = internal/pulseaudio
 format-volume = <ramp-volume> <label-volume>
-label-muted = " muted"
+label-muted = "婢 muted"
 label-volume = "%percentage%%"
-ramp-volume-0 =  
-ramp-volume-1 =  
-ramp-volume-2 =  
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+click-right = pavucontrol
+
+[module/wireless-network]
+type = internal/network
+interface = wlan0
+interval = 10.0
+label-connected = "直 %signal%%"
+label-disconnected = 睊
+click-left = alacritty -e nmtui
+# 
+
+# debian sign: 
 
 [module/battery]
 type = internal/battery

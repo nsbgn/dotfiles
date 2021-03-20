@@ -51,10 +51,10 @@ XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
 super + Return
-	rofi -show window
+	rofi -show drun
 
 super + semicolon
-	rofi -show drun
+	rofi -show window
 
 super + Escape
 	dmenu-system
@@ -84,10 +84,6 @@ super + {_,alt} + Tab
 	else bspc node '@parent' --ratio '-10'; \
 	fi
 
-# focus/swap the desktop in the given direction
-super + {_,alt +}{comma,period}
-	bspc desktop --{focus,bubble} {prev,next}
-
 # focus/send to given desktop
 super + {1-9,0} + {_, alt}
 	desktop="^{1-9,10}"; \
@@ -96,3 +92,11 @@ super + {1-9,0} + {_, alt}
 		bspc monitor --add-desktops "$desktop"; \
 	fi; \
 	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}
+
+#super + {1-9,0} + {_, alt}
+#	desktop="^{1-9,10}"; \
+#	if ! bspc query --desktops --desktop "$desktop" &> /dev/null; then \
+#		desktop="$(uuidgen | cut -d'-' -f1)"; \
+#		bspc monitor --add-desktops "$desktop"; \
+#	fi; \
+#	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}

@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,run,ssh,drun";
+	modi: "window,run,ssh,drun,combi";
 	width: 60;
 	lines: 20;
 /*	columns: 1;*/
@@ -31,7 +31,7 @@ configuration {
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-/*	combi-modi: "window,run";*/
+	combi-modi: "window,drun";
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
@@ -56,7 +56,7 @@ configuration {
 /*	color-active: ;*/
 /*	color-window: ;*/
 /*	max-history-size: 25;*/
-/*	combi-hide-mode-prefix: false;*/
+	combi-hide-mode-prefix: true;
 /*	pid: "/run/user/1000/rofi.pid";*/
 /*	display-window: ;*/
 /*	display-windowcd: ;*/
