@@ -4,13 +4,12 @@ set -euo pipefail
 
 sudo apt install webkit2gtk-4.0-dev
 
-git clone https://github.com/fanglingsu/vimb
+git clone "https://github.com/fanglingsu/vimb"
 cd vimb
 make
 sudo make install
-
 cd -
-git clone https://github.com/jun7/wyebadblock
+git "clone https://github.com/jun7/wyebadblock"
 cd wyebadblock
 make
 sudo make install

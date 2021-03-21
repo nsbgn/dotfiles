@@ -2,10 +2,8 @@
 # sunwait - Calculating sunrise or sunset times
 set -euo pipefail
 
-INSTALL="${LOCALBUILDS:-$HOME/.local-builds}/sunwait"
-
-rm -rf "$INSTALL"
-git clone https://github.com/risacher/sunwait "$INSTALL"
-cd "$INSTALL"
+BUILD="$HOME/.builds/sunwait"
+git clone https://github.com/risacher/sunwait "$BUILD"
+cd "$BUILD"
 make all
 cp sunwait ~/.local/bin/
