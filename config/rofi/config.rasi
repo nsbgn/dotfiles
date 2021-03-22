@@ -21,6 +21,7 @@ configuration {
 /*	window-match-fields: "all";*/
 /*	drun-icon-theme: ;*/
 /*	drun-match-fields: "name,generic,exec,categories";*/
+drun-display-format: "{name} [<i>({generic})</i>]";
 /*	disable-history: false;*/
 /*	sort: false;*/
 /*	levenshtein-sort: false;*/
@@ -137,3 +138,6 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
+/*element-icon {
+    size: 16;
+}*/
