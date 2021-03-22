@@ -302,7 +302,9 @@ endif
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
     " this xcwd work for non project files but not for project files...
-    "let g:rooter_change_directory_for_non_project_files = 'current'
+    let g:rooter_change_directory_for_non_project_files = 'current'
+    let g:rooter_resolve_links = 1
+    let g:rooter_patterns = ['.git', 'Makefile']
 endif
 
 if PlugLoaded('LanguageClient-neovim')

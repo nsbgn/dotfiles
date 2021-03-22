@@ -3,8 +3,8 @@
 
 # terminal emulator
 super + t
-	alacritty --working-directory "$(xcwd)"
-#	urxvtc -cd $(xcwd.sh)
+#	alacritty --working-directory "$(xcwd)"
+	urxvtc -cd $(xcwd.sh)
 
 super + g
 	vimb
@@ -13,12 +13,12 @@ super + G
 	firefox
 
 super + f
-	alacritty --working-directory "$(xcwd)" -e lf
-#	urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
+#	alacritty --working-directory "$(xcwd)" -e lf
+	urxvtc -cd "$(xcwd.sh)" -e lf
 
 super + m
-	alacritty --working-directory "$(xcwd)" -e aerc
-#	urxvtc -e aerc
+#	alacritty --working-directory "$(xcwd)" -e aerc
+	urxvtc -e aerc
 
 super + r 
 	cd $(xcwd.sh); zathura

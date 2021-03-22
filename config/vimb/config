@@ -23,7 +23,7 @@ set webgl=true
 # While typing a search command, show where the pattern typed so far matches.
 set incsearch=false
 
-set hint-keys="asdfghjkl"
+#set hint-keys="asdfghjkl"
 
 # Fonts
 set default-font=DejaVu Sans

@@ -7,8 +7,11 @@ xsetroot -cursor_name left_ptr
 xsetroot -solid '#303030'
 
 bspc config border_width 1
-bspc config window_gap 8
-bspc config top_padding -8
+bspc config window_gap 3
+bspc config top_padding -3
+bspc config bottom_padding 1
+bspc config right_padding 1
+bspc config left_padding 1
 bspc config top_monocle_padding 1
 bspc config bottom_monocle_padding 1
 bspc config right_monocle_padding 1
@@ -38,11 +41,11 @@ autorun lxpolkit # policy kit
 autorun unclutter -root -idle 2 # hide mouse when not in use for two seconds
 autorun redshift # nighttime screen colours
 autorun dunst # notifications
-#autorun urxvtd -q -f -o # terminal daemon
+autorun urxvtd -q -f -o # terminal daemon
 autorun lf -server # file manager daemon
 autorun dmenu-mpv --initialise # music player daemon
 #autorun nm-applet # wifi applet
 #autorun blueman-applet # bluetooth applet
-autorun polybar bspwm # taskbar
+polybar bspwm & # taskbar
 
-bpsc rule -a Netsurf-gtk state=tiled
+bspc rule -a Netsurf-gtk state=tiled

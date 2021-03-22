@@ -12,7 +12,7 @@ font-1 = Unifont:pixelsize=10;0
 background = ${color.background}
 foreground = ${color.foreground}
 border-top-color = ${color.background}
-border-top-size = 2
+border-top-size = 3
 width = 100%
 height = 20
 top = true
@@ -53,6 +53,7 @@ label-urgent = "☒"
 type = custom/script
 exec = (echo; bspc subscribe desktop_focus node_add node_remove node_transfer) | while read e; do bspc query -N -d focused -n .window | wc -l; done
 tail = true
+click-left = bspc desktop --layout next
 
 [module/bspwmfocus]
 type = custom/script
@@ -87,6 +88,7 @@ date = "%Y-%m-%d %a"
 time = "%H:%M"
 label = "%date% %time%"
 format = "<label>"
+click-left = urxvtc -e ncal
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -104,7 +106,7 @@ interface = wlan0
 interval = 10.0
 label-connected = "直 %signal%%"
 label-disconnected = 睊
-click-left = alacritty -e nmtui
+click-left = urxvtc -e nmtui
 # 
 
 # bluetooth: ⍟ ?

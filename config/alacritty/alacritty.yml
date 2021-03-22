@@ -113,7 +113,7 @@ font:
     #   - (Windows) Consolas
     #family: Cozette
     family: Dina
-    #family: Anonymice Nerd Font
+    #family: Inconsolata
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -279,8 +279,8 @@ colors:
   normal:
     black:   '0x1c1c1c'
     red:     '0xbc5653'
-    green:   '0x70be70' # '0x909d63'
     yellow:  '0xebc17a'
+    green:   '0x70be70' # '0x909d63'
     blue:    '0x6babd0' # '0x7eaac7'
     magenta: '0xaa6292'
     cyan:    '0x327D94' # '0x75E4DD'  # '0x86d3ce'
@@ -290,8 +290,8 @@ colors:
   bright:
     black:   '0x636363'
     red:     '0xbc5653'
-    green:   '0x909d63'
     yellow:  '0xebc17a'
+    green:   '0x909d63'
     blue:    '0x6babd0'  # '0x7eaac7'
     magenta: '0xaa6292'
     cyan:    '0x327D94' # '0x75E4DD'  # '0x86d3ce'
