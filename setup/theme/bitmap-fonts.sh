@@ -7,9 +7,11 @@ sudo mkdir /usr/share/fonts/cozette
 sudo cp /tmp/cozette.otb /usr/share/fonts/cozette/
 
 # Install other fonts
-git clone https://github.com/Tecate/bitmap-fonts.git "~/.builds/bitmap-fonts"
-cd ~/.builds/bitmap-fonts
-sudo cp -avr bitmap/ /usr/share/fonts
+git clone https://github.com/Tecate/bitmap-fonts.git ~/.builds/bitmap-fonts
+sudo cp -avr ~/.builds/bitmap-fonts/bitmap/ /usr/share/fonts
+cd /usr/share/fonts/bitmap
+sudo mkfontdir
+sudo mkfontscale
 xset fp+ /usr/share/fonts/bitmap
 fc-cache -fv
 

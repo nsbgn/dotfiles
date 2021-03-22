@@ -111,7 +111,9 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
+    #family: Cozette
     family: Dina
+    #family: Anonymice Nerd Font
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -155,9 +157,9 @@ font:
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
-  #offset:
-  #  x: 0
-  #  y: 0
+  offset:
+    x: 0
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
@@ -277,11 +279,11 @@ colors:
   normal:
     black:   '0x1c1c1c'
     red:     '0xbc5653'
-    green:   '0x909d63'
+    green:   '0x70be70' # '0x909d63'
     yellow:  '0xebc17a'
-    blue:    '0x7eaac7'
+    blue:    '0x6babd0' # '0x7eaac7'
     magenta: '0xaa6292'
-    cyan:    '0xadeaea' #'0x86d3ce'
+    cyan:    '0x327D94' # '0x75E4DD'  # '0x86d3ce'
     white:   '0xcacaca'
 
   # Bright colors
@@ -290,9 +292,9 @@ colors:
     red:     '0xbc5653'
     green:   '0x909d63'
     yellow:  '0xebc17a'
-    blue:    '0x7eaac7'
+    blue:    '0x6babd0'  # '0x7eaac7'
     magenta: '0xaa6292'
-    cyan:    '0x86d3ce'
+    cyan:    '0x327D94' # '0x75E4DD'  # '0x86d3ce'
     white:   '0xf7f7f7'
 
 
@@ -387,7 +389,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-#background_opacity: 1.0
+background_opacity: 0.85
 
 #selection:
   # This string contains all characters that are used as separators for

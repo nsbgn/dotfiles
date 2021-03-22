@@ -13,7 +13,7 @@ super + G
 	firefox
 
 super + f
-	alacritty --working-directory "$(xcwd)" -e "$HOME/.go/bin/lf"
+	alacritty --working-directory "$(xcwd)" -e lf
 #	urxvtc -cd "$(xcwd.sh)" -e "$HOME/.go/bin/lf"
 
 super + m
@@ -30,10 +30,10 @@ super + backslash
 	toggle-pointer
 
 Print
-	scrot "$HOME/screen-%Y-%m-%dT%H-%M-%S.png"
+	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
 
 super + {minus,equal}
-	amixer -q sset Master 3%{-,+}
+	amixer -q sset Master 2%{-,+}
 
 super + alt + {minus,equal}
 	xbacklight {-,+}2%
@@ -50,10 +50,10 @@ super + {_,alt} + p
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
-super + Return
+super + semicolon
 	rofi -show drun
 
-super + semicolon
+super + @space
 	rofi -show window
 
 super + Escape
@@ -66,7 +66,7 @@ super + x
 	bspc node -c
 
 # alternate between the tiled and monocle layout
-super + @space
+super + @Return
 	bspc desktop --layout next
 
 # focus/swap the node in the given direction
@@ -78,7 +78,7 @@ super + ctrl + {a,s,w,d}
 	bspwm-push {west,south,north,east}
 
 # increase window size ratio
-super + {_,alt} + Tab
+super + {up,down}
 	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
 	then bspc node '@parent' --ratio '+10'; \
 	else bspc node '@parent' --ratio '-10'; \
@@ -92,11 +92,3 @@ super + {1-9,0} + {_, alt}
 		bspc monitor --add-desktops "$desktop"; \
 	fi; \
 	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}
-
-#super + {1-9,0} + {_, alt}
-#	desktop="^{1-9,10}"; \
-#	if ! bspc query --desktops --desktop "$desktop" &> /dev/null; then \
-#		desktop="$(uuidgen | cut -d'-' -f1)"; \
-#		bspc monitor --add-desktops "$desktop"; \
-#	fi; \
-#	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}

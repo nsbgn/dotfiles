@@ -12,9 +12,9 @@ font-1 = Unifont:pixelsize=10;0
 background = ${color.background}
 foreground = ${color.foreground}
 border-top-color = ${color.background}
-border-top-size = 1
+border-top-size = 2
 width = 100%
-height = 22
+height = 20
 top = true
 padding-left = 2
 padding-right = 1
@@ -22,40 +22,37 @@ tray-position = right
 tray-padding = 3
 tray-maxsize = 21
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 modules-left = xwindow
-modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date
+modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date xclose powerbutton
 enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/bspwm]
 inherit = bar/base
-modules-left = bspwm xwindow
+modules-left = bspwm-numwin bspwm xwindow
 wm-restack = bspwm
 
 [module/bspwm]
 ; empty circle:  ; full circle:  ; dotted: 
+; ■ □ ☐ ☑ ☒
 type = internal/bspwm
-format = <label-state><label-mode>
+format = <label-state>
+enable-scroll = false
 label-separator = "  "
-label-separator-foreground = ${color.inactive}
-label-empty = "%name%"
-label-empty-padding = 1
-label-empty-foreground = ${color.background}
-label-empty-background = ${color.inactive}
-label-focused = "%name%"
-label-focused-padding = 1
-label-focused-foreground = ${color.background}
-label-focused-background = ${color.active}
-label-occupied = "%name%"
-label-occupied-padding = 1
-label-occupied-foreground = ${color.background}
-label-occupied-background = ${color.inactive}
-label-urgent = "%name%"
-label-urgent-padding = 1
-label-urgent-foreground = ${color.background}
-label-urgent-background = ${color.selection}
+label-empty = "☐"
+label-focused = "■"
+label-occupied = "☐"
+label-urgent = "☒"
+;label-occupied = "☒ %name%"
+; ;<label-mode>
+
+; display number of windows
+[module/bspwm-numwin]
+type = custom/script
+exec = (echo; bspc subscribe desktop_focus node_add node_remove node_transfer) | while read e; do bspc query -N -d focused -n .window | wc -l; done
+tail = true
 
 [module/bspwmfocus]
 type = custom/script
@@ -81,14 +78,14 @@ initial = 2
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:150:...%
+label = " %title:0:150:...%"
 
 [module/date]
 type = internal/date
 interval = 15
 date = "%Y-%m-%d %a"
 time = "%H:%M"
-label = "%date% %time% "
+label = "%date% %time%"
 format = "<label>"
 
 [module/pulseaudio]
@@ -99,7 +96,7 @@ label-volume = "%percentage%%"
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
-click-right = pavucontrol
+use-ui-max = false
 
 [module/wireless-network]
 type = internal/network
@@ -110,7 +107,19 @@ label-disconnected = 睊
 click-left = alacritty -e nmtui
 # 
 
-# debian sign: 
+# bluetooth: ⍟ ?
+
+[module/xclose]
+type = custom/text
+content = ""
+click-left = xdotool getwindowfocus windowkill
+
+[module/powerbutton]
+type = custom/text
+content = "⏻ "
+click-left = dmenu-system
+click-right = rofi -show drun
+# 
 
 [module/battery]
 type = internal/battery
@@ -121,14 +130,22 @@ poll-interval = 60
 format-full = <label-full>
 format-charging = <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
-label-full =  %percentage%%
-label-charging =  %percentage%%
+label-full =  %percentage%%
+label-charging =  %percentage%%
 label-discharging = %percentage%%
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
+
+#label-full =  %percentage%%
+#label-charging =  %percentage%%
+#label-discharging = %percentage%%
+
+# 
+#U+0F58_│               
+
 
 [settings]
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events

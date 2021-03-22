@@ -23,23 +23,14 @@ set webgl=true
 # While typing a search command, show where the pattern typed so far matches.
 set incsearch=false
 
-# The font family to use as the default for content that does not specify a
-# font.
+set hint-keys="asdfghjkl"
+
+# Fonts
 set default-font=DejaVu Sans
-
-# The font family used as the default for content using monospace font.
 set monospace-font=DejaVu Sans Mono
-
-# The font family used as the default for content using sans-serif font.
 set sans-serif-font=DejaVu Sans
-
-# The font family used as the default for content using serif font.
 set serif-font=DejaVu Serif
-
-# The default font size used to display text.
 set font-size=16
-
-# Default font size for the monospace font.
 set monospace-font-size=13
 
 # Default Full-Content zoom level in percent. Default is 100.
@@ -51,7 +42,6 @@ shortcut-add duck=https://duckduckgo.com/?q=$0
 shortcut-add d=http://dict.cc/?s=$0
 shortcut-add g=https://encrypted.google.com/search?q=$0
 shortcut-add y=http://www.youtube.com/results?search_query=$0
-shortcut-add s=https://www.startpage.com/do/dsearch?query=$0
 
 # Set the shortcut as the default, that is the shortcut to be used if no
 # shortcut is given and the string to open is not an URI.
@@ -63,12 +53,15 @@ nmap + zI
 nmap - zO
 nmap = zz
 
+nmap , <C-O>
+nmap . <C-I>
+
 # GUI color settings
-set completion-css=color:#d3d0c8;background-color:#393939;font:10pt Dina;
-set completion-hover-css=color:#d3d0c8;background-color:#393939;font:10pt Dina;
-set completion-selected-css=color:#d3d0c8;background-color:#515151;font:10pt Dina;
-set input-css=color:#d3d0c8;background-color:#393939;font:10pt Dina;
-set input-error-css=color:#f2777a;background-color:#393939;font:10pt Dina;
-set status-css=color:#ffcc66;background-color:#393939;font:10pt Dina;
-set status-ssl-css=color:#99cc99;background-color:#393939;font:10pt Dina;
+set completion-css=color:#d3d0c8;background-color:#393939;font:10pt Cozette;
+set completion-hover-css=color:#d3d0c8;background-color:#393939;font:10pt Cozette;
+set completion-selected-css=color:#d3d0c8;background-color:#515151;font:10pt Cozette;
+set input-css=color:#d3d0c8;background-color:#393939;font:10pt Cozette;
+set input-error-css=color:#f2777a;background-color:#393939;font:10pt Cozette;
+set status-css=color:#ffcc66;background-color:#393939;font:10pt Cozette;
+set status-ssl-css=color:#99cc99;background-color:#393939;font:10pt Cozette;
 #set stat

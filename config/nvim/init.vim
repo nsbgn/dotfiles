@@ -301,6 +301,7 @@ endif
 
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
+    " this xcwd work for non project files but not for project files...
     "let g:rooter_change_directory_for_non_project_files = 'current'
 endif
 

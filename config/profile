@@ -1,16 +1,14 @@
 # The ~/.profile file is a good place to put environment variables. This file
 # is not read by bash if ~/.bash_profile or ~/.bash_login exists.
 
-export PATH=$HOME/.npm-global/bin:/usr/local/bin:/usr/local/go/bin:$HOME/projects/scripts:$HOME/projects/scripts/private:$HOME/.local/bin:$PATH:~/.cargo/bin:~/.cabal/bin:$HOME/.go/bin:/opt/firefox
+export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.go/bin:$HOME/.npm-global/bin:$PATH
+export PATH=$HOME/projects/scripts:$HOME/projects/scripts/private:$HOME/.local/bin:$PATH
 export GOPATH=$HOME/.go
 export EDITOR=nvim
 export PRINTER="HL1110"
-export BROWSER=firefox
+export BROWSER=vimb
 export CLICOLOR=1
-export DMENU_ARGS="-fn Dina-10"
-#export DMENU_ARGS="-fn Dina-10 -nb #c0c0c0 -sb #ffffff -nf #ffffff -sf #000000"
-#export DMENU_ARGS="-l $((1080/13 - 1)) -nb '#c0c0c0' -nf '#000000' -fn 'MS Sans Serif-8'"
-#export DMENU_ARGS=-nb '#c0c0c0' -nf '#000000' -sb '#000080' -sf '#ffffff' -fn 'MS Sans Serif-8'
 
 export MYPY_CACHE_DIR=/tmp/mypycache
 export LOCALBUILDS=$HOME/.builds
