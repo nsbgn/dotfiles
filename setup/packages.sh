@@ -20,6 +20,9 @@ PACKAGES=(
     xserver-xorg-video-{fbdev,intel} # X video drivers
     xserver-xorg-input-{libinput,mouse,kbd,evdev} # X input drivers
 
+    # GUI utils
+    simple-scan # GUI scan utility
+
     # Printing, scanning, bluetooth
     bluez bluez-tools # Bluetooth support, tools and daemons
     rfkill # Enabling & disabling wireless
@@ -32,7 +35,6 @@ PACKAGES=(
     cups-bsd enscript # CLI printing
     system-config-printer gtklp # Printer configuration
     sane-utils # Contains "scanimage" for scanning
-    simple-scan # GUI scan utility
 
     # System utilities & window managers
     #glyrc # Music metadata finder for CLI
@@ -45,11 +47,11 @@ PACKAGES=(
     rename # Like `rename 's/S([0-9]*)E([0-9]*) (.*)/$1x$2 $3/g' *.mkv`
     pass # Simple password manager based on gnupg
     lxpolkit # Just a small policykit thing
-    #bspwm # Tiling window manager
-    i3-wm # Tiling window manager
+    bspwm # Tiling window manager
+    polybar # Status bar
     #dvtm # Tiling window manager for the terminal
     #byobu # Tiling window manager for the terminal
-    screen # Attach and detach from terminal sessions
+    #screen # Attach and detach from terminal sessions
     tmux # Attach and detach from terminal sessions/tiling for terminal
     x11-utils # X querying utilities (xev, xprop, etc)
     x11-xserver-utils # X server utilities (xrandr, xmodmap, xsetroot, etc)
@@ -117,7 +119,7 @@ PACKAGES=(
     util-linux # System utilities like checking filesystem, block devices, etc
     gparted # Partition editor
     rsync # Synchronise files
-    secure-delete # Delete files & directories securely, like shred
+    secure-delete # Delete files securely, like shred but works on directories
     cryptsetup # Encrypt filesystems
     gnupg # Encrypt files and emails
     pmount # Mount filesystems as normal user
@@ -135,6 +137,8 @@ PACKAGES=(
 
     # File conversion tools
     pandoc pandoc-citeproc # Document converter
+    weasyprint # HTML to PDF printer
+    kiwix # Offline Wikipedia reader
     hugo # Static site generator
     handbrake # Conversion of multimedia files
     mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
@@ -169,10 +173,11 @@ PACKAGES=(
 
     # Media, software suites
     firefox-esr # Web browser. Current version not from repositories
+    netsurf-gtk # A minimalistic web browser.
     mpv # Media player
     vlc # Media player
     timidity # Playing MIDI files
-    kodi # Media center
+    # kodi # Media center
     sxiv # Image viewer
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
     fbreader # Ebook reader
@@ -215,10 +220,11 @@ PACKAGES=(
     #mailsync # Sync IMAP mails
     #weechat # IRC client
     telegram-desktop # Chat application
-    jami # Distributed chat & video client
+    telegram-cli # Chat application
+    #jami # Distributed chat & video client
     #qtox # Distributed chat & video client
     #utox # Distrubted chat & video client
-    nheko # Distributed chat client for Matrix
+    #nheko # Distributed chat client for Matrix
     #spectral # Distributed chat client for Matrix
     #quaternion # Distributed chat client for Matrix
 
@@ -242,7 +248,7 @@ PACKAGES=(
     #blender # 3D modeller/renderer
 
     # Emulators & games
-    dolphin-emu # Wii and Gamecube emulator
+    # dolphin-emu # Wii and Gamecube emulator
     pcsx2:i386 # PlayStation 2 emulator
     desmume # Nintendo DS emulator
     retroarch libretro-bsnes-mercury-balanced libretro-beetle-psx

@@ -10,11 +10,8 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 # Kodi media center because Debian one has issues with display & joystick input
 flatpak install flathub tv.kodi.Kodi
 
-# Dolphin emulator because higher version is needed
+# Dolphin emulator because it's not in bullseye
 flatpak install flathub org.DolphinEmu.dolphin-emu
-
-# Kiwix offline wiki reader because it is not in Debian buster
-flatpak install flathub org.kiwix.desktop
 
 # Xonotic game because it is not in Debian
 flatpak install flathub org.xonotic.Xonotic
@@ -22,8 +19,5 @@ flatpak install flathub org.xonotic.Xonotic
 # OpenRCT2 Rollercoaster Tycoon reimplementation because it not in Debian
 flatpak install flathub io.openrct2.OpenRCT2
 
-# Nicotine+ is in debian but bit old
-flatpak install flathub org.nicotine_plus.Nicotine
-
-# Netsurf is in debian but not on stable yet
-flatpak install flathub org.netsurf_browser.NetSurf
+# flatpak install flathub org.nicotine_plus.Nicotine
+# flatpak install flathub org.netsurf_browser.NetSurf

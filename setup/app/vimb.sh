@@ -2,15 +2,15 @@
 # vimb - Vim-based browser
 set -euo pipefail
 
-sudo apt install webkit2gtk-4.0-dev
+sudo apt install libwebkit2gtk-4.0-dev
 
-git clone "https://github.com/fanglingsu/vimb"
-cd vimb
+rm -rf ~/.builds/vimb ~/.builds/wyebadblock
+git clone "https://github.com/fanglingsu/vimb" ~/.builds/vimb
+cd ~/.builds/vimb
 make
 sudo make install
-cd -
-git "clone https://github.com/jun7/wyebadblock"
-cd wyebadblock
+git clone "https://github.com/jun7/wyebadblock" ~/.builds/wyebadblock
+cd ~/.builds/wyebadblock
 make
 sudo make install
 sudo ln -s /usr/lib/wyebrowser/adblock.so /usr/local/lib/vimb/
