@@ -1,4 +1,4 @@
-# xrdb $HOME/.Xresources # load Xresources
+xrdb $HOME/.Xresources # load Xresources
 
 # Set battery and power adapter names for polybar
 export ADAPTER="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \

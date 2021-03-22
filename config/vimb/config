@@ -57,11 +57,11 @@ nmap , <C-O>
 nmap . <C-I>
 
 # GUI color settings
-set completion-css=color:#d3d0c8;background-color:#393939;font:10pt Cozette;
-set completion-hover-css=color:#d3d0c8;background-color:#393939;font:10pt Cozette;
+set completion-css=color:#d3d0c8;background-color:#303030;font:10pt Cozette;
+set completion-hover-css=color:#d3d0c8;background-color:#303030;font:10pt Cozette;
 set completion-selected-css=color:#d3d0c8;background-color:#515151;font:10pt Cozette;
-set input-css=color:#d3d0c8;background-color:#393939;font:10pt Cozette;
-set input-error-css=color:#f2777a;background-color:#393939;font:10pt Cozette;
-set status-css=color:#ffcc66;background-color:#393939;font:10pt Cozette;
-set status-ssl-css=color:#99cc99;background-color:#393939;font:10pt Cozette;
+set input-css=color:#d3d0c8;background-color:#303030;font:10pt Cozette;
+set input-error-css=color:#f2777a;background-color:#303030;font:10pt Cozette;
+set status-css=color:#ffcc66;background-color:#303030;font:10pt Cozette;
+set status-ssl-css=color:#99cc99;background-color:#303030;font:10pt Cozette;
 #set stat
