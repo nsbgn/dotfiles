@@ -1,30 +1,40 @@
 [color]
-background = #303030
-foreground = #d0d0d0
+#background = #00303030
+#foreground = #ffffffff
+background = #c0c0c0
+foreground = #000000
 border = #fafafa
 active = #000000
 inactive = #606060
 selection = #000080
 
 [bar/base]
-font-0 = Cozette:size=10;0
-font-1 = Unifont:pixelsize=10;0
-background = ${color.background}
+#font-0 = Anonymous Pro:size=12:antialias=true;0
+#font-0 = Ikarius ADF No2 Std:size=13;2
+font-0 = Cozette:size=9;1
+font-1 = FontAwesome:size=7;1
+#font-1 = Unifont:pixelsize=10;0
+#background = ${color.background}
 foreground = ${color.foreground}
-border-top-color = ${color.background}
-border-top-size = 3
+;border-bottom-size = 1
+;border-bottom-color = #c0c0c0
+background-0 = #c0c0c0
+background-1 = #909090
+;background-0 = #a0ffffff
+;background-1 = #c0ffffff
 width = 100%
-height = 20
+height = 24
+;height = 30
 top = true
 padding-left = 2
-padding-right = 1
+padding-right = 2
 tray-position = right
 tray-padding = 3
 tray-maxsize = 21
 module-margin-left = 1
 module-margin-right = 1
 modules-left = xwindow
-modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date xclose powerbutton
+modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date xclose debian powerbutton
 enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -41,10 +51,14 @@ type = internal/bspwm
 format = <label-state>
 enable-scroll = false
 label-separator = "  "
-label-empty = "☐"
-label-focused = "■"
-label-occupied = "☐"
-label-urgent = "☒"
+label-empty = ""
+;"☐"
+label-focused = ""
+;"■"
+label-occupied = ""
+;"☐"
+label-urgent = ""
+;"☒"
 ;label-occupied = "☒ %name%"
 ; ;<label-mode>
 
@@ -63,6 +77,7 @@ tail = true
 [module/xbacklight]
 type = internal/xbacklight
 format = <label>
+;label = " %percentage%%" fontawesome version
 label = " %percentage%%"
 
 [module/mpris]
@@ -109,7 +124,10 @@ label-disconnected = 睊
 click-left = urxvtc -e nmtui
 # 
 
-# bluetooth: ⍟ ?
+[module/bluetooth]
+type = custom/text
+content = " ?"
+# bluetooth: ⍟?
 
 [module/xclose]
 type = custom/text
@@ -118,10 +136,15 @@ click-left = xdotool getwindowfocus windowkill
 
 [module/powerbutton]
 type = custom/text
-content = "⏻ "
+content = "⏻"
+# content = "" font awesome
 click-left = dmenu-system
-click-right = rofi -show drun
-# 
+
+[module/debian]
+type = custom/text
+#content = "" font awesome
+content = ""
+click-left = rofi -show drun
 
 [module/battery]
 type = internal/battery
@@ -152,9 +175,11 @@ ramp-capacity-4 = 
 [settings]
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = true
+pseudo-transparency = true
+override-redirect = true
 
 [global/wm]
-margin-top = 2
-margin-bottom = 2
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini

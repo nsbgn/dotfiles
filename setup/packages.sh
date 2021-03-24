@@ -8,12 +8,16 @@ PACKAGES=(
     faenza-icon-theme # Icon theme
     dmz-cursor-theme # White cursor theme
     fonts-dejavu # Standard font
-    fonts-inconsolata # Monospace font
-    xfonts-terminus # Monospace bitmap font
     fonts-font-awesome # Icon font
-    fonts-powerline # Coding fonts
+    fonts-material-design-icons-iconfont # Icon font
+    fonts-anonymous-pro # Monospace font I like
+    fonts-powerline # Coding fonts; contains patched Anonymous Pro
     fonts-nanum # Korean font
     fonts-nanum-coding # Korean monospace font
+    fonts-adf-ikarius # This font works really well in polybar
+    fonts-adf-*
+    fonts-century-catalogue
+    fonts-agave
 
     # Drivers
     xserver-xorg xinit x11-common # X display server
@@ -175,6 +179,7 @@ PACKAGES=(
     firefox-esr # Web browser. Current version not from repositories
     netsurf-gtk # A minimalistic web browser.
     mpv # Media player
+    celluloid # Front-end for mpv
     vlc # Media player
     timidity # Playing MIDI files
     # kodi # Media center

@@ -1,39 +1,61 @@
+!Xft.antialias:  true
+!Xft.rgba:       rgb
+!Xft.hinting:    true
+!Xft.hintstyle:  hintfull
+!Xft.lcdfilter:  lcddefault
+
 Xcursor.theme: Chicago95 Standard Cursors
-URxvt.internalBorder: 6
-URxvt.font: xft:Dina:size=10
+
+URxvt.internalBorder: 8
+URxvt.font: xft:Dina:size=10,xft:Siji:pixelsize=9,xft:Cozette:pixelsize=9
+!URxvt.font: xft:Anonymous Pro:size=12
+!URxvt.letterSpace: 1
+!URxvt.lineSpace: 2
+URxvt.cursorBlink: true
+
 URxvt.depth: 32
 URxvt.foreground: white
-URxvt.background: #000000
+URxvt.background: black
+
+! for opacity
+!urxvt.transparent: true
+!urxvt.inheritPixmap: true
+!urxvt.shading: 15
+!urxvt.fading: 10
+!urxvt.tintColor: white
+!urxvt.fadeColor: black
+
+
 URxvt.scrollBar: false
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
 ! black
 *color0: #1c1c1c
+*color8: #555753
 ! red
 *color1: #bc5653
+*color9: #EF2929
 ! yellow
 *color2: #ebc17a
+*color10: #8AE234
 ! green
 *color3: #70be70
+*color11: #FCE94F
 ! blue
 *color4: #327D94
+*color12: #327D94
 ! magenta
 *color5: #aa6292
+*color13: #AD7FA8
 ! cyan
 *color6: #6babd0
+*color14: #6babd0
 ! white
 *color7: #cacaca
-! bright black
-*color8: #555753
-! bright red
-*color9: #EF2929
-! bright yellow
-*color10: #8AE234
-! bright green
-*color11: #FCE94F
-! bright blue #729FCF
-*color12: #327D94
-! bright magenta
-*color13: #AD7FA8
-! bright cyan! #fcaf3e#6babd0
-*color14: #6babd0
-! bright white
 *color15: #EEEEEC

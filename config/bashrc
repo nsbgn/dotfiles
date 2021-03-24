@@ -32,3 +32,9 @@ if [ ! -z "${1:-}" ]; then
     file-new "$1" && file-open "$1"
 fi
 }
+
+function l {
+    if [ ! -z "${1:-}" ]; then
+        nvim "~/log/$1"
+    fi
+}

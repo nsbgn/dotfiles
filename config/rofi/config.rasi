@@ -51,7 +51,7 @@ drun-display-format: "{name} [<i>({generic})</i>]";
 	window-format: "{i} {c} · {t}";
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-/*	theme: ;*/
+/*	theme: "~/.config/rofi/extra.rasi"; */
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/

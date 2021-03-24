@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Install Siji
+#https://github.com/stark/siji
+
 # Install Cozette
 wget -O /tmp/cozette.otb 'https://github.com/slavfox/Cozette/releases/download/v.1.9.3/cozette.otb'
 sudo mkdir /usr/share/fonts/cozette
