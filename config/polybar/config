@@ -12,8 +12,9 @@ selection = #000080
 #font-0 = Anonymous Pro:size=12:antialias=true;0
 #font-0 = Ikarius ADF No2 Std:size=13;2
 font-0 = Cozette:size=9;1
-font-1 = FontAwesome:size=7;1
-#font-1 = Unifont:pixelsize=10;0
+font-1 = "Cozette:size=9:weight=bold;1"
+font-2 = FontAwesome:size=7;1
+#font-3 = Unifont:pixelsize=10;0
 #background = ${color.background}
 foreground = ${color.foreground}
 ;border-bottom-size = 1
@@ -41,7 +42,7 @@ cursor-scroll = ns-resize
 
 [bar/bspwm]
 inherit = bar/base
-modules-left = bspwm-numwin bspwm xwindow
+modules-left = bspwm xwindow bspwm-numwin
 wm-restack = bspwm
 
 [module/bspwm]
@@ -65,9 +66,10 @@ label-urgent = ""
 ; display number of windows
 [module/bspwm-numwin]
 type = custom/script
-exec = (echo; bspc subscribe desktop_focus node_add node_remove node_transfer) | while read e; do bspc query -N -d focused -n .window | wc -l; done
+exec = (echo; bspc subscribe desktop_focus node_add node_remove node_transfer) | while read e; do bspc query -N -d focused -n .window | wc -l | awk '{if ($1>1) {printf ("(+"$1-1")\n")} else {printf "\n"}}'; done
 tail = true
 click-left = bspc desktop --layout next
+format-font = 2
 
 [module/bspwmfocus]
 type = custom/script
