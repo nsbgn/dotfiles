@@ -1,6 +1,10 @@
 # Homepage that vimb opens if started without a URI.
 set home-page=about:blank
 
+# Add icon to title
+# I don't know why I cant just use VIMB_XID directly
+autocmd LoadFinished * shellcmd xdotool search --pid "${VIMB_PID}" --name "${VIMB_TITLE}" set_window --name " ${VIMB_TITLE}"
+
 # Path to the default download directory. If no download directory is set,
 # download will be written into current directory. The following pattern will
 # be expanded if the download is started '~/', '~user', '$VAR' and '${VAR}'.
