@@ -4,12 +4,12 @@
 wmname LG3D
 
 xsetroot -cursor_name left_ptr
-#xsetroot -solid '#303030'
-xsetroot -mod 2 2 -bg '#909090' -fg '#303030'
+#xsetroot -solid '#9fb9b4'
+#xsetroot -solid '#000000'
+xsetroot -mod 2 2 -bg '#008080' -fg '#000000'
 
 bspc config border_width 1
-bspc config window_gap 6
-bspc config top_padding 0
+bspc config window_gap 8
 bspc config top_monocle_padding 1
 bspc config bottom_monocle_padding 1
 bspc config right_monocle_padding 1

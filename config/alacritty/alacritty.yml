@@ -115,9 +115,9 @@ font:
     #family: Dina
     #family: GohuFont
     #family: Code New Roman Nerd Font
-    #family: Anonymous Pro Minus
+    family: Anonymous Pro Minus
     #family: Anonymous Pro
-    family: ProFont
+    #family: ProFont
     #family: Inconsolata
 
     # The `style` can be specified to pick a specific face.

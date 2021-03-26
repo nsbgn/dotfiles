@@ -60,7 +60,7 @@ call plug#end()
 
 " Show file in window title
 set title
-set titlestring=\ %F\ %m
+set titlestring=\ \ %F\ %m
 
 " Check if a plugin is loaded
 function! PlugLoaded(name)

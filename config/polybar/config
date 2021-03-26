@@ -2,47 +2,45 @@
 #background = #00303030
 #foreground = #ffffffff
 background = #c0c0c0
-foreground = #000000
+foreground = #2a2a25
 border = #fafafa
 active = #000000
 inactive = #606060
 selection = #000080
 
 [bar/base]
-#font-0 = Anonymous Pro:size=12:antialias=true;0
-#font-0 = Ikarius ADF No2 Std:size=13;2
-font-0 = Cozette:size=9;1
-font-1 = "Cozette:size=9:weight=bold;1"
-font-2 = FontAwesome:size=7;1
-#font-3 = Unifont:pixelsize=10;0
+font-0 = Cabin:size=11;1
+font-1 = Anonymice Nerd Font Mono:size=16;3
+#font-0 = "Cozette:size=9;1"
+#font-1 = Anonymice Nerd Font Mono:size=10;2
 #background = ${color.background}
 foreground = ${color.foreground}
-;border-bottom-size = 1
-;border-bottom-color = #c0c0c0
-background-0 = #c0c0c0
+border-bottom-size = 1
+border-bottom-color = #707070
+background-0 = #d0d0d0
 background-1 = #909090
 ;background-0 = #a0ffffff
 ;background-1 = #c0ffffff
 width = 100%
-height = 24
-;height = 30
+;height = 24
+height = 28
 top = true
-padding-left = 2
-padding-right = 2
+padding-left = 4
+padding-right = 4
 tray-position = right
 tray-padding = 3
 tray-maxsize = 21
 module-margin-left = 1
 module-margin-right = 1
 modules-left = xwindow
-modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date xclose debian powerbutton
+modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date spacer debian xclose powerbutton
 enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/bspwm]
 inherit = bar/base
-modules-left = bspwm xwindow bspwm-numwin
+modules-left = bspwm spacer xwindow bspwm-numwin
 wm-restack = bspwm
 
 [module/bspwm]
@@ -51,14 +49,15 @@ wm-restack = bspwm
 type = internal/bspwm
 format = <label-state>
 enable-scroll = false
-label-separator = "  "
+label-separator = " "
+label-separator-padding = 1
 label-empty = ""
-;"☐"
+;"☐"
 label-focused = ""
-;"■"
+;"■"
 label-occupied = ""
-;"☐"
-label-urgent = ""
+;"☐"
+label-urgent = ""
 ;"☒"
 ;label-occupied = "☒ %name%"
 ; ;<label-mode>
@@ -69,7 +68,6 @@ type = custom/script
 exec = (echo; bspc subscribe desktop_focus node_add node_remove node_transfer) | while read e; do bspc query -N -d focused -n .window | wc -l | awk '{if ($1>1) {printf ("(+"$1-1")\n")} else {printf "\n"}}'; done
 tail = true
 click-left = bspc desktop --layout next
-format-font = 2
 
 [module/bspwmfocus]
 type = custom/script
@@ -79,8 +77,8 @@ tail = true
 [module/xbacklight]
 type = internal/xbacklight
 format = <label>
-;label = " %percentage%%" fontawesome version
-label = " %percentage%%"
+label = " %percentage%%"
+;label = " %percentage%%" cozette
 
 [module/mpris]
 type = custom/script
@@ -133,20 +131,25 @@ content = " ?"
 
 [module/xclose]
 type = custom/text
-content = ""
+content = ""
+#  cozette
 click-left = xdotool getwindowfocus windowkill
 
 [module/powerbutton]
 type = custom/text
 content = "⏻"
-# content = "" font awesome
+#content = "⏻" FA
 click-left = dmenu-system
 
 [module/debian]
 type = custom/text
-#content = "" font awesome
-content = ""
+content = ""
+#content = ""
 click-left = rofi -show drun
+
+[module/spacer]
+type = custom/text
+content = " "
 
 [module/battery]
 type = internal/battery
