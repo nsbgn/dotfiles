@@ -9,6 +9,15 @@ wget -O /tmp/cozette.otb 'https://github.com/slavfox/Cozette/releases/download/v
 sudo mkdir /usr/share/fonts/cozette
 sudo cp /tmp/cozette.otb /usr/share/fonts/cozette/
 
+# Install Dina
+wget -O /tmp/Dina.zip "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61"
+unzip -d ~/.fonts/Dina /tmp/Dina.zip
+cd ~/.fonts/Dina/BDF
+sudo mkfontscale
+sudo mkfontdir
+sudo dpkg-reconfigure fontconfig-config
+fc-cache -f
+
 # Install other fonts
 git clone https://github.com/Tecate/bitmap-fonts.git ~/.builds/bitmap-fonts
 sudo cp -avr ~/.builds/bitmap-fonts/bitmap/ /usr/share/fonts

@@ -15,8 +15,8 @@ font-1 = Anonymice Nerd Font Mono:size=16;3
 #font-1 = Anonymice Nerd Font Mono:size=10;2
 #background = ${color.background}
 foreground = ${color.foreground}
-border-bottom-size = 1
-border-bottom-color = #707070
+;border-bottom-size = 1
+;border-bottom-color = #707070
 background-0 = #d0d0d0
 background-1 = #909090
 ;background-0 = #a0ffffff
@@ -31,7 +31,7 @@ tray-position = right
 tray-padding = 3
 tray-maxsize = 21
 module-margin-left = 1
-module-margin-right = 1
+module-margin-right = 2
 modules-left = xwindow
 modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date spacer debian xclose powerbutton
 enable-ipc = true
@@ -180,7 +180,7 @@ ramp-capacity-4 = 
 [settings]
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = true
-pseudo-transparency = true
+#pseudo-transparency = true
 override-redirect = true
 
 [global/wm]
