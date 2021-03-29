@@ -67,7 +67,9 @@ super + x
 
 # alternate between the tiled and monocle layout
 super + @Return
-	bspc desktop --layout next
+	bspc node --state '~fullscreen'
+
+#	bspc desktop --layout next
 
 # focus/swap the node in the given direction
 super + {_,alt + }{a,s,w,d,q,e}
@@ -78,7 +80,7 @@ super + ctrl + {a,s,w,d}
 	bspwm-push {west,south,north,east}
 
 # increase window size ratio
-super + {up,down}
+super + {Up,Down}
 	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
 	then bspc node '@parent' --ratio '+10'; \
 	else bspc node '@parent' --ratio '-10'; \

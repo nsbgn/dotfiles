@@ -7,7 +7,5 @@
 	tool = imediff
 [icdiff]
 	options = --highlight --line-numbers
-#[includeIf "gitdir:github/"]
-#  path = .gitconfig-github
-#[includeIf "gitdir:work/"]
-#  path = .gitconfig-work
+[includeIf "gitdir:~/work/"]
+    path = ~/work/gitconfig
