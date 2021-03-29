@@ -4,6 +4,9 @@ call plug#begin(stdpath('data') . '/plugged')
     " Color schemes
     "Plug 'https://github.com/chriskempson/base16-vim'
 
+    " Distraction-free writing
+    Plug 'https://github.com/junegunn/goyo.vim'
+
     " Syntax highlighting
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
@@ -22,6 +25,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Buffer tabs
     Plug 'https://github.com/ap/vim-buftabline'
+    "Plug 'https://github.com/zefei/vim-wintabs'
 
     " Browse the undo tree
     Plug 'https://github.com/sjl/gundo.vim'
@@ -53,10 +57,10 @@ call plug#begin(stdpath('data') . '/plugged')
     " Manage Pandoc files
     "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
 
-    " Distraction-free writing
-    "Plug 'https://github.com/junegunn/goyo.vim'
-
 call plug#end()
+
+" Blinking cursor
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Show file in window title
 set title
@@ -179,11 +183,6 @@ if PlugLoaded('vim-pandoc')
         \})
 endif
 
-if PlugLoaded('vim-buftabline')
-    " Show buffers in tabline, but only if there is more than one
-    let g:buftabline_show = 1
-endif
-
 if PlugLoaded('lf.vim')
     " Unmap default lf key
     let g:lf_map_keys = 0
@@ -288,7 +287,7 @@ if PlugLoaded('vim-lsp')
 
         let g:lsp_format_sync_timeout = 1000
         autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-        
+
         " refer to doc to add more commands
     endfunction
 
@@ -329,6 +328,10 @@ if PlugLoaded('gundo.vim')
     nnoremap <F5> :GundoToggle<CR>
 endif
 
+if PlugLoaded('vim-buftabline')
+    " Show buffers in tabline, but only if there is more than one
+    let g:buftabline_show = 1
+endif
 
 nmap ; :
 

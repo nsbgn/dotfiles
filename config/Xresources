@@ -6,12 +6,12 @@ Xft.lcdfilter:  lcddefault
 
 Xcursor.theme: Chicago95 Standard Cursors
 
-URxvt.internalBorder: 7
-!URxvt.font: xft:Anonymice Nerd Font Mono:size=14
+URxvt.internalBorder: 16
+!URxvt.font: xft:Anonymice Nerd Font Mono:size=13
 URxvt.font: xft:Dina:size=11,xft:Anonymice Nerd Font Mono:size=11
 !URxvt.font: xft:Dina:size=11,xft:Anonymous Pro:size=11
 URxvt.letterSpace: 0
-URxvt.lineSpace: 0
+URxvt.lineSpace: 1
 URxvt.cursorBlink: true
 
 URxvt.depth: 32
@@ -22,8 +22,8 @@ URxvt.background: black
 !urxvt.transparent: true
 !urxvt.inheritPixmap: true
 !urxvt.shading: 15
-!urxvt.fading: 15
 !urxvt.tintColor: white
+!urxvt.fading: 15
 !urxvt.fadeColor: black
 
 
