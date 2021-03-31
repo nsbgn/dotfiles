@@ -36,7 +36,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'voldikss/vim-floaterm'
 
     " Language server protocol
-    Plug 'https://github.com/natebosch/vim-lsc'
+    Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
     "Plug 'https://github.com/prabirshrestha/vim-lsp'
 
     " Autocompletion (also needs `pip3 install pynvim`)
