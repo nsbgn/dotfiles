@@ -237,7 +237,7 @@ PACKAGES=(
     #quaternion # Distributed chat client for Matrix
 
     # Science
-    texlive{,-latex-extra,-fonts-extra} # Document typesetting
+    texlive{,-latex-extra,-fonts-extra,-latex-recommended,-science} # Document typesetting
     libreoffice-{impress,calc,writer,gtk3} # Word processor
     r-base # R statistical analysis software
     gnuplot # Plotting graphics
