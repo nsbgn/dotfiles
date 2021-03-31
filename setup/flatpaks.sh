@@ -7,17 +7,19 @@ set -euo pipefail
 sudo apt install flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Kodi media center because Debian one has issues with display & joystick input
+# Media center (Debian one has issues with display & joystick input)
 flatpak install flathub tv.kodi.Kodi
 
-# Dolphin emulator because it's not in bullseye
+# GC/Wii emulator (no longer in Debian)
 flatpak install flathub org.DolphinEmu.dolphin-emu
 
-# Xonotic game because it is not in Debian
+# Xonotic game because it is (not in Debian)
 flatpak install flathub org.xonotic.Xonotic
 
-# OpenRCT2 Rollercoaster Tycoon reimplementation because it not in Debian
+# Soulseek client (no longer in Debian)
+flatpak install flathub org.nicotine_plus.Nicotine
+
+# OpenRCT2 Rollercoaster Tycoon reimplementation (not in Debian)
 flatpak install flathub io.openrct2.OpenRCT2
 
-# flatpak install flathub org.nicotine_plus.Nicotine
 # flatpak install flathub org.netsurf_browser.NetSurf

@@ -5,7 +5,10 @@ set -euo pipefail
 PACKAGES=(
     # Theme & fonts
     lxappearance # Changing GTK themes
+    arc-theme # GTK theme
     faenza-icon-theme # Icon theme
+    papirus-icon-theme # Icon theme
+    numix-icon-theme{,-circle} # Icon theme
     dmz-cursor-theme # White cursor theme
     fonts-dejavu # Standard font
     fonts-font-awesome # Icon font
