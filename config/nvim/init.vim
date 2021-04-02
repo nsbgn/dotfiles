@@ -7,8 +7,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
 
-    " Syntax highlighting
-    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    " Syntax highlighting Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
@@ -23,9 +22,14 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/mhinz/vim-signify.git'
     " Plug 'https://github.com/tpope/vim-fugitive.git'
 
-    " Buffer tabs
+    " Automatic alignment
+    Plug 'https://github.com/junegunn/vim-easy-align'
+
+    " Auto-edit parentheses
+    Plug 'https://github.com/tpope/vim-surround'
+
+    " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
-    "Plug 'https://github.com/zefei/vim-wintabs'
 
     " Browse the undo tree
     Plug 'https://github.com/sjl/gundo.vim'
@@ -33,7 +37,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Browse within vim using the `lf` file manager
     Plug 'https://github.com/ptzz/lf.vim'
     Plug 'https://github.com/rbgrouleff/bclose.vim'
-    Plug 'voldikss/vim-floaterm'
+    Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
     Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
@@ -73,8 +77,9 @@ function! PlugLoaded(name)
         \ stridx(&rtp, substitute(g:plugs[a:name].dir,"/$","","")) >= 0)
 endfunction
 
-" Show the mode in the command bar, don't show status bar, etc
-set showmode
+set noshowmode  " cursor makes it obvious what mode I am in anyway
+
+" Don't show status bar, etc
 set laststatus=0
 set noshowcmd
 
@@ -323,14 +328,41 @@ if PlugLoaded('LanguageClient-neovim')
     nmap za :call LanguageClient#textDocument_codeAction()<CR>
 endif
 
+if PlugLoaded('vim-easy-align')
+    " Start interactive EasyAlign in visual mode (e.g. vipga)
+    xmap ga <Plug>(EasyAlign)
+    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+    nmap ga <Plug>(EasyAlign)
+endif
+
 if PlugLoaded('gundo.vim')
     " View undo tree
     nnoremap <F5> :GundoToggle<CR>
 endif
 
+if PlugLoaded('goyo.vim')
+    let g:goyo_width = 80
+    let g:goyo_height = "100%"
+    let g:goyo_linenr = 0
+endif
+
 if PlugLoaded('vim-buftabline')
     " Show buffers in tabline, but only if there is more than one
     let g:buftabline_show = 1
+
+    " Reduce conflict with goyo
+    " See https://github.com/ap/vim-buftabline/issues/64
+    if PlugLoaded('goyo.vim')
+        autocmd! User GoyoEnter nested call <SID>GoyoEnter()
+        autocmd! User GoyoLeave nested call <SID>GoyoLeave()
+        function! s:GoyoEnter() "
+            set showtabline=0
+        endfunction "
+        function! s:GoyoLeave() "
+            set showtabline=1
+            :call buftabline#update(0)
+        endfunction "
+    endif
 endif
 
 nmap ; :
