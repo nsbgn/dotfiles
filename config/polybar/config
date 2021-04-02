@@ -14,14 +14,18 @@ font-1 = Anonymice Nerd Font Mono:size=17;4
 #font-0 = "Cozette:size=9;1"
 #font-1 = Anonymice Nerd Font Mono:size=10;2
 #background = ${color.background}
-foreground = #404040
+foreground = #403935
 #foreground = #000000
 #background = #c0c0c0
+#background = #d5c3a1
+;background = #ebd9b3
 ;${color.foreground}
 border-bottom-size = 1
-border-bottom-color = #c0c0c0
-background-0 = #d0d0d0
-background-1 = #c0c0c0
+border-bottom-color = #c0b8b0
+;background-0 = #ebd9b3
+;background-1 = #f9f5d8
+background-0 = #d0c8c0
+background-1 = #c0b8b0
 ;background-0 = #a0ffffff
 ;background-1 = #c0ffffff
 width = 100%

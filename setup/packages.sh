@@ -206,6 +206,7 @@ PACKAGES=(
     dwdiff # Word diff
     diffpdf # PDF comparison
     gpick # Color picker
+    grabc # Simple color picker for the terminal
     kdenlive # Video editing software
     #synaptic # Package manager
     #gnome-software # Software center

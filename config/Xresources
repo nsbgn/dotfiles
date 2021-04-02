@@ -4,19 +4,17 @@ Xft.rgba:       rgb
 Xft.hintstyle:  hintfull
 Xft.lcdfilter:  lcddefault
 
-Xcursor.theme: Chicago95 Standard Cursors
+!Xcursor.theme: Chicago95 Standard Cursors
+Xcursor.theme: DMZ (White) Cursors
 
 URxvt.internalBorder: 16
-URxvt.font: xft:Anonymice Nerd Font Mono:size=12,xft:Unifont:size=12
-!URxvt.font: xft:Dina:size=11,xft:Anonymice Nerd Font Mono:size=11
-!URxvt.font: xft:Dina:size=11,xft:Anonymous Pro:size=11
-URxvt.letterSpace: 0
-URxvt.lineSpace: 1
+URxvt.font: xft:Anonymice Nerd Font Mono:size=13,xft:Unifont:size=13
+!URxvt.font: xft:Cozette:size=9,xft:Anonymice Nerd Font Mono:size=11
+URxvt.letterSpace: 1
+URxvt.lineSpace: 2
 URxvt.cursorBlink: true
 
-URxvt.depth: 32
-URxvt.foreground: black
-URxvt.background: white
+
 
 ! for opacity
 !urxvt.transparent: true
@@ -25,7 +23,6 @@ URxvt.background: white
 !urxvt.tintColor: white
 !urxvt.fading: 15
 !urxvt.fadeColor: black
-
 
 URxvt.scrollBar: false
 
@@ -36,27 +33,31 @@ URxvt*scrollWithBuffer: true
 ! scroll back to the bottom on keypress
 URxvt*scrollTtyKeypress: true
 
+! Inspired by gruvbox light, see https://github.com/morhetz/gruvbox
+URxvt.depth: 24
+URxvt.foreground: black
+URxvt.background: #ffffee
 ! black
-*color0: #1c1c1c
-*color8: #555753
+*color0:  #fbf1c7
+*color8:  #928374
 ! red
-*color1: #bc5653
-*color9: #EF2929
+*color1:  #cc241d
+*color9:  #9d0006
 ! yellow
-*color2: #ebc17a
-*color10: #8AE234
+*color2:  #d79921
+*color10: #b57614
 ! green
-*color3: #70be70
-*color11: #FCE94F
+*color3:  #98971a
+*color11: #79740e
 ! blue
-*color4: #327D94
-*color12: #327D94
+*color4:  #458588
+*color12: #076678
 ! magenta
-*color5: #aa6292
-*color13: #AD7FA8
+*color5:  #b16286
+*color13: #8f3f71
 ! cyan
-*color6: #6babd0
-*color14: #6babd0
+*color6:  #689d6a
+*color14: #427b58
 ! white
-*color7: #cacaca
-*color15: #EEEEEC
+*color7:  #7c6f64
+*color15: #3c3836
