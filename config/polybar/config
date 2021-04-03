@@ -20,11 +20,11 @@ foreground = #403935
 #background = #d5c3a1
 ;background = #ebd9b3
 ;${color.foreground}
-border-bottom-size = 1
+border-bottom-size = 2
 border-bottom-color = #c0b8b0
 ;background-0 = #ebd9b3
 ;background-1 = #f9f5d8
-background-0 = #d0c8c0
+background-0 = #e0d8d0
 background-1 = #c0b8b0
 ;background-0 = #a0ffffff
 ;background-1 = #c0ffffff
