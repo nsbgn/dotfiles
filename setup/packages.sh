@@ -177,6 +177,7 @@ PACKAGES=(
     xz-utils xzdec # XZ-format compression and decompression
     python3-breadability # Readability implementation in python
     bpython3 # Interactive Python interpreter --- helpful!
+    bat # text viewer with syntax highlighting (renamed to batcat)
 
     # Media, software suites
     firefox-esr # Web browser. Current version not from repositories
