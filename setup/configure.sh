@@ -9,7 +9,7 @@ for FILE in "$(dirname $0)"/../config/*; do
     else
         DEST="$HOME/.$NAME"
     fi
-    
+
     echo "$FILE -> $DEST"
     # overwrite symbolic links but nothing else
     if [ -L "$DEST" ]; then
