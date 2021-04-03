@@ -180,7 +180,7 @@ PACKAGES=(
     bat # text viewer with syntax highlighting (renamed to batcat)
 
     # Media, software suites
-    firefox-esr # Web browser. Current version not from repositories
+    firefox-esr webext-ublock-origin-firefox # Web browser. Add: uMatrix, Vim Vixen
     netsurf-gtk # A minimalistic web browser.
     mpv # Media player
     celluloid # Front-end for mpv
