@@ -1,9 +1,9 @@
 configuration {
 	modi: "window,run,ssh,drun";
 	width: 40;
-	lines: 15;
+	lines: 10;
 	columns: 1;
-	font: "Cozette 9"; /* was Dina 10 */
+	font: "Anonymice Nerd Font Mono 12";
 /*	bw: 1;*/
 /*	location: 0;*/
 /*	padding: 5;*/
@@ -51,7 +51,7 @@ drun-display-format: "{name} [<i>({generic})</i>]";
 	window-format: "{t}";
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-/*	theme: "~/.config/rofi/extra.rasi"; */
+	theme: "theme.rasi";
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/
@@ -59,11 +59,11 @@ drun-display-format: "{name} [<i>({generic})</i>]";
 /*	max-history-size: 25;*/
 	combi-hide-mode-prefix: true;
 /*	pid: "/run/user/1000/rofi.pid";*/
-	display-window: "Task";
+	display-window: "";
 /*	display-windowcd: ;*/
 /*	display-run: ;*/
 /*	display-ssh: ;*/
-	display-drun: "Run";
+	display-drun: "";
 /*	display-combi: ;*/
 /*	display-keys: ;*/
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
