@@ -1,35 +1,14 @@
-[color]
-#background = #00303030
-#foreground = #ffffffff
-background = #c0c0c0
-foreground = #2a2a25
-border = #fafafa
-active = #000000
-inactive = #606060
-selection = #000080
-
 [bar/base]
 font-0 = Cabin:size=10;2
 font-1 = Anonymice Nerd Font Mono:size=17;4
+font-2 = Unifont:size=15;0
 #font-0 = "Cozette:size=9;1"
-#font-1 = Anonymice Nerd Font Mono:size=10;2
-#background = ${color.background}
-foreground = #403935
-#foreground = #000000
-#background = #c0c0c0
-#background = #d5c3a1
-;background = #ebd9b3
-;${color.foreground}
 border-bottom-size = 2
 border-bottom-color = #c0b8b0
-;background-0 = #ebd9b3
-;background-1 = #f9f5d8
+foreground = #403935
 background-0 = #e0d8d0
 background-1 = #c0b8b0
-;background-0 = #a0ffffff
-;background-1 = #c0ffffff
 width = 100%
-;height = 24
 height = 30
 top = true
 padding-left = 4
@@ -51,23 +30,15 @@ modules-left = apps bspwm spacer xwindow bspwm-numwin
 wm-restack = bspwm
 
 [module/bspwm]
-; empty circle:  ; full circle:  ; dotted: 
-; ■ □ ☐ ☑ ☒
 type = internal/bspwm
 format = <label-state>
 enable-scroll = false
 label-separator = " "
 label-separator-padding = 1
 label-empty = ""
-;"☐"
 label-focused = ""
-;"■"
 label-occupied = ""
-;"☐"
-label-urgent = ""
-;"☒"
-;label-occupied = "☒ %name%"
-; ;<label-mode>
+label-urgent = ""
 
 ; display number of windows
 [module/bspwm-numwin]
@@ -87,7 +58,6 @@ tail = true
 type = internal/xbacklight
 format = <label>
 label = "  %percentage%%"
-;label = "  %percentage%%" cozette
 
 [module/mpris]
 type = custom/script
@@ -134,29 +104,24 @@ interval = 10.0
 label-connected = "直  %signal%%"
 label-disconnected = "睊  disconnected"
 click-left = urxvtc -e nmtui
-# 
 
 [module/bluetooth]
 type = custom/text
 content = " ?"
-# bluetooth: ⍟?
 
 [module/xclose]
 type = custom/text
 content = ""
-#  cozette
 click-left = xdotool getwindowfocus windowkill
 
 [module/powerbutton]
 type = custom/text
 content = "⏻"
-#content = "⏻" FA
 click-left = dmenu-system
 
 [module/apps]
 type = custom/text
 content = ""
-#content = ""
 click-left = rofi -show drun
 
 [module/spacer]
@@ -175,19 +140,11 @@ format-discharging = <ramp-capacity>  <label-discharging>
 label-full =   %percentage%%
 label-charging =   %percentage%%
 label-discharging = %percentage%%
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-
-#label-full =  %percentage%%
-#label-charging =  %percentage%%
-#label-discharging = %percentage%%
-
-# 
-#U+0F58_│               
-
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
 [settings]
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events

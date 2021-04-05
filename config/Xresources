@@ -5,7 +5,7 @@ Xft.hintstyle:  hintfull
 Xft.lcdfilter:  lcddefault
 
 !Xcursor.theme: Chicago95 Standard Cursors
-Xcursor.theme: DMZ (White) Cursors
+Xcursor.theme: DMZ-White
 
 URxvt.internalBorder: 16
 URxvt.font: xft:Anonymice Nerd Font Mono:size=13,xft:Unifont:size=13

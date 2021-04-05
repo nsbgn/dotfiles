@@ -1,5 +1,5 @@
 alias vim="nvim"
-alias t="vim $HOME/log/todo.md"
+alias t="vim $HOME/notes/todo/todo.md"
 alias u="sudo apt update; sudo apt upgrade"
 alias c="kalk_cli"
 alias fin="ledger --market balance ^assets ^liabilities"
