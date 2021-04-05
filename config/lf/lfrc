@@ -6,7 +6,7 @@ set ifs "\n" # split $fs and $fx properly because default file sep is newline
 set ratios 1:3:3 # set ratio of panes
 set timefmt "2006-01-02 Mon 15:04" # set time format
 #set color256 on # surn on colors
-set previewer file-preview # previewer script
+set previewer ~/.config/lf/preview.sh # previewer script
 set scrolloff 10 # leave some space at the top and the bottom of the screen
 
 
@@ -21,10 +21,8 @@ cmd trash ${{
 
 # Creating a new directory or file
 cmd mkdir %mkdir -p "$(echo $* | tr ' ' '\ ')"
-cmd mkfile %file-new "$(echo $* | tr ' ' '\ ')"
-
-# File opening
-cmd open ${{ file-open "$f" }}
+cmd mkfile %~/.config/lf/new.sh "$(echo $* | tr ' ' '\ ')"
+cmd open ${{ ~/.config/lf/open.sh "$f" }}
 
 # show disk usage
 #cmd usage :echo !{{du -hs . | more}}<CR>
@@ -35,7 +33,6 @@ cmd on-cd &{{
     # but are not connected to stdout.
     # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
     printf "\033]0;  $(pwd | sed "s|$HOME|~|")\007" > /dev/tty
-    # cozette
 }}
 on-cd # also run at startup
 

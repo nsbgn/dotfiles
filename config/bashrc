@@ -22,20 +22,5 @@ eval "$(register-python-argcomplete3 pubs)" # ~/.local/bin/pubs adds layer of
 function lf {
     $(which lf) -last-dir-path="/tmp/lfdir" "$@"
     dir="$(cat /tmp/lfdir)"
-    if [ -d "$dir" ] && [ "$PWD" != "$dir" ]; then
-        cd "$dir"
-    fi
-}
-
-# Create and open new files in one swoop
-function o {
-if [ ! -z "${1:-}" ]; then
-    file-new "$1" && file-open "$1"
-fi
-}
-
-function l {
-    if [ ! -z "${1:-}" ]; then
-        nvim "~/log/$1"
-    fi
+    [ -d "$dir" ] && [ "$PWD" != "$dir" ] && cd "$dir"
 }
