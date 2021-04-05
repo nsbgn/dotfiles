@@ -1,0 +1,3 @@
+GIT Change a previous commit: git commit --amend COPY
+NVIM Visual multi-insert: ctrl+v (select) shift+i  NONE
+MPV Toggle show progress: shift+o TYPE

@@ -39,3 +39,4 @@ urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon
 bspwm-cleaner & # automatically remove empty desktops
 polybar bspwm & # taskbar
+dmenu-mpv --initialise &
