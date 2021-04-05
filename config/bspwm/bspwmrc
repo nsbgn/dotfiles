@@ -28,13 +28,14 @@ bspc config removal_adjustment true
 
 bspc rule -a Netsurf-gtk state=tiled
 
-bspwm-cleaner & # automatically remove empty desktops
 keyboard-config & # keyboard settings
 sxhkd & # keyboard shortcuts
+keynav & # use keyboard for mouse navigation
 lxpolkit & # policy kit
 unclutter -root -idle 2 & # hide mouse when not in use for two seconds
 redshift & # nighttime screen colours
 dunst & # notifications
 urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon
+bspwm-cleaner & # automatically remove empty desktops
 polybar bspwm & # taskbar

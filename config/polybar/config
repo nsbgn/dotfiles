@@ -19,7 +19,7 @@ tray-maxsize = 21
 module-margin-left = 1
 module-margin-right = 3
 modules-left = xwindow
-modules-right = mpris pulseaudio xbacklight wireless-network battery mouselock date powerbutton
+modules-right = mpris pulseaudio xkeyboard xbacklight wireless-network battery mouselock date powerbutton
 enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -67,9 +67,15 @@ click-left = dmenu-mpv --toggle
 
 [module/mouselock]
 type = custom/ipc
-hook-0 = echo " mouse"
+hook-0 = echo "  "
 hook-1 = echo ""
 initial = 2
+
+[module/xkeyboard]
+type = internal/xkeyboard
+format = <label-layout>
+label-layout = %icon% %number%
+layout-icon-default = " "
 
 [module/xwindow]
 type = internal/xwindow

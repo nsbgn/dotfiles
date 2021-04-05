@@ -1,6 +1,9 @@
 ################
 # wm independent
 
+super + slash
+	dmenu-cheatsheet
+
 # terminal emulator
 super + t
 #	alacritty --working-directory "$(xcwd)"
