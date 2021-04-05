@@ -42,6 +42,7 @@ PACKAGES=(
     cups-bsd enscript # CLI printing
     system-config-printer gtklp # Printer configuration
     sane-utils # Contains "scanimage" for scanning
+    fasd # Command-line productivity booster
 
     # System utilities & window managers
     #glyrc # Music metadata finder for CLI

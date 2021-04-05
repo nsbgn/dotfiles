@@ -24,3 +24,6 @@ function lf {
     dir="$(cat /tmp/lfdir)"
     [ -d "$dir" ] && [ "$PWD" != "$dir" ] && cd "$dir"
 }
+
+# Use https://github.com/clvv/fasd
+eval "$(fasd --init auto)"
