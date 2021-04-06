@@ -1,3 +1,4 @@
+alias bak="crsync"
 alias vim="nvim"
 alias t="vim $HOME/notes/todo/todo.md"
 alias u="sudo apt update; sudo apt upgrade"

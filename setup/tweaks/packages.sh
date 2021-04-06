@@ -189,6 +189,8 @@ PACKAGES=(
     timidity # Playing MIDI files
     # kodi # Media center
     sxiv # Image viewer
+    feh # Image viewer
+    pqiv # Image viewer
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
     fbreader # Ebook reader
     #vim{,-gui-common,-pathogen} # Text editor

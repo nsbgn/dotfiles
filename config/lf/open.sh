@@ -31,7 +31,22 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     audio/*) 
         mpv --no-audio-display "$F" ;;
     image/*) 
-        gui mirage "$F" ;; #gui sxiv -a "$F" "$(dirname "$F")"
+        # gui mirage "$F" ;; #gui sxiv -a "$F" "$(dirname "$F")"
+        # --geometry 1000x1000 \
+        feh \
+            --fullscreen \
+            --borderless \
+            --scale-down \
+            --draw-filename \
+            --draw-tinted \
+            --font 'Anonymous Pro/13' \
+            --fontpath '/usr/share/fonts/truetype/anonymous-pro/' \
+            --image-bg '#ffffee' \
+            --caption-path "$(dirname "$F")" \
+            --sort filename \
+            --start-at "$F" \
+            "$(dirname "$F")"
+        ;;
     application/epub+zip:*) 
         gui mupdf -r 70 "$F" ;; #epr "$F" within terminal
     application/zip:*.cbz) 

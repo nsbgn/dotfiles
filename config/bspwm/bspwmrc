@@ -27,6 +27,8 @@ bspc config automatic_scheme alternate
 bspc config removal_adjustment true
 
 bspc rule -a Netsurf-gtk state=tiled
+bspc rule -a feh state=fullscreen
+bspc rule -a Sxiv state=floating
 
 keyboard-config & # keyboard settings
 sxhkd & # keyboard shortcuts
