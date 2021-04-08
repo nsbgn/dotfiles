@@ -6,6 +6,8 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
+    "Plug 'https://github.com/bilalq/lite-dfm'
+    "Plug 'https://github.com/mikewest/vimroom'
 
     " Syntax highlighting Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
@@ -27,6 +29,9 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Auto-edit parentheses
     Plug 'https://github.com/tpope/vim-surround'
+
+    " Move around by typing 's{char}{char}'
+    Plug 'justinmk/vim-sneak'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
@@ -62,6 +67,8 @@ call plug#begin(stdpath('data') . '/plugged')
     "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
 
 call plug#end()
+
+let g:sneak#label = 1
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -365,8 +372,6 @@ if PlugLoaded('vim-buftabline')
     endif
 endif
 
-nmap ; :
-
 " Navigating buffers
 " close buffer:
 nmap td :bd<CR>
@@ -383,3 +388,31 @@ nmap , :bprevious<CR>
 nmap = o<Esc>79a=<Esc>0
 nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
+
+
+" Center everything. Adapted from:
+" https://stackoverflow.com/questions/12952479/how-to-center-horizontally-the-contents-of-the-open-file-in-vim
+function! WriteRoomClose()
+    let l:name = '_writeroom_'
+    if bufwinnr(l:name) > 0
+        only
+    endif
+endfunction
+
+function! WriteRoomToggle()
+    let l:name = '_writeroom_'
+    if bufwinnr(l:name) > 0
+        only
+    else
+        let l:width = ((&columns - &textwidth) / 2 - 5)
+        execute 'topleft' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
+        execute 'botright' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
+        set fillchars+=vert:\ 
+        highlight VertSplit cterm=NONE
+        highlight EndOfBuffer ctermfg=black
+    endif
+endfunction
+
+autocmd VimResized <buffer> :call WriteRoomClose()
+autocmd QuitPre <buffer> :call WriteRoomClose()
+command! Room call WriteRoomToggle()
