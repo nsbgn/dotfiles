@@ -14,7 +14,7 @@ URxvt.letterSpace: 1
 URxvt.lineSpace: 2
 URxvt.cursorBlink: true
 
-
+URxvt.geometry: 80x46
 
 ! for opacity
 !urxvt.transparent: true
@@ -43,10 +43,10 @@ URxvt.background: #ffffee
 ! red
 *color1:  #cc241d
 *color9:  #9d0006
-! yellow
+! green
 *color2:  #98971a
 *color10: #79740e
-! green
+! yellow
 *color3:  #d79921
 *color11: #b57614
 ! blue

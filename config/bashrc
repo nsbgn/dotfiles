@@ -27,3 +27,5 @@ function lf {
 
 # Use https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
+
+# source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"

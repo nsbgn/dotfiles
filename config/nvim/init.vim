@@ -1,8 +1,7 @@
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
-    " Color schemes
-    "Plug 'https://github.com/chriskempson/base16-vim'
+    Plug 'https://github.com/morhetz/gruvbox'
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
@@ -68,6 +67,17 @@ call plug#begin(stdpath('data') . '/plugged')
 
 call plug#end()
 
+"set background=light
+"let g:gruvbox_contrast_light="soft"
+"let g:gruvbox_sign_column="bg0"
+"colorscheme gruvbox
+
+" Turn off background to take on same bg as my terminal
+highlight Normal ctermbg=NONE
+
+" Turn off background on the sign column (except when there are signs)  
+highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+
 let g:sneak#label = 1
 
 " Blinking cursor
@@ -84,7 +94,8 @@ function! PlugLoaded(name)
         \ stridx(&rtp, substitute(g:plugs[a:name].dir,"/$","","")) >= 0)
 endfunction
 
-set noshowmode  " cursor makes it obvious what mode I am in anyway
+" cursor makes it obvious what mode I am in anyway
+set noshowmode
 
 " Don't show status bar, etc
 set laststatus=0
@@ -96,12 +107,14 @@ set mouse=a
 " Width is 79 characters by default
 set textwidth=79
 
-" Show column number, line number and relative position in status line
-set ruler
+" Don't show column number, line number and relative position in status line
+set noruler
 
-" Show line numbers in left margin
-"set number
+" Don't show line numbers in left margin
 set nonumber
+
+" Get rid of fileinfo in command line
+set shortmess=F
 
 " Indentation behaviour
 set autoindent " Copy indentation from previous line
@@ -129,23 +142,12 @@ set clipboard=unnamedplus
 " Show visible indication for tabs
 set list
 
-" Turn off background on the sign column (except when there are signs)  
-highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
-
-"set background=dark
-"let base16colorspace=256
-"colorscheme base16-default
-
 let g:netrw_browsex_viewer = "firefox"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File-specific configuration
 
 if has("autocmd")
-
-
-
-
     autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
     "au TermEnter * setlocal nonumber
@@ -410,6 +412,7 @@ function! WriteRoomToggle()
         set fillchars+=vert:\ 
         highlight VertSplit cterm=NONE
         highlight EndOfBuffer ctermfg=black
+        " bg
     endif
 endfunction
 
