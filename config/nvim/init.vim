@@ -382,9 +382,10 @@ if PlugLoaded('goyo.vim')
 endif
 
 if PlugLoaded('fzf.vim')
-    nmap gm :Marks<CR>
     nmap gf :Files<CR>
     nmap gb :Buffers<CR>
+    nmap gl :Lines<CR>
+    nmap gm :Marks<CR>
 endif
 
 if PlugLoaded('vim-buftabline')

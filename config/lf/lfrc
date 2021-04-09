@@ -45,7 +45,7 @@ cmd fasd_dir ${{
    fi
  lf -remote "send $id $cmd \"$res\""
  }}
-map go :fasd_dir
+map gf :fasd_dir
 
 # Keyboard mappings ##########################################################
 
