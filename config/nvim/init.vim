@@ -2,16 +2,21 @@
 call plug#begin(stdpath('data') . '/plugged')
 
     Plug 'https://github.com/morhetz/gruvbox'
+    Plug 'https://github.com/ap/vim-css-color'
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
     "Plug 'https://github.com/bilalq/lite-dfm'
     "Plug 'https://github.com/mikewest/vimroom'
 
-    " Syntax highlighting Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    " Syntax highlighting
+    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
+
+    " Inertial scrolling
+    Plug 'https://github.com/yuttie/comfortable-motion.vim'
 
     " Work with GPG-encrypted files
     Plug 'https://github.com/jamessan/vim-gnupg.git'
@@ -29,8 +34,14 @@ call plug#begin(stdpath('data') . '/plugged')
     " Auto-edit parentheses
     Plug 'https://github.com/tpope/vim-surround'
 
+    " Auto comment lines
+    Plug 'https://github.com/tpope/vim-commentary'
+
     " Move around by typing 's{char}{char}'
-    Plug 'justinmk/vim-sneak'
+    Plug 'https://github.com/justinmk/vim-sneak'
+
+    " Move around by using the leader key
+    "Plug 'https://github.com/easymotion/vim-easymotion'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
@@ -78,8 +89,6 @@ highlight Normal ctermbg=NONE
 " Turn off background on the sign column (except when there are signs)  
 highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
-let g:sneak#label = 1
-
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 
@@ -114,7 +123,7 @@ set noruler
 set nonumber
 
 " Get rid of fileinfo in command line
-set shortmess=F
+"set shortmess=F
 
 " Indentation behaviour
 set autoindent " Copy indentation from previous line
@@ -349,6 +358,12 @@ if PlugLoaded('gundo.vim')
     nnoremap <F5> :GundoToggle<CR>
 endif
 
+if PlugLoaded('vim-sneak')
+    let g:sneak#s_next = 1
+    let g:sneak#label = 1
+endif
+
+
 if PlugLoaded('goyo.vim')
     let g:goyo_width = 80
     let g:goyo_height = "100%"
@@ -391,18 +406,28 @@ nmap = o<Esc>79a=<Esc>0
 nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
 
+nmap <Tab> :set number! relativenumber!<CR>
 
 " Center everything. Adapted from:
 " https://stackoverflow.com/questions/12952479/how-to-center-horizontally-the-contents-of-the-open-file-in-vim
-function! WriteRoomClose()
-    let l:name = '_writeroom_'
+
+function! CenterStop()
+    let l:name = '_padding_'
     if bufwinnr(l:name) > 0
         only
     endif
 endfunction
 
-function! WriteRoomToggle()
-    let l:name = '_writeroom_'
+function! CenterResize()
+    let l:name = '_padding_'
+    if bufwinnr(l:name) > 0
+        only
+        call WriteRoomToggle()
+    endif
+endfunction
+
+function! CenterToggle()
+    let l:name = '_padding_'
     if bufwinnr(l:name) > 0
         only
     else
@@ -416,6 +441,8 @@ function! WriteRoomToggle()
     endif
 endfunction
 
-autocmd VimResized <buffer> :call WriteRoomClose()
-autocmd QuitPre <buffer> :call WriteRoomClose()
-command! Room call WriteRoomToggle()
+autocmd VimResized <buffer> :call CenterResize()
+autocmd QuitPre <buffer> :call CenterStop()
+command! Center call CenterToggle()
+
+set shortmess+=F  " to get rid of the file name displayed in the command line bar
