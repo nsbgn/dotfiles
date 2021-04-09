@@ -47,8 +47,8 @@ URxvt.background: #ffffee
 *color2:  #98971a
 *color10: #79740e
 ! yellow
-*color3:  #d79921
-*color11: #b57614
+*color3:  #ef9000
+*color11: #ffaa00
 ! blue
 *color4:  #458588
 *color12: #076678
