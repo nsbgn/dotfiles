@@ -13,6 +13,10 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
 
+    " Fuzzy finding
+    Plug 'https://github.com/junegunn/fzf'
+    Plug 'https://github.com/junegunn/fzf.vim'
+
     " Inertial scrolling
     Plug 'https://github.com/yuttie/comfortable-motion.vim'
 
@@ -377,6 +381,12 @@ if PlugLoaded('goyo.vim')
     let g:goyo_linenr = 0
 endif
 
+if PlugLoaded('fzf.vim')
+    nmap gm :Marks<CR>
+    nmap gf :Files<CR>
+    nmap gb :Buffers<CR>
+endif
+
 if PlugLoaded('vim-buftabline')
     " Show buffers in tabline, but only if there is more than one
     let g:buftabline_show = 1
@@ -414,6 +424,21 @@ nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
 
 nmap <Tab> :set number! relativenumber!<CR>
+
+
+
+
+" Clear cmd line message
+function! s:empty_message(timer)
+  if mode() ==# 'n'
+    echon ''
+  endif
+endfunction
+
+augroup cmd_msg_cls
+    autocmd!
+    autocmd CmdlineLeave :  call timer_start(1000, funcref('s:empty_message'))
+augroup END
 
 " Center everything. Adapted from:
 " https://stackoverflow.com/questions/12952479/how-to-center-horizontally-the-contents-of-the-open-file-in-vim
