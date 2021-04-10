@@ -30,6 +30,9 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/mhinz/vim-signify.git'
     " Plug 'https://github.com/tpope/vim-fugitive.git'
 
+    " Visually indicate marks
+    Plug 'https://github.com/kshenoy/vim-signature'
+
     " Automatic alignment
     Plug 'https://github.com/junegunn/vim-easy-align'
 
@@ -346,7 +349,7 @@ if PlugLoaded('LanguageClient-neovim')
 endif
 
 if PlugLoaded('vim-signify')
-    set signcolumn=auto
+    set signcolumn=auto:2
     highlight SignColumn ctermbg=NONE cterm=NONE
     highlight SignifySignAdd ctermfg=DarkGreen cterm=NONE
     highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
