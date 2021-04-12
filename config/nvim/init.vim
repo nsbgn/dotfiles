@@ -349,7 +349,7 @@ if PlugLoaded('LanguageClient-neovim')
 endif
 
 if PlugLoaded('vim-signify')
-    set signcolumn=auto:2
+    set signcolumn=auto
     highlight SignColumn ctermbg=NONE cterm=NONE
     highlight SignifySignAdd ctermfg=DarkGreen cterm=NONE
     highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
@@ -430,15 +430,12 @@ nmap ~ o<Esc>79a~<Esc>0
 nmap <Tab> :set number! relativenumber!<CR>
 
 
-
-
 " Clear cmd line message
 function! s:empty_message(timer)
   if mode() ==# 'n'
     echon ''
   endif
 endfunction
-
 augroup cmd_msg_cls
     autocmd!
     autocmd CmdlineLeave :  call timer_start(1000, funcref('s:empty_message'))
@@ -452,22 +449,13 @@ function! CenterStop()
     if bufwinnr(l:name) > 0
         only
     endif
+    let g:centered=0
 endfunction
 
-function! CenterResize()
+function! CenterStart()
     let l:name = '_padding_'
-    if bufwinnr(l:name) > 0
-        only
-        call WriteRoomToggle()
-    endif
-endfunction
-
-function! CenterToggle()
-    let l:name = '_padding_'
-    if bufwinnr(l:name) > 0
-        only
-    else
-        let l:width = ((&columns - &textwidth) / 2 - 5)
+    let l:width = ((&columns - &textwidth) / 2 - 5)
+    if l:width > 1 && bufwinnr(l:name) <= 0
         execute 'topleft' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
         execute 'botright' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
         set fillchars+=vert:\ 
@@ -475,9 +463,26 @@ function! CenterToggle()
         highlight EndOfBuffer ctermfg=black
         " bg
     endif
+    let g:centered=1
 endfunction
 
-autocmd VimResized <buffer> :call CenterResize()
+function! CenterResize()
+    if g:centered == 1
+        call CenterStop()
+        call CenterStart()
+    endif
+endfunction
+
+function! CenterToggle()
+    if g:centered == 1
+        call CenterStop()
+    elseif g:centered == 0
+        call CenterStart()
+    endif
+endfunction
+
+let g:centered=0
+autocmd VimResized * :call CenterResize()
 autocmd QuitPre <buffer> :call CenterStop()
 command! Center call CenterToggle()
 
