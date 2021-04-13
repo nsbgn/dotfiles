@@ -42,11 +42,9 @@ call plug#begin(stdpath('data') . '/plugged')
     " Auto comment lines
     Plug 'https://github.com/tpope/vim-commentary'
 
-    " Move around by typing 's{char}{char}'
-    Plug 'https://github.com/justinmk/vim-sneak'
-
-    " Move around by using the leader key
-    "Plug 'https://github.com/easymotion/vim-easymotion'
+    " Moving around
+    Plug 'https://github.com/easymotion/vim-easymotion'
+    "Plug 'https://github.com/justinmk/vim-sneak'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
@@ -428,7 +426,13 @@ nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
 
 nmap <Tab> :set number! relativenumber!<CR>
+nmap <Space> <Plug>(easymotion-bd-w)
+nmap s <Plug>(easymotion-overwin-f2)
 
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 3.3
+nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
+nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
 
 " Clear cmd line message
 function! s:empty_message(timer)
@@ -485,5 +489,6 @@ let g:centered=0
 autocmd VimResized * :call CenterResize()
 autocmd QuitPre <buffer> :call CenterStop()
 command! Center call CenterToggle()
+call CenterStart()
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
