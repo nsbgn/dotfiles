@@ -43,8 +43,8 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/tpope/vim-commentary'
 
     " Moving around
-    Plug 'https://github.com/easymotion/vim-easymotion'
-    "Plug 'https://github.com/justinmk/vim-sneak'
+    "Plug 'https://github.com/easymotion/vim-easymotion'
+    Plug 'https://github.com/justinmk/vim-sneak'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
@@ -81,7 +81,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
 call plug#end()
 
-"set background=light
+set background=light
 "let g:gruvbox_contrast_light="soft"
 "let g:gruvbox_sign_column="bg0"
 "colorscheme gruvbox
@@ -371,9 +371,28 @@ if PlugLoaded('gundo.vim')
 endif
 
 if PlugLoaded('vim-sneak')
-    let g:sneak#s_next = 1
+    set ignorecase
+    let g:sneak#use_ic_scs = 1
+    "let g:sneak#s_next = 1
     let g:sneak#label = 1
+    let g:sneak#absolute_dir = 0
+    let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
+    nmap <Space> H<Plug>SneakLabel_s
+    xmap <Space> H<Plug>SneakLabel_s
 endif
+
+if PlugLoaded('vim-easymotion')
+    nmap <Space> <Plug>(easymotion-bd-w)
+    nmap s <Plug>(easymotion-overwin-f2)
+endif
+
+if PlugLoaded('comfortable-motion.vim')
+    let g:comfortable_motion_no_default_key_mappings = 1
+    let g:comfortable_motion_impulse_multiplier = 3.3
+    nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
+    nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
+endif
+
 
 
 if PlugLoaded('goyo.vim')
@@ -426,13 +445,6 @@ nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
 
 nmap <Tab> :set number! relativenumber!<CR>
-nmap <Space> <Plug>(easymotion-bd-w)
-nmap s <Plug>(easymotion-overwin-f2)
-
-let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_impulse_multiplier = 3.3
-nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
-nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
 
 " Clear cmd line message
 function! s:empty_message(timer)
@@ -489,6 +501,6 @@ let g:centered=0
 autocmd VimResized * :call CenterResize()
 autocmd QuitPre <buffer> :call CenterStop()
 command! Center call CenterToggle()
-call CenterStart()
+"call CenterStart()
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
