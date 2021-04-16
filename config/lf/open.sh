@@ -14,8 +14,8 @@ function gui {
 LIBRETRO="/usr/lib/x86_64-linux-gnu/libretro"
 F="${1}"
 case $(file --dereference --mime-type "$F" -b):"${F,,}" in
-    *.gpg)
-        vim "$F" ;;
+    *.gpg|*.vim)
+        nvim "$F" ;;
     inode/directory:*) 
         lf "$F" ;;
     inode/x-empty:*) 
@@ -49,17 +49,17 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
         ;;
     application/epub+zip:*) 
         gui mupdf -r 70 "$F" ;; #epr "$F" within terminal
-    application/zip:*.cbz) 
-        gui zathura "$F" ;;
     application/zip:*) 
         gui xdg-open "$F" ;;
+    application/zip:*.cbz) 
+        gui zathura "$F" ;;
     application/x-rar:*.cbr) 
         gui zathura "$F" ;;
     application/x-rar:*.cbr) 
         gui xdg-open "$F" ;;
     application/pdf:*) 
-        # gui zathura "$F" ;;
-        gui mupdf "$F" ;;
+        gui zathura "$F" ;;
+        #gui mupdf "$F" ;;
     message/rfc822:*) 
         gui kmail --view "$F" ;;
     application/x-wii-rom:*|application/x-gamecube-rom:*) 

@@ -63,7 +63,7 @@ label = "  %percentage%%"
 type = custom/script
 exec = dmenu-mpv --monitor
 tail = true
-click-left = dmenu-mpv --toggle
+click-left = playerctl --player=mpv play-pause
 
 [module/mouselock]
 type = custom/ipc

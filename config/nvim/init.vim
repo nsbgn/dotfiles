@@ -6,9 +6,12 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
+    Plug '~/projects/centered.vim'
 
     " Syntax highlighting
-    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    Plug 'https://github.com/niklasl/vim-rdf'
+    Plug 'https://github.com/plasticboy/vim-markdown'
+    "Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
@@ -88,6 +91,10 @@ set background=light
 "
 " Turn off background to take on same bg as my terminal
 highlight Normal ctermbg=NONE
+
+" Splits get no color
+set fillchars+=vert:\ 
+highlight VertSplit cterm=NONE
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -198,6 +205,14 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
+
+if PlugLoaded('vim-markdown')
+    let g:vim_markdown_folding_disabled=1
+    let g:vim_markdown_conceal=0
+    let g:tex_conceal = ""
+    let g:vim_markdown_math = 1
+    let g:vim_markdown_frontmatter = 1
+endif
 
 if PlugLoaded('vim-pandoc')
     let g:pandoc#modules#enabled = ['bibliographies', 'completion', 'toc', 'hypertext']
@@ -393,8 +408,6 @@ if PlugLoaded('comfortable-motion.vim')
     nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
 endif
 
-
-
 if PlugLoaded('goyo.vim')
     let g:goyo_width = 80
     let g:goyo_height = "100%"
@@ -456,51 +469,5 @@ augroup cmd_msg_cls
     autocmd!
     autocmd CmdlineLeave :  call timer_start(1000, funcref('s:empty_message'))
 augroup END
-
-" Center everything. Adapted from:
-" https://stackoverflow.com/questions/12952479/how-to-center-horizontally-the-contents-of-the-open-file-in-vim
-
-function! CenterStop()
-    let l:name = '_padding_'
-    if bufwinnr(l:name) > 0
-        only
-    endif
-    let g:centered=0
-endfunction
-
-function! CenterStart()
-    let l:name = '_padding_'
-    let l:width = ((&columns - &textwidth) / 2 - 5)
-    if l:width > 1 && bufwinnr(l:name) <= 0
-        execute 'topleft' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
-        execute 'botright' l:width . 'vsplit +setlocal\ nobuflisted' l:name | wincmd p
-        set fillchars+=vert:\ 
-        highlight VertSplit cterm=NONE
-        highlight EndOfBuffer ctermfg=black
-        " bg
-    endif
-    let g:centered=1
-endfunction
-
-function! CenterResize()
-    if g:centered == 1
-        call CenterStop()
-        call CenterStart()
-    endif
-endfunction
-
-function! CenterToggle()
-    if g:centered == 1
-        call CenterStop()
-    elseif g:centered == 0
-        call CenterStart()
-    endif
-endfunction
-
-let g:centered=0
-autocmd VimResized * :call CenterResize()
-autocmd QuitPre <buffer> :call CenterStop()
-command! Center call CenterToggle()
-"call CenterStart()
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar

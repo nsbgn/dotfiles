@@ -29,13 +29,14 @@ bspc config removal_adjustment true
 bspc rule -a Netsurf-gtk state=tiled
 bspc rule -a feh state=fullscreen
 bspc rule -a Sxiv state=floating
+bspc rule -a Zathura state=tiled
 
 keyboard-config & # keyboard settings
 sxhkd & # keyboard shortcuts
 keynav & # use keyboard for mouse navigation
 lxpolkit & # policy kit
 unclutter -root -idle 2 & # hide mouse when not in use for two seconds
-redshift & # nighttime screen colours
+redshift -l 52:5 & # nighttime screen colours
 dunst & # notifications
 urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon

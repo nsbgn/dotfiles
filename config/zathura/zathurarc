@@ -1,10 +1,20 @@
-set window-title-basename true
+#set window-title-basename true
 set selection-clipboard clipboard
 set zoom-step 4
 set scroll-step 80
 
-set default-bg "#000000"
+set default-bg "#ffffee"
 set completion-bg "#000000"
+set recolor true
+set recolor-lightcolor "#ffffee"
+set recolor-darkcolor "#000000" 
+
+set adjust-open best-fit
+
+map j navigate next
+map <S-j> scroll down
+map k navigate previous
+map <S-k> scroll up
 
 map / search
 map , search backward
@@ -15,5 +25,6 @@ map f follow
 map <Tab> toggle_index
 map <BackSpace> zoom default
 map - zoom out
-map = zoom in
+map + zoom in
+map = adjust_width best_fit
 

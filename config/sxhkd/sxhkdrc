@@ -4,6 +4,9 @@
 super + slash
 	dmenu-cheatsheet
 
+super + k
+	dmenu-calc
+
 # terminal emulator
 super + t
 #	alacritty --working-directory "$(xcwd)"
