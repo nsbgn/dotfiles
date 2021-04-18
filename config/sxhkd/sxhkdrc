@@ -51,7 +51,7 @@ super + i
 	dmenu-pass
 
 super + {_,alt} + p
-	{dmenu-mpv,playerctl --player=mpv play-pause}
+	{dmenu-mpv,playerctl play-pause}
 
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}

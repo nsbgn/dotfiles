@@ -6,12 +6,12 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
-    Plug '~/projects/centered.vim'
+    Plug 'https://github.com/slakkenhuis/vim-margin'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
-    Plug 'https://github.com/plasticboy/vim-markdown'
-    "Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    "Plug 'https://github.com/plasticboy/vim-markdown'
+    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
@@ -92,9 +92,12 @@ set background=light
 " Turn off background to take on same bg as my terminal
 highlight Normal ctermbg=NONE
 
+" Tildes at the end of the buffer are hidden
+"highlight EndOfBuffer ctermfg=black
+" bg
+
 " Splits get no color
-set fillchars+=vert:\ 
-highlight VertSplit cterm=NONE
+"highlight VertSplit cterm=NONE
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -123,8 +126,8 @@ set mouse=a
 " Width is 79 characters by default
 set textwidth=79
 
-" Don't show column number, line number and relative position in status line
-set noruler
+" Show column number, line number and relative position in status line
+set ruler
 
 " Don't show line numbers in left margin
 set nonumber
