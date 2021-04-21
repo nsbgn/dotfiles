@@ -7,6 +7,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
     Plug 'https://github.com/slakkenhuis/vim-margin'
+    " Plug '~/projects/vim-margin'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
@@ -92,12 +93,12 @@ set background=light
 " Turn off background to take on same bg as my terminal
 highlight Normal ctermbg=NONE
 
-" Tildes at the end of the buffer are hidden
-"highlight EndOfBuffer ctermfg=black
-" bg
+" Tildes at the end of the buffer are more subtle
+highlight EndOfBuffer ctermfg=gray
 
-" Splits get no color
-"highlight VertSplit cterm=NONE
+" Vertical splits are more subtle
+highlight VertSplit cterm=NONE ctermfg=gray
+set fillchars+=vert:┆
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -215,6 +216,11 @@ if PlugLoaded('vim-markdown')
     let g:tex_conceal = ""
     let g:vim_markdown_math = 1
     let g:vim_markdown_frontmatter = 1
+endif
+
+if PlugLoaded('vim-pandoc-syntax')
+    highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
+    highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
 endif
 
 if PlugLoaded('vim-pandoc')

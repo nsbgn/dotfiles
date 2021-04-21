@@ -45,7 +45,7 @@ cmd fzf_jump ${{
     fi
     lf -remote "send $id $cmd \"$res\""
 }}
-map <space> :fzf_jump
+map gj :fzf_jump
 
 
 cmd fasd_dir ${{

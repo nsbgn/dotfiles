@@ -26,6 +26,7 @@ PACKAGES=(
     xserver-xorg xinit x11-common # X display server
     xserver-xorg-video-{fbdev,intel} # X video drivers
     xserver-xorg-input-{libinput,mouse,kbd,evdev} # X input drivers
+    libvulkan1 mesa-vulkan-drivers vulkan-tools # Vulkan stuff
 
     # GUI utils
     simple-scan # GUI scan utility
