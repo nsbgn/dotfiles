@@ -23,3 +23,7 @@ flatpak install flathub org.nicotine_plus.Nicotine
 flatpak install flathub io.openrct2.OpenRCT2
 
 # flatpak install flathub org.netsurf_browser.NetSurf
+
+# Element messenger
+flatpak install flathub im.riot.Riot
+

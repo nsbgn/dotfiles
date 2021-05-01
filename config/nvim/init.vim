@@ -6,20 +6,27 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
-    Plug 'https://github.com/slakkenhuis/vim-margin'
-    " Plug '~/projects/vim-margin'
+    " Plug 'https://github.com/slakkenhuis/vim-margin'
+    Plug '~/projects/vim-margin'
+    "Plug 'https://github.com/preservim/vim-pencil'
+    "Plug 'https://github.com/andrewferrier/vim-wrapping-softhard'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
     "Plug 'https://github.com/plasticboy/vim-markdown'
+    "Plug 'https://github.com/tpope/vim-markdown'
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
 
     " Fuzzy finding
+    " Plug 'https://github.com/kien/ctrlp.vim'
     Plug 'https://github.com/junegunn/fzf'
     Plug 'https://github.com/junegunn/fzf.vim'
+    " https://oroques.dev/notes/neovim-init/
+    " Plug 'https://github.com/gfanto/fzf-lsp.nvim' nvim0.5+
+    " Plug 'https://github.com/ojroques/nvim-lspfuzzy' nvim0.5+
 
     " Inertial scrolling
     Plug 'https://github.com/yuttie/comfortable-motion.vim'
@@ -43,15 +50,22 @@ call plug#begin(stdpath('data') . '/plugged')
     " Auto-edit parentheses
     Plug 'https://github.com/tpope/vim-surround'
 
+    " Text exchange
+    " Plug 'https://github.com/tommcdo/vim-exchange'
+
     " Auto comment lines
     Plug 'https://github.com/tpope/vim-commentary'
 
     " Moving around
     "Plug 'https://github.com/easymotion/vim-easymotion'
     Plug 'https://github.com/justinmk/vim-sneak'
+    "Plug 'https://github.com/t9md/vim-smalls'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
+
+    " View LSP symbols & tags
+    " Plug 'https://github.com/liuchengxu/vista.vim'
 
     " Browse the undo tree
     Plug 'https://github.com/sjl/gundo.vim'
@@ -80,8 +94,8 @@ call plug#begin(stdpath('data') . '/plugged')
     " Navigate symbols in the document
     "Plug 'https://github.com/liuchengxu/vista.vim'
 
-    " Manage Pandoc files
-    "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
+    " Manage Pandoc markdown files
+    Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
 
 call plug#end()
 
@@ -95,6 +109,8 @@ highlight Normal ctermbg=NONE
 
 " Tildes at the end of the buffer are more subtle
 highlight EndOfBuffer ctermfg=gray
+
+highlight Pmenu ctermfg=white ctermbg=black
 
 " Vertical splits are more subtle
 highlight VertSplit cterm=NONE ctermfg=gray
@@ -114,6 +130,12 @@ function! PlugLoaded(name)
         \ stridx(&rtp, substitute(g:plugs[a:name].dir,"/$","","")) >= 0)
 endfunction
 
+" Find syntax highlighting group of word under cursor
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+
 " cursor makes it obvious what mode I am in anyway
 set noshowmode
 
@@ -130,8 +152,11 @@ set textwidth=79
 " Show column number, line number and relative position in status line
 set ruler
 
-" Don't show line numbers in left margin
+" Show line numbers in left margin
 set nonumber
+nmap <Tab> :set number!<CR>
+"set number! relativenumber!
+
 
 " Get rid of fileinfo in command line
 "set shortmess=F
@@ -159,10 +184,15 @@ set wildmode=longest,list,full
 " Copy to system clipboard by default
 set clipboard=unnamedplus
 
-" Show visible indication for tabs
+" Show visible indication for tabs & spaces
 set list
 
 let g:netrw_browsex_viewer = "firefox"
+
+" Always move by screen lines, not real lines
+noremap <silent> k gk
+noremap <silent> j gj
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File-specific configuration
@@ -179,7 +209,8 @@ if has("autocmd")
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
         autocmd FileType markdown.pandoc setlocal conceallevel=0
         autocmd FileType markdown.pandoc setlocal textwidth=78
-        autocmd FileType markdown.pandoc setlocal formatoptions+=a formatoptions+=w
+        autocmd FileType markdown.pandoc setlocal formatoptions+=w " formatoptions+=a
+        autocmd FileType markdown.pandoc setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=2 shiftwidth=2 softtabstop=2
     augroup END
 
     augroup latex
@@ -188,13 +219,9 @@ if has("autocmd")
         au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
         autocmd FileType tex setlocal conceallevel=0
         "autocmd FileType tex setlocal textwidth=78
-        "autocmd FileType tex setlocal formatoptions+=a formatoptions+=w
-        autocmd FileType tex setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 tabstop=2 shiftwidth=2 softtabstop=2
+        autocmd FileType tex setlocal formatoptions+=w "formatoptions+=a 
+        autocmd FileType tex setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=2 shiftwidth=2 softtabstop=2
 
-        autocmd FileType tex noremap <buffer> <silent> k gk
-        autocmd FileType tex noremap <buffer> <silent> j gj
-        autocmd FileType tex noremap <buffer> <silent> 0 g0
-        autocmd FileType tex noremap <buffer> <silent> $ g$
     augroup END
 
     augroup haskell
@@ -210,6 +237,19 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
 
+if PlugLoaded('vim-pencil')
+    let g:pencil#conceallevel = 0
+    let g:pencil#wrapModeDefault = 'hard'
+    let g:pencil#autoformat = 0
+
+    augroup pencil
+      autocmd!
+      autocmd FileType markdown.pandoc,markdown,text,tex
+        \ call pencil#init({'wrap': 'soft'})
+    augroup END
+
+endif
+
 if PlugLoaded('vim-markdown')
     let g:vim_markdown_folding_disabled=1
     let g:vim_markdown_conceal=0
@@ -221,13 +261,11 @@ endif
 if PlugLoaded('vim-pandoc-syntax')
     highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
     highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
+    let g:pandoc#syntax#conceal#use=0
 endif
 
 if PlugLoaded('vim-pandoc')
-    let g:pandoc#modules#enabled = ['bibliographies', 'completion', 'toc', 'hypertext']
-    call deoplete#custom#var('omni', 'input_patterns', {
-        \ 'pandoc': '@'
-        \})
+    let g:pandoc#modules#enabled = ['toc']
 endif
 
 if PlugLoaded('lf.vim')
@@ -290,7 +328,10 @@ endif
 
 if PlugLoaded('vim-lsc')
     set shortmess-=F " avoid suppressing errors
-    let g:lsc_server_commands = {'python': 'pyls'}
+    let g:lsc_server_commands = {
+        \ 'python': 'pyls',
+        \ 'markdown': ['unified-language-server', '--parser=remark-parse', '--stdio'],
+        \}
     let g:lsc_enable_autocomplete = v:false
     let g:lsc_auto_map = {
         \ 'GoToDefinition': '<C-]>',
@@ -465,8 +506,6 @@ nmap , :bprevious<CR>
 nmap = o<Esc>79a=<Esc>0
 nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
-
-nmap <Tab> :set number! relativenumber!<CR>
 
 " Clear cmd line message
 function! s:empty_message(timer)
