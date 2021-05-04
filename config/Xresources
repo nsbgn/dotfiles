@@ -1,3 +1,6 @@
+
+
+
 Xft.antialias:  true
 Xft.hinting:    true
 Xft.rgba:       rgb
@@ -61,3 +64,8 @@ URxvt.background: #ffffee
 ! white
 *color7:  #7c6f64
 *color15: #3c3836
+
+
+! Extensions
+URxvt.perl-ext-common: font-size
+URxvt.keysym.C-equal:  font-size:increase
