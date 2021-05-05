@@ -38,10 +38,10 @@ super + backslash
 Print
 	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
 
-super + {minus,equal}
+super + {Down,Up}
 	amixer -q sset Master 2%{-,+}
 
-super + alt + {minus,equal}
+super + {Left,Right}
 	xbacklight {-,+}2%
 
 super + l
@@ -86,7 +86,7 @@ super + ctrl + {a,s,w,d}
 	bspwm-push {west,south,north,east}
 
 # increase window size ratio
-super + {Up,Down}
+super + {minus,equal}
 	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
 	then bspc node '@parent' --ratio '+10'; \
 	else bspc node '@parent' --ratio '-10'; \

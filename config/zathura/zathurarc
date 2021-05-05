@@ -11,10 +11,10 @@ set recolor-darkcolor "#000000"
 
 set adjust-open best-fit
 
-map j navigate next
-map <S-j> scroll down
-map k navigate previous
-map <S-k> scroll up
+#map j navigate next
+#map <S-j> scroll down
+#map k navigate previous
+#map <S-k> scroll up
 
 map / search
 map , search backward
