@@ -3,7 +3,7 @@
 	email = nsv@valk.ws
 [core]
 	editor = nvim
-	pager = delta
+	pager = delta --light
 [interactive]
 	diffFilter = delta --color-only
 [merge]
@@ -11,6 +11,7 @@
 [icdiff]
 	options = --highlight --line-numbers
 [delta]
-	features = line-numbers decorations
+	features = line-numbers
+	theme = OneHalfLight
 [includeIf "gitdir:~/work/"]
 	path = ~/work/gitconfig
