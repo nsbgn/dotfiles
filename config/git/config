@@ -3,9 +3,14 @@
 	email = nsv@valk.ws
 [core]
 	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	tool = imediff
 [icdiff]
 	options = --highlight --line-numbers
+[delta]
+	features = line-numbers decorations
 [includeIf "gitdir:~/work/"]
-    path = ~/work/gitconfig
+	path = ~/work/gitconfig
