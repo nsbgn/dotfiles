@@ -57,7 +57,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/tpope/vim-commentary'
 
     " Moving around
-    "Plug 'https://github.com/easymotion/vim-easymotion'
+    Plug 'https://github.com/easymotion/vim-easymotion'
     Plug 'https://github.com/justinmk/vim-sneak'
     "Plug 'https://github.com/t9md/vim-smalls'
 
@@ -439,16 +439,16 @@ if PlugLoaded('vim-sneak')
     set ignorecase
     let g:sneak#use_ic_scs = 1
     "let g:sneak#s_next = 1
-    let g:sneak#label = 1
+    "let g:sneak#label = 1
     let g:sneak#absolute_dir = 0
     let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
-    nmap <Space> H<Plug>SneakLabel_s
-    xmap <Space> H<Plug>SneakLabel_s
+    "nmap <Space> H<Plug>SneakLabel_s
+    "xmap <Space> H<Plug>SneakLabel_s
 endif
 
 if PlugLoaded('vim-easymotion')
-    nmap <Space> <Plug>(easymotion-bd-w)
-    nmap s <Plug>(easymotion-overwin-f2)
+    " nmap <Space> <Plug>(easymotion-bd-w)
+    map f <Plug>(easymotion-bd-w)
 endif
 
 if PlugLoaded('comfortable-motion.vim')
