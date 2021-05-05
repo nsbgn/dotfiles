@@ -67,5 +67,6 @@ URxvt.background: #ffffee
 
 
 ! Extensions
-URxvt.perl-ext-common: font-size
+URxvt.perl-ext-common: font-size,vim-scrollback
 URxvt.keysym.C-equal:  font-size:increase
+URxvt.vim-scrollback: M-z
