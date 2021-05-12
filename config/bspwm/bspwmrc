@@ -31,6 +31,7 @@ bspc rule -a feh state=fullscreen
 bspc rule -a Sxiv state=floating
 bspc rule -a Zathura state=tiled
 
+#$HOME/projects/xkb-ergo/xkb-ergo
 keyboard-config & # keyboard settings
 sxhkd & # keyboard shortcuts
 keynav & # use keyboard for mouse navigation

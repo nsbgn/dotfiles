@@ -16,6 +16,8 @@ F="${1}"
 case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     *.gpg|*.vim)
         nvim "$F" ;;
+    *.xoj)
+        xournal "$F" ;;
     inode/directory:*) 
         lf "$F" ;;
     inode/x-empty:*) 

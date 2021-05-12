@@ -5,6 +5,8 @@ set -euo pipefail
 PACKAGES=(
     # Theme & fonts
     lxappearance # Changing GTK themes
+    qt5ct # Configure Qt5
+    qt5-gtk{,2}-platformtheme # Qt → GTK theming
     arc-theme # GTK theme
     faenza-icon-theme # Icon theme
     papirus-icon-theme # Icon theme
@@ -88,6 +90,7 @@ PACKAGES=(
     file-roller # Integration of archives into file managers
     scrot # Screenshot application
     xfce4-screenshooter # Screenshot application
+    gtk-vector-screenshot # Vector screenshots of GTK3 applications
     #wakeonlan # See https://wiki.debian.org/WakeOnLan
     ntp # Time daemon to automatically set time
     lm-sensors # Temperature sensors, etc
@@ -194,6 +197,8 @@ PACKAGES=(
     pqiv # Image viewer
     zathura-{pdf-poppler,cb,ps,djvu} # Document reader
     fbreader # Ebook reader
+    okular{,-extra-backends,-mobile} # Okular, for PDF annotations on touchscreen
+    xournal # Note taking on touchscreen
     #vim{,-gui-common,-pathogen} # Text editor
     neovim # Text editor
     kakoune # Another text editor

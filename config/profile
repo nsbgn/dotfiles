@@ -11,6 +11,7 @@ export PRINTER="HL1110"
 export CLICOLOR=1
 export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
+export QT_QPA_PLATFORMTHEME=gtk2
 
 if [ -n "$BASH_VERSION" -a -e "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"

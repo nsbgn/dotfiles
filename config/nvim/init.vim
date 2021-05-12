@@ -28,6 +28,8 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'https://github.com/gfanto/fzf-lsp.nvim' nvim0.5+
     " Plug 'https://github.com/ojroques/nvim-lspfuzzy' nvim0.5+
 
+    " For bibtex citation search, see 'https://github.com/msprev/fzf-bibtex'
+
     " Inertial scrolling
     Plug 'https://github.com/yuttie/comfortable-motion.vim'
 
@@ -95,8 +97,9 @@ call plug#begin(stdpath('data') . '/plugged')
     "Plug 'https://github.com/liuchengxu/vista.vim'
 
     " Manage Pandoc markdown files
-    Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
+    "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
 
+    " https://github.com/alok/notational-fzf-vim
 call plug#end()
 
 set background=light
@@ -519,3 +522,24 @@ augroup cmd_msg_cls
 augroup END
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
+
+" https://vi.stackexchange.com/questions/11126/can-i-scroll-in-vim-with-my-touch-screen
+"function! MouseScroll()
+"  "mark b is the current cursor position
+"  "mark a is the previous cursor position
+"  norm mb
+"  let currPos=line('.')
+"  norm 'a
+"  let prevPos=line('.')
+"  if currPos>prevPos
+"    norm 'bma
+"    norm ^E
+"  elseif currPos<prevPos
+"    norm 'bma
+"    norm ^Y
+"  endif
+"endfunction
+
+"map <LeftDrag> ma<LeftMouse>:call MouseScroll()<cr>
+"set mouse=nic
+
