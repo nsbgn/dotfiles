@@ -30,6 +30,7 @@ bspc rule -a Netsurf-gtk state=tiled
 bspc rule -a feh state=fullscreen
 bspc rule -a Sxiv state=floating
 bspc rule -a Zathura state=tiled
+bspc rule -a Onboard state=floating sticky=on follow=on
 
 #$HOME/projects/xkb-ergo/xkb-ergo
 keyboard-config & # keyboard settings

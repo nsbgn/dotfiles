@@ -1,12 +1,2 @@
-xrdb $HOME/.Xresources # load Xresources
-
-# Set battery and power adapter names for polybar
-export ADAPTER="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
-    | xargs -I{} sh -c "grep -qw {}/type -e Mains && echo {}" \
-    | cut -d'/' -f5)"
-
-export BATTERY="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
-    | xargs -I{} sh -c "grep -qw {}/type -e Battery && echo {}" \
-    | cut -d'/' -f5)"
-
+xrdb $HOME/.Xresources
 exec bspwm

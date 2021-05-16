@@ -13,6 +13,17 @@ export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
 export QT_QPA_PLATFORMTHEME=gtk2
 
+
+export MOZ_USE_XINPUT2=1  # Enable touch scrolling on firefox
+
+# Set battery and power adapter names (for polybar)
+export SCREEN="$(xrandr -q | grep primary | cut -d' ' -f1)"
+export TOUCHSCREEN=""
+export ADAPTER="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
+    -exec grep -qw {}/type -e Mains \; -print | head -n1 | cut -d'/' -f5)"
+export BATTERY="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
+    -exec grep -qw {}/type -e Battery \; -print | head -n1 | cut -d'/' -f5)"
+
 if [ -n "$BASH_VERSION" -a -e "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
 fi

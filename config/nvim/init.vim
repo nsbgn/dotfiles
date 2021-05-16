@@ -5,7 +5,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/ap/vim-css-color'
 
     " Distraction-free writing
-    Plug 'https://github.com/junegunn/goyo.vim'
+    "Plug 'https://github.com/junegunn/goyo.vim'
     " Plug 'https://github.com/slakkenhuis/vim-margin'
     Plug '~/projects/vim-margin'
     "Plug 'https://github.com/preservim/vim-pencil'
@@ -73,12 +73,12 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/sjl/gundo.vim'
 
     " Browse within vim using the `lf` file manager
-    Plug 'https://github.com/ptzz/lf.vim'
-    Plug 'https://github.com/rbgrouleff/bclose.vim'
-    Plug 'https://github.com/voldikss/vim-floaterm'
+    "Plug 'https://github.com/ptzz/lf.vim'
+    "Plug 'https://github.com/rbgrouleff/bclose.vim'
+    "Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
-    Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
+    "Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
     "Plug 'https://github.com/prabirshrestha/vim-lsp'
 
     " Autocompletion (also needs `pip3 install pynvim`)
