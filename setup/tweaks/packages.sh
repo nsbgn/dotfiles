@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs lots of packages
+# Lots of packages, unsorted.
 set -euo pipefail
 
 PACKAGES=(
@@ -300,11 +300,3 @@ PACKAGES=(
 sudo dpkg --add-architecture i386
 sudo apt update
 sudo apt install "${PACKAGES[@]}"
-
-# Change pinentry from terminal to GTK
-sudo update-alternatives --set pinentry /usr/bin/pinentry-gtk-2
-
-# Turn off services
-sudo systemctl disable smbd
-sudo systemctl disable apache2
-sudo systemctl disable sshd

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Packages installed on every system
 set -euo pipefail
 
 PACKAGES=(
@@ -27,6 +28,7 @@ PACKAGES=(
     redshift
     arandr
     lxappearance
+    network-manager
 
     # Utilities
     xdotool
@@ -40,17 +42,14 @@ PACKAGES=(
     rofi
     polybar
     pmount
-    network-manager
-    neovim git
+    neovim
     apt-file
     rsync
     lxpolkit
     jq
     fzf
     bat
-    golang
     wget
-    fasd
     git
     tig
     pass
@@ -58,12 +57,13 @@ PACKAGES=(
 
     # Applications
     rxvt-unicode
+    firefox-esr
     feh
+    mpv
     onboard
     zathura{,-cb,-ps,-djvu,-pdf-poppler}
-    mupdf
     okular{,-extra-backends}
-    firefox-esr
+    mupdf
 )
 
 sudo apt install ${PACKAGES[@]}

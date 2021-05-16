@@ -1,5 +1,5 @@
 #!/bin/bash
-# delta is a program to see changes better
+# delta - A diff program. See file changes in a readable way
 # https://github.com/dandavison/delta
 set -euo pipefail
 
