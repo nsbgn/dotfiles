@@ -7,6 +7,9 @@ super + slash
 super + k
 	dmenu-calc
 
+super + l
+	dmenu-library
+
 # terminal emulator
 super + t
 #	alacritty --working-directory "$(xcwd)"
@@ -26,9 +29,6 @@ super + m
 #	alacritty --working-directory "$(xcwd)" -e aerc
 	urxvtc -e aerc
 
-super + r 
-	cd $(xcwd.sh); zathura
-
 super + c
 	telegram-desktop
 
@@ -44,7 +44,7 @@ super + {Down,Up}
 super + {Left,Right}
 	xbacklight {-,+}2%
 
-super + l
+super + h
 	dmenu-thesaurus
 
 super + i

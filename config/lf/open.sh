@@ -12,12 +12,15 @@ function gui {
 }
 
 LIBRETRO="/usr/lib/x86_64-linux-gnu/libretro"
+
+[ -z "${1:-}" ] && exit 1
+
 F="${1}"
 case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     *.gpg|*.vim)
         nvim "$F" ;;
-    *.xoj)
-        xournal "$F" ;;
+    *.xoj|*.xopp)
+        xournalp "$F" ;;
     inode/directory:*) 
         lf "$F" ;;
     inode/x-empty:*) 

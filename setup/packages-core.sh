@@ -54,6 +54,7 @@ PACKAGES=(
     tig
     pass
     gnupg
+    uuidgen-runtime  # for uuidgen
 
     # Applications
     rxvt-unicode
