@@ -4,6 +4,11 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/morhetz/gruvbox'
     Plug 'https://github.com/ap/vim-css-color'
 
+    " Scrolling
+    " Plug 'https://github.com/Xuyuanp/scrollbar.nvim'
+    " Plug 'https://github.com/wfxr/minimap.vim'
+    " Plug 'https://github.com/severin-lemaignan/vim-minimap'
+
     " Distraction-free writing
     "Plug 'https://github.com/junegunn/goyo.vim'
     " Plug 'https://github.com/slakkenhuis/vim-margin'
@@ -34,7 +39,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/yuttie/comfortable-motion.vim'
 
     " Work with GPG-encrypted files
-    Plug 'https://github.com/jamessan/vim-gnupg.git'
+    "Plug 'https://github.com/jamessan/vim-gnupg.git'
 
     " Sets working directory to project root
     Plug 'https://github.com/airblade/vim-rooter.git'
@@ -47,10 +52,10 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/kshenoy/vim-signature'
 
     " Automatic alignment
-    Plug 'https://github.com/junegunn/vim-easy-align'
+    "Plug 'https://github.com/junegunn/vim-easy-align'
 
     " Auto-edit parentheses
-    Plug 'https://github.com/tpope/vim-surround'
+    "Plug 'https://github.com/tpope/vim-surround'
 
     " Text exchange
     " Plug 'https://github.com/tommcdo/vim-exchange'
@@ -70,7 +75,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'https://github.com/liuchengxu/vista.vim'
 
     " Browse the undo tree
-    Plug 'https://github.com/sjl/gundo.vim'
+    "Plug 'https://github.com/sjl/gundo.vim'
 
     " Browse within vim using the `lf` file manager
     "Plug 'https://github.com/ptzz/lf.vim'
@@ -78,7 +83,7 @@ call plug#begin(stdpath('data') . '/plugged')
     "Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
-    Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
+    "Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
     "Plug 'https://github.com/prabirshrestha/vim-lsp'
 
     " Autocompletion (also needs `pip3 install pynvim`)
@@ -451,7 +456,7 @@ endif
 
 if PlugLoaded('vim-easymotion')
     " nmap <Space> <Plug>(easymotion-bd-w)
-    map f <Plug>(easymotion-bd-w)
+    map <Space> <Plug>(easymotion-bd-w)
 endif
 
 if PlugLoaded('comfortable-motion.vim')
@@ -543,3 +548,55 @@ set shortmess+=F  " to get rid of the file name displayed in the command line ba
 "map <LeftDrag> ma<LeftMouse>:call MouseScroll()<cr>
 "set mouse=nic
 
+augroup ScrollbarInit
+  autocmd!
+  autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()
+  autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()
+  autocmd WinLeave,FocusLost             * silent! lua require('scrollbar').clear()
+augroup end
+
+" https://www.vim.org/scripts/script.php?script_id=3141
+func! MScroll()
+  let l:done=0
+  let l:n = -1
+  let l:w0 = line("w0")
+  let l:last = line("$")
+  while done!=1
+    let l:g = getchar()
+    if l:g != "\<LeftDrag>"
+      let done = 1
+    else
+      if l:n == -1
+        let l:n = v:mouse_lnum
+        let l:fln = v:mouse_lnum
+      else
+        let l:new = l:w0 - v:mouse_lnum + l:n
+        if l:new<1
+          let l:new = 1
+        endif
+
+        let l:diff = -v:mouse_lnum + l:n
+        let l:nd = line("w$")
+        if l:nd+l:diff>l:last
+          let l:new = l:last - winheight(0) + 1
+          if l:new<1
+            let l:new = 1
+          endif
+        end
+
+        let l:wn = "normal ".string(l:new)."zt"
+        if (l:n != v:mouse_lnum)
+          exec(l:wn)
+          redraw
+        endif
+        let l:w0 = line("w0")
+        let l:n = v:mouse_lnum + l:diff
+      endif
+    endif
+  endwhile
+  :call cursor(v:mouse_lnum,v:mouse_col)
+endfunc
+:set mouse=a
+:noremap <silent> <LeftMouse> :call MScroll()<CR>
+:noremap <LeftRelease> <Nop>
+:noremap <LeftDrag> <Nop>
