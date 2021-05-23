@@ -61,7 +61,7 @@ label = "  %percentage%%"
 
 [module/mpris]
 type = custom/script
-exec = dmenu-mpv --monitor
+exec = ~/.config/polybar/mpris.sh
 tail = true
 click-left = playerctl --player=mpv play-pause
 
