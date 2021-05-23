@@ -78,9 +78,8 @@ call plug#begin(stdpath('data') . '/plugged')
     "Plug 'https://github.com/sjl/gundo.vim'
 
     " Browse within vim using the `lf` file manager
-    "Plug 'https://github.com/ptzz/lf.vim'
-    "Plug 'https://github.com/rbgrouleff/bclose.vim'
-    "Plug 'https://github.com/voldikss/vim-floaterm'
+    Plug 'https://github.com/ptzz/lf.vim'
+    Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
     "Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
@@ -498,13 +497,18 @@ if PlugLoaded('vim-buftabline')
     endif
 endif
 
+
+
+
 " Navigating buffers
-" close buffer:
-nmap td :bd<CR>
+" close buffer, see:
+" - https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window
+" - https://github.com/qpkorr/vim-bufkill
+nmap td :bp<bar>sp<bar>bn<bar>bd<CR>
 " force close buffer:
 nmap tD :bd!<CR>
 " open new file:
-map tt :Lf<CR>
+nmap tt :Lf<CR>
 " next buffer:
 nmap . :bnext<CR>
 " previous buffer:
@@ -527,33 +531,6 @@ augroup cmd_msg_cls
 augroup END
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
-
-" https://vi.stackexchange.com/questions/11126/can-i-scroll-in-vim-with-my-touch-screen
-"function! MouseScroll()
-"  "mark b is the current cursor position
-"  "mark a is the previous cursor position
-"  norm mb
-"  let currPos=line('.')
-"  norm 'a
-"  let prevPos=line('.')
-"  if currPos>prevPos
-"    norm 'bma
-"    norm ^E
-"  elseif currPos<prevPos
-"    norm 'bma
-"    norm ^Y
-"  endif
-"endfunction
-
-"map <LeftDrag> ma<LeftMouse>:call MouseScroll()<cr>
-"set mouse=nic
-
-augroup ScrollbarInit
-  autocmd!
-  autocmd CursorMoved,VimResized,QuitPre * silent! lua require('scrollbar').show()
-  autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()
-  autocmd WinLeave,FocusLost             * silent! lua require('scrollbar').clear()
-augroup end
 
 " https://www.vim.org/scripts/script.php?script_id=3141
 func! MScroll()
