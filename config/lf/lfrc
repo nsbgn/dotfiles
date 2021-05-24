@@ -37,7 +37,10 @@ cmd on-cd &{{
 on-cd # also run at startup
 
 cmd fzf_jump ${{
-    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    res="$(fdfind . ~ --type d --exec stat --printf='%Y\t%n\n' \
+    | sort --numeric --reverse \
+    | cut -f2- \
+    | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
     if [ -d "$res" ]; then
         cmd="cd"
     else
@@ -47,17 +50,6 @@ cmd fzf_jump ${{
 }}
 map gj :fzf_jump
 
-
-cmd fasd_dir ${{
-   res="$(fasd -dl | grep -iv cache | fzf 2>/dev/tty | sed 's/\\/\\\\/g;s/"/\\"/g')"
-   if [ -d "$res" ]; then
-      cmd="cd"
-   else
-      cmd="select"
-   fi
- lf -remote "send $id $cmd \"$res\""
- }}
-map gf :fasd_dir
 
 # Keyboard mappings ##########################################################
 

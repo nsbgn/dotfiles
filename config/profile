@@ -12,6 +12,7 @@ export CLICOLOR=1
 export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
 export QT_QPA_PLATFORMTHEME=gtk2
+export FZF_DEFAULT_COMMAND='fdfind --type f'
 
 
 export MOZ_USE_XINPUT2=1  # Enable touch scrolling on firefox

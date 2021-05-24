@@ -25,7 +25,11 @@ function lf {
     [ -d "$dir" ] && [ "$PWD" != "$dir" ] && cd "$dir"
 }
 
-# Use https://github.com/clvv/fasd
-eval "$(fasd --init auto)"
+function gj {
+    cd $(fdfind . ~ --type d --exec stat --printf='%Y\t%n\n' \
+        | sort --numeric --reverse \
+        | cut -f2- \
+        | fzf --reverse --header='Jump to location')
+}
 
 # source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"

@@ -1,6 +1,7 @@
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
+    Plug 'https://github.com/altercation/vim-colors-solarized'
     Plug 'https://github.com/morhetz/gruvbox'
     Plug 'https://github.com/ap/vim-css-color'
 
@@ -13,6 +14,7 @@ call plug#begin(stdpath('data') . '/plugged')
     "Plug 'https://github.com/junegunn/goyo.vim'
     " Plug 'https://github.com/slakkenhuis/vim-margin'
     Plug '~/projects/vim-margin'
+    "Plug '~/projects/vim-finger'
     "Plug 'https://github.com/preservim/vim-pencil'
     "Plug 'https://github.com/andrewferrier/vim-wrapping-softhard'
 
@@ -82,7 +84,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
-    "Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
+    Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
     "Plug 'https://github.com/prabirshrestha/vim-lsp'
 
     " Autocompletion (also needs `pip3 install pynvim`)
@@ -106,13 +108,20 @@ call plug#begin(stdpath('data') . '/plugged')
     " https://github.com/alok/notational-fzf-vim
 call plug#end()
 
+"let g:solarized_termcolors=256
 set background=light
+"colorscheme solarized
+
+
+
+
+
 "let g:gruvbox_contrast_light="soft"
 "let g:gruvbox_sign_column="bg0"
-"colorscheme gruvbox
+" colorscheme gruvbox
 "
 " Turn off background to take on same bg as my terminal
-highlight Normal ctermbg=NONE
+"highlight Normal ctermbg=NONE
 
 " Tildes at the end of the buffer are more subtle
 highlight EndOfBuffer ctermfg=gray
@@ -121,7 +130,8 @@ highlight Pmenu ctermfg=white ctermbg=black
 
 " Vertical splits are more subtle
 highlight VertSplit cterm=NONE ctermfg=gray
-set fillchars+=vert:┆
+set fillchars+=vert:▏
+"┆▕▁│▁▏
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -445,12 +455,13 @@ endif
 if PlugLoaded('vim-sneak')
     set ignorecase
     let g:sneak#use_ic_scs = 1
-    "let g:sneak#s_next = 1
-    "let g:sneak#label = 1
-    let g:sneak#absolute_dir = 0
+    let g:sneak#absolute_dir = 1
+    let g:sneak#s_next = 1
     let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
-    "nmap <Space> H<Plug>SneakLabel_s
-    "xmap <Space> H<Plug>SneakLabel_s
+    "map <Space> <Plug>Sneak_s
+    "map <BackSpace> <Plug>Sneak_S
+    " map <Space> <Plug>Sneak_;
+    " map <BackSpace> <Plug>Sneak_,
 endif
 
 if PlugLoaded('vim-easymotion')
@@ -472,7 +483,7 @@ if PlugLoaded('goyo.vim')
 endif
 
 if PlugLoaded('fzf.vim')
-    nmap gf :Files<CR>
+    nmap gj :Files<CR>
     nmap gb :Buffers<CR>
     nmap gl :Lines<CR>
     nmap gm :Marks<CR>
