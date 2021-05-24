@@ -29,6 +29,7 @@ PACKAGES=(
     arandr
     lxappearance
     network-manager
+    i3lock
 
     # Utilities
     xdotool
@@ -55,6 +56,7 @@ PACKAGES=(
     pass
     gnupg
     uuidgen-runtime  # for uuidgen
+    fd-find # `find` alternative
 
     # Applications
     rxvt-unicode

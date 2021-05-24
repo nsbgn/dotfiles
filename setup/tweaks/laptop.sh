@@ -5,7 +5,8 @@
 # https://wiki.archlinux.org/title/Powertop
 
 # Power saving
-sudo apt install acpi acpid acpitool laptop-mode-tools cpufrequtils powertop
+sudo apt install acpi acpid acpitool cpufrequtils powertop tlp
+# laptop-mode-tools ←⌿→ tlp
 
 # Sensors
 sudo apt install lm-sensors

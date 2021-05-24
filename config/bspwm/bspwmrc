@@ -38,7 +38,7 @@ sxhkd & # keyboard shortcuts
 keynav & # use keyboard for mouse navigation
 lxpolkit & # policy kit
 unclutter -root -idle 2 & # hide mouse when not in use for two seconds
-redshift -m randr -x -l manual -l 52:5 & # nighttime screen colours
+redshift -m randr -x -l manual -O 5500K # -l 52:5 & # nighttime screen colours
 dunst & # notifications
 urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon

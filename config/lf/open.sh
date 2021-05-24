@@ -20,7 +20,7 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     *.gpg|*.vim)
         nvim "$F" ;;
     *.xoj|*.xopp)
-        xournalp "$F" ;;
+        xournalpp "$F" ;;
     inode/directory:*) 
         lf "$F" ;;
     inode/x-empty:*) 
