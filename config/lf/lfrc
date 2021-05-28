@@ -9,6 +9,12 @@ set timefmt "2006-01-02 Mon 15:04" # set time format
 set previewer ~/.config/lf/preview.sh # previewer script
 set scrolloff 10 # leave some space at the top and the bottom of the screen
 
+set findlen 2
+#set noanchorfind
+set incsearch
+#cmap <esc> cmd-enter
+#cmap <enter> open
+
 
 # Commands ###################################################################
 
@@ -20,7 +26,6 @@ cmd trash ${{
 }}
 
 # Creating a new directory or file
-cmd mkdir %mkdir -p "$(echo $* | tr ' ' '\ ')"
 cmd mkfile %~/.config/lf/new.sh "$(echo $* | tr ' ' '\ ')"
 cmd open ${{ ~/.config/lf/open.sh "$f" }}
 

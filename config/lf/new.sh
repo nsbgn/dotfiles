@@ -2,7 +2,7 @@
 # Make a new file based on a template.
 #
 # Usage example:
-#   file-new this-is-a-document.md some-image.svg
+#   new.sh this-is-a-document.md some-image.svg a-directory
 
 TEMPLATE_DIR="$(xdg-user-dir TEMPLATES)"
 
@@ -16,6 +16,12 @@ for F in "${@}"; do
         # template for .jpg.tar.gz files, then tar.gz, etcetera. New *.gpg
         # files are the same as the corresponding base names, just encrypted.
         EXTENSION="$(basename --suffix .gpg -- "${F}")"
+
+        # If there were no periods, assume we want a directory
+        if [[ ! "$F" == *.* ]]; then
+            mkdir "${F}"
+            exit 0
+        fi
         while [ -n "${EXTENSION}" ]; do
 
             # File types for which we can generate a template (nonstandard so comes
@@ -49,7 +55,8 @@ for F in "${@}"; do
                 EXTENSION=""
             fi
         done
-        
+
+        # If the file contained no periods, assume it was a directory.
         # Otherwise, just make an empty file
         touch "${F}"
     fi
