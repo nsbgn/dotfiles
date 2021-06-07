@@ -458,6 +458,9 @@ if PlugLoaded('vim-sneak')
     let g:sneak#absolute_dir = 1
     let g:sneak#s_next = 1
     let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
+    map f <Plug>Sneak_s
+    map F <Plug>Sneak_S
+
     "map <Space> <Plug>Sneak_s
     "map <BackSpace> <Plug>Sneak_S
     " map <Space> <Plug>Sneak_;

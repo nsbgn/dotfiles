@@ -90,6 +90,7 @@ PACKAGES=(
     file-roller # Integration of archives into file managers
     scrot # Screenshot application
     xfce4-screenshooter # Screenshot application
+    alacarte # Menu editor
     gtk-vector-screenshot # Vector screenshots of GTK3 applications
     #wakeonlan # See https://wiki.debian.org/WakeOnLan
     ntp # Time daemon to automatically set time
@@ -202,6 +203,7 @@ PACKAGES=(
     #vim{,-gui-common,-pathogen} # Text editor
     neovim # Text editor
     kakoune # Another text editor
+    visidata # Visualiser of spreadsheet data in terminal
     inkscape # Vector graphics
     gimp # Image editor
     #krita # Image editor

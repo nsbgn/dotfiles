@@ -5,6 +5,7 @@ wmname LG3D
 
 xsetroot -cursor_name left_ptr
 xsetroot -solid '#ffffee'
+feh --no-fehbg --bg-tile ~/.config/feh/bg.gif
 
 bspc config border_width 2
 bspc config window_gap -2
@@ -15,16 +16,16 @@ bspc config top_monocle_padding 2
 bspc config bottom_monocle_padding 2
 bspc config right_monocle_padding 2
 bspc config left_monocle_padding 2
-bspc config normal_border_color '#c0b8b0'
+bspc config normal_border_color '#D9D2C2'
 bspc config focused_border_color '#b57614'
 bspc config split_ratio 0.5
 bspc config borderless_monocle true
 bspc config gapless_monocle false
 bspc config single_monocle true
-bspc config directional_focus_tightness high
+#bspc config directional_focus_tightness high
 bspc config initial_polarity second_child
-bspc config automatic_scheme alternate
-bspc config removal_adjustment true
+#bspc config automatic_scheme alternate
+#bspc config removal_adjustment true
 
 bspc rule -a Netsurf-gtk state=tiled
 bspc rule -a feh state=fullscreen
@@ -32,8 +33,12 @@ bspc rule -a Sxiv state=floating
 bspc rule -a Zathura state=tiled
 bspc rule -a Onboard state=floating sticky=on follow=on
 
-#$HOME/projects/xkb-ergo/xkb-ergo
-keyboard-config & # keyboard settings
+bspc monitor --reset-desktops $(seq 4)
+for I in $(seq 4); do
+    bsp-layout set tall $I --master-size 0.5
+done
+
+$HOME/projects/thumbledore/thumbledore & # keyboard settings
 sxhkd & # keyboard shortcuts
 keynav & # use keyboard for mouse navigation
 lxpolkit & # policy kit
@@ -42,6 +47,6 @@ redshift -m randr -x -l manual -O 5500K # -l 52:5 & # nighttime screen colours
 dunst & # notifications
 urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon
-bspwm-cleaner & # automatically remove empty desktops
+# bspwm-cleaner & # automatically remove empty desktops
 polybar bspwm & # taskbar
 dmenu-mpv --initialise &

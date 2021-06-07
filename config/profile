@@ -18,8 +18,8 @@ export FZF_DEFAULT_COMMAND='fdfind --type f'
 export MOZ_USE_XINPUT2=1  # Enable touch scrolling on firefox
 
 # Set battery and power adapter names (for polybar)
-export SCREEN="$(xrandr -q | grep primary | cut -d' ' -f1)"
-export TOUCHSCREEN=""
+#export SCREEN="$(xrandr -q | grep primary | cut -d' ' -f1)"
+#export TOUCHSCREEN=""
 export ADAPTER="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \
     -exec grep -qw {}/type -e Mains \; -print | head -n1 | cut -d'/' -f5)"
 export BATTERY="$(find -L /sys/class/power_supply -mindepth 1 -maxdepth 1 \

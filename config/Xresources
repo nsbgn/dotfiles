@@ -41,9 +41,11 @@ URxvt.depth: 24
 *cursorColor: #333333
 ! black
 *color0:  #fbf1c7
-*color8:  #928374
+*color8:  #c0c0c0
+!#928374
 ! white
-*color7:  #7c6f64
+*color7: #a29384
+! #7c6f64
 *color15: #3c3836
 ! yellow
 *color3:  #ef9000
@@ -56,7 +58,8 @@ URxvt.depth: 24
 *color14: #427b58
 ! blue
 *color4:  #458588
-*color12: #076678
+*color12: #008080
+! #076678
 ! magenta
 *color5:  #b16286
 *color13: #8f3f71

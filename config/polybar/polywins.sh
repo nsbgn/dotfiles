@@ -1,10 +1,11 @@
 #!/bin/sh
 # POLYWINS
+# See https://github.com/alnj/polywins
 
 # SETTINGS {{{ ---
 
-active_text_color="#403936"
-active_bg="#D3CBB7"
+active_text_color="#ffffee"
+active_bg="#584c27"
 active_underline=""
 
 inactive_text_color="#403936"
@@ -14,7 +15,7 @@ inactive_underline=""
 separator=" · "
 show="window_class" # options: window_title, window_class, window_classname
 forbidden_classes="Polybar Conky Gmrun"
-empty_desktop_message="Desktop"
+empty_desktop_message=""
 
 char_limit=20
 max_windows=15

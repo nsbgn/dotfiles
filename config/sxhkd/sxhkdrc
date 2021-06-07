@@ -15,6 +15,9 @@ super + t
 #	alacritty --working-directory "$(xcwd)"
 	urxvtc -cd $(xcwd.sh)
 
+super + T
+	urxvtc -cd $(xcwd.sh)
+
 super + g
 	vimb
 
@@ -50,7 +53,7 @@ super + h
 super + i
 	dmenu-pass
 
-super + {_,alt} + p
+super + {_,mod5} + p
 	{dmenu-mpv,playerctl play-pause}
 
 XF86Audio{Prev,Next,Pause,Play}
@@ -71,19 +74,27 @@ super + Escape
 super + x
 	bspc node -c
 
-# alternate between the tiled and monocle layout
-super + @Return
+super + Return
+	bspc node --swap west || bspc node --swap last.!focused
+
+super + mod5 + Return
 	bspc node --state '~fullscreen'
 
-#	bspc desktop --layout next
-
 # focus/swap the node in the given direction
-super + {_,alt + }{a,s,w,d,q,e}
-	bspc node --{focus,swap} {west,south,north,east,@parent,@first}
+super + {_,mod5 + }{a,s,w,d}
+	bspc node --{focus,swap} {west,south,north,east}
 
 # send node
-super + ctrl + {a,s,w,d}
-	bspwm-push {west,south,north,east}
+super + alt + {a,s,w,d}
+	bspwm-tabdance {west,south,north,east}
+
+# Remove current tab from tabbed
+#super + alt + x
+#	tabc.sh $(bspc query -N -n focused) remove
+
+# At given direction: join two windows into a new tabbed or add window to an existing tabbed
+#super + alt + {a,s,w,d}
+#	tabc.sh $(bspc query -N -n {west,south,north,east}) add $(bspc query -N -n focused)
 
 # increase window size ratio
 super + {minus,equal}
@@ -93,10 +104,16 @@ super + {minus,equal}
 	fi
 
 # focus/send to given desktop
-super + {1-9,0} + {_, alt}
-	desktop="^{1-9,10}"; \
-	if ! bspc query --desktops --desktop "$desktop" &> /dev/null; then \
-		desktop="$(uuidgen | cut -d'-' -f1)"; \
-		bspc monitor --add-desktops "$desktop"; \
-	fi; \
-	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}
+#super + {1-9,0} + {_, mod5}
+#	desktop="^{1-9,10}"; \
+#	if ! bspc query --desktops --desktop "$desktop" &> /dev/null; then \
+#		desktop="$(uuidgen | cut -d'-' -f1)"; \
+#		bspc monitor --add-desktops "$desktop"; \
+#	fi; \
+#	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}
+
+super + {1-4}
+	bspc desktop --focus ^{1-4}
+
+super + mod5 + {1-4}
+	bspc node --to-desktop ^{1-4} --follow
