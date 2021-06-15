@@ -72,13 +72,21 @@ super + Escape
 # bspwm specific
 
 super + x
-	bspc node -c
+	bspc node --close
+#; bspc node --focus smallest
+
+#super + Return
+#	bspc node --swap west || bspc node --swap last.!focused
 
 super + Return
-	bspc node --swap west || bspc node --swap last.!focused
-
-super + mod5 + Return
 	bspc node --state '~fullscreen'
+
+super + mod5 + {q,e}
+	bspc desktop --focus {prev, next}
+
+super + {@q,@e}
+	xdotool key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
+#	xdotool search --onlyvisible --name 'Firefox' windowactivate --sync key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
 
 # focus/swap the node in the given direction
 super + {_,mod5 + }{a,s,w,d}
