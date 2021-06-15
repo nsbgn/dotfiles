@@ -1,14 +1,15 @@
 [bar/base]
 font-0 = Cabin:size=10;2
-font-1 = Anonymice Nerd Font Mono:size=17;4
-font-2 = Unifont:size=15;0
+font-1 = DejaVu Sans:size=10;2
+font-2 = Anonymice Nerd Font Mono:size=17;4
+font-3 = Unifont:size=15;0
 #font-0 = "Cozette:size=9;1"
 border-bottom-size = 2
-border-bottom-color = #D9D2C2
+border-bottom-color = #c3bba7
+#border-bottom-color = #D9D2C2
 foreground = #403935
-#background-0 = #e0d8d0
-#background-1 = #c0b8b0
 background = #D9D2C2
+#background = #ffffee
 width = 100%
 height = 30
 top = true

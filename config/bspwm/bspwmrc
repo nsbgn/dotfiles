@@ -16,8 +16,10 @@ bspc config top_monocle_padding 2
 bspc config bottom_monocle_padding 2
 bspc config right_monocle_padding 2
 bspc config left_monocle_padding 2
-bspc config normal_border_color '#D9D2C2'
-bspc config focused_border_color '#b57614'
+#bspc config normal_border_color '#D9D2C2'
+bspc config normal_border_color '#c3bba7'
+#bspc config focused_border_color '#b57614'
+bspc config focused_border_color '#808080'
 bspc config split_ratio 0.5
 bspc config borderless_monocle true
 bspc config gapless_monocle false
@@ -25,7 +27,8 @@ bspc config single_monocle true
 #bspc config directional_focus_tightness high
 bspc config initial_polarity second_child
 #bspc config automatic_scheme alternate
-#bspc config removal_adjustment true
+bspc config automatic_scheme longest_side
+bspc config removal_adjustment true
 
 bspc rule -a Netsurf-gtk state=tiled
 bspc rule -a feh state=fullscreen
