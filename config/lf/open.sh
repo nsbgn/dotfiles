@@ -50,6 +50,7 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
             --caption-path "$(dirname "$F")" \
             --sort filename \
             --start-at "$F" \
+            --action '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
             "$(dirname "$F")"
         ;;
     application/epub+zip:*) 

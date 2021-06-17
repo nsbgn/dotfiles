@@ -30,6 +30,7 @@ bspc config initial_polarity second_child
 bspc config automatic_scheme longest_side
 bspc config removal_adjustment true
 
+bspc rule -a Zenity layer=above
 bspc rule -a Netsurf-gtk state=tiled
 bspc rule -a feh state=fullscreen
 bspc rule -a Sxiv state=floating
