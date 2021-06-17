@@ -39,18 +39,22 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
         # gui mirage "$F" ;; #gui sxiv -a "$F" "$(dirname "$F")"
         # --geometry 1000x1000 \
         feh \
-            --fullscreen \
             --borderless \
             --scale-down \
-            --draw-filename \
-            --draw-tinted \
+            --image-bg '#ffffee' \
+            --caption-path '.' \
             --font 'Anonymous Pro/13' \
             --fontpath '/usr/share/fonts/truetype/anonymous-pro/' \
-            --image-bg '#ffffee' \
-            --caption-path "$(dirname "$F")" \
+            --draw-tinted \
+            --draw-filename \
+            --draw-actions \
+            --info "exiv2 %F | grep -v ':\s*$'; echo Size: %w×%h - %Sb; echo -n Modification:; date -r %F '+%%Y-%%m-%%d %%R'" \
+            --auto-rotate \
+            --edit \
             --sort filename \
             --start-at "$F" \
-            --action '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
+            --action1 '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
+            --action9 '[remove]zenity --question && gio trash %F' \
             "$(dirname "$F")"
         ;;
     application/epub+zip:*) 
