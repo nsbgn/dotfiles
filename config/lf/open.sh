@@ -36,9 +36,7 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     audio/*) 
         mpv --no-audio-display "$F" ;;
     image/*) 
-        # gui mirage "$F" ;; #gui sxiv -a "$F" "$(dirname "$F")"
-        # --geometry 1000x1000 \
-        feh \
+        cd "$(dirname "$F")" && feh \
             --borderless \
             --scale-down \
             --image-bg '#ffffee' \
@@ -52,10 +50,10 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
             --auto-rotate \
             --edit \
             --sort filename \
-            --start-at "$F" \
+            --start-at "$(basename "$F")" \
             --action1 '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
             --action9 '[remove]zenity --question && gio trash %F' \
-            "$(dirname "$F")"
+            .
         ;;
     application/epub+zip:*) 
         gui mupdf -r 70 "$F" ;; #epr "$F" within terminal

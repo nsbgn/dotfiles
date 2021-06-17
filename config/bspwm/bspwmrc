@@ -32,7 +32,7 @@ bspc config removal_adjustment true
 
 bspc rule -a Zenity layer=above
 bspc rule -a Netsurf-gtk state=tiled
-bspc rule -a feh state=fullscreen
+bspc rule -a feh state=fullscreen layer=normal
 bspc rule -a Sxiv state=floating
 bspc rule -a Zathura state=tiled
 bspc rule -a Onboard state=floating sticky=on follow=on

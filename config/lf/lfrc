@@ -64,7 +64,6 @@ map ~ cd ~
 map x trash
 map X cd ~/.local/share/Trash
 map a push :mkfile<space>
-map A push :mkdir<space>
 # map e $$EDITOR $f
 
 # show documentation (overrides 'search-back' command)
