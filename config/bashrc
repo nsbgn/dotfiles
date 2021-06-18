@@ -32,4 +32,8 @@ function gj {
         | fzf --reverse --header='Jump to location')
 }
 
+if which mcfly > /dev/null; then
+    eval "$(mcfly init bash)"
+fi
+
 # source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"
