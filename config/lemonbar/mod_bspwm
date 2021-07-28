@@ -1,0 +1,19 @@
+#!/bin/bash
+
+IFS=':'
+bspc subscribe report | while read -r REPORT; do
+    L=""
+    for ITEM in $REPORT; do
+        case $ITEM in
+            F*|U*|O*)
+                L+="%{A:bspc desktop ${ITEM#?} -f:}O%{A} " ;;
+            f*)
+                L+="%{A:bspc desktop ${ITEM#?} -f:}_%{A} " ;;
+            o*)
+                L+="%{A:bspc desktop ${ITEM#?} -f:}o%{A} " ;;
+            u*)
+                L+="%{A:bspc desktop ${ITEM#?} -f:}@%{A} " ;;
+        esac
+    done
+    echo "$L"
+done
