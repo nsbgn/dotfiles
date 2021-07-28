@@ -1,0 +1,37 @@
+#!/bin/bash
+# Uses Siji icons
+
+# Pipe all module updates into a single fifo
+STATUS_FIFO=/tmp/lemonbar_statuses
+[ -e "$STATUS_FIFO" ] && rm "$STATUS_FIFO"
+mkfifo "$STATUS_FIFO"
+for MODULE in ./mod_*; do
+    "${MODULE}" | sed -u "s/^/${MODULE#./mod_} /g" > "$STATUS_FIFO" &
+done
+
+
+# Combine statuses into a single line
+function statusline {
+    declare -A m
+    m[apps]=""
+    m[power]=""
+    while read -r module content; do
+        m["$module"]="$content"
+        echo -n "%{l}%{O10}%{A:rofi -show drun:}${m[apps]}%{A}%{O10}"
+        echo -n "${m[bspwm]}%{O20}"
+        echo -n "${m[title]}"
+        echo -n "%{r}"
+        echo -n "%{A:playerctl play-pause:}${m[mpris]}%{A}%{O10}"
+        echo -n "${m[date]}%{O20}"
+        echo "%{A:dmenu-system:}${m[power]}%{A}%{O10}"
+    done
+}
+
+# Run the bar
+cat "$STATUS_FIFO" | statusline | lemonbar \
+    -g x30 \
+    -f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
+    -f "-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1" \
+    -F "#403935" \
+    -B "#D9D2C2" \
+    -U "#403935" -u 2 | sh

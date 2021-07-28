@@ -1,0 +1,13 @@
+#!/bin/sh
+
+SINK="$(pactl list short | grep RUNNING | cut -f1)"
+
+pactl subscribe | \
+    grep --line-buffered "sink" | \
+    while read -r line; do
+        pactl list sinks | \
+        grep '^[[:space:]]Volume:' | \
+        sed "$(($SINK+1))q;d" | \
+        cut -d'/' -f2 | \
+        tr -d '[:blank:]'
+    done

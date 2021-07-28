@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do
+    date +"%{O1}%Y-%m-%d %a %H:%M"
+    sleep 30
+done

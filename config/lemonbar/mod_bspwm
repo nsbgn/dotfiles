@@ -6,13 +6,17 @@ bspc subscribe report | while read -r REPORT; do
     for ITEM in $REPORT; do
         case $ITEM in
             F*|U*|O*)
-                L+="%{A:bspc desktop ${ITEM#?} -f:}O%{A} " ;;
+                N="$(bspc query -N -d "${ITEM#?}" -n .window | tail -n 5 | \
+                    wc -l | sed 's/0//;s/1//;s/2//;s/3//;s/4//;s/5//')"
+                L+="%{A:bspc desktop ${ITEM#?} -f:}%{+u}${N}%{-u}%{A} " ;;
             f*)
-                L+="%{A:bspc desktop ${ITEM#?} -f:}_%{A} " ;;
+                L+="%{A:bspc desktop ${ITEM#?} -f:}%{A} " ;;
             o*)
-                L+="%{A:bspc desktop ${ITEM#?} -f:}o%{A} " ;;
+                N="$(bspc query -N -d "${ITEM#?}" -n .window | tail -n 5 | \
+                    wc -l | sed 's/1//;s/2//;s/3//;s/4//;s/5//')"
+                L+="%{A:bspc desktop ${ITEM#?} -f:}${N}%{A} " ;;
             u*)
-                L+="%{A:bspc desktop ${ITEM#?} -f:}@%{A} " ;;
+                L+="%{A:bspc desktop ${ITEM#?} -f:}%{A} " ;;
         esac
     done
     echo "$L"
