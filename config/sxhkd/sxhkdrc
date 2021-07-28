@@ -1,99 +1,117 @@
 ################
 # wm independent
 
-super + slash
+
+
+# The first button cycles through the windows that descend from the first
+# window if we are already on that side of our screen; otherwise it jumps to
+# the first window
+mod5 + {comma,period}
+	N="{1,0}"; \
+	if bspc query -N -d -n "@/$(($N + 1))#focused.descendant_of" > /dev/null; \
+	then bspc node --focus next.local.leaf; \
+	else bspc node --focus "@/$((2 - $N))#any.leaf.descendant_of" ; \
+	fi
+
+mod5 + slash
 	dmenu-cheatsheet
 
-super + k
-	dmenu-calc
+# mod5 + k
+# 	dmenu-calc
 
-super + l
-	dmenu-library
+# mod5 + l
+# 	dmenu-library
 
 # terminal emulator
-super + t
-#	alacritty --working-directory "$(xcwd)"
+{super,mod5} + t
 	urxvtc -cd $(xcwd.sh)
 
-super + T
-	urxvtc -cd $(xcwd.sh)
-
-super + g
+mod5 + g
 	vimb
 
-super + G
+mod5 + G
 	firefox
 
-super + f
-#	alacritty --working-directory "$(xcwd)" -e lf
-	urxvtc -cd "$(xcwd.sh)" -e lf
+#mod5 + j
+##	alacritty --working-directory "$(xcwd)" -e lf
+#	urxvtc -cd "$(xcwd.sh)" -e lf
 
-super + m
+mod5 + m
 #	alacritty --working-directory "$(xcwd)" -e aerc
 	urxvtc -e aerc
 
-super + c
+mod5 + c
 	telegram-desktop
 
-super + backslash
+mod5 + backslash
 	toggle-pointer
 
 Print
 	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
 
-super + {Down,Up}
+mod5 + {Down,Up}
 	amixer -q sset Master 2%{-,+}
 
-super + {Left,Right}
+mod5 + {Left,Right}
 	xbacklight {-,+}2%
 
-super + h
-	dmenu-thesaurus
+# mod5 + h
+# 	dmenu-thesaurus
 
-super + i
+mod5 + i
 	dmenu-pass
 
-super + {_,mod5} + p
+mod5 + {_,alt} + p
 	{dmenu-mpv,playerctl play-pause}
 
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
-super + semicolon
+{super,mod5} + semicolon
 	rofi -show drun
 
-super + @space
-	rofi -show window
+#super + @space
+#	rofi -show window
 
-super + Escape
+mod5 + Escape
 	dmenu-system
 
 ################
 # bspwm specific
 
-super + x
+XF86Open; XF86Open
+	dmenu-system
+
+XF86Open; x
+	bspc node --close
+
+{super,mod5} + x
 	bspc node --close
 #; bspc node --focus smallest
 
 #super + Return
 #	bspc node --swap west || bspc node --swap last.!focused
 
-super + Return
+mod5 + space
+	bspc node --focus next.local.leaf.!focused
+
+{super,mod5} + Return
 	bspc node --state '~fullscreen'
 
-super + mod5 + {q,e}
-	bspc desktop --focus {prev, next}
+mod5 + {_,alt} + {q,e}
+	bspc desktop --{focus,swap} {prev, next}
 
-super + {@q,@e}
-	xdotool key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
+# super + {@r,@f}
+# 	xdotool key --clearmodifiers --window 0 Page_{Up,Down}
+#	xdotool key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
 #	xdotool search --onlyvisible --name 'Firefox' windowactivate --sync key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
 
 # focus/swap the node in the given direction
-super + {_,mod5 + }{a,s,w,d}
+mod5 + {_,alt + }{h,j,k,l}
 	bspc node --{focus,swap} {west,south,north,east}
 
 # send node
-super + alt + {a,s,w,d}
+mod5 + alt + {h,j,k,l}
 	bspwm-tabdance {west,south,north,east}
 
 # Remove current tab from tabbed
@@ -105,14 +123,14 @@ super + alt + {a,s,w,d}
 #	tabc.sh $(bspc query -N -n {west,south,north,east}) add $(bspc query -N -n focused)
 
 # increase window size ratio
-super + {minus,equal}
+mod5 + {minus,equal}
 	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
 	then bspc node '@parent' --ratio '+10'; \
 	else bspc node '@parent' --ratio '-10'; \
 	fi
 
 # focus/send to given desktop
-#super + {1-9,0} + {_, mod5}
+#super + {1-9,0} + {_, alt}
 #	desktop="^{1-9,10}"; \
 #	if ! bspc query --desktops --desktop "$desktop" &> /dev/null; then \
 #		desktop="$(uuidgen | cut -d'-' -f1)"; \
@@ -120,8 +138,14 @@ super + {minus,equal}
 #	fi; \
 #	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}
 
+mod5 + {1-4}
+	bspc desktop --focus ^{1-4}
+
+mod5 + alt + {1-4}
+	bspc node --to-desktop ^{1-4} --follow
+
 super + {1-4}
 	bspc desktop --focus ^{1-4}
 
-super + mod5 + {1-4}
+super + alt + {1-4}
 	bspc node --to-desktop ^{1-4} --follow
