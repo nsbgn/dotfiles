@@ -1,12 +1,12 @@
 #!/bin/bash
 
 DICE_SIJI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//"
-DICE_MDI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//;s/6//"
+DICE_MDI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//;s/6//;s/*/ﱬ/"
 
 # Return the number of windows in the given desktop as a dice icon
 function dice {
     bspc query --nodes --desktop "${1}" --node .window \
-        | tail -n 6 | wc -l | sed "${DICE_MDI}"
+        | tail -n 7 | wc -l | sed "${DICE_MDI}"
 }
 
 IFS=':'
