@@ -1,3 +1,6 @@
+xset +fp /usr/share/fonts/bitmap/{siji,dina}
+xset fp rehash
+
 xrdb $HOME/.Xresources
 export XDG_SESSION_TYPE=x11
 export GDK_BACKEND=x11

@@ -67,6 +67,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Moving around
     Plug 'https://github.com/easymotion/vim-easymotion'
+    " Plug 'https://github.com/phaazon/hop.nvim'
     Plug 'https://github.com/justinmk/vim-sneak'
     "Plug 'https://github.com/t9md/vim-smalls'
 
@@ -111,9 +112,6 @@ call plug#end()
 "let g:solarized_termcolors=256
 set background=light
 "colorscheme solarized
-
-
-
 
 
 "let g:gruvbox_contrast_light="soft"
@@ -434,10 +432,10 @@ if PlugLoaded('vim-signify')
     highlight SignifySignAdd ctermfg=DarkGreen cterm=NONE
     highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
     highlight SignifySignChange ctermfg=Blue cterm=NONE
-    let g:signify_sign_add               = ''
-    let g:signify_sign_delete            = ''
-    let g:signify_sign_delete_first_line = ''
-    let g:signify_sign_change            = ''
+    let g:signify_sign_add               = '●' " ''
+    let g:signify_sign_delete            = '●' " ''
+    let g:signify_sign_delete_first_line = '●' " ''
+    let g:signify_sign_change            = '●' " ''
 endif
 
 if PlugLoaded('vim-easy-align')
@@ -474,7 +472,7 @@ endif
 
 if PlugLoaded('comfortable-motion.vim')
     let g:comfortable_motion_no_default_key_mappings = 1
-    let g:comfortable_motion_impulse_multiplier = 3.3
+    let g:comfortable_motion_impulse_multiplier = 2.5
     nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
     nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
 endif
@@ -511,7 +509,7 @@ if PlugLoaded('vim-buftabline')
     endif
 endif
 
-
+nnoremap ; :
 
 
 " Navigating buffers

@@ -21,6 +21,7 @@ PACKAGES=(
     unclutter # Hiding mouse
     x11-xkb-utils # Remapping keyboard (xkbcomp)
     xcape # Remapping keyboard (overload tap/hold buttons)
+    xcwd # Current directory of program
     x11-xserver-utils # X11 tools (xsetroot)
     bspwm
     sxhkd
@@ -67,6 +68,7 @@ PACKAGES=(
     zathura{,-cb,-ps,-djvu,-pdf-poppler}
     okular{,-extra-backends}
     mupdf
+    calcurse # Calendar application
 )
 
 sudo apt install ${PACKAGES[@]}

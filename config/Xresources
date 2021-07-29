@@ -8,10 +8,20 @@ Xft.lcdfilter:  lcddefault
 Xcursor.theme: DMZ-White
 
 URxvt.internalBorder: 16
-URxvt.font: xft:Anonymice Nerd Font Mono:size=13,xft:Unifont:size=13
-!URxvt.font: xft:Cozette:size=9,xft:Anonymice Nerd Font Mono:size=11
-URxvt.letterSpace: 1
-URxvt.lineSpace: 1
+!URxvt.font: xft:Anonymice Nerd Font Mono:size=13,xft:Unifont:size=13
+!URxvt.letterSpace: 1
+!URxvt.lineSpace: 1
+URxvt.font: xft:Dina:size=10,xft:Anonymice Nerd Font Mono:size=11
+!
+! -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,
+! -slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1
+! -gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
+!
+/* URxvt.font: -*-dina-medium-r-*--13-* */
+/* URxvt.boldFont: -*-dina-bold-r-*--13-* */
+/* URxvt.italicFont: -*-dina-medium-i-*--13-* */
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
 URxvt.cursorBlink: true
 
 URxvt.geometry: 80x46

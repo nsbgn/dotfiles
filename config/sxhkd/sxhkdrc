@@ -3,16 +3,6 @@
 
 
 
-# The first button cycles through the windows that descend from the first
-# window if we are already on that side of our screen; otherwise it jumps to
-# the first window
-mod5 + {comma,period}
-	N="{1,0}"; \
-	if bspc query -N -d -n "@/$(($N + 1))#focused.descendant_of" > /dev/null; \
-	then bspc node --focus next.local.leaf; \
-	else bspc node --focus "@/$((2 - $N))#any.leaf.descendant_of" ; \
-	fi
-
 mod5 + slash
 	dmenu-cheatsheet
 
@@ -55,7 +45,7 @@ mod5 + {Down,Up}
 mod5 + {Left,Right}
 	xbacklight {-,+}2%
 
-# mod5 + h
+# mod5 + t
 # 	dmenu-thesaurus
 
 mod5 + i
@@ -79,26 +69,23 @@ mod5 + Escape
 ################
 # bspwm specific
 
-XF86Open; XF86Open
-	dmenu-system
-
-XF86Open; x
-	bspc node --close
-
 {super,mod5} + x
 	bspc node --close
-#; bspc node --focus smallest
 
-#super + Return
-#	bspc node --swap west || bspc node --swap last.!focused
+# The first button cycles through the windows that descend from the first
+# window if we are already on that side of our screen; otherwise it jumps to
+# the first window
+# mod5 + {BackSpace,Return}
+# 	N="{0,1}"; \
+# 	if bspc query -N -d -n "@/$(($N + 1))#focused.descendant_of" > /dev/null; \
+# 	then bspc node --focus "@/$(($N + 1))#next.local.leaf.descendant_of"; \
+# 	else bspc node --focus "@/$((2 - $N))#any.leaf.descendant_of" ; \
+# 	fi
 
-mod5 + space
-	bspc node --focus next.local.leaf.!focused
-
-{super,mod5} + Return
+{super,mod5} + space
 	bspc node --state '~fullscreen'
 
-mod5 + {_,alt} + {q,e}
+mod5 + {_,alt} + {comma,period}
 	bspc desktop --{focus,swap} {prev, next}
 
 # super + {@r,@f}

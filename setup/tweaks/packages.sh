@@ -189,6 +189,7 @@ PACKAGES=(
     firefox-esr webext-ublock-origin-firefox # Web browser. Add: uMatrix, Vim Vixen
     netsurf-gtk # A minimalistic web browser.
     mpv # Media player
+    gbsplay # Play GB music
     celluloid # Front-end for mpv
     vlc # Media player
     timidity # Playing MIDI files
