@@ -1,13 +1,20 @@
 #!/bin/sh
+# Show PulseAudio volume
+
+ICON_LOUD="%{O2}" # siji:  / nf*: 墳
 
 SINK="$(pactl list short | grep RUNNING | cut -f1)"
 
-pactl subscribe | \
-    grep --line-buffered "sink" | \
-    while read -r line; do
-        pactl list sinks | \
-        grep '^[[:space:]]Volume:' | \
-        sed "$(($SINK+1))q;d" | \
-        cut -d'/' -f2 | \
-        tr -d '[:blank:]'
-    done
+volume() {
+    echo -n "$ICON_LOUD"
+    pactl list sinks | \
+    grep '^[[:space:]]Volume:' | \
+    sed "$(($SINK+1))q;d" | \
+    cut -d'/' -f2 | \
+    tr -d '[:blank:]%'
+}
+
+volume
+pactl subscribe \
+    | grep --line-buffered "sink #${SINK}" \
+    | while read -r line; do volume; done

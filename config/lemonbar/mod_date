@@ -1,6 +1,7 @@
 #!/bin/sh
+ICON_DATE="%{O2}" # siji:  / nf*: 
 
 while true; do
-    date +"%{O1}%Y-%m-%d %a %H:%M"
-    sleep 30
+    date +"$ICON_DATE%Y/%m/%d %a %H:%M"
+    sleep 45
 done

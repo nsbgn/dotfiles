@@ -1,12 +1,26 @@
 #!/bin/bash
+# Show bspwm desktops as dice icons representing the number of windows
 
 DICE_SIJI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//"
-DICE_MDI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//;s/6//;s/*/ﱬ/"
+DICE_NERDFONT_MDI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//;s/6//;s/*/ﱬ/"
+
+PAD="%{O6}"
+ICON0="" # siji:  / nf-mdi*: 
+ICON1="" # siji:  / nf-mdi*: 
+ICON2="" # siji:  / nf-mdi*: 
+ICON3="" # siji:  / nf-mdi*: 
+ICON4="" # siji:  / nf-mdi*: 
+ICON5="" # siji:  / nf-mdi*: 
+ICON6="" # nf-mdi*: 
+ICONZ="*" # nf-mdi*: ﱬ
+ICON_URGENT="!" # nf-mdi*: 
+
 
 # Return the number of windows in the given desktop as a dice icon
 function dice {
     bspc query --nodes --desktop "${1}" --node .window \
-        | tail -n 7 | wc -l | sed "${DICE_MDI}"
+        | tail -n 5 | wc -l \
+        | sed "s/0/$ICON0/;s/1/$ICON1/;s/2/$ICON2/;s/3/$ICON3/;s/4/$ICON4/;s/5/$ICON5/;s/6/$ICON6/;s/*/$ICONZ/"
 }
 
 IFS=':'
@@ -15,16 +29,20 @@ bspc subscribe report | while read -r REPORT; do
     for R in $REPORT; do
       case $R in
         F*|U*|O*)
-            L+="%{A:bspc desktop ${R#?} -f:}%{+u}$(dice "${R#?}")%{-u}%{A} "
+            L+="%{A:bspc desktop ${R#?} -f:}%{+u}$(dice "${R#?}")%{-u}%{A}"
+            L+="$PAD"
             ;;
         f*)
-            L+="%{A:bspc desktop ${R#?} -f:}%{A} "
+            L+="%{A:bspc desktop ${R#?} -f:}$ICON0%{A}"
+            L+="$PAD"
             ;;
         o*)
-            L+="%{A:bspc desktop ${R#?} -f:}$(dice "${R#?}")%{A} "
+            L+="%{A:bspc desktop ${R#?} -f:}$(dice "${R#?}")%{A}"
+            L+="$PAD"
             ;;
         u*)
-            L+="%{A:bspc desktop ${R#?} -f:}%{A} "
+            L+="%{A:bspc desktop ${R#?} -f:}$ICON_URGENT%{A}"
+            L+="$PAD"
             ;;
       esac
     done

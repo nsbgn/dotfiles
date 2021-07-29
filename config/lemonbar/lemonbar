@@ -1,37 +1,50 @@
 #!/bin/bash
-# Uses Siji icons
+# Siji icons:
+
+CFG="$(realpath $(dirname $0))"
+PAD="%{O10}"
+ICON_APPS="" # siji:  / nf-mdi*: 
+ICON_POWER="" # siji:  / nf-mdi*: ⏻
 
 # Pipe all module updates into a single fifo
 STATUS_FIFO=/tmp/lemonbar_statuses
 [ -e "$STATUS_FIFO" ] && rm "$STATUS_FIFO"
 mkfifo "$STATUS_FIFO"
-for MODULE in ./mod_*; do
-    "${MODULE}" | sed -u "s/^/${MODULE#./mod_} /g" > "$STATUS_FIFO" &
+for MODULE in "${CFG}"/mod_*; do
+    "${MODULE}" | sed -u "s/^/${MODULE#${CFG}/mod_} /g" > "$STATUS_FIFO" &
 done
 
 
 # Combine statuses into a single line
 function statusline {
     declare -A m
-    m[apps]=""
-    m[power]=""
+    m[apps]="$ICON_APPS"
+    m[power]="$ICON_POWER"
     while read -r module content; do
         m["$module"]="$content"
-        echo -n "%{l}%{O10}%{A:rofi -show drun:}${m[apps]}%{A}%{O10}"
-        echo -n "${m[bspwm]}%{O20}"
+        echo -n "%{l}${PAD}%{A:rofi -show drun:}${m[apps]}%{A}${PAD}"
+        echo -n "${m[bspwm]}${PAD}"
         echo -n "${m[title]}"
         echo -n "%{r}"
-        echo -n "%{A:playerctl play-pause:}${m[mpris]}%{A}%{O10}"
-        echo -n "${m[date]}%{O20}"
-        echo "%{A:dmenu-system:}${m[power]}%{A}%{O10}"
+        echo -n "%{A:playerctl play-pause:}${m[mpris]}%{A}${PAD}"
+        echo -n "${m[pulseaudio]}${PAD}"
+        echo -n "${m[date]}${PAD}"
+        echo "%{A:dmenu-system:}${m[power]}%{A}${PAD}"
     done
 }
 
 # Run the bar
 cat "$STATUS_FIFO" | statusline | lemonbar \
     -g x30 \
+    -f "-*-dina-medium-r-normal--8-*-*-*-*-*-*-*" \
     -f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
-    -f "-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1" \
     -F "#403935" \
     -B "#D9D2C2" \
     -U "#403935" -u 2 | sh
+
+#-f "Cabin:size=10" \
+#-f "-*-dina-medium-r-normal--10-*-*-*-*-*-*-*" \
+#-f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
+#-f "-slavfox-cozette-medium-r-normal--13-*-*-*-*-*-*-*" \
+#-f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
+#-f "-*-anonymice nerd font mono-book-r-normal--20-*-*-*-*-*-*-*" \
