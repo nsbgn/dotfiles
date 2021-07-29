@@ -1,23 +1,32 @@
 #!/bin/bash
 
+DICE_SIJI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//"
+DICE_MDI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//;s/6//"
+
+# Return the number of windows in the given desktop as a dice icon
+function dice {
+    bspc query --nodes --desktop "${1}" --node .window \
+        | tail -n 6 | wc -l | sed "${DICE_MDI}"
+}
+
 IFS=':'
 bspc subscribe report | while read -r REPORT; do
     L=""
-    for ITEM in $REPORT; do
-        case $ITEM in
-            F*|U*|O*)
-                N="$(bspc query -N -d "${ITEM#?}" -n .window | tail -n 5 | \
-                    wc -l | sed 's/0//;s/1//;s/2//;s/3//;s/4//;s/5//')"
-                L+="%{A:bspc desktop ${ITEM#?} -f:}%{+u}${N}%{-u}%{A} " ;;
-            f*)
-                L+="%{A:bspc desktop ${ITEM#?} -f:}%{A} " ;;
-            o*)
-                N="$(bspc query -N -d "${ITEM#?}" -n .window | tail -n 5 | \
-                    wc -l | sed 's/1//;s/2//;s/3//;s/4//;s/5//')"
-                L+="%{A:bspc desktop ${ITEM#?} -f:}${N}%{A} " ;;
-            u*)
-                L+="%{A:bspc desktop ${ITEM#?} -f:}%{A} " ;;
-        esac
+    for R in $REPORT; do
+      case $R in
+        F*|U*|O*)
+            L+="%{A:bspc desktop ${R#?} -f:}%{+u}$(dice "${R#?}")%{-u}%{A} "
+            ;;
+        f*)
+            L+="%{A:bspc desktop ${R#?} -f:}%{A} "
+            ;;
+        o*)
+            L+="%{A:bspc desktop ${R#?} -f:}$(dice "${R#?}")%{A} "
+            ;;
+        u*)
+            L+="%{A:bspc desktop ${R#?} -f:}%{A} "
+            ;;
+      esac
     done
     echo "$L"
 done
