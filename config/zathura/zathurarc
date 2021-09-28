@@ -5,9 +5,9 @@ set scroll-step 80
 
 set default-bg "#ffffee"
 set completion-bg "#000000"
-set recolor true
-set recolor-lightcolor "#ffffee"
-set recolor-darkcolor "#000000" 
+#set recolor true
+#set recolor-lightcolor "#ffffee"
+#set recolor-darkcolor "#000000" 
 
 set adjust-open best-fit
 

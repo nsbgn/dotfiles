@@ -150,6 +150,8 @@ PACKAGES=(
 
     # File conversion tools
     pandoc pandoc-citeproc # Document converter
+    unrtf # Convert from RTF to text
+    unoconv # Convert any format supported by libreoffice
     weasyprint # HTML to PDF printer
     kiwix # Offline Wikipedia reader
     hugo # Static site generator
@@ -180,6 +182,7 @@ PACKAGES=(
     ytnef-tools # For opening winmail.dat files in emails, via console
     parchive # Archives for data repair
     dtrx atool zip unzip p7zip-full bzip2 rpm unar # Extract/compress archives
+    innoextract # Extract from Windows installers
     xz-utils xzdec # XZ-format compression and decompression
     python3-breadability # Readability implementation in python
     bpython3 # Interactive Python interpreter --- helpful!
@@ -207,12 +210,14 @@ PACKAGES=(
     visidata # Visualiser of spreadsheet data in terminal
     inkscape # Vector graphics
     gimp # Image editor
+    drawing # MS Paint clone
     #krita # Image editor
     mkvtoolnix{,-gui} # MKV media container editor
     sigil # Ebook editor
     sqlitebrowser # SQLite database editor
     puddletag # Audio tag editor
     fontforge # Font editor
+    gbdfed # Bitmap font editor
     subtitleeditor # Subtitle editor
     imediff # Graphical merge tool for the terminal
     icdiff # Terminal side-by-side diff

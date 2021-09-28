@@ -43,6 +43,7 @@ PACKAGES=(
     playerctl
     rofi
     polybar
+    lemonbar
     pmount
     neovim
     apt-file
@@ -56,7 +57,6 @@ PACKAGES=(
     tig
     pass
     gnupg
-    uuidgen-runtime  # for uuidgen
     fd-find # `find` alternative
 
     # Applications

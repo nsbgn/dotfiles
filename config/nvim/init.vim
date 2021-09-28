@@ -5,6 +5,9 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/morhetz/gruvbox'
     Plug 'https://github.com/ap/vim-css-color'
 
+    " Email
+    Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
+
     " Scrolling
     " Plug 'https://github.com/Xuyuanp/scrollbar.nvim'
     " Plug 'https://github.com/wfxr/minimap.vim'
@@ -225,7 +228,7 @@ if has("autocmd")
         autocmd FileType markdown.pandoc setlocal conceallevel=0
         autocmd FileType markdown.pandoc setlocal textwidth=78
         autocmd FileType markdown.pandoc setlocal formatoptions+=w " formatoptions+=a
-        autocmd FileType markdown.pandoc setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=2 shiftwidth=2 softtabstop=2
+        autocmd FileType markdown.pandoc setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
     augroup END
 
     augroup latex
@@ -235,7 +238,7 @@ if has("autocmd")
         autocmd FileType tex setlocal conceallevel=0
         "autocmd FileType tex setlocal textwidth=78
         autocmd FileType tex setlocal formatoptions+=w "formatoptions+=a 
-        autocmd FileType tex setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=2 shiftwidth=2 softtabstop=2
+        autocmd FileType tex setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
 
     augroup END
 
@@ -363,6 +366,7 @@ if PlugLoaded('vim-lsc')
         \ 'SignatureHelp': 'gm',
         \ 'Completion': 'completefunc',
         \}
+    highlight lscDiagnosticError ctermfg=black ctermbg=DarkRed
 endif
 
 if PlugLoaded('vim-lsp')
@@ -429,13 +433,13 @@ endif
 if PlugLoaded('vim-signify')
     set signcolumn=auto
     highlight SignColumn ctermbg=NONE cterm=NONE
-    highlight SignifySignAdd ctermfg=DarkGreen cterm=NONE
+    highlight SignifySignAdd ctermfg=Green cterm=NONE
     highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
-    highlight SignifySignChange ctermfg=Blue cterm=NONE
-    let g:signify_sign_add               = '●' " ''
-    let g:signify_sign_delete            = '●' " ''
-    let g:signify_sign_delete_first_line = '●' " ''
-    let g:signify_sign_change            = '●' " ''
+    highlight SignifySignChange ctermfg=Magenta cterm=NONE
+    let g:signify_sign_add               = '●' " nf:  / unifont: ⊞⊕
+    let g:signify_sign_delete            = '●' " nf:  / unifont: ⊟⊖
+    let g:signify_sign_delete_first_line = '●' " nf:  / unifont: ⊠⊡⊗⊚⊘⊙⊜⊝
+    let g:signify_sign_change            = '●' " nf: פֿ / unifont: ⊛
 endif
 
 if PlugLoaded('vim-easy-align')

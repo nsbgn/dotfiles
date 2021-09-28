@@ -21,6 +21,8 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
         nvim "$F" ;;
     *.xoj|*.xopp)
         xournalpp "$F" ;;
+    *.dot)
+        xdot "$F" ;;
     inode/directory:*) 
         lf "$F" ;;
     inode/x-empty:*) 

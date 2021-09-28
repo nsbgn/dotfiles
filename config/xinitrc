@@ -1,10 +1,8 @@
-xset +fp /usr/share/fonts/bitmap/{siji,dina}
+for F in siji dina; do xset +fp /usr/share/fonts/bitmap/$F; done
 xset fp rehash
 
 xrdb $HOME/.Xresources
 export XDG_SESSION_TYPE=x11
 export GDK_BACKEND=x11
-#exec gnome-session
-#exec dwm
 exec bspwm
-#exec i3
+#exec berry

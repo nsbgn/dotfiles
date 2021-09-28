@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+# Open urxvt in same working directory as the last focused window
+# Pulled from https://raphael.medaer.me/2019/06/21/urxvt-open-current-wd.html
+# Dependencies:
+#   libipc-shareable-perl
+
+use IPC::Shareable;
+
+my $glue = sprintf 'urxvt-last-dir-%d', $<;
+my %options = (
+    create    => 'yes',
+    exclusive => 0,
+    mode      => 0700,
+    destroy   => 'no',
+);
+
+sub on_focus_in {
+    my ($self) = @_;
+    my $pid;
+    tie $pid, 'IPC::Shareable', $glue, { %options };
+    $pid = $self->{shell_pid};
+}
+
+sub on_child_start {
+    my($self, $pid) = @_;
+    $self->{shell_pid} = $pid;
+}
+
+sub on_init {
+    my ($self) = @_;
+    my $pid;
+    tie $pid, 'IPC::Shareable', $glue, { %options };
+
+    if (defined $pid and $pid ne "") {
+        my $link = sprintf "/proc/%d/cwd", $pid;
+        my $wd = readlink $link;
+        if (-e $wd) {
+            $self->resource("chdir", $wd);
+        }
+    }
+}

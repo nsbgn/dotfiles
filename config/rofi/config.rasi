@@ -3,7 +3,7 @@ configuration {
 	width: 40;
 	lines: 10;
 	columns: 1;
-	font: "Anonymice Nerd Font Mono 12";
+	font: "Anonymice Nerd Font Mono 10";
 /*	bw: 1;*/
 /*	location: 0;*/
 /*	padding: 5;*/

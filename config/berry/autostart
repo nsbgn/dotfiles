@@ -1,22 +1,40 @@
 #!/bin/bash
 
+xsetroot -cursor_name left_ptr
+xsetroot -solid '#ffffee'
+feh --no-fehbg --bg-tile ~/.config/feh/bg.gif
 
 # Set decoration geometry
-berryc border_width       5
-berryc inner_border_width 3
-berryc title_height       30
-berryc top_gap            30
+berryc border_width       0
+berryc inner_border_width 0
+berryc title_height       10
+berryc top_gap            29
 
 # Set decoration colors
-berryc focus_color         292D3E
-berryc unfocus_color       292D3E
-berryc inner_focus_color   FFCB6B
-berryc inner_unfocus_color 565679
+berryc focus_color         b57614
+berryc unfocus_color       c3bba7
+berryc inner_focus_color   b57614
+berryc inner_unfocus_color c3bba7
 berryc text_focus_color    ffffff
 berryc text_unfocus_color  eeeeee
 
 # Other options
 berryc smart_place "true"
-berryc draw_text   "true"
+berryc draw_text   "false"
 berryc edge_lock   "true"
 berryc set_font    "Dina-9"
+berryc focus_follows_pointer "true"
+berryc move_mask Mod5
+
+$HOME/projects/thumbledore/thumbledore & # keyboard settings
+sxhkd & # keyboard shortcuts
+keynav & # use keyboard for mouse navigation
+lxpolkit & # policy kit
+unclutter -root -idle 2 & # hide mouse when not in use for two seconds
+redshift -m randr -x -l manual -O 5500K # -l 52:5 & # nighttime screen colours
+dunst & # notifications
+urxvtd -q -f -o & # terminal daemon
+lf -server & # file manager daemon
+~/.config/lemonbar/lemonbar
+# stalonetray -bg '#D9D2C2' &
+dmenu-mpv --initialise &

@@ -1,138 +1,94 @@
 ################
 # wm independent
 
-
-
-mod5 + slash
-	dmenu-cheatsheet
-
-# mod5 + k
-# 	dmenu-calc
-
-# mod5 + l
-# 	dmenu-library
-
-# terminal emulator
-{super,mod5} + t
-	urxvtc -cd $(xcwd.sh)
-
-mod5 + g
-	vimb
-
-mod5 + G
-	firefox
-
-#mod5 + j
-##	alacritty --working-directory "$(xcwd)" -e lf
-#	urxvtc -cd "$(xcwd.sh)" -e lf
-
-mod5 + m
-#	alacritty --working-directory "$(xcwd)" -e aerc
-	urxvtc -e aerc
-
-mod5 + c
-	telegram-desktop
-
-mod5 + backslash
-	toggle-pointer
-
 Print
 	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
-
-mod5 + {Down,Up}
-	amixer -q sset Master 2%{-,+}
-
-mod5 + {Left,Right}
-	xbacklight {-,+}2%
-
-# mod5 + t
-# 	dmenu-thesaurus
-
-mod5 + i
-	dmenu-pass
-
-mod5 + {_,alt} + p
-	{dmenu-mpv,playerctl play-pause}
 
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
-{super,mod5} + semicolon
+mod4 + i
+	dmenu-pass
+
+mod4 + {_,shift} + p
+	{dmenu-mpv,playerctl play-pause}
+
+mod4 + semicolon
 	rofi -show drun
 
-#super + @space
-#	rofi -show window
+mod4 + Return
+	rofi -show drun
 
-mod5 + Escape
+mod4 + slash
+	dmenu-cheatsheet
+
+mod4 + u
+	dmenu-thesaurus
+
+mod4 + o
+	dmenu-library
+
+# TODO shift opens in new desktop?
+mod4 + t
+	urxvtc -cd $(xcwd.sh)
+# urxvtc
+
+mod4 + g
+	vimb
+
+mod4 + G
+	firefox
+
+mod4 + m
+	urxvtc -e aerc
+
+mod4 + c
+	telegram-desktop
+
+mod4 + backslash
+	toggle-pointer
+
+mod4 + {comma,period}
+	amixer -q sset Master 2%{-,+}
+
+mod4 + shift + {comma,period}
+	xbacklight {-,+}2%
+
+
+mod4 + @Tab
+	rofi -show window
+
+mod4 + z
 	dmenu-system
 
 ################
 # bspwm specific
 
-{super,mod5} + x
+mod4 + x
 	bspc node --close
 
-# The first button cycles through the windows that descend from the first
-# window if we are already on that side of our screen; otherwise it jumps to
-# the first window
-# mod5 + {BackSpace,Return}
-# 	N="{0,1}"; \
-# 	if bspc query -N -d -n "@/$(($N + 1))#focused.descendant_of" > /dev/null; \
-# 	then bspc node --focus "@/$(($N + 1))#next.local.leaf.descendant_of"; \
-# 	else bspc node --focus "@/$((2 - $N))#any.leaf.descendant_of" ; \
-# 	fi
-
-{super,mod5} + space
+mod4 + space
 	bspc node --state '~fullscreen'
 
-mod5 + {_,alt} + {comma,period}
-	bspc desktop --{focus,swap} {prev, next}
 
-# super + {@r,@f}
-# 	xdotool key --clearmodifiers --window 0 Page_{Up,Down}
-#	xdotool key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
-#	xdotool search --onlyvisible --name 'Firefox' windowactivate --sync key --clearmodifiers --window 0 ctrl+Page_{Up,Down} # Firefox tab switching
+mod4 + {_,shift} + {k,j}
+	bspc node --{focus,swap} {prev,next}.local.leaf
 
-# focus/swap the node in the given direction
-mod5 + {_,alt + }{h,j,k,l}
-	bspc node --{focus,swap} {west,south,north,east}
+mod4 + {h,l}
+	bspc desktop --focus {prev,next}
 
-# send node
-mod5 + alt + {h,j,k,l}
-	bspwm-tabdance {west,south,north,east}
-
-# Remove current tab from tabbed
-#super + alt + x
-#	tabc.sh $(bspc query -N -n focused) remove
-
-# At given direction: join two windows into a new tabbed or add window to an existing tabbed
-#super + alt + {a,s,w,d}
-#	tabc.sh $(bspc query -N -n {west,south,north,east}) add $(bspc query -N -n focused)
+mod4 + shift + {h,l}
+	bspc node --to-desktop {prev,next} --follow
 
 # increase window size ratio
-mod5 + {minus,equal}
+mod4 + {minus,equal}
 	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
 	then bspc node '@parent' --ratio '+10'; \
 	else bspc node '@parent' --ratio '-10'; \
 	fi
 
-# focus/send to given desktop
-#super + {1-9,0} + {_, alt}
-#	desktop="^{1-9,10}"; \
-#	if ! bspc query --desktops --desktop "$desktop" &> /dev/null; then \
-#		desktop="$(uuidgen | cut -d'-' -f1)"; \
-#		bspc monitor --add-desktops "$desktop"; \
-#	fi; \
-#	bspc {desktop --focus "$desktop", node --to-desktop "$desktop" --follow}
-
-mod5 + {1-4}
+mod4 + {1-4}
 	bspc desktop --focus ^{1-4}
 
-mod5 + alt + {1-4}
-	bspc node --to-desktop ^{1-4} --follow
-
-super + {1-4}
-	bspc desktop --focus ^{1-4}
-
-super + alt + {1-4}
+mod4 + shift + {1-4}
 	bspc node --to-desktop ^{1-4} --follow
