@@ -4,7 +4,7 @@
 DICE_SIJI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//"
 DICE_NERDFONT_MDI="s/0//;s/1//;s/2//;s/3//;s/4//;s/5//;s/6//;s/*/ﱬ/"
 
-PAD="%{O6}"
+PAD="%{O3}"
 ICON0="" # siji:  / nf-mdi*: 
 ICON1="" # siji:  / nf-mdi*: 
 ICON2="" # siji:  / nf-mdi*: 
@@ -29,20 +29,16 @@ bspc subscribe report | while read -r REPORT; do
     for R in $REPORT; do
       case $R in
         F*|U*|O*)
-            L+="%{A:bspc desktop ${R#?} -f:}%{+u}$(dice "${R#?}")%{-u}%{A}"
-            L+="$PAD"
+            L+="%{A:bspc desktop ${R#?} -f:}%{+u}$PAD$(dice "${R#?}")$PAD%{-u}%{A}"
             ;;
         f*)
-            L+="%{A:bspc desktop ${R#?} -f:}$ICON0%{A}"
-            L+="$PAD"
+            L+="%{A:bspc desktop ${R#?} -f:}$PAD$ICON0$PAD%{A}"
             ;;
         o*)
-            L+="%{A:bspc desktop ${R#?} -f:}$(dice "${R#?}")%{A}"
-            L+="$PAD"
+            L+="%{A:bspc desktop ${R#?} -f:}$PAD$(dice "${R#?}")$PAD%{A}"
             ;;
         u*)
-            L+="%{A:bspc desktop ${R#?} -f:}$ICON_URGENT%{A}"
-            L+="$PAD"
+            L+="%{A:bspc desktop ${R#?} -f:}$PAD$ICON_URGENT$PAD%{A}"
             ;;
       esac
     done

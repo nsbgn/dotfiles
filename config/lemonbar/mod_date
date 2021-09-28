@@ -2,6 +2,6 @@
 ICON_DATE="%{O2}" # siji:  / nf*: 
 
 while true; do
-    date +"$ICON_DATE%Y/%m/%d %a %H:%M"
+    date +"$ICON_DATE%a %-d %b %-H:%M"
     sleep 45
 done
