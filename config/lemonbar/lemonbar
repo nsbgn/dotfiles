@@ -1,50 +1,51 @@
 #!/bin/bash
-# Siji icons:
 
-CFG="$(realpath $(dirname $0))"
-PAD="%{O10}"
+MODS_LEFT=(bspwm title)
+MODS_RIGHT=(music audio wifi battery date)
+PADDING="%{O10}"
+
 ICON_APPS="" # siji:  / nf-mdi*: 
 ICON_POWER="" # siji:  / nf-mdi*: ⏻
 
 # Pipe all module updates into a single fifo
 STATUS_FIFO=/tmp/lemonbar_statuses
+MODS_DIRECTORY="$(realpath $(dirname $0))"
 [ -e "$STATUS_FIFO" ] && rm "$STATUS_FIFO"
 mkfifo "$STATUS_FIFO"
-for MODULE in "${CFG}"/mod_*; do
-    "${MODULE}" | sed -u "s/^/${MODULE#${CFG}/mod_} /g" > "$STATUS_FIFO" &
+for MOD in "${MODS_LEFT[@]}" "${MODS_RIGHT[@]}"; do
+    ${MODS_DIRECTORY}/mod_${MOD} | sed -u "s/^/${MOD} /g" > "${STATUS_FIFO}" &
 done
 
-
-# Combine statuses into a single line
-function statusline {
+# Update the text when one module has an update
+function mod2line {
     declare -A m
     m[apps]="$ICON_APPS"
     m[power]="$ICON_POWER"
+    m[middle]="%{r}"
     while read -r module content; do
         m["$module"]="$content"
-        echo -n "%{l}${PAD}%{A:rofi -show drun:}${m[apps]}%{A}${PAD}"
-        echo -n "${m[bspwm]}${PAD}"
-        echo -n "${m[title]}"
-        echo -n "%{r}"
-        echo -n "%{A:playerctl play-pause:}${m[mpris]}%{A}${PAD}"
-        echo -n "${m[pulseaudio]}${PAD}"
-        echo -n "${m[date]}${PAD}"
-        echo "%{A:dmenu-system:}${m[power]}%{A}${PAD}"
+        echo -n "%{l}${PADDING}%{A:rofi -show drun:}${m[apps]}%{A}${PADDING}"
+        for MOD in "${MODS_LEFT[@]}" middle "${MODS_RIGHT[@]}"; do
+            echo -n "${m[$MOD]/%/${PADDING}}"
+        done
+        echo "%{A:dmenu-system:}${m[power]}%{A}${PADDING}%{O25}"
     done
 }
 
 # Run the bar
-cat "$STATUS_FIFO" | statusline | lemonbar \
+cat "$STATUS_FIFO" | mod2line | lemonbar \
     -g x30 \
-    -f "-*-dina-medium-r-normal--8-*-*-*-*-*-*-*" \
-    -f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
+    -n lemonbar \
+    -f "-*-dina-medium-r-normal--10-*" \
+    -f "-wuncon-siji-medium-r-normal--10-*" \
     -F "#403935" \
     -B "#D9D2C2" \
-    -U "#403935" -u 2 | sh
+    -U "#ffffee" -u 2 | sh &
 
-#-f "Cabin:size=10" \
-#-f "-*-dina-medium-r-normal--10-*-*-*-*-*-*-*" \
-#-f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
-#-f "-slavfox-cozette-medium-r-normal--13-*-*-*-*-*-*-*" \
-#-f "-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1" \
-#-f "-*-anonymice nerd font mono-book-r-normal--20-*-*-*-*-*-*-*" \
+# Make sure lemonbar is on the correct layer so fullscreen works as expected
+xdo above -t "$(xdo id -N Bspwm -n root)" "$(xdo id -m -a lemonbar)"
+
+# Add system tray
+trayer \
+    --edge top --align right --widthtype request --height 30 --tint 0xD9D2C2 \
+    --transparent true --alpha 0 --expand true --SetDockType true &
