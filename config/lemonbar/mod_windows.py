@@ -21,7 +21,7 @@ work-in-progress!
 import psutil
 from Xlib.display import Display
 from Xlib import X
-from typing import Iterator, Optional
+from typing import Iterator
 from Xlib.protocol.rq import Event
 from itertools import groupby
 
@@ -29,7 +29,7 @@ terminals = {
     "URxvt"
 }
 
-default_icon = "?"
+default_icon = ""
 icons = {
     "": ["Firefox-esr"],
     "": ["nvim"],
@@ -60,27 +60,6 @@ def on_focus_change() -> Iterator[Event]:
             yield event
 
 
-def associated_processes(window_id: int) -> Iterator[psutil.Process]:
-    """
-    Find the processes associated with a particular window.
-    """
-    wid = str(window_id)
-    for process in psutil.process_iter(['environ']):
-        env = process.info.get('environ')
-        if env and env.get('WINDOWID') == wid:
-            yield process
-
-
-def process_icon(window_id: int) -> Optional[str]:
-    """
-    Get an icon for the most recent process for which there is an icon.
-    """
-    for process in reversed(list(associated_processes(window_id))):
-        name = process.name()
-        if name in icons:
-            return icons[name]
-
-
 class Window(object):
     def __init__(self, window_id: int):
         self.wid = window_id
@@ -90,9 +69,31 @@ class Window(object):
         instance, cls = self.obj.get_wm_class()
         return cls
 
-    def desktop(self) -> int:
+    def workspace(self) -> int:
         return self.obj.get_full_property(
             _NET_WM_DESKTOP, property_type=X.AnyPropertyType).value[0]
+
+    def icon(self) -> str:
+        """
+        Get an icon for the most recent process for which there is an icon.
+        """
+        cls = self.cls()
+        if cls in terminals:
+            for process in reversed(list(self.processes())):
+                name = process.name()
+                if name in icons:
+                    return icons[name]
+        return icons.get(cls, default_icon)
+
+    def processes(self) -> Iterator[psutil.Process]:
+        """
+        Find the processes associated with this particular window.
+        """
+        wid = str(self.wid)
+        for process in psutil.process_iter(['environ']):
+            env = process.info.get('environ')
+            if env and env.get('WINDOWID') == wid:
+                yield process
 
     @staticmethod
     def clients() -> Iterator['Window']:
@@ -105,28 +106,20 @@ class Window(object):
 if __name__ == '__main__':
 
     for _ in on_focus_change():
-
         active_wid = root.get_full_property(
             _NET_ACTIVE_WINDOW, X.AnyPropertyType).value[0]
-
         active_ws = root.get_full_property(
             _NET_CURRENT_DESKTOP, X.AnyPropertyType).value[0]
 
-        client_list = root.get_full_property(
-            _NET_CLIENT_LIST, property_type=X.AnyPropertyType,
-        ).value
-
-        current_desktop = 0
-
-        # Prepare icons for every window
-        for desktop, windows in groupby(Window.clients(), Window.desktop):
-            print(desktop)
-            
+        for ws, windows in groupby(Window.clients(), Window.workspace):
+            print("%{+u}", end='')
             for window in windows:
-                icon = None
-                if window.cls() in terminals:
-                    icon = process_icon(window.wid)
-                else:
-                    icon = icons.get(window.cls())
-
-                print(icon or default_icon)
+                if window.wid == active_wid:
+                    print("%{R}", end='')
+                print(f"%{{A1:xdotool windowactivate {window.wid}:}}", end='')
+                print(f"%{{O12}}{window.icon()}%{{O12}}", end='')
+                print("%{A}", end='')
+                if window.wid == active_wid:
+                    print("%{R}", end='')
+            print("%{-u}%{O12}", end='')
+        print(flush=True)
