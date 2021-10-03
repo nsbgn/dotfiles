@@ -23,6 +23,7 @@ from Xlib.display import Display
 from Xlib import X
 from typing import Iterator, Optional
 from Xlib.protocol.rq import Event
+from itertools import groupby
 
 terminals = {
     "URxvt"
@@ -80,6 +81,27 @@ def process_icon(window_id: int) -> Optional[str]:
             return icons[name]
 
 
+class Window(object):
+    def __init__(self, window_id: int):
+        self.wid = window_id
+        self.obj = display.create_resource_object('window', window_id)
+
+    def cls(self) -> str:
+        instance, cls = self.obj.get_wm_class()
+        return cls
+
+    def desktop(self) -> int:
+        return self.obj.get_full_property(
+            _NET_WM_DESKTOP, property_type=X.AnyPropertyType).value[0]
+
+    @staticmethod
+    def clients() -> Iterator['Window']:
+        for client_id in root.get_full_property(
+                _NET_CLIENT_LIST, property_type=X.AnyPropertyType,
+                ).value:
+            yield Window(client_id)
+
+
 if __name__ == '__main__':
 
     for _ in on_focus_change():
@@ -97,15 +119,14 @@ if __name__ == '__main__':
         current_desktop = 0
 
         # Prepare icons for every window
-        for window_id in client_list:
-            window = display.create_resource_object('window', window_id)
-            instance, cls = window.get_wm_class()
-            desktop = window.get_full_property(
-                _NET_WM_DESKTOP, property_type=X.AnyPropertyType).value[0]
+        for desktop, windows in groupby(Window.clients(), Window.desktop):
+            print(desktop)
+            
+            for window in windows:
+                icon = None
+                if window.cls() in terminals:
+                    icon = process_icon(window.wid)
+                else:
+                    icon = icons.get(window.cls())
 
-            if cls in terminals:
-                icon = process_icon(window_id)
-            else:
-                icon = icons.get(cls)
-
-            print(window, desktop, cls, icon or default_icon)
+                print(icon or default_icon)
