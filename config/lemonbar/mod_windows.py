@@ -68,6 +68,7 @@ class Window(object):
     def __init__(self, window_id: int):
         self.wid = window_id
         self.obj = display.create_resource_object('window', window_id)
+        self._process = None
 
     def cls(self) -> str:
         instance, cls = self.obj.get_wm_class()
@@ -83,21 +84,24 @@ class Window(object):
         """
         cls = self.cls()
         if cls in terminals:
-            for process in reversed(list(self.processes())):
+            for process in reversed(list(self.process().children())):
                 name = process.name()
                 if name in icons:
                     return icons[name]
         return icons.get(cls, default_icon)
 
-    def processes(self) -> Iterator[psutil.Process]:
+    def process(self) -> Optional[psutil.Process]:
         """
-        Find the processes associated with this particular window.
+        Find the first process associated with this particular window.
         """
+        if self._process:
+            return self._process
         wid = str(self.wid)
         for process in psutil.process_iter(['environ']):
             env = process.info.get('environ')
             if env and env.get('WINDOWID') == wid:
-                yield process
+                self._process = process
+                return process
 
     @staticmethod
     def clients() -> list['Window']:
