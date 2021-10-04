@@ -68,11 +68,8 @@ class Window(object):
     def __init__(self, window_id: int):
         self.wid = window_id
         self.obj = display.create_resource_object('window', window_id)
+        self.ins, self.cls = self.obj.get_wm_class()
         self._process = None
-
-    def cls(self) -> str:
-        instance, cls = self.obj.get_wm_class()
-        return cls
 
     def workspace(self) -> int:
         return self.obj.get_full_property(
@@ -82,13 +79,12 @@ class Window(object):
         """
         Get an icon for the most recent process for which there is an icon.
         """
-        cls = self.cls()
-        if cls in terminals:
+        if self.cls in terminals:
             for process in reversed(list(self.process().children())):
                 name = process.name()
                 if name in icons:
                     return icons[name]
-        return icons.get(cls, default_icon)
+        return icons.get(self.cls, default_icon)
 
     def process(self) -> Optional[psutil.Process]:
         """
@@ -132,7 +128,7 @@ if __name__ == '__main__':
                 if window.wid == active_wid:
                     print("%{R}", end='')
                 print(f"%{{A1:xdotool windowactivate {window.wid}:}}", end='')
-                print(f"%{{O12}}{window.icon()}%{{O12}}", end='')
+                print(f"%{{O10}}{window.icon()}%{{O10}}", end='')
                 print("%{A}", end='')
                 if window.wid == active_wid:
                     print("%{R}", end='')
