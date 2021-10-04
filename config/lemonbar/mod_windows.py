@@ -47,6 +47,7 @@ _NET_ACTIVE_WINDOW = display.intern_atom('_NET_ACTIVE_WINDOW')
 _NET_CURRENT_DESKTOP = display.intern_atom("_NET_CURRENT_DESKTOP")
 _NET_CLIENT_LIST = display.get_atom('_NET_CLIENT_LIST')
 _NET_WM_DESKTOP = display.get_atom('_NET_WM_DESKTOP')
+_NET_NUMBER_OF_DESKTOPS = display.get_atom('_NET_NUMBER_OF_DESKTOPS')
 
 
 def on_focus_change() -> Iterator[Optional[Event]]:
@@ -121,16 +122,29 @@ if __name__ == '__main__':
             _NET_ACTIVE_WINDOW, X.AnyPropertyType).value[0]
         active_ws = root.get_full_property(
             _NET_CURRENT_DESKTOP, X.AnyPropertyType).value[0]
+        num_workspaces = root.get_full_property(
+            _NET_NUMBER_OF_DESKTOPS, X.AnyPropertyType).value[0]
 
-        for ws, windows in groupby(Window.clients(), Window.workspace):
+        workspaces = [[] for _ in range(num_workspaces)]
+
+        for window in Window.clients():
+            string = (
+                f"%{{A1:xdotool windowactivate {window.wid}:}}"
+                f"%{{O10}}{window.icon()}%{{O10}}%{{A}}"
+            )
+            if window.wid == active_wid:
+                string = "%{R}" + string + "%{R}"
+            workspaces[window.workspace()].append(string)
+
+        for i, workspace in enumerate(workspaces):
             print("%{+u}", end='')
-            for window in windows:
-                if window.wid == active_wid:
+            if workspace:
+                print("".join(workspace), end='')
+            else:
+                if i == active_ws:
                     print("%{R}", end='')
-                print(f"%{{A1:xdotool windowactivate {window.wid}:}}", end='')
-                print(f"%{{O10}}{window.icon()}%{{O10}}", end='')
-                print("%{A}", end='')
-                if window.wid == active_wid:
+                print(f"%{{A1:xdotool set_desktop {i}:}}%{{O32}}%{{A}}", end='')
+                if i == active_ws:
                     print("%{R}", end='')
             print("%{-u}%{O12}", end='')
         print(flush=True)
