@@ -21,7 +21,7 @@ work-in-progress!
 import psutil
 from Xlib.display import Display
 from Xlib import X
-from typing import Iterator
+from typing import Iterator, Optional
 from Xlib.protocol.rq import Event
 from itertools import groupby
 
@@ -49,10 +49,11 @@ _NET_CLIENT_LIST = display.get_atom('_NET_CLIENT_LIST')
 _NET_WM_DESKTOP = display.get_atom('_NET_WM_DESKTOP')
 
 
-def on_focus_change() -> Iterator[Event]:
+def on_focus_change() -> Iterator[Optional[Event]]:
     """
     Emit an event when window focus changes.
     """
+    yield None
     root.change_attributes(event_mask=X.PropertyChangeMask)
     while True:
         event = display.next_event()
@@ -61,6 +62,9 @@ def on_focus_change() -> Iterator[Event]:
 
 
 class Window(object):
+
+    cache: dict[int, 'Window'] = dict()
+
     def __init__(self, window_id: int):
         self.wid = window_id
         self.obj = display.create_resource_object('window', window_id)
@@ -96,11 +100,18 @@ class Window(object):
                 yield process
 
     @staticmethod
-    def clients() -> Iterator['Window']:
+    def clients() -> list['Window']:
+        result = []
         for client_id in root.get_full_property(
                 _NET_CLIENT_LIST, property_type=X.AnyPropertyType,
                 ).value:
-            yield Window(client_id)
+            result.append(Window.get(client_id))
+        Window.cache = {w.wid: w for w in result}
+        return result
+
+    @staticmethod
+    def get(i: int) -> 'Window':
+        return Window.cache.get(i) or Window(i)
 
 
 if __name__ == '__main__':
