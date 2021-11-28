@@ -8,15 +8,17 @@ Xft.lcdfilter:  lcddefault
 Xcursor.theme: DMZ-White
 
 URxvt.internalBorder: 16
-!URxvt.font: xft:Anonymice Nerd Font Mono:size=13,xft:Unifont:size=13
-!URxvt.letterSpace: 1
-!URxvt.lineSpace: 1
-/* URxvt.font: xft:Dina:size=10,-gnu-unifont-medium-*-16-*,xft:Anonymice Nerd Font Mono:size=11 */
-URxvt.font: -*-dina-medium-r-*--13-*,-gnu-unifont-medium-*-16-*,-wuncon-siji-medium-r-normal--10-*
-URxvt.boldFont: -*-dina-bold-r-*--13-*
-URxvt.italicFont: -*-dina-medium-i-*--13-*
+URxvt.font: xft:Cascadia Code:light:size=11,xft:Unifont:size=13
 URxvt.letterSpace: 0
-URxvt.lineSpace: 0
+URxvt.lineSpace: 1
+
+/* For bitmap fonts: */ 
+/* URxvt.font: -*-dina-medium-r-*--13-*,-gnu-unifont-medium-*-16-*,-wuncon-siji-medium-r-normal--10-* */
+/* URxvt.boldFont: -*-dina-bold-r-*--13-* */
+/* URxvt.italicFont: -*-dina-medium-i-*--13-* */
+/* URxvt.letterSpace: 0 */
+/* URxvt.lineSpace: 0 */
+
 URxvt.cursorBlink: true
 
 URxvt.geometry: 80x46
@@ -43,6 +45,7 @@ URxvt.depth: 24
 
 *foreground: black
 *background: #ffffec
+/* *background: #ffffff */
 *cursorColor: #333333
 ! black
 *color0:  #fbf1c7

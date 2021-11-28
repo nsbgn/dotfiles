@@ -8,6 +8,7 @@ xsetroot -solid '#ffffee'
 feh --no-fehbg --bg-tile ~/.config/feh/bg.gif
 
 bspc config border_width 2
+# bspc config window_gap -2
 bspc config window_gap -2
 bspc config bottom_padding -2
 bspc config right_padding -2
@@ -17,11 +18,11 @@ bspc config top_monocle_padding 0
 bspc config bottom_monocle_padding 2
 bspc config right_monocle_padding 2
 bspc config left_monocle_padding 2
+#bspc config normal_border_color '#ead6b8'
+# bspc config normal_border_color '#c3bba7'
 bspc config normal_border_color '#D9D2C2'
-#bspc config normal_border_color '#c3bba7'
-#bspc config focused_border_color '#b57614'
-bspc config focused_border_color '#808080'
-bspc config pointer_modifier mod5
+bspc config focused_border_color '#c95c5a'
+bspc config pointer_modifier mod4
 bspc config split_ratio 0.5
 bspc config borderless_monocle true
 bspc config gapless_monocle false

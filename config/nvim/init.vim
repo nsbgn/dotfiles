@@ -8,6 +8,10 @@ call plug#begin(stdpath('data') . '/plugged')
     " Email
     Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
 
+    " Telescope
+    " Plug 'https://github.com/nvim-lua/plenary.nvim'
+    " Plug 'https://github.com/nvim-telescope/telescope.nvim'
+
     " Scrolling
     " Plug 'https://github.com/Xuyuanp/scrollbar.nvim'
     " Plug 'https://github.com/wfxr/minimap.vim'
@@ -17,14 +21,16 @@ call plug#begin(stdpath('data') . '/plugged')
     "Plug 'https://github.com/junegunn/goyo.vim'
     " Plug 'https://github.com/slakkenhuis/vim-margin'
     Plug '~/projects/vim-margin'
+    " Plug 'https://github.com/folke/zen-mode.nvim'
+    " Plug 'https://github.com/Pocco81/TrueZen.nvim'
     "Plug '~/projects/vim-finger'
     "Plug 'https://github.com/preservim/vim-pencil'
     "Plug 'https://github.com/andrewferrier/vim-wrapping-softhard'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
-    "Plug 'https://github.com/plasticboy/vim-markdown'
-    "Plug 'https://github.com/tpope/vim-markdown'
+    " Plug 'https://github.com/plasticboy/vim-markdown'
+    " Plug 'https://github.com/tpope/vim-markdown'
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
@@ -69,7 +75,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/tpope/vim-commentary'
 
     " Moving around
-    Plug 'https://github.com/easymotion/vim-easymotion'
+    " Plug 'https://github.com/easymotion/vim-easymotion'
     " Plug 'https://github.com/phaazon/hop.nvim'
     Plug 'https://github.com/justinmk/vim-sneak'
     "Plug 'https://github.com/t9md/vim-smalls'
@@ -536,15 +542,15 @@ nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
 
 " Clear cmd line message
-function! s:empty_message(timer)
-  if mode() ==# 'n'
-    echon ''
-  endif
-endfunction
-augroup cmd_msg_cls
-    autocmd!
-    autocmd CmdlineLeave :  call timer_start(1000, funcref('s:empty_message'))
-augroup END
+" function! s:empty_message(timer)
+"   if mode() ==# 'n'
+"     echon ''
+"   endif
+" endfunction
+" augroup cmd_msg_cls
+"     autocmd!
+"     autocmd CmdlineLeave :  call timer_start(1000, funcref('s:empty_message'))
+" augroup END
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
 

@@ -5,8 +5,10 @@ set -euo pipefail
 PACKAGES=(
 
     # Theming
-    fonts-{cabin,anonymous-pro,unifont}
+    fonts-{cabin,anonymous-pro,hack,inconsolata,liberation,noto,cascadia-code,unifont}
+    # See also: Code New Roman
     numix-{gtk,icon}-theme
+    greybird-gtk-theme
     dmz-cursor-theme
     qt5-gtk{,2}-platform-theme
 

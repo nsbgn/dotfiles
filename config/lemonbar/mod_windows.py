@@ -10,6 +10,11 @@ work-in-progress!
 # https://specifications.freedesktop.org/wm-spec/1.3/ar01s03.html
 # This is based on an idea in an old script of mine, see:
 # https://github.com/slakkenhuis/scripts/blob/68e846d12ffb6b9aaf0239f0900322847a3f5ee2/xcwd.sh
+# See
+# https://unix.stackexchange.com/questions/260162/how-to-track-newly-created-processes-in-linux
+# for monitoring processes for child processes? I suppose the easiest way is to
+# only examine the previously focused window for processes, whie the default
+# urxvt icon is used for the focused window.
 #
 # If you were to try this in bash, you mightuse this to monitor changes:
 # `xprop -root -spy _NET_CLIENT_LIST _NET_ACTIVE_WINDOW`
@@ -30,14 +35,14 @@ terminals = {
 }
 
 default_icon = ""
-icons = {
+icons_ = {
     "": ["Firefox-esr"],
     "": ["nvim"],
     "": ["lf"],
     "": ["urxvt"],
     "": ["aerc", "mutt"],
 }
-icons = {k: v for v, ks in icons.items() for k in ks}
+icons = {k: v for v, ks in icons_.items() for k in ks}
 
 
 # Connect to X
@@ -99,6 +104,7 @@ class Window(object):
             if env and env.get('WINDOWID') == wid:
                 self._process = process
                 return process
+        return None
 
     @staticmethod
     def clients() -> list['Window']:
@@ -113,6 +119,12 @@ class Window(object):
     @staticmethod
     def get(i: int) -> 'Window':
         return Window.cache.get(i) or Window(i)
+
+
+COLOR_BG = "#ead6b8"
+COLOR_ACTIVE_FG = "#403935"
+COLOR_ACTIVE_BG = "#cab698"  # "#F5ECDE"
+COLOR_INACTIVE_BG = "#dac6a8"
 
 
 if __name__ == '__main__':
@@ -130,21 +142,37 @@ if __name__ == '__main__':
         for window in Window.clients():
             string = (
                 f"%{{A1:xdotool windowactivate {window.wid}:}}"
-                f"%{{O10}}{window.icon()}%{{O10}}%{{A}}"
+                f"%{{O5}}{window.icon()}%{{O5}}%{{A}}"
             )
             if window.wid == active_wid:
-                string = "%{R}" + string + "%{R}"
+                string = f"%{{B{COLOR_ACTIVE_BG}}}%{{R}}" + string + "%{R}%{B-}"
+            else:
+                string = f"%{{B{COLOR_INACTIVE_BG}}}" + string + "%{B-}"
+                # #DBB884
+            string = "%{O2}" + string + "%{O2}"
             workspaces[window.workspace()].append(string)
 
+        # #c95c5a
+        # #ead6b8
+        # #6b918e
+        # #ffffee
+        # #403935
+
+        dbetween = "%{O8}%{B#f00}%{O10}%{B-}%{O8}"
+
         for i, workspace in enumerate(workspaces):
-            print("%{+u}", end='')
+            print(f"%{{O5}}%{{U{COLOR_BG}}}%{{+o}}%{{+u}}", end='')
             if workspace:
                 print("".join(workspace), end='')
             else:
                 if i == active_ws:
-                    print("%{R}", end='')
-                print(f"%{{A1:xdotool set_desktop {i}:}}%{{O32}}%{{A}}", end='')
+                    print(f"%{{B{COLOR_ACTIVE_BG}}}%{{R}}", end='')
+                else:
+                    print(f"%{{B{COLOR_INACTIVE_BG}}}", end='')
+                print(f"%{{A1:xdotool set_desktop {i}:}}%{{O22}}%{{A}}", end='')
                 if i == active_ws:
-                    print("%{R}", end='')
-            print("%{-u}%{O12}", end='')
+                    print("%{R}%{B-}", end='')
+                else:
+                    print("%{B-}", end='')
+            print("%{-o}%{-u}%{O5}", end='')
         print(flush=True)

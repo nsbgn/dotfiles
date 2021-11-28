@@ -6,6 +6,12 @@
 #   - Siji: https://github.com/stark/siji
 set -euo pipefail
 
+# Dina as OpenType font
+wget -O /tmp/dina.tar.gz 'https://www.tartley.com/files/2020/Dina-v2.93-otf.tar.gz'
+tar xvf /tmp/dina.tar.gz /tmp/dina/
+sudo mkdir /usr/share/fonts/dina/
+sudo cp /tmp/dina/* /usr/share/fonts/dina/
+
 # Install Cozette
 wget -O /tmp/cozette.otb 'https://github.com/slavfox/Cozette/releases/download/v.1.9.3/cozette.otb'
 sudo mkdir /usr/share/fonts/cozette

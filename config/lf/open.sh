@@ -6,6 +6,7 @@
 function gui {
     if xset q &>/dev/null; then
         ("$@" > /dev/null 2>&1 ) &
+        # nohup xdg-open foo &> /dev/null & disown
     else
         "$@"
     fi

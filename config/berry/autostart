@@ -24,7 +24,7 @@ berryc draw_text   "false"
 berryc edge_lock   "true"
 berryc set_font    "Dina-9"
 berryc focus_follows_pointer "true"
-berryc move_mask Mod5
+berryc move_mask Mod4
 
 $HOME/projects/thumbledore/thumbledore & # keyboard settings
 sxhkd & # keyboard shortcuts
