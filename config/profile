@@ -14,6 +14,8 @@ export LEDGER=$HOME/notes/money/current.ledger
 export QT_QPA_PLATFORMTHEME=gtk2
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 
+# when using Wayland
+# export MOZ_ENABLE_WAYLAND=1 QT_QPA_PLATFORM=wayland XDG_SESSION_TYPE=wayland
 
 export MOZ_USE_XINPUT2=1  # Enable touch scrolling on firefox
 
@@ -37,3 +39,8 @@ fi
 if [ "$(tty)" == '/dev/tty1' -a $(awk '{print int($1)}' /proc/uptime) -le 60 ]; then
     [ -f "/usr/bin/startx" -a -z "$DISPLAY$SSH_TTY$(pgrep xinit)" ] && exec /usr/bin/startx
 fi
+
+# Start Wayland gnome session on login
+# if [[ -z $DISPLAY && $(tty) == /dev/tty1 && $XDG_SESSION_TYPE == tty ]]; then
+#   MOZ_ENABLE_WAYLAND=1 QT_QPA_PLATFORM=wayland XDG_SESSION_TYPE=wayland exec dbus-run-session gnome-session
+# fi

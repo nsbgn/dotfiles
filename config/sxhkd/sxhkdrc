@@ -1,5 +1,4 @@
-################
-# wm independent
+# generic keybinds
 
 Print
 	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
@@ -7,94 +6,53 @@ Print
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
-mod4 + i
+super + i
 	dmenu-pass
 
-mod4 + {_,shift} + p
-	{dmenu-mpv,playerctl play-pause}
+super + {_,shift} + p
+	playerctl {play-pause,stop}
 
-mod4 + semicolon
+# Run programs
+super + semicolon
 	rofi -show drun
 
-mod4 + Return
-	rofi -show drun
-
-mod4 + slash
+super + slash
 	dmenu-cheatsheet
 
-mod4 + u
+super + u
 	dmenu-thesaurus
 
-mod4 + o
-	dmenu-library
+# TODO with shift opens in new desktop?
 
-# TODO shift opens in new desktop?
-mod4 + t
+super + t
 	urxvtc -cd $(xcwd.sh)
-# urxvtc
 
-mod4 + g
+super + o; super + {l,m}
+	dmenu-{library,mpv}
+
+super + g
 	vimb
 
-mod4 + G
+super + G
 	firefox
 
-mod4 + m
+super + m
 	urxvtc -e aerc
 
-mod4 + c
+super + c
 	telegram-desktop
 
-mod4 + backslash
+super + backslash
 	toggle-pointer
 
-mod4 + {comma,period}
+super + {comma,period}
 	amixer -q sset Master 2%{-,+}
 
-mod4 + shift + {comma,period}
+super + shift + {comma,period}
 	xbacklight {-,+}2%
 
-
-mod4 + @Tab
+super + @Tab
 	rofi -show window
 
-mod4 + z
+super + z
 	dmenu-system
-
-################
-# bspwm specific
-
-mod4 + x
-	bspc node --close 
-	# berryc window_close
-
-mod4 + space
-	bspc node --state '~fullscreen'
-	# berryc fullscreen
-
-
-mod4 + {_,shift} + {k,j}
-	bspc node --{focus,swap} {prev,next}.local.leaf
-	# berryc cycle_focus
-
-
-mod4 + {h,l}
-	bspc desktop --focus {prev,next}
-	# berryc switch_workspace i
-
-mod4 + shift + {h,l}
-	bspc node --to-desktop {prev,next} --follow
-	# berryc send_to_workspace i
-
-# increase window size ratio
-mod4 + {minus,equal}
-	if bspc query -N -n '@parent/{1,2}.focused' &> /dev/null; \
-	then bspc node '@parent' --ratio '+10'; \
-	else bspc node '@parent' --ratio '-10'; \
-	fi
-
-mod4 + {1-4}
-	bspc desktop --focus ^{1-4}
-
-mod4 + shift + {1-4}
-	bspc node --to-desktop ^{1-4} --follow

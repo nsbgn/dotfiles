@@ -4,8 +4,8 @@ MODS_LEFT=(bspwm title)
 MODS_RIGHT=(music audio wifi battery date)
 PADDING="%{O10}"
 
-ICON_APPS="" # siji:  / nf-mdi*: 
-ICON_POWER="" # siji:  / nf-mdi*: ⏻
+ICON_APPS="" # siji:  / nf-mdi*:  / mdi: 
+ICON_POWER="" # siji:  / nf-mdi*: ⏻ / mdi: 
 
 # Pipe all module updates into a single fifo
 STATUS_FIFO=/tmp/lemonbar_statuses
@@ -33,14 +33,17 @@ function mod2line {
 }
 
 # Run the bar
-cat "$STATUS_FIFO" | mod2line | lemonbar \
+cat "$STATUS_FIFO" | mod2line | $HOME/.builds/lemonbar-xft/lemonbar \
     -g x30 \
     -n lemonbar \
     -f "-*-dina-medium-r-normal--10-*" \
     -f "-wuncon-siji-medium-r-normal--10-*" \
     -F "#403935" \
     -B "#D9D2C2" \
-    -U "#ffffee" -u 2 | sh &
+    -U "#403935" -u 2 | sh &
+
+    # -f "Cabin:regular:size=9" \
+    # -f "Material Icons:size=11" \
 
 # Make sure lemonbar is on the correct layer so fullscreen works as expected
 xdo above -t "$(xdo id -N Bspwm -n root)" "$(xdo id -m -a lemonbar)"

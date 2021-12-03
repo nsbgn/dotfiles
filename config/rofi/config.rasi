@@ -3,7 +3,7 @@ configuration {
 	width: 40;
 	lines: 10;
 	columns: 1;
-	font: "Anonymice Nerd Font Mono 10";
+	font: "Cascadia Code Light 11";
 /*	bw: 1;*/
 /*	location: 0;*/
 /*	padding: 5;*/
@@ -59,7 +59,7 @@ drun-display-format: "{name} [<i>({generic})</i>]";
 /*	max-history-size: 25;*/
 	combi-hide-mode-prefix: true;
 /*	pid: "/run/user/1000/rofi.pid";*/
-	display-window: "";
+	display-window: "";
 /*	display-windowcd: ;*/
 /*	display-run: ;*/
 /*	display-ssh: ;*/

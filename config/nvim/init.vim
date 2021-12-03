@@ -19,8 +19,8 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     "Plug 'https://github.com/junegunn/goyo.vim'
+    " Plug '~/projects/vim-margin'
     " Plug 'https://github.com/slakkenhuis/vim-margin'
-    Plug '~/projects/vim-margin'
     " Plug 'https://github.com/folke/zen-mode.nvim'
     " Plug 'https://github.com/Pocco81/TrueZen.nvim'
     "Plug '~/projects/vim-finger'
@@ -145,7 +145,7 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinko
 
 " Show file in window title
 set title
-set titlestring=\ \ %F\ %m
+set titlestring=%F\ %m
 
 " Check if a plugin is loaded
 function! PlugLoaded(name)

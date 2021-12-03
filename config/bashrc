@@ -4,8 +4,7 @@ shopt -s checkwinsize # update values of LINES and COLUMNS if winsize changes
 
 # Show directory in title bar
 if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
-    PROMPT_COMMAND='echo -ne "\033]0;  $(dirs -0)\007"'
-    #  cozette
+    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
 fi
 
 # Git prompt. Wrap non-printables in \[\], see unix.stackexchange.com/q/105958

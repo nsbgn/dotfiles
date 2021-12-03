@@ -5,9 +5,11 @@ set -euo pipefail
 PACKAGES=(
 
     # Theming
-    fonts-{cabin,anonymous-pro,hack,inconsolata,liberation,noto,cascadia-code,unifont}
+    fonts-{cabin,anonymous-pro,hack,inconsolata,liberation,noto,cascadia-code,unifont,fork-awesome,font-awesome,material-icons}
     # See also: Code New Roman
     numix-{gtk,icon}-theme
+    materia-gtk-theme
+    materia-kde
     greybird-gtk-theme
     dmz-cursor-theme
     qt5-gtk{,2}-platform-theme
@@ -44,7 +46,6 @@ PACKAGES=(
     curl
     playerctl
     rofi
-    polybar
     lemonbar
     pmount
     neovim
@@ -66,7 +67,6 @@ PACKAGES=(
     firefox-esr
     feh
     mpv
-    onboard
     zathura{,-cb,-ps,-djvu,-pdf-poppler}
     okular{,-extra-backends}
     mupdf
@@ -74,5 +74,6 @@ PACKAGES=(
 )
 
 sudo apt install ${PACKAGES[@]}
+sudo apt install -t bullseye-backports telegram-desktop polybar
 
 sudo update-command-not-found

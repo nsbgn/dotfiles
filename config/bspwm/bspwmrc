@@ -45,8 +45,7 @@ for I in $(seq 4); do
     bsp-layout set tall $I --master-size 0.5
 done
 
-$HOME/projects/thumbledore/thumbledore & # keyboard settings
-sxhkd & # keyboard shortcuts
+sxhkd ~/.config/sxhkd/bspwm & # keybinds
 keynav & # use keyboard for mouse navigation
 lxpolkit & # policy kit
 unclutter -root -idle 2 & # hide mouse when not in use for two seconds
@@ -54,8 +53,8 @@ redshift -m randr -x -l manual -O 5500K # -l 52:5 & # nighttime screen colours
 dunst & # notifications
 urxvtd -q -f -o & # terminal daemon
 lf -server & # file manager daemon
-# polybar bspwm & # taskbar
-~/.config/lemonbar/lemonbar
+polybar bspwm & # taskbar
+# ~/.config/lemonbar/lemonbar
 bspc config top_padding 32
 # stalonetray -bg '#D9D2C2' &
 dmenu-mpv --initialise &

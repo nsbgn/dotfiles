@@ -1,0 +1,36 @@
+# berrywm specific keybinds
+
+super + x
+	berryc window_close
+
+super + space
+	berryc fullscreen
+
+super + shift + {a,s,d,w}
+	berryc window_move {-32 0,0 32,32 0,0 -32}
+
+super + shift + {q,e}
+	berryc snap_{left,right}
+
+super + shift + {f,r}
+	berryc window_{center,monocle}
+
+super + {h,l}
+	berryc switch_workspace i # TODO
+
+super + shift + {h,l}
+	berryc send_to_workspace i # TODO
+
+super + {j,k}
+	berryc cycle_focus # TODO
+
+super + {1-4}
+	berryc switch_workspace {0-3}
+
+super + shift + {1-4}
+	berryc send_to_workspace {0-3}
+
+~button1
+	berryc pointer_focus
+
+

@@ -8,7 +8,7 @@ Xft.lcdfilter:  lcddefault
 Xcursor.theme: DMZ-White
 
 URxvt.internalBorder: 16
-URxvt.font: xft:Cascadia Code:light:size=11,xft:Unifont:size=13
+URxvt.font: xft:Cascadia Code:light:size=11,xft:Fork Awesome:size=11,xft:Unifont:size=13
 URxvt.letterSpace: 0
 URxvt.lineSpace: 1
 
@@ -21,7 +21,7 @@ URxvt.lineSpace: 1
 
 URxvt.cursorBlink: true
 
-URxvt.geometry: 80x46
+URxvt.geometry: 90x50
 
 ! for opacity
 !urxvt.transparent: true
