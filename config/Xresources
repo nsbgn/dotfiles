@@ -8,20 +8,23 @@ Xft.lcdfilter:  lcddefault
 Xcursor.theme: DMZ-White
 
 URxvt.internalBorder: 16
-URxvt.font: xft:Cascadia Code:light:size=11,xft:Fork Awesome:size=11,xft:Unifont:size=13
+
+URxvt.font: xft:Cascadia Code PL:light:size=10:-*-cozette-medium-r-*--13-*,-gnu-unifont-medium-*-16-*
 URxvt.letterSpace: 0
 URxvt.lineSpace: 1
 
 /* For bitmap fonts: */ 
-/* URxvt.font: -*-dina-medium-r-*--13-*,-gnu-unifont-medium-*-16-*,-wuncon-siji-medium-r-normal--10-* */
-/* URxvt.boldFont: -*-dina-bold-r-*--13-* */
-/* URxvt.italicFont: -*-dina-medium-i-*--13-* */
-/* URxvt.letterSpace: 0 */
-/* URxvt.lineSpace: 0 */
+/* URxvt.font: -*-cozette-medium-r-*--13-*,-gnu-unifont-medium-*-16-* */
+/* URxvt.boldFont: -*-dina-bold-r-*--10-* */
+/* URxvt.italicFont: -*-dina-medium-i-*--10-* */
+/* URxvt.letterSpace: 1 */
+
+/* Xft.dpi: 96 */
+
 
 URxvt.cursorBlink: true
 
-URxvt.geometry: 90x50
+URxvt.geometry: 85x80
 
 ! for opacity
 !urxvt.transparent: true
@@ -44,8 +47,7 @@ URxvt*scrollTtyKeypress: true
 URxvt.depth: 24
 
 *foreground: black
-*background: #ffffec
-/* *background: #ffffff */
+*background: white
 *cursorColor: #333333
 ! black
 *color0:  #fbf1c7
@@ -77,6 +79,10 @@ URxvt.depth: 24
 
 
 ! Extensions
-URxvt.perl-ext-common: font-size,vim-scrollback,last-dir
-URxvt.keysym.C-equal: font-size:increase
-URxvt.vim-scrollback: M-z
+URxvt.perl-ext-common:
+/* URxvt.perl-ext-common: font-size,remember-last-dir */
+/* URxvt.keysym.C-equal: font-size:increase */
+/* URxvt.vim-scrollback: M-z */
+
+
+/* URxvt.keysym.C-t: perl:test:something */

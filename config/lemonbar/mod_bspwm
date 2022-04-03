@@ -18,9 +18,11 @@ ICON_URGENT="!" # nf-mdi*: 
 
 # Return the number of windows in the given desktop as a dice icon
 function dice {
-    bspc query --nodes --desktop "${1}" --node .window \
-        | tail -n 5 | wc -l \
-        | sed "s/0/$ICON0/;s/1/$ICON1/;s/2/$ICON2/;s/3/$ICON3/;s/4/$ICON4/;s/5/$ICON5/;s/6/$ICON6/;s/*/$ICONZ/"
+    bspc query --nodes --desktop "${1}" --node .window | wc -l
+
+    # bspc query --nodes --desktop "${1}" --node .window \
+    #     | tail -n 5 | wc -l \
+    #     | sed "s/0/$ICON0/;s/1/$ICON1/;s/2/$ICON2/;s/3/$ICON3/;s/4/$ICON4/;s/5/$ICON5/;s/6/$ICON6/;s/*/$ICONZ/"
 }
 
 IFS=':'
@@ -32,7 +34,7 @@ bspc subscribe report | while read -r REPORT; do
             L+="%{A:bspc desktop ${R#?} -f:}%{+u}$PAD$(dice "${R#?}")$PAD%{-u}%{A}"
             ;;
         f*)
-            L+="%{A:bspc desktop ${R#?} -f:}$PAD$ICON0$PAD%{A}"
+            L+="%{A:bspc desktop ${R#?} -f:}$PAD-$PAD%{A}"
             ;;
         o*)
             L+="%{A:bspc desktop ${R#?} -f:}$PAD$(dice "${R#?}")$PAD%{A}"

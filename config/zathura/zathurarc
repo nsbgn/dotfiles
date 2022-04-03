@@ -3,7 +3,7 @@ set selection-clipboard clipboard
 set zoom-step 4
 set scroll-step 80
 
-set default-bg "#ffffee"
+set default-bg "#ffffff"
 set completion-bg "#000000"
 #set recolor true
 #set recolor-lightcolor "#ffffee"

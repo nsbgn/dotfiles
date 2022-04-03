@@ -1,5 +1,5 @@
 #!/bin/sh
-ICON_DATE="%{O2}" # siji:  / nf*: 
+ICON_DATE="%{O2}" # siji:  / nf*: 
 
 while true; do
     date +"$ICON_DATE%a %-d %b %-H:%M"

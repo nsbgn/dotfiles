@@ -1,24 +1,34 @@
 [bar/base]
+; font-0 = Cozette:pixelsize=9;2
+; font-1 = Unifont:pixelsize=9;2
 font-0 = Cabin:size=9;2
 font-1 = DejaVu Sans:size=10;2
-font-2 = Fork Awesome:size=9;2
-; border-top-size = 1
-; border-top-color = #c3bba7
-; foreground = #403935
+font-2 = Cascadia Code PL:size=14;5
+font-3 = Fork Awesome:size=11;2
+; border-top-size = 2
+; border-top-color = #D9D2C2
+; border-bottom-size = 2
+; border-bottom-color = #D9D2C2
+
 foreground = #302925
-background = #00D9D2C2
+; foreground = #ffffff
+; background = #D9D2C2
+background = #ffffff
 width = 100%
-height = 30
+height = 24
 top = true
-padding-left = 4
-padding-right = 4
+offset-y = 3
+padding-left = 3
+padding-right = 3
+; padding-left = 2
+; padding-right = 2
 tray-position = right
 tray-padding = 0
 tray-maxsize = 21
 module-margin-left = 1
-module-margin-right = 3
+module-margin-right = 1
 modules-left = xwindow
-modules-right = mpris pulseaudio xbacklight wireless-network battery date powerbutton
+modules-right = mpris pulseaudio wireless-network battery date
 enable-ipc = false
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -26,31 +36,43 @@ cursor-scroll = ns-resize
 
 [bar/bspwm]
 inherit = bar/base
-modules-left = apps bspwm spacer xwindow
+modules-left = apps bspwm xtasks spacer xwindow
 wm-restack = bspwm
+
+; bspwm
+
+[module/xtasks]
+type = custom/script
+exec = ~/projects/xtasks/taskbar.py
+tail = true
+
+; [module/text]
+; type = custom/text
+; content = "%{u#ff9900}%{+u}%{R}hellothere%{R}%{-u}"
 
 [module/bspwm]
 type = internal/bspwm
 format = <label-state>
 enable-scroll = false
 label-separator = " "
-label-separator-padding = 1
-label-empty = ""
-label-focused = ""
-label-occupied = ""
-label-urgent = ""
-#
+label-separator-padding = 0
+; label-empty = "□ "
+; label-focused = "■ "
+; label-occupied = "☒ "
+; label-urgent = "⚠ "
 
-[module/xbacklight]
-type = internal/xbacklight
-format = <label>
-label = "  %percentage%"
+
+label-empty = " %name%"
+label-focused = " %name%"
+label-occupied = " %name%"
+label-urgent = " %name%"
+#
 
 [module/mpris]
 type = custom/script
 exec = ~/.config/polybar/mpris.sh
 tail = true
-click-left = playerctl play-pause
+click-left = mpvc pause
 
 [module/xwindow]
 type = internal/xwindow
@@ -61,20 +83,23 @@ click-right = xdotool getactivewindow windowkill
 [module/date]
 type = internal/date
 interval = 15
-date = "%Y-%m-%d %a"
+; date = "%Y-%m-%d %a"
+date = "%a %d"
 time = "%H:%M"
-label = " %date% %time%"
+label = " %time% %date%"
 format = "<label>"
 click-left = urxvtc -e sh -c "ncal; read -s -N 1 -t 1"
 
 [module/pulseaudio]
 type = internal/pulseaudio
-format-volume = <ramp-volume>  <label-volume>
-; label-muted = "婢  muted"
-label-muted = "  --"
+format-volume = <ramp-volume> <label-volume>
+; label-muted = "婢  --"
+; label-muted = "ﱝ  --"
+label-muted = " --"
+; label-muted = " --"
 label-volume = "%percentage%"
-ramp-volume-0 = 
-ramp-volume-1 = 
+ramp-volume-0 = 
+ramp-volume-1 = 
 ramp-volume-2 = 
 use-ui-max = false
 
@@ -83,8 +108,10 @@ type = internal/network
 # wlan0
 interface = wlp0s12f0
 interval = 10.0
-label-connected = "直  %signal%"
-label-disconnected = "睊  --"
+; label-connected = "直  %signal%"
+; label-disconnected = "睊  --"
+label-connected = " %signal%"
+label-disconnected = " --"
 click-left = urxvtc -e nmtui
 
 [module/powerbutton]
@@ -94,7 +121,9 @@ click-left = dmenu-system
 
 [module/apps]
 type = custom/text
-content = " "
+content = "☰ "
+; content = " "
+; content = " "
 ;
 click-left = rofi -show drun
 
@@ -111,20 +140,29 @@ poll-interval = 60
 format-full = <label-full>
 format-charging = <label-charging>
 format-discharging = <ramp-capacity>  <label-discharging>
-label-full =   %percentage%
-label-charging =   %percentage%
+; label-full =   %percentage%
+; label-charging =   %percentage%
+; label-discharging = %percentage%
+; ramp-capacity-0 = 
+; ramp-capacity-1 = 
+; ramp-capacity-2 = 
+; ramp-capacity-3 = 
+; ramp-capacity-4 = 
+label-full =  %percentage%
+; label-charging =   %percentage%
+label-charging =  %percentage%
 label-discharging = %percentage%
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
 [settings]
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
 screenchange-reload = true
 pseudo-transparency = true
-override-redirect = true
+override-redirect = false
 
 [global/wm]
 margin-top = 0

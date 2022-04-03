@@ -6,8 +6,20 @@ super + x
 super + space
 	bspc node --state '~fullscreen'
 
-super + {_,shift} + {k,j}
-	bspc node --{focus,swap} {prev,next}.local.leaf
+super + Return
+	bspc node --state '~fullscreen'
+
+# super + {_,shift} + {k,j}
+# 	bspc node --{focus,swap} {prev,next}.local.leaf
+#
+super + {z,c}
+	bspc desktop --focus {prev,next}
+
+super + shift + {z,c}
+	bspce push {prev,next}
+
+super + {j,k}
+	bspc node --focus {prev,next}
 
 super + {h,l}
 	bspc desktop --focus {prev,next}

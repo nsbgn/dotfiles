@@ -2,8 +2,8 @@
 # Show PulseAudio volume
 #   Dependencies: amixer, pactl
 
-ICON_NOISE="%{O2}" # siji:  / nf*: 墳
-ICON_MUTE="%{O2}" # siji:  / mdi: 
+ICON_NOISE="%{O2}" # siji:  / nf*: 墳
+ICON_MUTE="%{O2}" # siji:  / mdi: 
 
 volume() {
     LEVEL="$(amixer sget Master \

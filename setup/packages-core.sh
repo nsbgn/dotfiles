@@ -27,6 +27,8 @@ PACKAGES=(
     xcape # Remapping keyboard (overload tap/hold buttons)
     xcwd # Current directory of program
     x11-xserver-utils # X11 tools (xsetroot)
+    hsetroot # for background color (xsetroot with picom)
+    picom # compositor
     bspwm
     sxhkd
     dunst
@@ -34,7 +36,8 @@ PACKAGES=(
     arandr
     lxappearance
     network-manager
-    i3lock
+    # i3lock
+    physlock
 
     # Utilities
     xdotool
@@ -53,6 +56,7 @@ PACKAGES=(
     rsync
     lxpolkit
     jq
+    jc  # parse to json: yaml, xml, output of popular CLI utilities
     fzf
     bat
     wget
@@ -61,11 +65,15 @@ PACKAGES=(
     pass
     gnupg
     fd-find # `find` alternative
+    lowdown # Markdown processor
+    csv2latex # CSV to LaTeX converter
+    csvkit # CSV manipulation on the command line
 
     # Applications
     rxvt-unicode
     firefox-esr
     feh
+    imv # Image viewer
     mpv
     zathura{,-cb,-ps,-djvu,-pdf-poppler}
     okular{,-extra-backends}

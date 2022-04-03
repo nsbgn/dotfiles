@@ -8,7 +8,7 @@ set home-page=about:blank
 # Path to the default download directory. If no download directory is set,
 # download will be written into current directory. The following pattern will
 # be expanded if the download is started '~/', '~user', '$VAR' and '${VAR}'.
-set download-path=~/tmp/
+set download-path=~/@incoming
 
 # Command with placeholder '%s' called if form field is opened with $EDITOR to
 # spawn the editor-like `x-terminal-emulator -e vim %s'. To use Gvim as the
@@ -31,11 +31,11 @@ set incsearch=false
 
 # Fonts
 set default-font=DejaVu Sans
-set monospace-font=DejaVu Sans Mono
+set monospace-font=Cascadia Code Light
 set sans-serif-font=DejaVu Sans
 set serif-font=DejaVu Serif
 set font-size=16
-set monospace-font-size=13
+set monospace-font-size=11
 
 # Default Full-Content zoom level in percent. Default is 100.
 set default-zoom=100
@@ -61,10 +61,10 @@ nmap , <C-O>
 nmap . <C-I>
 
 # GUI color settings
-set completion-css=color:#d3d0c8;background-color:#303030;font:Dina;
-set completion-hover-css=color:#d3d0c8;background-color:#303030;font:Dina;
-set completion-selected-css=color:#d3d0c8;background-color:#515151;font:Dina;
-set input-css=color:#d3d0c8;background-color:#303030;font:Dina;
-set input-error-css=color:#f2777a;background-color:#303030;font:Dina;
-set status-css=color:#ffcc66;background-color:#303030;font:Dina;
-set status-ssl-css=color:#99cc99;background-color:#303030;font:Dina;
+# set completion-css=color:#d3d0c8;background-color:#303030;font:Dina;
+# set completion-hover-css=color:#d3d0c8;background-color:#303030;font:Dina;
+# set completion-selected-css=color:#d3d0c8;background-color:#515151;font:Dina;
+# set input-css=color:#d3d0c8;background-color:#303030;font:Dina;
+# set input-error-css=color:#f2777a;background-color:#303030;font:Dina;
+# set status-css=color:#ffcc66;background-color:#303030;font:Dina;
+# set status-ssl-css=color:#99cc99;background-color:#303030;font:Dina;

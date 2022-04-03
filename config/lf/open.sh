@@ -15,9 +15,17 @@ function gui {
 LIBRETRO="/usr/lib/x86_64-linux-gnu/libretro"
 
 [ -z "${1:-}" ] && exit 1
+VIEW="${2}"
 
 F="${1}"
 case $(file --dereference --mime-type "$F" -b):"${F,,}" in
+    *.md|*.mkd)
+        # if [ ! -z "${VIEW:-}" ]; then
+        #     lowdown -sTms "$F" | pdfroff -itk -mspdf | gui zathura -
+        # else
+        echo nvim \"$F\" | sh -is
+        # fi
+        ;;
     *.gpg|*.vim)
         nvim "$F" ;;
     *.xoj|*.xopp)

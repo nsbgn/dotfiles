@@ -1,4 +1,13 @@
 # generic keybinds
+# qwerasdf is taken by navigational cluster
+
+F1
+	if xdo id -N Firefox-esr > /dev/null; then \
+		xdotool --sync key --clearmodifiers ctrl+tab \
+	fi
+
+F2
+	notify-send "$(xcwd.sh)"
 
 Print
 	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
@@ -6,11 +15,11 @@ Print
 XF86Audio{Prev,Next,Pause,Play}
 	playerctl --player=mpv {previous,next,pause,play}
 
-super + i
-	dmenu-pass
+# super + {_,shift} + p
+# 	playerctl {play-pause,stop}
 
-super + {_,shift} + p
-	playerctl {play-pause,stop}
+super + p
+	mpvc pause
 
 # Run programs
 super + semicolon
@@ -19,40 +28,45 @@ super + semicolon
 super + slash
 	dmenu-cheatsheet
 
-super + u
-	dmenu-thesaurus
-
-# TODO with shift opens in new desktop?
+# TODO with shift opens as float?
 
 super + t
-	urxvtc -cd $(xcwd.sh)
+	urxvtc -cd "$(xcwd.sh)"
 
+# {-pe open-last-dir,}
+
+super + {g,G}
+	urxvtc {-cd $(xcwd.sh),} -e lf
+
+
+# Information
+super + i; super + {p,t}
+	dmenu-{pass,thesaurus}
+
+# Opening
 super + o; super + {l,m}
-	dmenu-{library,mpv}
+	urxvtc -name floating -geometry 120x30 -e mpvc pick
 
-super + g
-	vimb
-
-super + G
-	firefox
+# super + z
+# 	urxvtc -name floating -geometry 120x30 -e menu-system
+	# dmenu-{library,mpv}
 
 super + m
 	urxvtc -e aerc
 
-super + c
-	telegram-desktop
+# super + c
+# 	telegram-desktop
 
 super + backslash
 	toggle-pointer
 
-super + {comma,period}
+super + {shift,_} + v
 	amixer -q sset Master 2%{-,+}
 
-super + shift + {comma,period}
+super + {shift,_} + b
 	xbacklight {-,+}2%
 
 super + @Tab
 	rofi -show window
 
-super + z
-	dmenu-system
+

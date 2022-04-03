@@ -1,9 +1,17 @@
+" o jumps back and forth selection
+
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
-    Plug 'https://github.com/altercation/vim-colors-solarized'
-    Plug 'https://github.com/morhetz/gruvbox'
-    Plug 'https://github.com/ap/vim-css-color'
+    " Colorschemes without much color
+    Plug 'https://github.com/mcchrish/zenbones.nvim'
+
+
+    " Plug 'https://github.com/altercation/vim-colors-solarized'
+    " Plug 'https://github.com/morhetz/gruvbox'
+    " Plug 'https://github.com/ap/vim-css-color'
+
+    Plug 'https://github.com/liuchengxu/vim-which-key'
 
     " Email
     Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
@@ -18,14 +26,9 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'https://github.com/severin-lemaignan/vim-minimap'
 
     " Distraction-free writing
-    "Plug 'https://github.com/junegunn/goyo.vim'
-    " Plug '~/projects/vim-margin'
-    " Plug 'https://github.com/slakkenhuis/vim-margin'
+    Plug 'https://github.com/junegunn/goyo.vim'
     " Plug 'https://github.com/folke/zen-mode.nvim'
     " Plug 'https://github.com/Pocco81/TrueZen.nvim'
-    "Plug '~/projects/vim-finger'
-    "Plug 'https://github.com/preservim/vim-pencil'
-    "Plug 'https://github.com/andrewferrier/vim-wrapping-softhard'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
@@ -47,7 +50,9 @@ call plug#begin(stdpath('data') . '/plugged')
     " For bibtex citation search, see 'https://github.com/msprev/fzf-bibtex'
 
     " Inertial scrolling
-    Plug 'https://github.com/yuttie/comfortable-motion.vim'
+    " Plug 'https://github.com/yuttie/comfortable-motion.vim'
+    Plug 'https://github.com/psliwka/vim-smoothie'
+    " Plug 'https://github.com/lukelbd/vim-scrollwrapped'
 
     " Work with GPG-encrypted files
     "Plug 'https://github.com/jamessan/vim-gnupg.git'
@@ -65,20 +70,36 @@ call plug#begin(stdpath('data') . '/plugged')
     " Automatic alignment
     "Plug 'https://github.com/junegunn/vim-easy-align'
 
+    " Automatically detect indentation
+    " Plug 'https://github.com/tpope/vim-sleuth'
+
     " Auto-edit parentheses
-    "Plug 'https://github.com/tpope/vim-surround'
+    Plug 'https://github.com/tpope/vim-surround'
+
+    " Use v* to select word, paragraph, whatever is between delimiting pairs.
+    " Not perfect since I'd like to select sentences, paragraphs
+    Plug 'https://github.com/gorkunov/smartpairs.vim.git'
+    " Plug 'https://github.com/terryma/vim-expand-region'
+    " Maybe this one:
+    " Plug 'https://github.com/ZhiyuanLck/smart-pairs'
+
+    " More sensible word motions
+    Plug 'https://github.com/chaoren/vim-wordmotion'
 
     " Text exchange
     " Plug 'https://github.com/tommcdo/vim-exchange'
+
+    " Moving text selections around
+    " Plug 'https://github.com/zirrostig/vim-schlepp'
 
     " Auto comment lines
     Plug 'https://github.com/tpope/vim-commentary'
 
     " Moving around
-    " Plug 'https://github.com/easymotion/vim-easymotion'
-    " Plug 'https://github.com/phaazon/hop.nvim'
+    " Plug 'https://github.com/phaazon/hop.nvim' " includes line jumping, for
+    " neovim 0.5
     Plug 'https://github.com/justinmk/vim-sneak'
-    "Plug 'https://github.com/t9md/vim-smalls'
+    " Plug 'https://github.com/t9md/vim-smalls'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
@@ -94,7 +115,8 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
-    Plug 'https://github.com/natebosch/vim-lsc', { 'tag': 'v0.4.0' }
+    Plug 'https://github.com/natebosch/vim-lsc'
+    ", { 'tag': 'v0.4.0' }
     "Plug 'https://github.com/prabirshrestha/vim-lsp'
 
     " Autocompletion (also needs `pip3 install pynvim`)
@@ -106,11 +128,11 @@ call plug#begin(stdpath('data') . '/plugged')
     "    \ { 'branch': 'next'
     "    \ , 'do': 'bash install.sh' }
 
-    " Floating windows for previews in nvim >= 0.4
-    "Plug 'https://github.com/ncm2/float-preview.nvim'
-
     " Navigate symbols in the document
     "Plug 'https://github.com/liuchengxu/vista.vim'
+
+    " Manage tag files
+    " Plug 'https://github.com/ludovicchabant/vim-gutentags'
 
     " Manage Pandoc markdown files
     "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
@@ -120,7 +142,8 @@ call plug#end()
 
 "let g:solarized_termcolors=256
 set background=light
-"colorscheme solarized
+" set g:zenbones_compat = 1
+" colorscheme zenwritten
 
 
 "let g:gruvbox_contrast_light="soft"
@@ -130,8 +153,9 @@ set background=light
 " Turn off background to take on same bg as my terminal
 "highlight Normal ctermbg=NONE
 
-" Tildes at the end of the buffer are more subtle
-highlight EndOfBuffer ctermfg=gray
+" Subtle tildes at the end of the buffer
+" highlight EndOfBuffer ctermfg=gray
+set fillchars+=eob:\  " turn off tildes
 
 highlight Pmenu ctermfg=white ctermbg=black
 
@@ -159,6 +183,12 @@ function! SynGroup()
     let l:s = synID(line('.'), col('.'), 1)
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
+function! SynStack()
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" Stop annoying window from popping up
+map q: :q
 
 " cursor makes it obvious what mode I am in anyway
 set noshowmode
@@ -211,7 +241,8 @@ set clipboard=unnamedplus
 " Show visible indication for tabs & spaces
 set list
 
-let g:netrw_browsex_viewer = "firefox"
+" Open in browser with gx
+nmap gx <Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>
 
 " Always move by screen lines, not real lines
 noremap <silent> k gk
@@ -229,11 +260,19 @@ if has("autocmd")
 
     au BufRead /tmp/mutt-* set tw=72
 
+    " https://joehallenbeck.com/the-glories-of-text-files-on-using-vim-for-code-and-prose/
+    " set formatoptions turns on an umber of important features. With a we set
+    " our text to automatically wrap when it reaches our textwidth values. In
+    " this case, it is 80 characters. Next, w defines our paragraphs as being
+    " separated by a blank line. t sets our text to be automatically formatted
+    " to text width and q allows us to use the gq command to automatically
+    " reformat selected text.
+
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
         autocmd FileType markdown.pandoc setlocal conceallevel=0
         autocmd FileType markdown.pandoc setlocal textwidth=78
-        autocmd FileType markdown.pandoc setlocal formatoptions+=w " formatoptions+=a
+        autocmd FileType markdown.pandoc setlocal formatoptions+=aw2tq
         autocmd FileType markdown.pandoc setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
     augroup END
 
@@ -242,8 +281,8 @@ if has("autocmd")
     "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
         au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
         autocmd FileType tex setlocal conceallevel=0
-        "autocmd FileType tex setlocal textwidth=78
-        autocmd FileType tex setlocal formatoptions+=w "formatoptions+=a 
+        autocmd FileType tex setlocal textwidth=78
+        autocmd FileType tex setlocal formatoptions+=aw2tq
         autocmd FileType tex setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
 
     augroup END
@@ -261,19 +300,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
 
-if PlugLoaded('vim-pencil')
-    let g:pencil#conceallevel = 0
-    let g:pencil#wrapModeDefault = 'hard'
-    let g:pencil#autoformat = 0
-
-    augroup pencil
-      autocmd!
-      autocmd FileType markdown.pandoc,markdown,text,tex
-        \ call pencil#init({'wrap': 'soft'})
-    augroup END
-
-endif
-
 if PlugLoaded('vim-markdown')
     let g:vim_markdown_folding_disabled=1
     let g:vim_markdown_conceal=0
@@ -287,6 +313,9 @@ if PlugLoaded('vim-pandoc-syntax')
     highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
     let g:pandoc#syntax#conceal#use=0
 endif
+
+highlight htmlH1 cterm=bold ctermfg=DarkMagenta
+
 
 if PlugLoaded('vim-pandoc')
     let g:pandoc#modules#enabled = ['toc']
@@ -307,36 +336,6 @@ if PlugLoaded('float-preview.nvim')
     let g:float_preview#max_height = 50
     "let g:float_preview#max_width = 80
 endif
-
-if PlugLoaded('deoplete.nvim')
-
-    "let g:deoplete#enable_at_startup = 1
-    nmap <F7> :call deoplete#toggle()<CR>
-
-    set completeopt+=menuone " show completions even if there is only one option
-    set completeopt+=noinsert " don't auto-insert until selection
-    set completeopt+=noselect " don't autoselect a match
-    set shortmess+=c " hide 'match x of y' message
-
-    " Set sources for autocompletion
-    " Default available sources: around, buffer, file, member, omni
-    call deoplete#custom#option('sources', 
-        \ { '_': ['file']
-        \ ,'haskell': ['file','LanguageClient','ale','lsp','ghc']
-        \ , 'python': ['file','LanguageClient','ale','lsp']
-        \ , 'rust': ['file','LanguageClient','ale','lsp']
-        \ , 'pandoc.markdown': ['file','omni']
-        \ , 'markdown': ['file','omni'] })
-
-    " Close preview when completion is done
-    " autocmd CompleteDone * pclose
-    " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    " Somehow I want to get documentation as I select autocompletions.
-    " See issue at https://github.com/autozimu/LanguageClient-neovim/issues/875
-    " Also - https://github.com/wincent/wincent/issues/78
-endif
-
 
 if PlugLoaded('LanguageClient-neovim')
     " Required for operations modifying multiple buffers like rename.
@@ -466,8 +465,12 @@ if PlugLoaded('vim-sneak')
     let g:sneak#absolute_dir = 1
     let g:sneak#s_next = 1
     let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
-    map f <Plug>Sneak_s
-    map F <Plug>Sneak_S
+    " map f <Plug>Sneak_s
+    " map F <Plug>Sneak_S
+    " map f <Plug>Sneak_f
+    " map F <Plug>Sneak_F
+    map f <Plug>Sneak_f
+    map F <Plug>Sneak_F
 
     "map <Space> <Plug>Sneak_s
     "map <BackSpace> <Plug>Sneak_S
@@ -475,16 +478,27 @@ if PlugLoaded('vim-sneak')
     " map <BackSpace> <Plug>Sneak_,
 endif
 
-if PlugLoaded('vim-easymotion')
-    " nmap <Space> <Plug>(easymotion-bd-w)
-    map <Space> <Plug>(easymotion-bd-w)
-endif
-
 if PlugLoaded('comfortable-motion.vim')
     let g:comfortable_motion_no_default_key_mappings = 1
     let g:comfortable_motion_impulse_multiplier = 2.5
     nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
     nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
+endif
+
+if PlugLoaded('vim-schlepp')
+    vmap <up>    <Plug>SchleppUp
+    vmap <down>  <Plug>SchleppDown
+    vmap <left>  <Plug>SchleppLeft
+    vmap <right> <Plug>SchleppRight
+endif
+
+if PlugLoaded('smartpairs.vim')
+    let g:smartpairs_start_from_word = 1
+endif
+
+if PlugLoaded('vim-expand-region')
+    vmap v <Plug>(expand_region_expand)
+    vmap <C-v> <Plug>(expand_region_shrink)
 endif
 
 if PlugLoaded('goyo.vim')
@@ -521,7 +535,6 @@ endif
 
 nnoremap ; :
 
-
 " Navigating buffers
 " close buffer, see:
 " - https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window
@@ -540,6 +553,20 @@ nmap , :bprevious<CR>
 nmap = o<Esc>79a=<Esc>0
 nmap - o<Esc>79a-<Esc>0
 nmap ~ o<Esc>79a~<Esc>0
+
+nnoremap <silent> <leader> :WhichKey '\'<CR>
+
+" Set leader to space, for mapping more actions to leader keys
+let mapleader = "\<Space>"
+
+" Turn hard wrapped text into soft wrapped.
+" This command will join all lines within a range that are not separated
+" by empty lines. Automatic word wrap must be off (set fo-=a).
+" Useful if you need to copy and paste into a word processor.
+" source: https://gist.github.com/alols/1420072
+command! -range=% SoftWrap
+            \ <line2>put _ |
+            \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
 
 " Clear cmd line message
 " function! s:empty_message(timer)
@@ -599,3 +626,4 @@ endfunc
 :noremap <silent> <LeftMouse> :call MScroll()<CR>
 :noremap <LeftRelease> <Nop>
 :noremap <LeftDrag> <Nop>
+

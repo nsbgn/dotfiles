@@ -4,7 +4,7 @@ MODS_LEFT=(bspwm title)
 MODS_RIGHT=(music audio wifi battery date)
 PADDING="%{O10}"
 
-ICON_APPS="" # siji:  / nf-mdi*:  / mdi: 
+ICON_APPS="☰" # siji:  / nf-mdi*:  / mdi: 
 ICON_POWER="" # siji:  / nf-mdi*: ⏻ / mdi: 
 
 # Pipe all module updates into a single fifo
@@ -28,7 +28,7 @@ function mod2line {
         for MOD in "${MODS_LEFT[@]}" middle "${MODS_RIGHT[@]}"; do
             echo -n "${m[$MOD]/%/${PADDING}}"
         done
-        echo "%{A:dmenu-system:}${m[power]}%{A}${PADDING}%{O25}"
+        echo "%{O25}"
     done
 }
 
@@ -36,10 +36,9 @@ function mod2line {
 cat "$STATUS_FIFO" | mod2line | $HOME/.builds/lemonbar-xft/lemonbar \
     -g x30 \
     -n lemonbar \
-    -f "-*-dina-medium-r-normal--10-*" \
-    -f "-wuncon-siji-medium-r-normal--10-*" \
+    -f "-*-cozette-medium-r-*--13-*" \
     -F "#403935" \
-    -B "#D9D2C2" \
+    -B "#e0e0e0" \
     -U "#403935" -u 2 | sh &
 
     # -f "Cabin:regular:size=9" \
