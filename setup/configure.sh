@@ -2,7 +2,6 @@
 # Puts all configuration files in the right places.
 set -euo pipefail
 
-ln -srT ../bin ~/.bin || :
 for FILE in "$(dirname $0)"/../config/*; do
     NAME="$(basename $FILE)"
     if [ -d "$FILE" -o "$NAME" == "user-dirs.dirs" ]; then
