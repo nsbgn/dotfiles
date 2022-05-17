@@ -36,7 +36,7 @@ cursor-scroll = ns-resize
 
 [bar/bspwm]
 inherit = bar/base
-modules-left = apps bspwm xtasks spacer xwindow
+modules-left = apps xtasks spacer xwindow
 wm-restack = bspwm
 
 ; bspwm

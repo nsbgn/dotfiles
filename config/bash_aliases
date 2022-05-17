@@ -1,3 +1,5 @@
+alias b="bemenu -l 10 -H 30 --fn 'Cabin 10'"
+
 alias bak="crsync"
 alias vim="nvim"
 alias t="vim $HOME/notes/todo/todo.md"

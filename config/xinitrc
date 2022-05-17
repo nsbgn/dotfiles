@@ -1,26 +1,19 @@
 for F in siji dina; do xset +fp /usr/share/fonts/bitmap/$F; done
 xset fp rehash
 xset +fp ~/.fonts
+xset r rate 300 45
+xrdb $HOME/.Xresources
 
 # Avoid slow startup of GTK apps. See /etc/X11/xinit/xinitrc
 dbus-update-activation-environment --verbose --systemd --all
-export XDG_SESSION_TYPE=x11
-export GDK_BACKEND=x11
-
-xrdb $HOME/.Xresources
 
 setxkbmap -option compose:menu & # enable compose key
 unclutter -root -idle 2 & # hide mouse when not in use for two seconds
 redshift -m randr -x -l manual -O 5500K # -l 52:5 & # less blue light
 lxpolkit & # policy kit
 dunst & # notification daemon
-# xhkd &
-
 urxvtd -q -f -o 2>&1 > /tmp/urxvtlog & # terminal daemon
 lf -server & # file manager daemon
-# picom & # compositor, for shadows
 
-# exec berry  # floating window manager
 exec bspwm  # dynamic tiling window manager
-# exec worm
 # exec herbstluftwm  # manual tiling window manager

@@ -5,16 +5,14 @@ wmname LG3D
 
 sxhkd ~/.config/sxhkd/bspwm & # keybinds
 polybar bspwm & # taskbar
-# dmenu-mpv --initialise &
-
+nm-applet & # network
+blueman-applet & # bluetooth
 
 xsetroot -cursor_name left_ptr
-# hsetroot -solid '#e9e2d2'
 hsetroot -solid '#ffffff'
 # hsetroot -solid '#c6b2ba'
 # hsetroot -tile pattern.jpg -brightness 0.82
 # hsetroot -add '#dde6cc' -add '#97b466' -gradient 0
-
 
 # bspc config border_width 2
 # bspc config window_gap -2
@@ -78,19 +76,3 @@ bspc rule -a Onboard state=floating sticky=on follow=on
 bspc rule -a Netsurf-gtk state=tiled
 
 bspc monitor --reset-desktops $(seq 4)
-# for I in $(seq 4); do
-#     bsp-layout set tall $I --master-size 0.5
-# done
-
-# picom &
-# keynav & # use keyboard for mouse navigation
-# lxpolkit & # policy kit
-# unclutter -root -idle 2 & # hide mouse when not in use for two seconds
-# redshift -m randr -x -l manual -O 5500K # -l 52:5 & # nighttime screen colours
-# dunst & # notifications
-# urxvtd -q -f -o & # terminal daemon
-# lf -server & # file manager daemon
-# # ~/.config/lemonbar/lemonbar
-
-# stalonetray -bg '#D9D2C2' &
-# dmenu-mpv --initialise &

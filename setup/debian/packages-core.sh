@@ -14,13 +14,18 @@ PACKAGES=(
     dmz-cursor-theme
     qt5-gtk{,2}-platform-theme
 
+    # Wayland stuff
+    wl-clipboard
+    wdisplays
+
     # System & window manager
     xorg-server # X11
     xinit # X11
     xserver-xorg-video-{intel,fbdev} # Video driver
     xserver-xorg-input-libinput # Input driver
+    xserver-xorg-input-xwiimote # Wiimote input driver
     libinput-tools # For detecting tablet mode
-    xbacklight # Controlling display backlight
+    xbacklight # Controlling d
     xinput # List input devices
     unclutter # Hiding mouse
     x11-xkb-utils # Remapping keyboard (xkbcomp)
@@ -56,7 +61,7 @@ PACKAGES=(
     rsync
     lxpolkit
     jq
-    jc  # parse to json: yaml, xml, output of popular CLI utilities
+    jc # parse to json: yaml, xml, output of popular CLI utilities
     fzf
     bat
     wget
@@ -68,6 +73,7 @@ PACKAGES=(
     lowdown # Markdown processor
     csv2latex # CSV to LaTeX converter
     csvkit # CSV manipulation on the command line
+    python3-jsondiff # JSON diff
 
     # Applications
     rxvt-unicode
@@ -83,5 +89,7 @@ PACKAGES=(
 
 sudo apt install ${PACKAGES[@]}
 sudo apt install -t bullseye-backports telegram-desktop polybar
+
+sudo apt install kodi kodi-peripheral-joystick kodi-eventclients-wiiremote
 
 sudo update-command-not-found

@@ -12,50 +12,23 @@ F2
 Print
 	scrot "$HOME/screen-%Y%m%dT%H%M%S.png"
 
-XF86Audio{Prev,Next,Pause,Play}
-	playerctl --player=mpv {previous,next,pause,play}
-
-# super + {_,shift} + p
-# 	playerctl {play-pause,stop}
-
 super + p
-	mpvc pause
-
-# Run programs
-super + semicolon
-	rofi -show drun
-
-super + slash
-	dmenu-cheatsheet
-
-# TODO with shift opens as float?
+	playerctl --player=mpv play-pause
 
 super + t
 	urxvtc -cd "$(xcwd.sh)"
 
-# {-pe open-last-dir,}
-
 super + {g,G}
 	urxvtc {-cd $(xcwd.sh),} -e lf
-
-
-# Information
-super + i; super + {p,t}
-	dmenu-{pass,thesaurus}
-
-# Opening
-super + o; super + {l,m}
-	urxvtc -name floating -geometry 120x30 -e mpvc pick
-
-# super + z
-# 	urxvtc -name floating -geometry 120x30 -e menu-system
-	# dmenu-{library,mpv}
 
 super + m
 	urxvtc -e aerc
 
-# super + c
-# 	telegram-desktop
+super + semicolon
+	dmenu-apps
+
+super + o; super + {p,t,l,m}
+	dmenu-{pass,thesaurus,library,mpv}
 
 super + backslash
 	toggle-pointer
@@ -65,8 +38,3 @@ super + {shift,_} + v
 
 super + {shift,_} + b
 	xbacklight {-,+}2%
-
-super + @Tab
-	rofi -show window
-
-

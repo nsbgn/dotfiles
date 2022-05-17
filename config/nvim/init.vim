@@ -139,7 +139,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " https://github.com/alok/notational-fzf-vim
 call plug#end()
-
+" lua require('scrollbar').setup {}
 "let g:solarized_termcolors=256
 set background=light
 " set g:zenbones_compat = 1
@@ -627,3 +627,8 @@ endfunc
 :noremap <LeftRelease> <Nop>
 :noremap <LeftDrag> <Nop>
 
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif

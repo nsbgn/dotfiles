@@ -1,0 +1,42 @@
+{
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "modules-left": ["wlr/taskbar", "river/tags"],
+    "modules-center": [],
+    "modules-right": ["custom/mpris", "pulseaudio", "battery", "tray", "clock"],
+
+    "river/tags": {"num-tags": 4},
+    "sway/window": {
+        "max-length": 50
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}",
+        "format-bluetooth": "{icon} {volume}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute 0 false",
+        "on-right-click": "pavucontrol"
+    },
+    "battery": {
+        "format": "{icon} {capacity}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format": "{:%H:%M %a %d}"
+    },
+    "custom/mpris": {
+        /* "rotate": 90, */
+        "exec": "monitor-mpris",
+        "on-click": "playerctl --player=mpv play-pause"
+    }
+}

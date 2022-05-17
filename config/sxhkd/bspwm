@@ -19,7 +19,7 @@ super + shift + {z,c}
 	bspce push {prev,next}
 
 super + {j,k}
-	bspc node --focus {prev,next}
+	bspc node --focus {prev,next}.local.leaf
 
 super + {h,l}
 	bspc desktop --focus {prev,next}

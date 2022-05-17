@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 # Alpine packages installed on every system
-set -euo pipefail
 
 PACKAGES=(
+
+    intel-ucode amd-ucode
 
     # Fonts
     font-raleway-otf
@@ -20,6 +21,7 @@ PACKAGES=(
     river  # window manager
     keyd  # key remapping
     lisgd  # touch gestures
+    udiskie  # mounted device management
     glib  # incl gio
     network-manager
     command-not-found
@@ -31,6 +33,7 @@ PACKAGES=(
     rsync
     foot
     firefox
+    texlive
     visurf
     xournalpp
     telegram-desktop
@@ -61,6 +64,10 @@ PACKAGES=(
     imv  # Image viewer
     mustach  # templating engine
     python3
+    sane-utils  # scanimage
+    ocrmypdf
+    nicotine-plus{,doc}
+    bubblewrap  # minimalist firejail
 
     # Utilities
     # dtrx (?)
@@ -68,7 +75,7 @@ PACKAGES=(
     # jc # parse to json: yaml, xml, output of popular CLI utilities
 )
 
-sudo apk update
-sudo apk upgrade
-sudo apk add ${PACKAGES[@]}
-sudo update-command-not-found
+# sudo apk update
+# sudo apk upgrade
+echo sudo apk add ${PACKAGES[@]}
+# sudo update-command-not-found
