@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=physlock
+Terminal=false
+Categories=System;
+
+Name=Lock
+Comment=Lock the computer.

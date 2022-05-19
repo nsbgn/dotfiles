@@ -71,6 +71,7 @@ PACKAGES=(
     gnupg
     fd-find # `find` alternative
     lowdown # Markdown processor
+    visidata # View CSV data in terminal
     csv2latex # CSV to LaTeX converter
     csvkit # CSV manipulation on the command line
     python3-jsondiff # JSON diff
@@ -85,10 +86,16 @@ PACKAGES=(
     okular{,-extra-backends}
     mupdf
     calcurse # Calendar application
+
+    # Python dev environment
+    python3-pip
+    python3-future # fixes an issue
+    python3-pyls flake8 pylint python3-autopep8 python3-pycodestyle python3-yapf
 )
 
 sudo apt install ${PACKAGES[@]}
-sudo apt install -t bullseye-backports telegram-desktop polybar
+sudo apt install -t bullseye-backports \
+    telegram-desktop polybar xournalpp
 
 sudo apt install kodi kodi-peripheral-joystick kodi-eventclients-wiiremote
 

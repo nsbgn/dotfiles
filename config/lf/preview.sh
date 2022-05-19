@@ -1,6 +1,7 @@
 #!/bin/sh
 # Shows a text preview of a file.
 
+BAT=$(which batcat || which bat)
 F="$1"
 EXT="$(echo "${F##*.}" | tr '[:upper:]' '[:lower:]' )"
 case "$EXT" in
@@ -40,7 +41,7 @@ case "$EXT" in
         #    | chafa  --work=1 --symbols=block --fill=block --stretch --colors=256 --size "$(expr $(tput cols) \* 2 / 5)x" -
         ;;
     gpg)
-        gpg --quiet --decrypt "$F" | bat --style=plain --italic-text=always --decorations=always --color=always ;;
+        gpg --quiet --decrypt "$F" | $BAT --style=plain --italic-text=always --decorations=always --color=always ;;
     *)
         if [ "$(file --brief --mime-encoding "$F")" = "binary" ]; then
             hexyl --length 768 "$F"
