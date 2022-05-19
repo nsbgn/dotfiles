@@ -6,13 +6,14 @@ PACKAGES=(
 
     # Theming
     fonts-{cabin,anonymous-pro,hack,inconsolata,liberation,noto,cascadia-code,unifont,fork-awesome,font-awesome,material-icons}
-    # See also: Code New Roman
     numix-{gtk,icon}-theme
     materia-gtk-theme
     materia-kde
     greybird-gtk-theme
     dmz-cursor-theme
     qt5-gtk{,2}-platform-theme
+
+    libinput-tools # For detecting tablet mode
 
     # Wayland stuff
     wl-clipboard
@@ -24,8 +25,7 @@ PACKAGES=(
     xserver-xorg-video-{intel,fbdev} # Video driver
     xserver-xorg-input-libinput # Input driver
     xserver-xorg-input-xwiimote # Wiimote input driver
-    libinput-tools # For detecting tablet mode
-    xbacklight # Controlling d
+    light # Controlling the backlight
     xinput # List input devices
     unclutter # Hiding mouse
     x11-xkb-utils # Remapping keyboard (xkbcomp)
@@ -33,7 +33,6 @@ PACKAGES=(
     xcwd # Current directory of program
     x11-xserver-utils # X11 tools (xsetroot)
     hsetroot # for background color (xsetroot with picom)
-    picom # compositor
     bspwm
     sxhkd
     dunst
@@ -69,12 +68,14 @@ PACKAGES=(
     tig
     pass
     gnupg
-    fd-find # `find` alternative
-    lowdown # Markdown processor
-    visidata # View CSV data in terminal
+    fd-find # Search for files on the filesystem; `find` alternative
+    lowdown # Markdown processor and terminal viewer
+    visidata # CSV data terminal viewer
     csv2latex # CSV to LaTeX converter
     csvkit # CSV manipulation on the command line
     python3-jsondiff # JSON diff
+    ufw # firewall
+    bubblewrap # wrapper for jailing applications
 
     # Applications
     rxvt-unicode
@@ -95,8 +96,7 @@ PACKAGES=(
 
 sudo apt install ${PACKAGES[@]}
 sudo apt install -t bullseye-backports \
-    telegram-desktop polybar xournalpp
-
-sudo apt install kodi kodi-peripheral-joystick kodi-eventclients-wiiremote
+    telegram-desktop polybar xournalpp \
+    kodi kodi-peripheral-joystick kodi-eventclients-wiiremote
 
 sudo update-command-not-found
