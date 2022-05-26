@@ -1,3 +1,11 @@
+" Install vim-plug if not available
+" <https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation>
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " o jumps back and forth selection
 
 " Plugins
@@ -10,15 +18,17 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'https://github.com/altercation/vim-colors-solarized'
     " Plug 'https://github.com/morhetz/gruvbox'
     " Plug 'https://github.com/ap/vim-css-color'
+    "
+    " Plug 'https://github.com/liuchengxu/vim-clap'
 
     Plug 'https://github.com/liuchengxu/vim-which-key'
 
     " Email
-    Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
+    " Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
 
     " Telescope
-    " Plug 'https://github.com/nvim-lua/plenary.nvim'
-    " Plug 'https://github.com/nvim-telescope/telescope.nvim'
+    Plug 'https://github.com/nvim-lua/plenary.nvim'
+    Plug 'https://github.com/nvim-telescope/telescope.nvim'
 
     " Scrolling
     " Plug 'https://github.com/Xuyuanp/scrollbar.nvim'
@@ -27,6 +37,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
+    " Plug 'https://github.com/bilalq/lite-dfm'
     " Plug 'https://github.com/folke/zen-mode.nvim'
     " Plug 'https://github.com/Pocco81/TrueZen.nvim'
 
@@ -102,7 +113,8 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'https://github.com/t9md/vim-smalls'
 
     " Tabs for every buffer
-    Plug 'https://github.com/ap/vim-buftabline'
+    " Plug 'https://github.com/ap/vim-buftabline'
+    Plug 'https://github.com/bling/vim-bufferline'
 
     " View LSP symbols & tags
     " Plug 'https://github.com/liuchengxu/vista.vim'
@@ -505,6 +517,48 @@ if PlugLoaded('goyo.vim')
     let g:goyo_width = 80
     let g:goyo_height = "100%"
     let g:goyo_linenr = 0
+
+    " Auto set Goyo for Markdown files
+    " <https://github.com/junegunn/goyo.vim/issues/36>
+    " {
+    function! s:auto_goyo()
+      if &ft == 'pandoc.markdown'
+        Goyo 80
+      elseif exists('#goyo')
+        let bufnr = bufnr('%')
+        Goyo!
+        execute 'b '.bufnr
+      endif
+    endfunction
+
+    augroup goyo_markdown
+      autocmd!
+      autocmd BufEnter,BufNewFile,BufRead * call s:auto_goyo()
+    augroup END
+    " }
+
+    " Use :q to quit
+    " <https://github.com/junegunn/goyo.vim/wiki/Customization#ensure-q-to-quit-even-when-goyo-is-active>
+    " {
+    function! s:goyo_enter()
+      let b:quitting = 0
+      let b:quitting_bang = 0
+      autocmd QuitPre <buffer> let b:quitting = 1
+      cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+    endfunction
+    function! s:goyo_leave()
+      " Quit Vim if this is the only remaining buffer
+      if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+        if b:quitting_bang
+          qa!
+        else
+          qa
+        endif
+      endif
+    endfunction
+    autocmd! User GoyoEnter call <SID>goyo_enter()
+    autocmd! User GoyoLeave call <SID>goyo_leave()
+    " }
 endif
 
 if PlugLoaded('fzf.vim')
