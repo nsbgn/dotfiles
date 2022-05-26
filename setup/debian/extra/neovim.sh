@@ -1,7 +1,10 @@
 #!/bin/bash
-# Source: https://neovim.io/
-# Alpine: https://pkgs.alpinelinux.org/package/edge/community/x86_64/neovim
-# Debian: https://packages.debian.org/bullseye/neovim
+# Neovim
+# Text editor
+#
+# SOURCE: https://neovim.io/
+# ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/neovim
+# DEBIAN: https://packages.debian.org/bullseye/neovim
 set -euo pipefail
 
 TMPFILE="$(mktemp /tmp/nvim-XXX.deb)"

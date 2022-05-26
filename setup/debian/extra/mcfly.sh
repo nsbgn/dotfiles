@@ -1,6 +1,10 @@
 #!/bin/bash
-# mcfly - Shell history search
-# https://github.com/cantino/mcfly
+# mcfly
+# Shell history search
+#
+# SOURCE: https://github.com/cantino/mcfly
+# ALPINE: https://pkgs.alpinelinux.org/package/edge/community/armhf/mcfly
+# DEBIAN: -
 set -euo pipefail
 
 wget -O /tmp/mcfly.tar.gz "$( \

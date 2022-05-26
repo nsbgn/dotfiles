@@ -1,6 +1,10 @@
 #!/bin/bash
-# delta - A diff program. See file changes in a readable way
-# https://github.com/dandavison/delta
+# delta
+# A diff program. View file changes in a readable way.
+#
+# SOURCE: https://github.com/dandavison/delta
+# ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/delta
+# DEBIAN: -
 set -euo pipefail
 
 mkdir -p ~/.builds/debs

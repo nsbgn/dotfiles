@@ -1,6 +1,13 @@
 #!/bin/bash
-# yj - Convert between YAML and JSON. Very useful for parsing YAML with `jq`,
-# for example.
+# yj
+# Convert between YAML and JSON. Useful for use with `jq`.
+#
+# SOURCE: https://github.com/sclevine/yj
+# ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/yj
+# DEBIAN: -
 set -euo pipefail
 
-go get -u github.com/sclevine/yj
+URL="$(curl -s 'https://api.github.com/repos/sclevine/yj/releases/latest' \
+    | jq -r '.assets[] | select(.name == "yj-linux-amd64") | .browser_download_url')"
+curl -fLo ~/.local/bin/yj "$URL"
+chmod +x ~/.local/bin/yj
