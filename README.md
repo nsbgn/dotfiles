@@ -1,8 +1,12 @@
 # dotfiles
 
 This repository contains my configuration files. The goal is to make them as 
-boring as possible while still being useful. The configurations also assume 
-that my [scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`.
+boring as possible while still being useful. 
+
+The configurations also assume that my 
+[scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`, so they 
+are added here as a 
+[subtree](https://www.atlassian.com/git/tutorials/git-subtree).
 
 My constraints:
 
@@ -28,9 +32,6 @@ To do:
     use a [plain git 
     repository](https://cblte.github.io/sammelsurium/configs/the-best-way-to-store-your-dotfiles/). 
     See also <https://github.com/raven2cz/dotfiles/> for inspiration.
--   Add scripts as 
-    [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) or a 
-    [subtree](https://www.atlassian.com/git/tutorials/git-subtree).
 -   There should be a 
     [hook](https://stackoverflow.com/questions/2141492/git-clone-and-post-checkout-hook) 
     that manages all this after cloning.
