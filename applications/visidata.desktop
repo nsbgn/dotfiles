@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=visidata
+Comment=Visidata
+Icon=utilities-terminal
+Terminal=true
+Exec=visidata
+Categories=ConsoleOnly
+MimeType=inode/directory;
+Keywords=File

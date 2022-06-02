@@ -2,6 +2,7 @@
 ; font-0 = Cozette:pixelsize=9;2
 ; font-1 = Unifont:pixelsize=9;2
 font-0 = Cabin:size=9;2
+; font-0 = Cascadia Code PL:size=14;5
 font-1 = DejaVu Sans:size=10;2
 font-2 = Cascadia Code PL:size=14;5
 font-3 = Fork Awesome:size=11;2
@@ -11,14 +12,13 @@ font-3 = Fork Awesome:size=11;2
 ; border-bottom-color = #D9D2C2
 
 foreground = #302925
-; foreground = #ffffff
 ; background = #D9D2C2
 background = #ffffff
 width = 100%
 height = 24
 top = true
 offset-y = 3
-padding-left = 3
+padding-left = 0
 padding-right = 3
 ; padding-left = 2
 ; padding-right = 2
@@ -36,14 +36,20 @@ cursor-scroll = ns-resize
 
 [bar/bspwm]
 inherit = bar/base
-modules-left = apps xtasks spacer xwindow
+modules-left = xtasks
+; apps spacer xwindow
 wm-restack = bspwm
 
 ; bspwm
 
+; [module/xtasks]
+; type = custom/script
+; exec = taskbar-bspwm
+; tail = true
+
 [module/xtasks]
 type = custom/script
-exec = ~/projects/xtasks/taskbar.py
+exec = bspwm-taskbar-2
 tail = true
 
 ; [module/text]
@@ -70,9 +76,9 @@ label-urgent = " %name%"
 
 [module/mpris]
 type = custom/script
-exec = ~/.config/polybar/mpris.sh
+exec = monitor-mpris
 tail = true
-click-left = mpvc pause
+click-left = playerctl --player=mpv play-pause
 
 [module/xwindow]
 type = internal/xwindow
@@ -113,11 +119,6 @@ interval = 10.0
 label-connected = " %signal%"
 label-disconnected = " --"
 click-left = urxvtc -e nmtui
-
-[module/powerbutton]
-type = custom/text
-content = ""
-click-left = dmenu-system
 
 [module/apps]
 type = custom/text

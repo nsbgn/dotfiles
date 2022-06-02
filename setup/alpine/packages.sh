@@ -9,9 +9,10 @@ PACKAGES=(
     font-raleway-otf
     font-liberation-sans-narrow
     font-overpass
-    font-anonymous-pro-nerd
     font-cascadia-code-nerd
+    ttf-anonymous-pro
     ttf-font-awesome
+    ttf-inconsolata
     unifont
 
     # Icons

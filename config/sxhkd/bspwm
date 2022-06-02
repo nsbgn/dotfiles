@@ -6,8 +6,8 @@ super + x
 super + space
 	bspc node --state '~fullscreen'
 
-super + Return
-	bspc node --state '~fullscreen'
+# super + Return
+# 	bspc node --state '~fullscreen'
 
 # super + {_,shift} + {k,j}
 # 	bspc node --{focus,swap} {prev,next}.local.leaf

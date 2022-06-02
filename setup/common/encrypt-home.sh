@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # - For device-level encryption on Linux, use dm-crypt.
 # - For cross-platform device-level encryption, use VeraCrypt.
@@ -16,6 +16,23 @@
 # gocryptfs:
 #   https://github.com/rfjakob/gocryptfs/wiki/Mounting-on-login-using-pam_mount
 
-set -euo pipefail
+set -e
 
-sudo apt-get install libpam-mount
+if grep -q debian /etc/os-release; then
+
+# sudo apt-get install gocryptfs libpam-mount
+sudo apt-get install fscrypt libpam-fscrypt
+
+# Enable encryption on the ext4-formatted root partition (at least, maybe add
+# home partition)
+ROOTPARTITION="/dev/disk/by-uuid/$(lsblk -oUUID,MOUNTPOINT | grep /$ | cut -d' ' -f1)"
+sudo tune2fs -O encrypt ${ROOTPARTITION}
+
+# Actually encrypt --- make sure /home/$USER is empty
+sudo fscrypt setup
+sudo fscrypt encrypt /home/$USER --user=$USER
+
+# ... That's all.
+# fscrypt lock /home/$USER --user=$USER
+
+fi

@@ -9,7 +9,8 @@ Xcursor.theme: DMZ-White
 
 URxvt.internalBorder: 16
 
-URxvt.font: xft:Cascadia Code PL:light:size=10:-*-cozette-medium-r-*--13-*,-gnu-unifont-medium-*-16-*
+/* URxvt.font: xft:Cascadia Code PL:light:size=10:-*-cozette-medium-r-*--13-*,-gnu-unifont-medium-*-16-* */
+URxvt.font: xft:Inconsolata:light:size=15:-*-cozette-medium-r-*--13-*,-gnu-unifont-medium-*-16-*
 URxvt.letterSpace: 0
 URxvt.lineSpace: 1
 

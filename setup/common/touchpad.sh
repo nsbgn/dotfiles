@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 # Set up touchpad configuration for two finger scrolling and tap clicking
 # See "configuration details" of libinput
-set -euo pipefail
+set -e
 
 sudo tee '/usr/share/X11/xorg.conf.d/41-libinput.conf' << EOF
 Section "InputClass"

@@ -1,8 +1,8 @@
-#!/bin/bash
-# This script sets me up to automatically log in without being prompted, which
-# makes sense for me because my system is single-user and full-disk encryption
-# blocks physical access.
-set -euo pipefail
+#!/bin/sh
+# This script sets you up to automatically log in without being prompted, which
+# makes sense when the system is single-user and full-disk encryption blocks
+# physical access.
+set -e
 
 # System should boot to TTY rather than display manager. Set to
 # graphical.target to reverse.

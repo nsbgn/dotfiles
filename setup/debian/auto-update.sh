@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 # Update automatically
-set -euo pipefail
+set -e
 
 sudo apt install unattended-upgrades
 sudo dpkg-reconfigure unattended-upgrades

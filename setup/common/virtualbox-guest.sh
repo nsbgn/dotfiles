@@ -1,6 +1,9 @@
-#!/bin/bash
-# As a VirtualBox guest
-set -euo pipefail
+#!/bin/sh
+# Extra setup for VirtualBox guests
+# <https://wiki.alpinelinux.org/wiki/VirtualBox_guest_additions>
+set -e
+
+if grep -q debian /etc/os-release; then
 
 # Insert guest additions ISO and:
 sudo apt update
@@ -23,3 +26,5 @@ xrandr --addmode Virtual1 "1920x1080_60.00"
 xrandr --output Virtual1 --mode 1920x1080_60.00
 VBoxClient --clipboard
 EOF
+
+fi

@@ -8,17 +8,27 @@ endif
 
 " o jumps back and forth selection
 
+" set guifont=Inconsolata:h13:l
+let g:neovide_cursor_animation_length=0
+
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
+    " Plug 'nvim-lualine/lualine.nvim'
+
     " Colorschemes without much color
+    Plug 'https://github.com/rktjmp/lush.nvim'
     Plug 'https://github.com/mcchrish/zenbones.nvim'
 
+    " Plug 'https://github.com/preservim/vim-colors-pencil'
+
+    " Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
 
     " Plug 'https://github.com/altercation/vim-colors-solarized'
     " Plug 'https://github.com/morhetz/gruvbox'
-    " Plug 'https://github.com/ap/vim-css-color'
-    "
+
+
+
     " Plug 'https://github.com/liuchengxu/vim-clap'
 
     Plug 'https://github.com/liuchengxu/vim-which-key'
@@ -61,8 +71,8 @@ call plug#begin(stdpath('data') . '/plugged')
     " For bibtex citation search, see 'https://github.com/msprev/fzf-bibtex'
 
     " Inertial scrolling
+    Plug 'https://github.com/psliwka/vim-smoothie'  " hi
     " Plug 'https://github.com/yuttie/comfortable-motion.vim'
-    Plug 'https://github.com/psliwka/vim-smoothie'
     " Plug 'https://github.com/lukelbd/vim-scrollwrapped'
 
     " Work with GPG-encrypted files
@@ -114,7 +124,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Tabs for every buffer
     " Plug 'https://github.com/ap/vim-buftabline'
-    Plug 'https://github.com/bling/vim-bufferline'
+    " Plug 'https://github.com/bling/vim-bufferline'
 
     " View LSP symbols & tags
     " Plug 'https://github.com/liuchengxu/vista.vim'
@@ -151,19 +161,25 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " https://github.com/alok/notational-fzf-vim
 call plug#end()
-" lua require('scrollbar').setup {}
-"let g:solarized_termcolors=256
+
+" COLOR SCHEMES
+" https://www.opensourceagenda.com/projects/vim-no-color-collections
+
+" set termguicolors
 set background=light
-" set g:zenbones_compat = 1
+" let g:zenwritten_diagnostic_underline_text=v:true
+" let g:zenwritten_transparent_background=v:true
 " colorscheme zenwritten
+" colorscheme pencil
 
-
-"let g:gruvbox_contrast_light="soft"
-"let g:gruvbox_sign_column="bg0"
+" let g:gruvbox_contrast_light="hard"
+" let g:gruvbox_sign_column="bg0"
 " colorscheme gruvbox
-"
+
 " Turn off background to take on same bg as my terminal
-"highlight Normal ctermbg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
+
+set guifont=Cascadia\ Code\ PL:h13:l
 
 " Subtle tildes at the end of the buffer
 " highlight EndOfBuffer ctermfg=gray
@@ -449,14 +465,15 @@ endif
 
 if PlugLoaded('vim-signify')
     set signcolumn=auto
-    highlight SignColumn ctermbg=NONE cterm=NONE
+    highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
     highlight SignifySignAdd ctermfg=Green cterm=NONE
     highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
     highlight SignifySignChange ctermfg=Magenta cterm=NONE
-    let g:signify_sign_add               = '●' " nf:  / unifont: ⊞⊕
-    let g:signify_sign_delete            = '●' " nf:  / unifont: ⊟⊖
-    let g:signify_sign_delete_first_line = '●' " nf:  / unifont: ⊠⊡⊗⊚⊘⊙⊜⊝
-    let g:signify_sign_change            = '●' " nf: פֿ / unifont: ⊛
+    " See also https://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
+    let g:signify_sign_add               = '✚' " '●' " nf:  / unifont: ⊞⊕
+    let g:signify_sign_delete            = '✖' " '●' " nf:  / unifont: ⊟⊖
+    let g:signify_sign_delete_first_line = '❍' " '●' " nf:  / unifont: ⊠⊡⊗⊚⊘⊙⊜⊝
+    let g:signify_sign_change            = '✱' " '●' " nf: פֿ / unifont: ⊛⊙
 endif
 
 if PlugLoaded('vim-easy-align')
@@ -492,7 +509,7 @@ endif
 
 if PlugLoaded('comfortable-motion.vim')
     let g:comfortable_motion_no_default_key_mappings = 1
-    let g:comfortable_motion_impulse_multiplier = 2.5
+    let g:comfortable_motion_impulse_multiplier = 1.5
     nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
     nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
 endif
@@ -635,54 +652,55 @@ command! -range=% SoftWrap
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
 
+" Use a gui instead?
 " https://www.vim.org/scripts/script.php?script_id=3141
-func! MScroll()
-  let l:done=0
-  let l:n = -1
-  let l:w0 = line("w0")
-  let l:last = line("$")
-  while done!=1
-    let l:g = getchar()
-    if l:g != "\<LeftDrag>"
-      let done = 1
-    else
-      if l:n == -1
-        let l:n = v:mouse_lnum
-        let l:fln = v:mouse_lnum
-      else
-        let l:new = l:w0 - v:mouse_lnum + l:n
-        if l:new<1
-          let l:new = 1
-        endif
+" func! MScroll()
+"   let l:done=0
+"   let l:n = -1
+"   let l:w0 = line("w0")
+"   let l:last = line("$")
+"   while done!=1
+"     let l:g = getchar()
+"     if l:g != "\<LeftDrag>"
+"       let done = 1
+"     else
+"       if l:n == -1
+"         let l:n = v:mouse_lnum
+"         let l:fln = v:mouse_lnum
+"       else
+"         let l:new = l:w0 - v:mouse_lnum + l:n
+"         if l:new<1
+"           let l:new = 1
+"         endif
 
-        let l:diff = -v:mouse_lnum + l:n
-        let l:nd = line("w$")
-        if l:nd+l:diff>l:last
-          let l:new = l:last - winheight(0) + 1
-          if l:new<1
-            let l:new = 1
-          endif
-        end
+"         let l:diff = -v:mouse_lnum + l:n
+"         let l:nd = line("w$")
+"         if l:nd+l:diff>l:last
+"           let l:new = l:last - winheight(0) + 1
+"           if l:new<1
+"             let l:new = 1
+"           endif
+"         end
 
-        let l:wn = "normal ".string(l:new)."zt"
-        if (l:n != v:mouse_lnum)
-          exec(l:wn)
-          redraw
-        endif
-        let l:w0 = line("w0")
-        let l:n = v:mouse_lnum + l:diff
-      endif
-    endif
-  endwhile
-  :call cursor(v:mouse_lnum,v:mouse_col)
-endfunc
-:set mouse=a
-:noremap <silent> <LeftMouse> :call MScroll()<CR>
-:noremap <LeftRelease> <Nop>
-:noremap <LeftDrag> <Nop>
+"         let l:wn = "normal ".string(l:new)."zt"
+"         if (l:n != v:mouse_lnum)
+"           exec(l:wn)
+"           redraw
+"         endif
+"         let l:w0 = line("w0")
+"         let l:n = v:mouse_lnum + l:diff
+"       endif
+"     endif
+"   endwhile
+"   :call cursor(v:mouse_lnum,v:mouse_col)
+" endfunc
+" :set mouse=a
+" :noremap <silent> <LeftMouse> :call MScroll()<CR>
+" :noremap <LeftRelease> <Nop>
+" :noremap <LeftDrag> <Nop>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
-     \ endif
+    \ endif

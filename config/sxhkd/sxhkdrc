@@ -18,23 +18,20 @@ super + p
 super + t
 	urxvtc -cd "$(xcwd.sh)"
 
-super + {g,G}
-	urxvtc {-cd $(xcwd.sh),} -e lf
-
-super + m
-	urxvtc -e aerc
+# super + m
+# 	urxvtc -e aerc
 
 super + semicolon
 	dmenu-apps
 
-super + o; super + {p,t,l,m}
-	dmenu-{pass,thesaurus,library,mpv}
+super + Return
+	dmenu-apps
 
-super + backslash
-	toggle-pointer
+super + g; super + {g,p,t,l,m}
+	dmenu-{apps,pass,thesaurus,library,mpv}
 
 super + {shift,_} + v
 	amixer -q sset Master 2%{-,+}
 
 super + {shift,_} + b
-	xbacklight {-,+}2%
+	light {-U,-A} 2
