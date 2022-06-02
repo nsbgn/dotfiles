@@ -1,0 +1,54 @@
+#!/bin/bash
+# Utility for making quick scans for documents, all pages combined into a
+# single OCR'ed PDF. Also check out tiff2pdf and pdfsandwich
+
+# TODO djvu
+set -euo pipefail
+
+DPI=150
+
+TMP=$(mktemp -d "${TMPDIR:-/tmp}/$(basename "$0").XXXXX")
+function finalize {
+    rm -rf "${TMP}"
+}
+trap finalize EXIT
+
+ARGS=(
+    -colorspace gray
+    #-sigmoidal-contrast 20,50%
+    #-posterize 8
+)
+
+SCANS=()
+while true; do
+    echo "Starting scan..." >&2
+    SCAN="$(mktemp --tmpdir="$TMP" --dry-run "XXXXX.pdf")"
+    scanimage \
+        --progress \
+        --resolution ${DPI} \
+        -l 2 -t 2 -x 213 -y 295 \
+        --format tiff \
+    | convert TIFF:- \
+        -strip \
+        "${ARGS[@]}" \
+        -background white \
+        -page a4 \
+        PDF:- \
+    | ocrmypdf - "$SCAN"
+
+    if [ $? -eq 0 ]; then
+        echo "Scan finished." >&2
+        SCANS+=("${SCAN}")
+    else
+        echo "Scan failed." >&2
+    fi
+
+    read -r -p "Add another page? [Y/n]" confirm
+    case $confirm in
+        [nN]*) break ;;
+        *) continue ;;
+    esac
+done
+
+# Combine pages
+pdftk ${SCANS[@]} cat output "${1:-untitled}"

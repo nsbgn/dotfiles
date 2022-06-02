@@ -1,0 +1,24 @@
+#!/bin/bash
+# Rotate the screen into portrait mode if it is in landscape and vice versa.
+# See also:
+# - https://gist.githubusercontent.com/mortie/e725d37a71779b18e8eaaf4f8a02bf5b/raw/2a58de65dd2c2022340b6432ca88ee483b1d25d8/auto-screen-rotate.sh
+# - https://gist.github.com/mortie/297a966e22e788c80570fa37d4a15809
+# - https://github.com/alesguzik/linux_detect_tablet_mode
+
+MONITOR="${MONITOR:-eDP1}"
+TOUCHSCREENS=(10 16) # ELAN238E:00 04F3:2894 & ELAN238E:00 04F3:2894 Pen
+PATTERN='\s\(\w\+\s\)*[0-9]\+x[0-9]\++[0-9]\++[0-9]\sleft'
+
+if xrandr -q | grep -q "^${MONITOR}${PATTERN}"; then
+    xrandr --output "$MONITOR" --rotate normal
+    for T in "${TOUCHSCREENS[@]}"; do
+        xinput set-prop "$T" \
+            --type=float "Coordinate Transformation Matrix" 0 0 0 0 0 0 0 0 0
+    done
+else
+    xrandr --output "$MONITOR" --rotate left
+    for T in "${TOUCHSCREENS[@]}"; do
+        xinput set-prop "$T" \
+            --type=float "Coordinate Transformation Matrix" 0 -1 1 1 0 0 0 0 1
+    done
+fi

@@ -1,0 +1,49 @@
+#!/bin/bash
+# This script helps find duplicate photos in a directory, and delete the ones
+# that have the (subjective) worst quality.
+#
+# 1. We first use `fdupes` to find binary duplicates.
+# 2. Then we use `findimagedupes` to find visual duplicates. Those duplicates are
+# shown with `feh` in batches, allowing you to use Ctrl+Del to delete the ones
+# you don't like. 
+# Dependencies: `findimagedupes` `fdupes` `feh` (`zenity`, `xargs` for renaming)
+set -euo pipefail
+
+DIR=${1:-${PWD}}
+
+echo "Finding binary duplicates..." >&2
+fdupes --delete --noempty --time --size "${DIR}"
+
+echo "Finding visual duplicates..." >&2
+
+# Prepare temporary directory and make sure it will be removed afterward
+TMP=$(mktemp -d "${TMPDIR:-/tmp}/$(basename "$0").XXXXX")
+function finalize {
+    rm -rf "${TMP}"
+}
+trap finalize EXIT
+
+# Prepare script for viewing & subsequent removal of duplicates
+tee "${TMP}/custom.sh" 1> /dev/null << EOF
+VIEW(){
+    feh \
+        --borderless \
+        --auto-rotate \
+        --scale-down \
+        --zoom fill \
+        --draw-tinted \
+        --draw-actions \
+        --draw-filename \
+        --caption-path "." \
+        --sort filename \
+        --info "exiv2 %F | grep -v ':\s*$'; echo Size: %w×%h - %Sb; echo -n Modification:; date -r %F '+%%Y-%%m-%%d %%R'" \
+        --edit \
+        --action1 '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
+        --action9 '[remove]zenity --question && gio trash %F' \
+        "\$@"
+    exit 0
+}
+EOF
+find "${DIR:-.}" -mindepth 1 -maxdepth 1 -regex '.*\.\(png\|jpg\|jpeg\|tiff\|bmp\)' |
+    findimagedupes --script="${TMP}/script.sh" --include-file="${TMP}/custom.sh" -
+sh ${TMP}/script.sh
