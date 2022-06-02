@@ -1,0 +1,16 @@
+#!/bin/sh
+# Toggles whether the mouse is enabled or not. I keep the mouse disabled unless
+# I need it, so that I don't need to worry about brushing the touchpad. Use in
+# combination with https://github.com/Airblader/unclutter-xfixes or
+# https://github.com/Aktau/hhpc to also hide the mouse.
+
+for ID in $(xinput list | sed -n 's/.*id=\([0-9]*\).*pointer.*/\1/pg'); do
+    STATE=$(xinput list-props $ID | grep -i 'Device Enabled' | cut -d':' -f2-)
+    if [ $STATE -eq 1 ]; then
+        # xdotool mousemove 1920 0
+        xinput --disable $ID
+    else
+        xinput --enable $ID
+    fi
+done
+

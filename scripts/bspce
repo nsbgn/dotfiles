@@ -1,0 +1,229 @@
+#!/bin/sh
+# bspce - bspc extended
+#
+# After trying a lot of window managers before falling in love with `bspwm`, I
+# realized that I really mostly used it in one of two ways: either I wanted
+# *two* windows side by side or I wanted *one* window in fullscreen. Once I
+# started using tablets, this observation gained importance, as simplicity is
+# key for simultaneously accommodating both keys and touch gestures.
+#
+# Imagine a desk with a stack of papers. You're only ever working on one sheet;
+# at most, you might hold two papers side by side. This inspired the following
+# approach, for reducing the mental load. (Description to follow later).
+#
+# Assign appropriate shortcuts with <https://github.com/baskerville/sxhkd> and
+# <https://git.sr.ht/~mil/lisgd>.
+#
+# This is an experiment for `bspwm`. If it works well, it would be nice to make
+# a dedicated Wayland-based WM with better touch support --- hopefully
+# something like `penrose` for Wayland will exist by then.
+#
+# Behaviour
+# Focus: either on desktop or on window (wrap to desktop)
+# Drag: etc
+# Close: if there's two windows, vacuum the next
+
+initialize(){
+    trap finalize EXIT
+    bspc config external_rules_command $(realpath $0)
+    bspc subscribe desktop_focus node_remove | while read e; do
+        :
+        # for desktop_id in $(bspc query -D -d '.!occupied'); do
+        #     bspc desktop "${desktop_id}" --remove || :
+        # done
+    done
+}
+
+finalize(){
+    echo "Cleaning..." >&2
+    bspc config external_rules_command off
+    # bspc node 'any.!window.leaf' --kill
+}
+
+# The external rule command. If you open a new window and there's already 2 or
+# more windows, push the non-focused half to the new workspace and replace
+# (when you close the new window, it should simply come back)
+
+# If there's one window, open in new. If
+# there's two, push the other window away
+rule_command(){
+    local WID=$1 CLS=$2 INST=$3
+    shift 3
+    local REST=$@
+    if bspc query -D -d 'focused.!occupied'; then
+        echo $REST desktop=focused
+    elif bspc query -N -n '@/1#focused.descendant_of' > /dev/null; then
+        WS="$(new_ws)"
+        insert_ws "$WS" after focused > /dev/null
+        bspc node "@/2" --to-desktop "$WS"
+        bspc config initial_polarity second_child
+        echo $REST node="@/"
+    elif bspc query -N -n '@/2#focused.descendant_of' > /dev/null; then
+        WS="$(new_ws)"
+        insert_ws "$WS" before focused > /dev/null
+        bspc node "@/1" --to-desktop "$WS"
+        bspc config initial_polarity first_child
+        echo $REST node="@/"
+    else # assume single window
+        WS="$(new_ws)"
+        insert_ws "$WS" after focused > /dev/null
+        echo $REST desktop=$WS follow=on
+    fi
+}
+
+
+
+# Remove all unused desktops and receptacles.
+# Usage: clean
+clean(){
+    for N in $(bspc query -N -n '.!window.leaf'); do
+        bspc node $N --kill
+    done
+    for D in $(bspc query -D -d '.!occupied'); do
+        bspc desktop "$D" --remove || :
+    done
+}
+
+opposite(){
+    [ "$1" = "prev" ] && echo next || echo prev
+}
+
+# Move window to previous or next.
+# Usage: move (prev|next)
+move(){
+    DIR="$1"
+    bspc desktop --bubble "$DIR"
+    bspc node --swap "@$(opposite $DIR):/"
+}
+
+# Combined operation
+# Usage: push (prev|next)
+push(){
+    focus_win $(opposite $1)
+    # wfocus $1 || split_ws || merge1 $1
+}
+
+
+
+# Go to the prev or next window, wrapping to desktops
+# Usage: focus (prev|next)
+focus(){
+    focus_win "$1" || focus_ws "$1"
+}
+
+# Focus on previous or next window, but fail on wrapping
+# Usage: focus_win (prev|next)
+focus_win(){
+    TARGET="$(bspc query -N -n "$1.local.window")"
+    [ "$1" = next ] \
+        && [ "$TARGET" = "$(bspc query -N -n '.local.window' | head -n1)" ] \
+        && return 1
+    [ "$1" = prev ] \
+        && [ "$TARGET" = "$(bspc query -N -n '.local.window' | tail -n1)" ] \
+        && return 1
+    bspc node "$TARGET" --focus
+}
+
+focus_ws(){
+    :
+}
+
+# Merge the windows of two desktops.
+# Usage: merge DESKTOP_SEL [DESKTOP_SEL]
+merge_ws(){
+    local SEL="$1" REF="${2:-focused}"
+    is_successor "$REF" "$SEL" && P="first" || P="second"
+    bspc config initial_polarity ${P}_child
+    bspc node "@$SEL:/" -n "@$REF:/"
+    bspc desktop "$SEL" -r
+}
+
+merge1(){
+    [ "$1" = prev ] && P="first" || P="second"
+    bspc config initial_polarity ${P}_child
+    bspc node "@$1:/" -n "@/" --follow
+    bspc desktop "$1" -r
+    bspc config initial_polarity second_child
+}
+
+# Split the windows of one desktop into two.
+# Usage: split_ws [DESKTOP_SEL]
+split_ws(){
+    local SEL="${1:-focused}"
+    # If we happen to be focused on a window in the second half of the target
+    # desktop, we put the other half in a new desktop
+    if bspc query -N -d "$SEL" -n "@/2#focused.descendant_of"; then
+        local NEW="$(new_ws)"
+        insert_ws "$NEW" before "$SEL"
+        bspc node "@$SEL:/1" -d "$NEW"
+    # Otherwise, the second half goes to the new desktop, next to the old one
+    elif bspc query -N -d "$SEL" -n "@/1"; then
+        local NEW="$(new_ws)"
+        insert_ws "$NEW" after "$SEL"
+        bspc node "@$SEL:/2" -d "$NEW"
+    else
+        return 1
+    fi
+}
+
+# Make a desktop with a new one-letter name and return the name.
+new_ws(){
+    NAME="$(echo 'fjdkslaeiwovmcxqptybnz' \
+        | tr -d "$(bspc query -D --names)" | head -c1)"
+    bspc monitor -a "$NAME" > /dev/null
+    echo $NAME
+}
+
+# Move a desktop relative to another.
+# Usage: insert_ws DESKTOP_SEL [before|after] [DESKTOP_SEL]
+insert_ws(){
+    local SEL="$(bspc query -D --names -d $1)" || return 1
+    local REF="$(bspc query -D --names -d ${3:-focused})" || return 1
+    [ "$SEL" = "$REF" ] && return 0
+    [ "$2" = "before" ] && local NEW="$SEL\n$REF" || local NEW="$REF\n$SEL"
+    bspc query -D --names | sed "/$SEL/d;s/$REF/$NEW/" | xargs bspc monitor -o
+}
+
+# Succeeds only if the 1st desktop occurs after the 2nd in the desktop list.
+# Usage: successor DESKTOP_SEL [DESKTOP_SEL]
+is_successor(){
+    SEL="$(bspc query -D -d $1)" || return 1
+    REF="$(bspc query -D -d ${2:-focused})" || return 1
+    [ "$(bspc query -D | grep -m1 "^$SEL\|^$REF")" = "$SEL" ]
+    return $?
+}
+
+# "Explode" the given desktop, giving each tiled window its own desktop.
+# Usage: explode_ws [DESKTOP_SEL]
+explode_ws(){
+    local D="${1:-focused}"
+    for W in $(bspc query -N -d $D -n '.window.!floating' | tail -n+2); do
+        local DW="$(new_ws)"
+        insert_ws "$DW" after focused
+        bspc node "$W" -d "$DW"
+    done
+}
+
+
+
+
+hook_node_remove(){
+    monitor_id=$1
+    desktop_id=$2
+    node_id=$3
+}
+
+# If the argument matches any non-internal function we defined, execute it
+if [ "$1" = "${1#_}" -a "$(type $1)" = "$1 is a shell function" ]; then
+    "$@"
+    exit $?
+# If it looks like we're being used as a rule command, pass it on
+elif [ $# -ge 3 ]; then
+    rule_command "$@" # -a "$1" != "${1#0x}"
+    exit $?
+# Otherwise, print usage information
+else
+    echo Usage information:
+    sed -n "s/^# Usage: \(.*\)/\tbspce \1/p " $0
+    exit 1
+fi
