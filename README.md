@@ -1,27 +1,28 @@
 # dotfiles
 
 This repository contains my configuration files. The goal is to make them as 
-boring as possible while still being useful. 
-
-The configurations also assume that my 
-[scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`, so they 
-are added here as a 
-[subtree](https://www.atlassian.com/git/tutorials/git-subtree).
-
-My constraints:
+boring as possible while still being useful. Constraints:
 
 -   Prefer small, composable applications that do one thing well.
 
 -   Rely on standard repositories as much as possible, but don't avoid building 
     from source if there is a good reason. Software that is in the repositories 
-    of both Alpine and Debian has my preference.
+    [Debian](https://packages.debian.org/) has my preference, especially if it 
+    overlaps with [Alpine](https://pkgs.alpinelinux.org/packages), 
+    [Fedora](https://src.fedoraproject.org/) and 
+    [Void](https://voidlinux.org/packages/).
 
 -   A barebones theme, black on white, using mellow, cozy colours for 
     highlights (such as saffron, brown, terracotta, olive, khaki, rust, 
     charcoal). Easy on the eyes without fancy effects.
 
-Right now, where I deviate from Debian is `keyd`, `lf`, `delta`, `htmlq`, 
-`himalaya`, `neovim`.
+Right now, where I deviate from Debian is `keyd` (Alpine), `lf` (Void, Alpine), 
+`delta` (Void, Alpine), `htmlq` (Alpine), `himalaya` (Void, Alpine), `neovim` 
+(Void, Alpine).
+
+Because the configurations assume that my 
+[scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`, these are 
+added as a [subtree](https://www.atlassian.com/git/tutorials/git-subtree).
 
 To do:
 
