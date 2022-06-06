@@ -2,7 +2,7 @@
 # Puts all configuration files in the right places.
 set -euo pipefail
 
-root="$(dirname $0)/.."
+root="$(realpath $(dirname $0)/..)"
 
 # echo "Copying keyd config"
 # sudo cp "$root/config/keyd/default.conf" /etc/keyd/default.conf
@@ -31,3 +31,6 @@ for FILE in "$root"/config/*; do
     fi
 
 done
+
+sudo mkdir -p /etc/keyd
+sudo install -C -t /etc/keyd $root/etc/keyd/default.conf
