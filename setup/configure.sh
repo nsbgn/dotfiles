@@ -8,7 +8,10 @@ root="$(dirname $0)/.."
 # sudo cp "$root/config/keyd/default.conf" /etc/keyd/default.conf
 # sudo systemctl restart keyd
 
-ln -srT $root/applications ~/.local/share/applications
+mkdir -p ~/.local/share
+[ -L ~/.local/share/applications ] && \
+    ln -srTf $root/applications ~/.local/share/applications || \
+    :
 
 mkdir -p ~/.config
 for FILE in "$root"/config/*; do

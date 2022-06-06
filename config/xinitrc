@@ -1,3 +1,9 @@
+
+if which VBoxClient; then
+VBoxClient --clipboard
+VBoxClient --vmsvga
+fi
+
 for F in siji dina; do xset +fp /usr/share/fonts/bitmap/$F; done
 xset fp rehash
 xset +fp ~/.fonts

@@ -13,7 +13,8 @@ deb https://fasttrack.debian.net/debian-fasttrack/ bullseye-fasttrack main contr
 deb https://fasttrack.debian.net/debian-fasttrack/ bullseye-backports-staging main contrib
 EOF
 sudo apt update
-sudo apt install virtualbox virtualbox-guest-x11 virtualbox-guest-dkms
+sudo apt install virtualbox virtualbox-guest-x11 virtualbox-guest-utils
+adduser $USER vboxsf
 
 # Insert guest additions ISO and:
 # sudo apt update
@@ -37,4 +38,4 @@ sudo apt install virtualbox virtualbox-guest-x11 virtualbox-guest-dkms
 # VBoxClient --clipboard
 # EOF
 
-# fi
+fi
