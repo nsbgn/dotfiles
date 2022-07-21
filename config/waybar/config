@@ -10,6 +10,12 @@
     "sway/window": {
         "max-length": 50
     },
+    "wlr/taskbar": {
+        "all-outputs": true,
+        "format": "{icon} {title}",
+        "tooltip-format": "{title}",
+        "on-click": "minimize-raise"
+    },
     "pulseaudio": {
         "format": "{icon} {volume}",
         "format-bluetooth": "{icon} {volume}",

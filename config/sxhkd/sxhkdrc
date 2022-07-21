@@ -24,8 +24,8 @@ super + t
 super + semicolon
 	dmenu-apps
 
-super + Return
-	dmenu-apps
+# super + Return
+# 	dmenu-apps
 
 super + g; super + {g,p,t,l,m}
 	dmenu-{apps,pass,thesaurus,library,mpv}

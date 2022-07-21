@@ -55,7 +55,11 @@ PACKAGES=(
     # i3lock
     physlock
 
+    #
+    exfatprogs # exFAT support
+
     # Utilities
+    kaddressbook # .vcf address book
     xdotool
     libglib2.0-bin # trashbin (gio)
     command-not-found
@@ -93,6 +97,7 @@ PACKAGES=(
     # Applications
     rxvt-unicode
     firefox-esr
+    rssguard
     feh
     imv # Image viewer
     mpv

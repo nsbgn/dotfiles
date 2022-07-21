@@ -7,18 +7,25 @@ boring as possible while still being useful. Constraints:
 
 -   Rely on standard repositories as much as possible, but don't avoid building 
     from source if there is a good reason. Software that is in the repositories 
-    [Debian](https://packages.debian.org/) has my preference, especially if it 
-    overlaps with [Alpine](https://pkgs.alpinelinux.org/packages), 
-    [Fedora](https://src.fedoraproject.org/) and 
-    [Void](https://voidlinux.org/packages/).
+    [Debian](https://packages.debian.org/) has my preference, especially 
+    if it overlaps with [Alpine](https://pkgs.alpinelinux.org/packages) 
+    and [Fedora](https://src.fedoraproject.org/).
 
 -   A barebones theme, black on white, using mellow, cozy colours for 
     highlights (such as saffron, brown, terracotta, olive, khaki, rust, 
     charcoal). Easy on the eyes without fancy effects.
 
-Right now, where I deviate from Debian is `keyd` (Alpine), `lf` (Void, Alpine), 
-`delta` (Void, Alpine), `htmlq` (Alpine), `himalaya` (Void, Alpine), `neovim` 
-(Void, Alpine).
+Right now, where I deviate from Debian is:
+
+-   `keyd` (Alpine)
+-   `lf` (Void, Alpine)
+-   `delta` (Void, Alpine)
+-   `htmlq` (Alpine)
+-   `himalaya` (Void, Alpine)
+-   `neovim` (Void, Alpine)
+-   `bemenu` (Alpine, 
+    [Debian](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=955803)).
+-   `river` (Alpine, Debian)
 
 Because the configurations assume that my 
 [scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`, these are 
@@ -38,3 +45,7 @@ To do:
     that manages all this after cloning.
 -   Eventually, I want to make the install fully 
     [automatic](https://debian-handbook.info/browse/stable/sect.automated-installation.html).
+
+-   Compositor: phoc or river. 
+    <https://blogs.gnome.org/shell-dev/2022/05/30/towards-gnome-shell-on-mobile/>
+

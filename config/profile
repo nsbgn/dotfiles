@@ -15,7 +15,7 @@ export LEDGER=$HOME/notes/money/current.ledger
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 
 export DMENU_OPTS="-l 20 -fn Inconsolata-13"
-export BEMENU_OPTS="-p '' -l 10 -H 30 --fn 'Cascadia Code 10' --scrollbar always"
+export BEMENU_OPTS="-p '' -l 10 -H 30 --fn 'Cascadia Code 11' --scrollbar always"
 
 
 
@@ -34,7 +34,7 @@ export BEMENU_OPTS="-p '' -l 10 -H 30 --fn 'Cascadia Code 10' --scrollbar always
 # export SDL_VIDEODRIVER=wayland
 # export _JAVA_AWT_WM_NONREPARENTING=1
 # export NO_AT_BRIDGE=1
-# systemd-cat --identifier=sway sway $@
+# # systemd-cat --identifier=sway sway $@
 
 # GDK_BACKEND=wayland \
 

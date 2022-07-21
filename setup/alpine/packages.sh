@@ -1,5 +1,16 @@
 #!/bin/sh
 # Alpine packages installed on every system
+# https://wiki.alpinelinux.org/wiki/Post_installation#Installing_a_desktop_environment_or_window_manager
+# https://wiki.alpinelinux.org/wiki/Alpine_setup_scripts#setup-xorg-base
+# https://wiki.alpinelinux.org/wiki/How_to_get_regular_stuff_working
+
+ 
+
+# apk add ncurses xset xinit rxvt-unicode lf ttf-inconsolata xdotool bash bash-completion bash-doc py3-pip
+
+ 
+
+# chsh
 
 PACKAGES=(
 

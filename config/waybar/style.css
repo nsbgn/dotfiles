@@ -252,3 +252,13 @@ label:focus {
 #keyboard-state > label.locked {
     background: rgba(0, 0, 0, 0.2);
 }
+
+#taskbar button.active {
+    background: #00ff00;
+}
+#taskbar button.minimized {
+    background: #ff0000;
+}
+#taskbar button.maximized {
+    background: #0000ff;
+}

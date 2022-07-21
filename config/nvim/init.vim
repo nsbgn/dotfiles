@@ -6,32 +6,21 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" o jumps back and forth selection
-
-" set guifont=Inconsolata:h13:l
-let g:neovide_cursor_animation_length=0
-
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
-    " Plug 'nvim-lualine/lualine.nvim'
+    Plug 'https://github.com/neovim/nvim-lspconfig'
 
     " Colorschemes without much color
-    Plug 'https://github.com/rktjmp/lush.nvim'
-    Plug 'https://github.com/mcchrish/zenbones.nvim'
-
+    " Plug 'https://github.com/rktjmp/lush.nvim'
+    " Plug 'https://github.com/mcchrish/zenbones.nvim'
     " Plug 'https://github.com/preservim/vim-colors-pencil'
-
     " Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
-
     " Plug 'https://github.com/altercation/vim-colors-solarized'
     " Plug 'https://github.com/morhetz/gruvbox'
 
-
-
     " Plug 'https://github.com/liuchengxu/vim-clap'
-
-    Plug 'https://github.com/liuchengxu/vim-which-key'
+    " Plug 'https://github.com/liuchengxu/vim-which-key'
 
     " Email
     " Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
@@ -40,21 +29,13 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/nvim-lua/plenary.nvim'
     Plug 'https://github.com/nvim-telescope/telescope.nvim'
 
-    " Scrolling
-    " Plug 'https://github.com/Xuyuanp/scrollbar.nvim'
-    " Plug 'https://github.com/wfxr/minimap.vim'
-    " Plug 'https://github.com/severin-lemaignan/vim-minimap'
-
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
-    " Plug 'https://github.com/bilalq/lite-dfm'
     " Plug 'https://github.com/folke/zen-mode.nvim'
     " Plug 'https://github.com/Pocco81/TrueZen.nvim'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
-    " Plug 'https://github.com/plasticboy/vim-markdown'
-    " Plug 'https://github.com/tpope/vim-markdown'
     Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
@@ -64,14 +45,11 @@ call plug#begin(stdpath('data') . '/plugged')
     " Plug 'https://github.com/kien/ctrlp.vim'
     Plug 'https://github.com/junegunn/fzf'
     Plug 'https://github.com/junegunn/fzf.vim'
-    " https://oroques.dev/notes/neovim-init/
-    " Plug 'https://github.com/gfanto/fzf-lsp.nvim' nvim0.5+
-    " Plug 'https://github.com/ojroques/nvim-lspfuzzy' nvim0.5+
-
-    " For bibtex citation search, see 'https://github.com/msprev/fzf-bibtex'
+    " Plug 'https://github.com/gfanto/fzf-lsp.nvim'
+    " Plug 'https://github.com/ojroques/nvim-lspfuzzy'
 
     " Inertial scrolling
-    Plug 'https://github.com/psliwka/vim-smoothie'  " hi
+    Plug 'https://github.com/psliwka/vim-smoothie'
     " Plug 'https://github.com/yuttie/comfortable-motion.vim'
     " Plug 'https://github.com/lukelbd/vim-scrollwrapped'
 
@@ -83,13 +61,12 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Show git/svn changes
     Plug 'https://github.com/mhinz/vim-signify.git'
-    " Plug 'https://github.com/tpope/vim-fugitive.git'
 
     " Visually indicate marks
     Plug 'https://github.com/kshenoy/vim-signature'
 
     " Automatic alignment
-    "Plug 'https://github.com/junegunn/vim-easy-align'
+    " Plug 'https://github.com/junegunn/vim-easy-align'
 
     " Automatically detect indentation
     " Plug 'https://github.com/tpope/vim-sleuth'
@@ -101,11 +78,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Not perfect since I'd like to select sentences, paragraphs
     Plug 'https://github.com/gorkunov/smartpairs.vim.git'
     " Plug 'https://github.com/terryma/vim-expand-region'
-    " Maybe this one:
     " Plug 'https://github.com/ZhiyuanLck/smart-pairs'
-
-    " More sensible word motions
-    Plug 'https://github.com/chaoren/vim-wordmotion'
 
     " Text exchange
     " Plug 'https://github.com/tommcdo/vim-exchange'
@@ -116,14 +89,16 @@ call plug#begin(stdpath('data') . '/plugged')
     " Auto comment lines
     Plug 'https://github.com/tpope/vim-commentary'
 
+    " More sensible word motions
+    Plug 'https://github.com/chaoren/vim-wordmotion'
+
     " Moving around
-    " Plug 'https://github.com/phaazon/hop.nvim' " includes line jumping, for
-    " neovim 0.5
+    Plug 'https://github.com/phaazon/hop.nvim'
     Plug 'https://github.com/justinmk/vim-sneak'
-    " Plug 'https://github.com/t9md/vim-smalls'
 
     " Tabs for every buffer
-    " Plug 'https://github.com/ap/vim-buftabline'
+    Plug 'https://github.com/ap/vim-buftabline'
+    " Plug 'https://github.com/akinsho/bufferline.nvim'
     " Plug 'https://github.com/bling/vim-bufferline'
 
     " View LSP symbols & tags
@@ -137,33 +112,19 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/voldikss/vim-floaterm'
 
     " Language server protocol
-    Plug 'https://github.com/natebosch/vim-lsc'
+    " Plug 'https://github.com/natebosch/vim-lsc'
     ", { 'tag': 'v0.4.0' }
-    "Plug 'https://github.com/prabirshrestha/vim-lsp'
-
-    " Autocompletion (also needs `pip3 install pynvim`)
-    " Plug 'https://github.com/Shougo/deoplete.nvim', 
-    "    \ { 'do': ':UpdateRemotePlugins' }
-
-    " Language server protocol
-    "Plug 'https://github.com/autozimu/LanguageClient-neovim.git', 
-    "    \ { 'branch': 'next'
-    "    \ , 'do': 'bash install.sh' }
-
-    " Navigate symbols in the document
-    "Plug 'https://github.com/liuchengxu/vista.vim'
 
     " Manage tag files
     " Plug 'https://github.com/ludovicchabant/vim-gutentags'
+    "
+    "
+    "-- Show context while editing
+    Plug 'https://github.com/romgrk/nvim-treesitter-context'
 
-    " Manage Pandoc markdown files
-    "Plug 'https://github.com/vim-pandoc/vim-pandoc.git'
-
-    " https://github.com/alok/notational-fzf-vim
 call plug#end()
 
 " COLOR SCHEMES
-" https://www.opensourceagenda.com/projects/vim-no-color-collections
 
 " set termguicolors
 set background=light
@@ -178,8 +139,6 @@ set background=light
 
 " Turn off background to take on same bg as my terminal
 highlight Normal guibg=NONE ctermbg=NONE
-
-set guifont=Cascadia\ Code\ PL:h13:l
 
 " Subtle tildes at the end of the buffer
 " highlight EndOfBuffer ctermfg=gray
@@ -205,15 +164,6 @@ function! PlugLoaded(name)
         \ has_key(g:plugs, a:name) &&
         \ stridx(&rtp, substitute(g:plugs[a:name].dir,"/$","","")) >= 0)
 endfunction
-
-" Find syntax highlighting group of word under cursor
-function! SynGroup()
-    let l:s = synID(line('.'), col('.'), 1)
-    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
-endfun
-function! SynStack()
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 " Stop annoying window from popping up
 map q: :q
@@ -281,27 +231,18 @@ noremap <silent> j gj
 " File-specific configuration
 
 if has("autocmd")
-    autocmd FileType lua setlocal tabstop=2 softtabstop=2 shiftwidth=2
-
     "au TermEnter * setlocal nonumber
     "au TermLeave * setlocal number
 
-    au BufRead /tmp/mutt-* set tw=72
-
-    " https://joehallenbeck.com/the-glories-of-text-files-on-using-vim-for-code-and-prose/
-    " set formatoptions turns on an umber of important features. With a we set
-    " our text to automatically wrap when it reaches our textwidth values. In
-    " this case, it is 80 characters. Next, w defines our paragraphs as being
-    " separated by a blank line. t sets our text to be automatically formatted
-    " to text width and q allows us to use the gq command to automatically
-    " reformat selected text.
+    " formatoptions:
+    " - a sets our text to automatically wrap when it reaches textwidth
+    " - w defines paragraphs as being separated by a blank line
+    " - t sets text to be automatically formatted to textwidth
+    " - q allows the gq command to automatically reformat text
 
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-        autocmd FileType markdown.pandoc setlocal conceallevel=0
-        autocmd FileType markdown.pandoc setlocal textwidth=78
-        autocmd FileType markdown.pandoc setlocal formatoptions+=aw2tq
-        autocmd FileType markdown.pandoc setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
+        autocmd FileType markdown.pandoc setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
     augroup END
 
     augroup latex
@@ -309,10 +250,8 @@ if has("autocmd")
     "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
         au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
         autocmd FileType tex setlocal conceallevel=0
-        autocmd FileType tex setlocal textwidth=78
         autocmd FileType tex setlocal formatoptions+=aw2tq
-        autocmd FileType tex setlocal wrap linebreak textwidth=0 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
-
+        autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
     augroup END
 
     augroup haskell
@@ -321,6 +260,12 @@ if has("autocmd")
         autocmd FileType haskell setlocal shiftwidth=2
         autocmd FileType haskell setlocal softtabstop=2
     augroup END
+
+    augroup lua
+        au! BufNewFile,BufFilePre,BufRead *.lua set filetype=lua
+        autocmd FileType lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    augroup END
+
 
 endif
 
@@ -344,11 +289,6 @@ endif
 
 highlight htmlH1 cterm=bold ctermfg=DarkMagenta
 
-
-if PlugLoaded('vim-pandoc')
-    let g:pandoc#modules#enabled = ['toc']
-endif
-
 if PlugLoaded('lf.vim')
     " Unmap default lf key
     let g:lf_map_keys = 0
@@ -358,85 +298,41 @@ if PlugLoaded('lf.vim')
     let g:lf_command_override = 'lf -command "map e; map i; map w"'
 endif
 
-if PlugLoaded('float-preview.nvim')
-    set completeopt-=preview " extra info will now be shown in floating window
-    let g:float_preview#docked = 1
-    let g:float_preview#max_height = 50
-    "let g:float_preview#max_width = 80
-endif
+"if PlugLoaded('float-preview.nvim')
+"    set completeopt-=preview " extra info will now be shown in floating window
+"    let g:float_preview#docked = 1
+"    let g:float_preview#max_height = 50
+"    "let g:float_preview#max_width = 80
+"endif
 
-if PlugLoaded('LanguageClient-neovim')
-    " Required for operations modifying multiple buffers like rename.
-    set hidden
+" if PlugLoaded('vim-lsc')
+"     set shortmess-=F " avoid suppressing errors
+"     let g:lsc_server_commands = {
+"         \ 'python': 'pyls',
+"         \ 'markdown': ['unified-language-server', '--parser=remark-parse', '--stdio'],
+"         \}
+"     let g:lsc_enable_autocomplete = v:false
+"     let g:lsc_auto_map = {
+"         \ 'GoToDefinition': '<C-]>',
+"         \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+"         \ 'FindReferences': 'gr',
+"         \ 'NextReference': '<C-n>',
+"         \ 'PreviousReference': '<C-p>',
+"         \ 'FindImplementations': 'gI',
+"         \ 'FindCodeActions': 'ga',
+"         \ 'Rename': 'gR',
+"         \ 'ShowHover': v:true,
+"         \ 'DocumentSymbol': 'go',
+"         \ 'WorkspaceSymbol': 'gS',
+"         \ 'SignatureHelp': 'gm',
+"         \ 'Completion': 'completefunc',
+"         \}
+"     highlight lscDiagnosticError ctermfg=black ctermbg=DarkRed
+" endif
 
-    " Language server protocol servers
-    let g:LanguageClient_serverCommands = {
-        \ 'haskell': ['hie-wrapper'],
-        \ 'python': ['pyls'], 
-        \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'], 
-        \ }
-endif
+" Language servers
+lua require('lsp')
 
-if PlugLoaded('vim-lsc')
-    set shortmess-=F " avoid suppressing errors
-    let g:lsc_server_commands = {
-        \ 'python': 'pyls',
-        \ 'markdown': ['unified-language-server', '--parser=remark-parse', '--stdio'],
-        \}
-    let g:lsc_enable_autocomplete = v:false
-    let g:lsc_auto_map = {
-        \ 'GoToDefinition': '<C-]>',
-        \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-        \ 'FindReferences': 'gr',
-        \ 'NextReference': '<C-n>',
-        \ 'PreviousReference': '<C-p>',
-        \ 'FindImplementations': 'gI',
-        \ 'FindCodeActions': 'ga',
-        \ 'Rename': 'gR',
-        \ 'ShowHover': v:true,
-        \ 'DocumentSymbol': 'go',
-        \ 'WorkspaceSymbol': 'gS',
-        \ 'SignatureHelp': 'gm',
-        \ 'Completion': 'completefunc',
-        \}
-    highlight lscDiagnosticError ctermfg=black ctermbg=DarkRed
-endif
-
-if PlugLoaded('vim-lsp')
-    if executable('pyls')
-        " pip install python-language-server
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'pyls',
-            \ 'cmd': {server_info->['pyls']},
-            \ 'allowlist': ['python'],
-            \ })
-    endif
-
-    function! s:on_lsp_buffer_enabled() abort
-        setlocal omnifunc=lsp#complete
-        setlocal signcolumn=yes
-        if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-        nmap <buffer> gd <plug>(lsp-definition)
-        nmap <buffer> gr <plug>(lsp-references)
-        nmap <buffer> gi <plug>(lsp-implementation)
-        nmap <buffer> gt <plug>(lsp-type-definition)
-        nmap <buffer> <leader>rn <plug>(lsp-rename)
-        nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-        nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-        nmap <buffer> K <plug>(lsp-hover)
-
-        let g:lsp_format_sync_timeout = 1000
-        autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-
-        " refer to doc to add more commands
-    endfunction
-
-    augroup lsp_install
-        au!
-        " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-    augroup END
-endif
 
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
@@ -444,23 +340,6 @@ if PlugLoaded('vim-rooter')
     let g:rooter_change_directory_for_non_project_files = 'current'
     let g:rooter_resolve_links = 1
     let g:rooter_patterns = ['.git', 'Makefile']
-endif
-
-if PlugLoaded('LanguageClient-neovim')
-    " Language
-    nnoremap <F6> :call LanguageClient_contextMenu()<CR>
-    " rename current symbol:
-    nmap zr :call LanguageClient#textDocument_rename()<CR>
-    " show hover information (documentation etc):
-    nmap zi :call LanguageClient#textDocument_hover()<CR>
-    " go to definition of current symbol:
-    nmap zd :call LanguageClient#textDocument_definition()<CR>
-    " list where current symbol is referenced:
-    nmap zk :call LanguageClient#textDocument_references()<CR>
-    " list symbols in the document:
-    nmap zs :call LanguageClient#textDocument_documentSymbol()<CR>
-    " suggestions for actions to take:
-    nmap za :call LanguageClient#textDocument_codeAction()<CR>
 endif
 
 if PlugLoaded('vim-signify')
@@ -472,20 +351,8 @@ if PlugLoaded('vim-signify')
     " See also https://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
     let g:signify_sign_add               = '✚' " '●' " nf:  / unifont: ⊞⊕
     let g:signify_sign_delete            = '✖' " '●' " nf:  / unifont: ⊟⊖
-    let g:signify_sign_delete_first_line = '❍' " '●' " nf:  / unifont: ⊠⊡⊗⊚⊘⊙⊜⊝
+    let g:signify_sign_delete_first_line = '●' " '●' " nf:  / unifont: ⊠⊡⊗⊚⊘⊙⊜⊝
     let g:signify_sign_change            = '✱' " '●' " nf: פֿ / unifont: ⊛⊙
-endif
-
-if PlugLoaded('vim-easy-align')
-    " Start interactive EasyAlign in visual mode (e.g. vipga)
-    xmap ga <Plug>(EasyAlign)
-    " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-    nmap ga <Plug>(EasyAlign)
-endif
-
-if PlugLoaded('gundo.vim')
-    " View undo tree
-    nnoremap <F5> :GundoToggle<CR>
 endif
 
 if PlugLoaded('vim-sneak')
@@ -494,31 +361,8 @@ if PlugLoaded('vim-sneak')
     let g:sneak#absolute_dir = 1
     let g:sneak#s_next = 1
     let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
-    " map f <Plug>Sneak_s
-    " map F <Plug>Sneak_S
-    " map f <Plug>Sneak_f
-    " map F <Plug>Sneak_F
     map f <Plug>Sneak_f
     map F <Plug>Sneak_F
-
-    "map <Space> <Plug>Sneak_s
-    "map <BackSpace> <Plug>Sneak_S
-    " map <Space> <Plug>Sneak_;
-    " map <BackSpace> <Plug>Sneak_,
-endif
-
-if PlugLoaded('comfortable-motion.vim')
-    let g:comfortable_motion_no_default_key_mappings = 1
-    let g:comfortable_motion_impulse_multiplier = 1.5
-    nnoremap <silent> <PageDown> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 1)<CR>
-    nnoremap <silent> <PageUp> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -1)<CR>
-endif
-
-if PlugLoaded('vim-schlepp')
-    vmap <up>    <Plug>SchleppUp
-    vmap <down>  <Plug>SchleppDown
-    vmap <left>  <Plug>SchleppLeft
-    vmap <right> <Plug>SchleppRight
 endif
 
 if PlugLoaded('smartpairs.vim')
@@ -578,6 +422,12 @@ if PlugLoaded('goyo.vim')
     " }
 endif
 
+if PlugLoaded('hop.nvim')
+    lua require'hop'.setup()
+    nmap <C-space> :HopVertical<CR>
+    nmap <space> :HopWord<CR>
+endif
+
 if PlugLoaded('fzf.vim')
     nmap gj :Files<CR>
     nmap gb :Buffers<CR>
@@ -620,16 +470,6 @@ nmap . :bnext<CR>
 " previous buffer:
 nmap , :bprevious<CR>
 
-" Insert lines
-nmap = o<Esc>79a=<Esc>0
-nmap - o<Esc>79a-<Esc>0
-nmap ~ o<Esc>79a~<Esc>0
-
-nnoremap <silent> <leader> :WhichKey '\'<CR>
-
-" Set leader to space, for mapping more actions to leader keys
-let mapleader = "\<Space>"
-
 " Turn hard wrapped text into soft wrapped.
 " This command will join all lines within a range that are not separated
 " by empty lines. Automatic word wrap must be off (set fo-=a).
@@ -638,17 +478,6 @@ let mapleader = "\<Space>"
 command! -range=% SoftWrap
             \ <line2>put _ |
             \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
-
-" Clear cmd line message
-" function! s:empty_message(timer)
-"   if mode() ==# 'n'
-"     echon ''
-"   endif
-" endfunction
-" augroup cmd_msg_cls
-"     autocmd!
-"     autocmd CmdlineLeave :  call timer_start(1000, funcref('s:empty_message'))
-" augroup END
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
 

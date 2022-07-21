@@ -34,3 +34,5 @@ done
 
 sudo mkdir -p /etc/keyd
 sudo install -C -t /etc/keyd $root/etc/keyd/default.conf
+sudo systemctl restart keyd
+xset r rate 300 45
