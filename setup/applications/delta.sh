@@ -4,7 +4,7 @@
 #
 # SOURCE: https://github.com/dandavison/delta
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/delta
-# DEBIAN: -
+# DEBIAN: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=944028
 set -euo pipefail
 
 mkdir -p ~/.builds/debs

@@ -4,7 +4,7 @@
 #
 # SOURCE: https://github.com/soywod/himalaya
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/himalaya
-# DEBIAN: -
+# DEBIAN: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1000161
 set -euo pipefail
 
 tmpdir=$(mktemp -d)
