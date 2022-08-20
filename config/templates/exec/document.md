@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Markdown files are generated from the filename, not just copied
 
 tee << EOF

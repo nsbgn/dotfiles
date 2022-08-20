@@ -7,7 +7,7 @@
 [interactive]
 	diffFilter = delta --color-only
 [merge]
-	tool = imediff
+	tool = meld
 [icdiff]
 	options = --highlight --line-numbers
 [delta]

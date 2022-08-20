@@ -34,9 +34,9 @@ window#waybar.chromium {
     border: none;
 }
 
-#workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
+#workspaces button, #tags button {
+    padding: 2px 8px 3px;
+    /* background: rgba(1, 0, 0, 0.2); */
     color: black;
     /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
@@ -46,18 +46,41 @@ window#waybar.chromium {
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover {
+#workspaces button:hover, #tags button:hover {
     background: rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 -3px #ffffff;
+    box-shadow: inset 0 -3px #000000;
 }
 
-#workspaces button.focused {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
+#workspaces button.occupied, #tags button.occupied {
+    box-shadow: inset 0 -3px #cccccc;
 }
 
-#workspaces button.urgent {
+#workspaces button.focused, #tags button.focused {
+    /* background-color: #64727D; */
+    box-shadow: inset 0 -3px #000000;
+}
+
+#workspaces button.urgent, #tags button.urgent {
     background-color: #eb4d4b;
+}
+
+#taskbar {
+    margin: 3px 12px 0 12px;
+}
+#taskbar button {
+    margin: 0 2px;
+    padding: 0 4px;
+}
+
+#taskbar button.active {
+    box-shadow: inset 0 -3px #000000;
+    background: rgba(0, 0, 0, 0.1);
+}
+#taskbar button.minimized {
+    box-shadow: inset 0 -3px #aaaaaa;
+}
+#taskbar button.maximized {
+    box-shadow: inset 0 -3px #aaaaaa;
 }
 
 #mode {
@@ -253,12 +276,4 @@ label:focus {
     background: rgba(0, 0, 0, 0.2);
 }
 
-#taskbar button.active {
-    background: #00ff00;
-}
-#taskbar button.minimized {
-    background: #ff0000;
-}
-#taskbar button.maximized {
-    background: #0000ff;
-}
+

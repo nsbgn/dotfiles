@@ -36,51 +36,54 @@ end
 
 
 -- $ npm i -g pyright
-local util = require("lspconfig/util")
-require('lspconfig').pyright.setup{
-  on_attach = on_attach,
-  flags = { debounce_text_changes = 150 },
-  root_dir = function(fname)
-    return util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
-      util.path.dirname(fname)
-  end,
-  python = {
-    analysis = {
-      autoSearchPaths = false,
-      diagnosticMode = "workspace",
-      useLibraryCodeForTypes = true,
-    }
-  }
-}
-
--- https://github.com/python-lsp/python-lsp-server
--- $ pip3 install python-lsp-server[all] pylsp-mypy
--- require('lspconfig').pylsp.setup {
---   settings = {
---     pylsp = {
---       configurationSources = {"flake8"},
---       plugins = {
---         jedi_completion = {enabled = true},
---         jedi_hover = {enabled = true},
---         jedi_references = {enabled = true},
---         jedi_signature_help = {enabled = true},
---         jedi_symbols = {enabled = true, all_scopes = true},
---         pycodestyle = {enabled = true},
---         flake8 = {
---           enabled = true,
---           ignore = {},
---           maxLineLength = 79
---         },
---         mypy = {enabled = true},
---         pylsp_mypy = {enabled = true},
---         isort = {enabled = false},
---         yapf = {enabled = true},
---         pylint = {enabled = false},
---         pydocstyle = {enabled = false},
---         mccabe = {enabled = false},
---         preload = {enabled = true},
---         rope_completion = {enabled = true}
---       }
+-- local util = require("lspconfig/util")
+-- require('lspconfig').pyright.setup{
+--   on_attach = on_attach,
+--   flags = { debounce_text_changes = 150 },
+--   root_dir = function(fname)
+--     return util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
+--       util.path.dirname(fname)
+--   end,
+--   python = {
+--     analysis = {
+--       autoSearchPaths = false,
+--       diagnosticMode = "workspace",
+--       useLibraryCodeForTypes = true,
 --     }
 --   }
 -- }
+
+-- https://github.com/python-lsp/python-lsp-server
+-- $ pip3 install python-lsp-server[all] pylsp-mypy
+require('lspconfig').pylsp.setup {
+  settings = {
+    pylsp = {
+      configurationSources = {"flake8"},
+      plugins = {
+        jedi_completion = {enabled = true},
+        jedi_hover = {enabled = true},
+        jedi_references = {enabled = true},
+        jedi_signature_help = {enabled = true},
+        jedi_symbols = {enabled = true, all_scopes = true},
+        pycodestyle = {
+          enabled = true,
+          ignore = {'E128'}
+        },
+        flake8 = {
+          enabled = true,
+          ignore = {'E128'},
+          maxLineLength = 79
+        },
+        mypy = {enabled = true},
+        pylsp_mypy = {enabled = true},
+        isort = {enabled = false},
+        yapf = {enabled = true},
+        pylint = {enabled = false},
+        pydocstyle = {enabled = false},
+        mccabe = {enabled = false},
+        preload = {enabled = true},
+        rope_completion = {enabled = true}
+      }
+    }
+  }
+}

@@ -82,6 +82,7 @@ PACKAGES=(
     wget
     git
     tig
+    meld # diff merge tool
     pass
     gnupg
     fd-find # Search for files on the filesystem; `find` alternative

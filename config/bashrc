@@ -12,8 +12,6 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 export PS1="\W\$(__git_ps1) > \[$(tput sgr0)\]" # [\u@\h]
 
-
-
 source "$HOME/.bash_aliases"
 source /etc/bash_completion
 # eval "$(register-python-argcomplete3 pubs)" # ~/.local/bin/pubs adds layer of

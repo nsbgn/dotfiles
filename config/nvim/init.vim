@@ -76,8 +76,8 @@ call plug#begin(stdpath('data') . '/plugged')
 
     " Use v* to select word, paragraph, whatever is between delimiting pairs.
     " Not perfect since I'd like to select sentences, paragraphs
-    Plug 'https://github.com/gorkunov/smartpairs.vim.git'
-    " Plug 'https://github.com/terryma/vim-expand-region'
+    " Plug 'https://github.com/gorkunov/smartpairs.vim.git'
+    Plug 'https://github.com/terryma/vim-expand-region'
     " Plug 'https://github.com/ZhiyuanLck/smart-pairs'
 
     " Text exchange
@@ -120,7 +120,7 @@ call plug#begin(stdpath('data') . '/plugged')
     "
     "
     "-- Show context while editing
-    Plug 'https://github.com/romgrk/nvim-treesitter-context'
+    " Plug 'https://github.com/romgrk/nvim-treesitter-context'
 
 call plug#end()
 
@@ -231,9 +231,6 @@ noremap <silent> j gj
 " File-specific configuration
 
 if has("autocmd")
-    "au TermEnter * setlocal nonumber
-    "au TermLeave * setlocal number
-
     " formatoptions:
     " - a sets our text to automatically wrap when it reaches textwidth
     " - w defines paragraphs as being separated by a blank line
@@ -273,21 +270,17 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin configuration
 
-if PlugLoaded('vim-markdown')
-    let g:vim_markdown_folding_disabled=1
-    let g:vim_markdown_conceal=0
-    let g:tex_conceal = ""
-    let g:vim_markdown_math = 1
-    let g:vim_markdown_frontmatter = 1
-endif
-
 if PlugLoaded('vim-pandoc-syntax')
-    highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
-    highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
     let g:pandoc#syntax#conceal#use=0
 endif
 
 highlight htmlH1 cterm=bold ctermfg=DarkMagenta
+highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
+highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
+highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
+highlight SignifySignAdd ctermfg=Green cterm=NONE
+highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
+highlight SignifySignChange ctermfg=Magenta cterm=NONE
 
 if PlugLoaded('lf.vim')
     " Unmap default lf key
@@ -297,38 +290,6 @@ if PlugLoaded('lf.vim')
     " and not to start other programs within the lf session
     let g:lf_command_override = 'lf -command "map e; map i; map w"'
 endif
-
-"if PlugLoaded('float-preview.nvim')
-"    set completeopt-=preview " extra info will now be shown in floating window
-"    let g:float_preview#docked = 1
-"    let g:float_preview#max_height = 50
-"    "let g:float_preview#max_width = 80
-"endif
-
-" if PlugLoaded('vim-lsc')
-"     set shortmess-=F " avoid suppressing errors
-"     let g:lsc_server_commands = {
-"         \ 'python': 'pyls',
-"         \ 'markdown': ['unified-language-server', '--parser=remark-parse', '--stdio'],
-"         \}
-"     let g:lsc_enable_autocomplete = v:false
-"     let g:lsc_auto_map = {
-"         \ 'GoToDefinition': '<C-]>',
-"         \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-"         \ 'FindReferences': 'gr',
-"         \ 'NextReference': '<C-n>',
-"         \ 'PreviousReference': '<C-p>',
-"         \ 'FindImplementations': 'gI',
-"         \ 'FindCodeActions': 'ga',
-"         \ 'Rename': 'gR',
-"         \ 'ShowHover': v:true,
-"         \ 'DocumentSymbol': 'go',
-"         \ 'WorkspaceSymbol': 'gS',
-"         \ 'SignatureHelp': 'gm',
-"         \ 'Completion': 'completefunc',
-"         \}
-"     highlight lscDiagnosticError ctermfg=black ctermbg=DarkRed
-" endif
 
 " Language servers
 lua require('lsp')
@@ -344,10 +305,6 @@ endif
 
 if PlugLoaded('vim-signify')
     set signcolumn=auto
-    highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
-    highlight SignifySignAdd ctermfg=Green cterm=NONE
-    highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
-    highlight SignifySignChange ctermfg=Magenta cterm=NONE
     " See also https://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
     let g:signify_sign_add               = '✚' " '●' " nf:  / unifont: ⊞⊕
     let g:signify_sign_delete            = '✖' " '●' " nf:  / unifont: ⊟⊖
@@ -424,8 +381,25 @@ endif
 
 if PlugLoaded('hop.nvim')
     lua require'hop'.setup()
-    nmap <C-space> :HopVertical<CR>
-    nmap <space> :HopWord<CR>
+    " Later, <space>? should do other things too
+    nmap <space><space> :HopWord<CR>
+    nmap <C-space> :HopLine<CR>
+
+lua << EOF
+vim.keymap.set("n", "-a", function()
+    -- require'hop'.hint_patterns({}, [[\(\w\+\)\|^.*$]])
+    require'hop'.hint_patterns({}, [[\s*]])
+end, { silent = true, noremap = true })
+EOF
+
+endif
+
+if PlugLoaded('vim-smoothie')
+    let g:smoothie_no_default_mappings = 1
+    nnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
+    nnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
+    vnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
+    vnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
 endif
 
 if PlugLoaded('fzf.vim')
@@ -433,6 +407,14 @@ if PlugLoaded('fzf.vim')
     nmap gb :Buffers<CR>
     nmap gl :Lines<CR>
     nmap gm :Marks<CR>
+endif
+
+if PlugLoaded('telescope.nvim')
+    nnoremap gf <cmd>Telescope git_files<cr>
+    nnoremap gF <cmd>Telescope find_files<cr>
+    nnoremap gj <cmd>Telescope live_grep<cr>
+    nnoremap gb <cmd>Telescope buffers<cr>
+    nnoremap gd <cmd>Telescope lsp_definitions<cr>
 endif
 
 if PlugLoaded('vim-buftabline')

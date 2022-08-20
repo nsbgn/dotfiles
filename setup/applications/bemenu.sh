@@ -4,7 +4,7 @@
 # Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=955803
 set -euo pipefail
 
-sudo apt install scdoc wayland-protocols libcairo-dev libpango1.0-dev libxkbcommon-dev libwayland-dev
+sudo apt install scdoc wayland-protocols libcairo-dev libpango1.0-dev libxkbcommon-dev libwayland-dev libncurses-dev libcairo2-dev libxinerama-dev
 git clone https://github.com/Cloudef/bemenu
 cd bemenu
 make

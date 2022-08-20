@@ -2,9 +2,9 @@
     "layer": "top",
     "position": "top",
     "spacing": 0,
-    "modules-left": ["wlr/taskbar", "river/tags"],
+    "modules-left": ["river/tags", "wlr/taskbar"],
     "modules-center": [],
-    "modules-right": ["custom/mpris", "pulseaudio", "battery", "tray", "clock"],
+    "modules-right": ["custom/mpris", "pulseaudio", "battery", "clock", "tray"],
 
     "river/tags": {"num-tags": 4},
     "sway/window": {
@@ -38,7 +38,7 @@
         "format-icons": ["", "", "", "", ""]
     },
     "clock": {
-        "format": "{:%H:%M %a %d}"
+        "format": " {:%H:%M %a %d}"
     },
     "custom/mpris": {
         /* "rotate": 90, */
