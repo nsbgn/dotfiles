@@ -1,3 +1,8 @@
+#!/bin/ash
+
+# Initial install
+
+tee ANSWERFILE << EOF
 KEYMAPOPTS="us us"
 HOSTNAMEOPTS="-n alpine"
 INTERFACEOPTS="auto lo
@@ -10,4 +15,9 @@ TIMEZONEOPTS="-z Europe/Amsterdam"
 # APKREPOSOPTS="-r"
 SSHDOPTS="-c openssh"
 NTPOPTS="-c openntpd"
-# DISKOPTS="-m data /dev/sda"
+DISKOPTS="-m data /dev/sda"
+EOF
+
+setup-alpine -f ANSWERFILE
+
+
