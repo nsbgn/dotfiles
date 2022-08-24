@@ -7,36 +7,30 @@ them as boring as possible while still being useful. Constraints:
 
 -   Rely on standard repositories as much as possible, but don't avoid 
     building from source if there is a good reason. Software that is in 
-    the repositories of [Debian](https://packages.debian.org/) has my 
-    preference, especially if it overlaps with 
-    [Alpine](https://pkgs.alpinelinux.org/packages).
+    the repositories of [Debian][debn] has my preference, especially if 
+    it overlaps with [Alpine][alpn].
 
 -   A barebones theme, black on white, using mellow, cozy colours for 
     highlights (such as saffron, brown, terracotta, olive, khaki, rust, 
     charcoal). Easy on the eyes without fancy effects.
 
 My favourite window managers are river and bspwm. I'm also interested in 
-Wayfire with [Firedecor](https://github.com/AhoyISki/Firedecor).
+Wayfire with [Firedecor][fdec].
 
-Because the configurations assume that my 
-[scripts](https://github.com/slakkenhuis/scripts) are in your `PATH`, 
-these are added as a 
-[subtree](https://www.atlassian.com/git/tutorials/git-subtree).
+The files can be managed using a [bare git repository][bare] or with 
+[yadm](https://yadm.io/), a [dotfile managers][dots] that is in both the 
+Debian and Alpine repositories.
 
-To do:
+Because the configurations assume that my [scripts][scri] are in your 
+`PATH`, these are added as a [subtree][atla]. Eventually, I want to make 
+the install fully [automatic][auto], or using a [preseed][seed].
 
--   Use [dotfile managers](https://dotfiles.github.io/utilities/). From 
-    what I can see, [yadm](https://yadm.io/) and 
-    [chezmoi](https://chezmoi.io/) seem most promising, but the former 
-    is only in Debian and the latter only in Alpine. 
-    [vcsh](https://github.com/RichiH/vcsh) is an option. Alternatively, 
-    use a [plain git 
-    repository](https://cblte.github.io/sammelsurium/configs/the-best-way-to-store-your-dotfiles/). 
-    See also <https://github.com/raven2cz/dotfiles/> for inspiration.
--   There should be a 
-    [hook](https://stackoverflow.com/questions/2141492/git-clone-and-post-checkout-hook) 
-    that manages all this after cloning.
--   Eventually, I want to make the install fully 
-    [automatic](https://debian-handbook.info/browse/stable/sect.automated-installation.html), 
-    or using a 
-    [preseed](https://wiki.debian.org/DebianInstaller/Preseed).
+[atla]: https://www.atlassian.com/git/tutorials/git-subtree
+[scrp]: https://github.com/slakkenhuis/scripts
+[dots]: https://dotfiles.github.io/utilities/
+[bare]: https://cblte.github.io/sammelsurium/configs/the-best-way-to-store-your-dotfiles/
+[debn]: https://packages.debian.org/
+[alpn]: https://pkgs.alpinelinux.org/packages
+[fdec]: https://github.com/AhoyISki/Firedecor
+[auto]: https://debian-handbook.info/browse/stable/sect.automated-installation.html
+[seed]: https://wiki.debian.org/DebianInstaller/Preseed
