@@ -2,10 +2,10 @@
 # Alpine packages installed on every system
 # <https://wiki.alpinelinux.org/wiki/Post_installation>
 # <https://wiki.alpinelinux.org/wiki/Alpine_setup_scripts>
-# <https://wiki.alpinelinux.org/wiki/How_to_get_regular_stuff_working>
 # <https://docs.alpinelinux.org/user-handbook/0.1a/Working/apk.html>
 # <https://docs.alpinelinux.org/user-handbook/0.1a/Installing/manual.html>
 # <https://wiki.archlinux.org/title/Syslinux#Auto_boot>
+# <https://wiki.alpinelinux.org/wiki/Wi-Fi>
 
 # Enable community repositories
 tee /etc/apk/repositories << EOF
@@ -19,16 +19,42 @@ apk upgrade
 # Change default shell to bash
 # <https://wiki.alpinelinux.org/wiki/Change_default_shell>
 apk add libuser ncurses bash bash-completion bash-doc
+
+# QEMU things
+# <https://wiki.archlinux.org/title/QEMU/Guest_graphics_acceleration>
+# <https://qemu-project.gitlab.io/qemu/system/targets.html>
+# <https://www.collabora.com/news-and-blog/blog/2021/11/26/venus-on-qemu-enabling-new-virtual-vulkan-driver/>
+apk add qemu-guest-agent
+
+
 touch /etc/login.defs
 mkdir /etc/default
 touch /etc/default/useradd
 lchsh $USER
 
+# Less minimalist stuff
+# <https://wiki.alpinelinux.org/wiki/How_to_get_regular_stuff_working>
+apk add sed attr dialog dialog-doc bash bash-doc bash-completion grep grep-doc
+apk add util-linux util-linux-doc pciutils usbutils binutils findutils readline
+apk add man man-pages lsof lsof-doc less less-doc nano nano-doc curl curl-doc
+apk add coreutils coreutils-doc
+
+# <https://wiki.alpinelinux.org/wiki/Wayland>
+tee /etc/profile.d/xdg_runtime_dir.sh << EOF
+if test -z "$${XDG_RUNTIME_DIR}"; then
+  export XDG_RUNTIME_DIR=/tmp/$$(id -u)-runtime-dir
+  if ! test -d "$${XDG_RUNTIME_DIR}"; then
+    mkdir "$${XDG_RUNTIME_DIR}"
+    chmod 0700 "$${XDG_RUNTIME_DIR}"
+  fi
+fi
+EOF
+chmod +x /etc/profile.d/xdg_runtime_dir.sh
+
 # Microcode
 apk add intel-ucode amd-ucode
 
 # Firmware
-# cf <https://wiki.alpinelinux.org/wiki/Wi-Fi>
 apk install linux-firmware
 
 #  
@@ -40,6 +66,7 @@ rc-update add seatd
 rc-service seatd start
 adduser $USER seat
 
+apk add mesa-va-gallium # for radeon
 apk add mesa-dri-gallium
 addgroup $USER input
 addgroup $USER video
