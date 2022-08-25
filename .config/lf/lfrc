@@ -38,7 +38,7 @@ cmd trash ${{
 }}
 
 # Creating a new directory or file
-cmd mkfile %~/.config/lf/new.sh "$(echo $* | tr ' ' '\ ')"
+cmd mkfile %add "$(echo $* | tr ' ' '\ ')"
 cmd open ${{
     case $f in
         *.md|*.txt|*.py|*.ttl)
