@@ -26,3 +26,14 @@
 -   https://github.com/daa84/neovim-gtk
 -   https://github.com/beeender/glrnvim
 -   https://github.com/yatli/fvim
+
+
+# inputrc
+
+-   <https://ss64.com/bash/syntax-inputrc.html>
+
+# tmux
+
+-   <https://zserge.com/posts/tmux/>
+-   <https://tao-of-tmux.readthedocs.io/en/latest/manuscript/09-status-bar.html>
+-   <https://thevaluable.dev/tmux-boost-productivity-terminal/>
