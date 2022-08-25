@@ -14,6 +14,8 @@ them as boring as possible while still being useful. Constraints:
     highlights (such as saffron, brown, terracotta, olive, khaki, rust, 
     charcoal). Easy on the eyes without fancy effects.
 
+Setup scripts at [`.config/yadm/setup/`](.config/yadm/setup/).
+
 My favourite window managers are river and bspwm. I'm also interested in 
 Wayfire with [Firedecor][fdec].
 
@@ -21,7 +23,7 @@ The files can be managed using a [bare git repository][bare] or with
 [yadm](https://yadm.io/), a [dotfile managers][dots] that is in both the 
 Debian and Alpine repositories.
 
-Because the configurations assume that my [scripts][scri] are in your 
+Because the configurations assume that my [scripts][scrp] are in your 
 `PATH`, these are added as a [subtree][atla]. Eventually, I want to make 
 the install fully [automatic][auto], or using a [preseed][seed].
 
