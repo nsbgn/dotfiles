@@ -14,14 +14,10 @@ mkdir -p ~/.local/share
     :
 
 mkdir -p ~/.config
-for FILE in "$root"/.config/*; do
-    NAME="$(basename $FILE)"
-    if [ -d "$FILE" -o "$NAME" == "user-dirs.dirs" -o "$NAME" == "wayfire.ini" ]; then
-        DEST="$HOME/.config/$NAME"
-    else
-        DEST="$HOME/.$NAME"
-    fi
 
+link(){
+    FILE=$1
+    DEST=$2
     echo "$FILE -> $DEST"
     # overwrite symbolic links but nothing else
     if [ -L "$DEST" ]; then
@@ -29,10 +25,23 @@ for FILE in "$root"/.config/*; do
     else
         ln -srT "$FILE" "$DEST" || :
     fi
+}
 
+for FILE in "$root"/.*; do
+    if [ -f "$FILE" ]; then
+        NAME="$(basename $FILE)"
+        DEST="$HOME/$NAME"
+        link "$FILE" "$DEST"
+   fi
 done
 
-sudo mkdir -p /etc/keyd
-sudo install -C -t /etc/keyd $root/etc/keyd/default.conf
-sudo systemctl restart keyd
-xset r rate 300 45
+
+for FILE in "$root"/.config/*; do
+    NAME="$(basename $FILE)"
+    if [ -d "$FILE" -o "$NAME" == "user-dirs.dirs" -o "$NAME" == "wayfire.ini" ]; then
+        DEST="$HOME/.config/$NAME"
+    else
+        DEST="$HOME/.$NAME"
+    fi
+    link "$FILE" "$DEST"
+done
