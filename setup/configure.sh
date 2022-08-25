@@ -14,7 +14,7 @@ mkdir -p ~/.local/share
     :
 
 mkdir -p ~/.config
-for FILE in "$root"/config/*; do
+for FILE in "$root"/.config/*; do
     NAME="$(basename $FILE)"
     if [ -d "$FILE" -o "$NAME" == "user-dirs.dirs" -o "$NAME" == "wayfire.ini" ]; then
         DEST="$HOME/.config/$NAME"
