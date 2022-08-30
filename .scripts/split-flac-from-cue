@@ -1,0 +1,12 @@
+#!/bin/bash
+# Split FLAC according to a CUE file
+#
+# Dependencies:
+#   apt-get install cuetools shntool
+set -eu
+
+CUE="$1"
+FLAC="${CUE%.cue}.flac"
+
+cuebreakpoints "$CUE" | shnsplit -o flac "$FLAC"
+cuetag "$CUE" split-*.flac
