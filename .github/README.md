@@ -3,10 +3,11 @@
 This repository contains my configuration files, which should be boring 
 and few in number. They can be managed using a [bare git 
 repository][bare] or with a [dotfile manager][dots] like [yadm][yadm]. 
-Setup scripts are at [`.config/yadm/setup/`](../.config/yadm/setup/). 
 Because the configurations assume that my [scripts][scrp] are in your 
 `PATH`, these are added as a [subtree][atla] at 
 [`.scripts/`](../.scripts).
+
+-   I want to organize my life around FOSS only.
 
 -   Prefer small, composable applications that do one thing well.
 
@@ -16,7 +17,8 @@ Because the configurations assume that my [scripts][scrp] are in your
     a good reason.
 
 -   Eventually, I want to make the install fully [automatic][auto], or 
-    using a [preseed][seed].
+    using a [preseed][seed]. Also, make proper packages for 
+    [Alpine][apkg] and Debian.
 
 -   The windowing environments that have my interest are [river][rivr], 
     [Phosh][phsh], [Wayfire][wayf] with [Firedecor][fdec], and, in the 
@@ -36,3 +38,7 @@ Because the configurations assume that my [scripts][scrp] are in your
 [wayf]: https://wayfire.org/
 [fdec]: https://github.com/AhoyISki/Firedecor
 [bspw]: https://github.com/baskerville/bspwm
+
+[tmsu]: https://tmsu.org/
+[apkg]: https://wiki.alpinelinux.org/wiki/Creating_an_Alpine_package
+

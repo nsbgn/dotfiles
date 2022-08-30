@@ -2,7 +2,9 @@
 # This script sets you up to automatically log in without being prompted, which
 # makes sense when the system is single-user and full-disk encryption blocks
 # physical access.
-set -e
+set -eu
+
+grep -q debian /etc/os-release || exit 1
 
 # System should boot to TTY rather than display manager. Set to
 # graphical.target to reverse.

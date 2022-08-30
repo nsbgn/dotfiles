@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 # This enables the Syncthing service. GUI on localhost:8384
-set -euo pipefail
+set -eu
 
 sudo apt install syncthing
 systemctl enable syncthing@$HOST.service

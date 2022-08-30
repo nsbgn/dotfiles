@@ -18,12 +18,8 @@ flatpak install flathub org.DolphinEmu.dolphin-emu
 # Xonotic game because it is (not in Debian)
 flatpak install flathub org.xonotic.Xonotic
 
-# Soulseek client (no longer in Debian)
-flatpak install flathub org.nicotine_plus.Nicotine
-
 # OpenRCT2 Rollercoaster Tycoon reimplementation (not in Debian)
 flatpak install flathub io.openrct2.OpenRCT2
 
-# Element messenger
-flatpak install flathub im.riot.Riot
-
+# Soulseek client (no longer in Debian)
+flatpak install flathub org.nicotine_plus.Nicotine

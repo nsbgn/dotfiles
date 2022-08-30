@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Make sure bitmap fonts are accepted --- they look better at small resolutions
 set -euo pipefail
 

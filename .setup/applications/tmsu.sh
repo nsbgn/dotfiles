@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 # tmsu - Tagging files
-# https://github.com/oniony/TMSU
-set -euo pipefail
+# <https://github.com/oniony/TMSU>
+# <https://tmsu.org>
+set -eu
 
 mkdir -p ~/.builds/tmsu
 wget -O /tmp/tmsu.tgz "$( \

@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 # Tweaks for laptops
-
 # https://wiki.archlinux.org/title/Laptop_Mode_Tools
 # https://wiki.archlinux.org/title/Powertop
 
