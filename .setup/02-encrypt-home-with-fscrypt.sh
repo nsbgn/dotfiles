@@ -12,6 +12,10 @@
 # <https://wiki.archlinux.org/title/Fscrypt>
 # <https://wiki.archlinux.org/title/PAM>
 # <https://wiki.gentoo.org/wiki/PAM>
+#
+# Alternatively, consider:
+# <https://wiki.archlinux.org/title/gocryptfs>
+# <https://github.com/rfjakob/gocryptfs/wiki/Mounting-on-login-using-pam_mount>
 
 set -eu
 
