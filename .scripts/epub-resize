@@ -1,0 +1,32 @@
+#!/bin/sh
+# This is a quick script to compress EPUBs into a reasonable filesize
+set -eu
+
+INFILE="$1"
+OUTFILE="$PWD/$(basename -s .epub "$INFILE").c.epub"
+
+test -e "$INFILE" -a ! -e "$OUTFILE" || exit 1
+which find mogrify unzip zip mktemp || exit 1
+
+# Make a temporary directory to unzip to and make sure it gets destroyed
+TMP=$(mktemp -d "${TMPDIR:-/tmp}/$(basename "$0").XXXXX")
+finalize() {
+    rm -rf "$TMP"
+}
+trap finalize EXIT
+
+echo "Unzipping"
+unzip -n "$INFILE" -d "$TMP"
+
+echo "Resizing images"
+find "$TMP/OEBPS/images" -type f -exec file --mime-type {} \+ \
+| awk -F: '{if ($2 ~/image\//) print $1}' \
+| xargs mogrify -resize '600x>' -quality 50
+
+echo "Re-zipping"
+cd "$TMP"
+zip -r9 "$OUTFILE" mimetype *
+cd -
+
+echo "Removing temporary directory"
+finalize
