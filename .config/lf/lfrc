@@ -15,7 +15,7 @@ set findlen 2
 set incsearch
 #cmap <esc> cmd-enter
 #cmap <enter> open
-set hiddenfiles .*:__pycache__:*.egg-info:!~/dotfiles/*
+set hiddenfiles .*:__pycache__:*.egg-info:!~/dotfiles/*:node_modules
 
 
 # Dynamically set number of columns
