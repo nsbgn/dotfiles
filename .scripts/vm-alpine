@@ -1,0 +1,62 @@
+#!/bin/sh
+# This script runs an Alpine Linux virtual machine with qemu
+#
+# Ctrl+Alt+G to escape from the guest to the host
+# <https://wiki.gentoo.org/wiki/QEMU>
+# <https://wiki.alpinelinux.org/wiki/QEMU>
+# <https://wiki.archlinux.org/title/QEMU>
+# <https://wiki.archlinux.org/title/QEMU#Graphic_card>
+# <https://drewdevault.com/2018/09/10/Getting-started-with-qemu.html>
+# <https://lunar.computer/posts/kvm-qemu-libvirt-alpine/>
+
+ARCH="x86_64"
+DIR="$HOME/virt"
+ISO="$DIR/alpine.iso"
+COW="$DIR/alpine.cow"
+RAM="2048"
+CPU=3
+
+# Ensure that dependencies are available
+which yj jq curl qemu-img qemu-system-$ARCH >/dev/null || exit 1
+
+# Make sure that virtual hard disk is available
+if test ! -e "$COW"; then
+    # Make sure that the ISO is available
+    if test ! -e "$ISO"; then
+        URL="https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/$ARCH/"
+        RELEASE="$(curl -s "$URL/latest-releases.yaml" \
+            | yj | jq -r '.[] | select(.flavor == "alpine-virt") | .iso')"
+        mkdir -p "$(dirname $ISO)"
+        curl -s "$URL/$RELEASE" > "$ISO"
+    fi
+    qemu-img create -f qcow2 "$COW" 4G
+    qemu-system-$ARCH -m "$RAM" -cdrom "$ISO" -boot order=d -drive "file=$COW,format=qcow2"
+fi
+
+# Run it
+qemu-system-x86_64 \
+    -m "$RAM" \
+    -enable-kvm \
+    -vga virtio \
+    -device virtio-vga-gl \
+    -display gtk,gl=on \
+    -nic user,model=virtio \
+    -drive file=$COW,media=disk,if=virtio
+
+# -device virtio-gpu-pci \
+# -device virtio-vga-gl \
+# -vga virtio \
+# -device virtio-vga,virgl=on \
+# -device virtio-gpu-pci \
+#   -cpu host \
+# -machine q35 -device intel-iommu \
+# -display egl-headless
+# -hda "Alpine.vdi"
+# -sdl
+# -device virtio-vga-gl \
+# -machine q35 -device intel-iommu \
+# -smp 3 \
+# -boot d \
+#    -net nic,netdev=vmnic \
+# -netdev user,id=vmnic,hostfwd=tcp:127.0.0.1:9001-:2,hostfwd=tcp:127.0.0.1:9081-:80 \
+# -curses \
