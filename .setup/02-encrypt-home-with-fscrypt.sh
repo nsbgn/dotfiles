@@ -19,30 +19,39 @@
 
 set -eu
 
-distro(){
-    grep -q "$1" /etc/os-release
-    exit $?
-}
-
-if distro debian; then
-    sudo apt-get install fscrypt libpam-fscrypt
-elif distro alpine; then
-    cd
-    doas apk add git make gcc go m4 linux-pam-dev e2fsprogs-extra
-    git clone https://github.com/google/fscrypt
-    cd fscrypt
-    make
-    doas make install PREFIX=
-    alias sudo="doas"
-
-    # Default login isn't linked to pam
-    doas apk add shadow-login
-else
-    exit 1
+if test $(id -u) -ne 0; then
+    echo "Must run as root"; exit 1
 fi
+TARGET_USER=$1
+if test -z "$TARGET_USER"; then
+    TARGET_USER=nsbg
+fi
+
+# Make sure that there are no non-hidden files in $HOME
+test -z "$(ls "$HOME")" || exit 1
 
 # Make sure that $HOME is not yet encrypted
 fscrypt status "$HOME" || exit 1
+
+# Make sure that fscrypt et al are installed
+if ! which fscrypt; then
+    if grep -q debian /etc/os-release; then
+        sudo apt-get install fscrypt libpam-fscrypt e2fsprogs util-linux
+    elif grep -q alpine /etc/os-release; then
+        cd
+        doas apk add git make gcc go m4 linux-pam-dev e2fsprogs-extra findmnt
+        git clone https://github.com/google/fscrypt
+        cd fscrypt
+        make
+        doas make install PREFIX=
+        alias sudo="doas"
+
+        # Default login isn't linked to pam
+        doas apk add shadow-login
+    else
+        exit 1
+    fi
+fi
 
 # Find device on which $HOME is mounted
 DEV=$(findmnt -n -o SOURCE --target "$HOME")
@@ -54,45 +63,28 @@ test $(findmnt -n --source "$DEV" -o fstype) == "ext4" || exit 1
 sudo tune2fs -O encrypt "$DEV"
 sudo fscrypt setup
 
-# Debian installs defaults for fscrypt here
-if distro debian && test -e /usr/share/pam-configs/fscrypt; then
+if grep -q debian /etc/os-release; then
+    # Debian installs defaults for fscrypt here
+    test -e /usr/share/pam-configs/fscrypt
     sudo pam-auth-update
 
-elif distro alpine; then
+elif grep -q alpine /etc/os-release; then
+    # TODO pam-fscrypt seems to segfault on Alpine. Need to investigate.
+    exit 1
 
-doas tee /etc/pam.d/fscrypt << EOF
-auth        required    pam_unix.so
-
-# Append this to the auth section
-sudo tee -a /etc/pam.d/system-login << EOF
-auth       optional   pam_fscrypt.so
-EOF
-
-# Insert this before `session include system-auth`. Note: The first line, taken
-# from https://github.com/google/fscrypt/issues/95, is a bypass for the systemd
-# --user session which doesn't properly close its PAM session and would
-# otherwise block the locking on logout.
-sudo tee -a /etc/pam.d/system-login << EOF
-session    [success=1 default=ignore]  pam_succeed_if.so  service = systemd-user quiet
-session    optional                    pam_fscrypt.so
-EOF
-
-sudo tee -a /etc/pam.d/passwd << EOF
-password    optional    pam_fscrypt.so
-EOF
-
+    echo "auth required pam_unix.so" | tee /etc/pam.d/fscrypt
+    sed -i '$aauth optional pam_fscrypt.so' /etc/pam.d/base-auth
+    sed -i '1ipassword optional pam_fscrypt.so' /etc/pam.d/base-password
+    sed -i '$asession optional pam_fscrypt.so' /etc/pam.d/base-session
 else
     exit 1
 fi
 
+# Encrypt a new directory
 CRYPT=/home/$USER.crypt
-sudo mkdir $CRYPT
-sudo chown $USER:$USER $CRYPT
-sudo fscrypt encrypt $CRYPT --user=$USER --source=pam_passphrase
-fscrypt status $CRYPT
-
-# Make sure that $HOME is empty
-test -z "$(ls -A $HOME)" || exit 1
+sudo mkdir "$CRYPT"
+sudo chown $USER:$USER "$CRYPT"
+sudo fscrypt encrypt "$CRYPT" --user=$USER --source=pam_passphrase
 
 # ... That's all.
 # fscrypt lock /home/$USER --user=$USER
