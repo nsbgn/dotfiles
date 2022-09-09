@@ -8,9 +8,10 @@
 # <https://wiki.alpinelinux.org/wiki/Wi-Fi>
 
 # Enable community repositories
+# $(cut -d'.' -f1,2 /etc/alpine-release) for current release
 tee /etc/apk/repositories << EOF
-https://dl-cdn.alpinelinux.org/alpine/v$(cut -d'.' -f1,2 /etc/alpine-release)/main/
-https://dl-cdn.alpinelinux.org/alpine/v$(cut -d'.' -f1,2 /etc/alpine-release)/community/
+https://dl-cdn.alpinelinux.org/alpine/latest-stable/main/
+https://dl-cdn.alpinelinux.org/alpine/latest-stable/community/
 https://dl-cdn.alpinelinux.org/alpine/edge/testing/
 EOF
 apk update

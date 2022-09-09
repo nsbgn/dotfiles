@@ -380,6 +380,7 @@ sudo update-command-not-found
 #    #nheko # Distributed chat client for Matrix
 #    #spectral # Distributed chat client for Matrix
 #    #quaternion # Distributed chat client for Matrix
+#    #hexchat # IRC client
 
 #    # Science
 #    texlive{,-latex-extra,-fonts-extra,-latex-recommended,-science} # Document typesetting
