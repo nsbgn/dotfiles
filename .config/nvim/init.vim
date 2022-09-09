@@ -40,6 +40,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/vito-c/jq.vim'
     Plug 'https://github.com/kovetskiy/sxhkd-vim'
     Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
+    Plug 'https://github.com/dylon/vim-antlr'
 
     " Fuzzy finding
     " Plug 'https://github.com/kien/ctrlp.vim'
@@ -281,6 +282,11 @@ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
 highlight SignifySignAdd ctermfg=Green cterm=NONE
 highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
 highlight SignifySignChange ctermfg=Magenta cterm=NONE
+
+if PlugLoaded('vim-antlr')
+    au BufRead,BufNewFile *.g set filetype=antlr3
+    au BufRead,BufNewFile *.g4 set filetype=antlr4
+endif
 
 if PlugLoaded('lf.vim')
     " Unmap default lf key
