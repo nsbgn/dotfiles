@@ -98,14 +98,14 @@
   <keyboard>
     <repeatRate>25</repeatRate>
     <repeatDelay>600</repeatDelay>
-    <keybind key="A-Tab">
+    <keybind key="W-j">
       <action name="NextWindow" />
     </keybind>
-    <keybind key="W-Return">
-      <action name="Execute"><command>alacritty</command></action>
+    <keybind key="W-t">
+      <action name="Execute"><command>footclient</command></action>
     </keybind>
     <keybind key="A-F3">
-      <action name="Execute"><command>bemenu-run</command></action>
+      <action name="Execute"><command>dmenu-apps</command></action>
     </keybind>
     <keybind key="A-F4">
       <action name="Close" />
