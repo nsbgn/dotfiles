@@ -2,7 +2,7 @@
 # Wrapper script for Wayland compositors
 # Also cf https://man.sr.ht/%7Ekennylevinsen/greetd/
 
-case "$1" in)
+case "$1" in
     gnome)
         CMD="dbus-run-session gnome-session"
         ;;

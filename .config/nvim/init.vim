@@ -32,7 +32,7 @@ call plug#begin(stdpath('data') . '/plugged')
     " Distraction-free writing
     Plug 'https://github.com/junegunn/goyo.vim'
     " Plug 'https://github.com/folke/zen-mode.nvim'
-    " Plug 'https://github.com/Pocco81/TrueZen.nvim'
+    " Plug 'https://github.com/Pocco81/true-zen.nvim'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
@@ -227,6 +227,8 @@ nmap gx <Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<
 noremap <silent> k gk
 noremap <silent> j gj
 
+vmap <silent> ' S"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File-specific configuration
@@ -388,7 +390,7 @@ endif
 if PlugLoaded('hop.nvim')
     lua require'hop'.setup()
     " Later, <space>? should do other things too
-    nmap <space><space> :HopWord<CR>
+    nmap <space> :HopWord<CR>
     nmap <C-space> :HopLine<CR>
 
 lua << EOF
