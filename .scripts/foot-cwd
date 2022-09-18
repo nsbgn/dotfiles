@@ -1,0 +1,16 @@
+#!/bin/sh
+# A hacky way to either open the `foot` terminal, or spawn a new `foot`
+# terminal in the same directory as the currently opened one. For this to work,
+# you must use the OSC-7 escape sequence. See also:
+# <https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory>
+#
+# Dependencies:
+# - <https://codeberg.org/dnkl/foot>
+# - <https://git.sr.ht/~leon_plickat/lswt>
+# - <https://github.com/atx/wtype>
+
+if lswt -j | jq -e '.[] | select(.activated and .app_id == "foot")'; then
+    wtype -M ctrl -M shift -k n -m shift -m ctrl
+else
+    footclient
+fi

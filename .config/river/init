@@ -10,7 +10,7 @@ riverctl spawn "waybar"
 riverctl spawn "foot --server"
 riverctl spawn "gammastep -O 5500K"
 
-riverctl map normal Super T spawn "footclient"
+riverctl map normal Super T spawn "foot-cwd"
 
 riverctl declare-mode goto
 
