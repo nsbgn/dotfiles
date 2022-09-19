@@ -10,7 +10,7 @@
 # - <https://github.com/atx/wtype>
 
 if lswt -j | jq -e '.[] | select(.activated and .app_id == "foot")'; then
-    wtype -M ctrl -M shift -k n -m shift -m ctrl
+    wtype -M ctrl -M shift -k n
 else
     footclient
 fi

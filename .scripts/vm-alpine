@@ -37,11 +37,11 @@ fi
 qemu-system-x86_64 \
     -m "$RAM" \
     -enable-kvm \
-    -vga virtio \
-    -device virtio-vga-gl \
-    -display gtk,gl=on \
-    -nic user,model=virtio \
     -drive file=$COW,media=disk,if=virtio
+    # -vga virtio \
+    # -device virtio-vga-gl \
+    # -display gtk,gl=on \
+    # -nic user,model=virtio
 
 # -device virtio-gpu-pci \
 # -device virtio-vga-gl \
