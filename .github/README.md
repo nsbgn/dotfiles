@@ -54,3 +54,4 @@ Because the configurations assume that my [scripts][scrp] are in your
 [dpkg]: https://wiki.debian.org/Packaging
 
 [eup]: https://www.inkandswitch.com/end-user-programming/
+[hea]: https://linuxhandbook.com/check-ssd-health/

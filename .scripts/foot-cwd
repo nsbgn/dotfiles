@@ -12,5 +12,5 @@
 if lswt -j | jq -e '.[] | select(.activated and .app_id == "foot")'; then
     wtype -M ctrl -M shift -k n
 else
-    footclient
+    footclient $@
 fi

@@ -6,7 +6,8 @@ PACKAGES=(
 
     # Theming
     # Sans serif
-    fonts-{cabin}
+    fonts-{cabin,quicksand,adf-universalis,urw-base35,cantarell,crosextra-caladea}
+    # Serif
     # Monospace
     fonts-{anonymous-pro,hack,inconsolata,firacode,liberation,noto,cascadia-code}
     # Icon
