@@ -95,7 +95,7 @@ sudo rc-service networkmanager start
 apk add breeze-icons
 
 # Window managers
-apk add river phosh wayfire
+apk add river phosh wayfire labwc
 
 # Command not found
 apk add command-not-found

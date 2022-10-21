@@ -106,7 +106,8 @@ PACKAGES=(
     zathura{,-cb,-ps,-djvu,-pdf-poppler}
     okular{,-extra-backends}
     mupdf
-    calcurse # Calendar application
+    khal
+    vdirsyncer
 
     # Python dev environment
     python3-pip

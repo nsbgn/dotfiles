@@ -112,6 +112,9 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/ptzz/lf.vim'
     Plug 'https://github.com/voldikss/vim-floaterm'
 
+    " cf <https://nic-west.com/posts/workman-layout/>
+    Plug 'https://github.com/nicwest/vim-workman'
+
     " Language server protocol
     " Plug 'https://github.com/natebosch/vim-lsc'
     ", { 'tag': 'v0.4.0' }
@@ -242,6 +245,7 @@ if has("autocmd")
 
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+        au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown.pandoc
         autocmd FileType markdown.pandoc setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
     augroup END
 
@@ -302,6 +306,13 @@ endif
 " Language servers
 lua require('lsp')
 
+if PlugLoaded('vim-workman')
+    " Use qwerty-to-workman `langmap` in normal mode
+    let g:workman_normal_workman = 0
+    let g:workman_insert_workman = 0
+    let g:workman_normal_qwerty = 0
+    let g:workman_insert_qwerty = 0
+endif
 
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
@@ -309,6 +320,12 @@ if PlugLoaded('vim-rooter')
     let g:rooter_change_directory_for_non_project_files = 'current'
     let g:rooter_resolve_links = 1
     let g:rooter_patterns = ['.git', 'Makefile']
+
+    " Automatically send OSC-7 for the benefit of foot:
+    " <https://stackoverflow.com/questions/32429471/how-to-send-escape-sequences-from-within-vim>
+    " <https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory>
+    " autocmd User RooterChDir execute "silent !echo -ne \e]7;file://" . hostname() . expand("%:p") . "\e\\\""
+    "
 endif
 
 if PlugLoaded('vim-signify')

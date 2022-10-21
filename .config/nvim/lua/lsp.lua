@@ -67,11 +67,11 @@ require('lspconfig').pylsp.setup {
         jedi_symbols = {enabled = true, all_scopes = true},
         pycodestyle = {
           enabled = true,
-          ignore = {'E128', 'W503'}
+          ignore = {'E128', 'W503', 'E211'}
         },
         flake8 = {
           enabled = true,
-          ignore = {'E128', 'W503'},
+          ignore = {'E128', 'W503', 'E211'},
           maxLineLength = 79
         },
         mypy = {enabled = true},
