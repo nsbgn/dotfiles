@@ -3,7 +3,7 @@
 # to using `yadm` or a plain git repository to managing the files.
 set -euo pipefail
 
-ROOT="$(realpath $(dirname $0)/../..)"
+ROOT="$(realpath $(dirname $0)/..)"
 
 link(){
     # overwrite symbolic links but nothing else
@@ -22,11 +22,11 @@ mkdir -p ~/.local/share ~/.config
     ln -srTf $ROOT/.local/share/applications ~/.local/share/applications || \
     :
 
-for FILE in "$ROOT"/.*; do
-    if [ -f "$FILE" ]; then
-        link "$FILE" "$HOME/$(basename $FILE)"
-   fi
-done
+# for FILE in "$ROOT"/.*; do
+#     if [ -f "$FILE" ]; then
+#         link "$FILE" "$HOME/$(basename $FILE)"
+#    fi
+# done
 
 for FILE in "$ROOT"/.config/*; do
     link "$FILE" "$HOME/.config/$(basename $FILE)"
