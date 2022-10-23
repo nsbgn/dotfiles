@@ -26,4 +26,6 @@ sort_by_depth(){
     | xargs -I{} realpath --relative-to="$HOME" "{}"
 }
 
-find_files | sort_by_depth | fzf --no-sort --exact
+echo -n $HOME/
+find_files | sort_by_depth | fzf --no-sort --exact \
+    || realpath --relative-to="$PWD" $HOME
