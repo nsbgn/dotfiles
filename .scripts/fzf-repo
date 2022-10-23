@@ -7,7 +7,7 @@ HOME_DIRS="$(find $HOME -mindepth 1 -maxdepth 1 -type d -regex '[^.]*')"
 
 find_files(){
     # Find git repositories
-    $FD -H '^\.git$' $HOME_DIRS -x realpath --relative-to="$HOME" {//}
+    $FD -H '^\.git$' $HOME_DIRS -x realpath --relative-to="$PWD" {//}
 
     # Find files in current git repository, if any
     if git -C "$PWD" rev-parse 2>/dev/null; then
@@ -15,12 +15,15 @@ find_files(){
         while [ -e "$GIT_REPO" -a ! -d "$GIT_REPO/.git" ]; do
             GIT_REPO="$GIT_REPO/.."
         done
-        $FD . "$GIT_REPO" -x realpath --relative-to="$HOME"
+        $FD -H -E ".git" . "$GIT_REPO" -x realpath --relative-to="$PWD"
     fi
 }
 
 sort_by_depth(){
-    sort
+    awk -F/ '{print NF-1 ":" $0}' \
+    | sort -n \
+    | cut -d: -f2- \
+    | xargs -I{} realpath --relative-to="$HOME" "{}"
 }
 
 find_files | sort_by_depth | fzf --no-sort --exact
