@@ -1,0 +1,26 @@
+#!/bin/sh
+# Jump to a git repository under home or, if already in a git repository, to a
+# file within.
+
+FD="$(which fdfind || which fd)"
+HOME_DIRS="$(find $HOME -mindepth 1 -maxdepth 1 -type d -regex '[^.]*')"
+
+find_files(){
+    # Find git repositories
+    $FD -H '^\.git$' $HOME_DIRS -x realpath --relative-to="$HOME" {//}
+
+    # Find files in current git repository, if any
+    if git -C "$PWD" rev-parse 2>/dev/null; then
+        GIT_REPO="$PWD"
+        while [ -e "$GIT_REPO" -a ! -d "$GIT_REPO/.git" ]; do
+            GIT_REPO="$GIT_REPO/.."
+        done
+        $FD . "$GIT_REPO" -x realpath --relative-to="$HOME"
+    fi
+}
+
+sort_by_depth(){
+    sort
+}
+
+find_files | sort_by_depth | fzf --no-sort --exact
