@@ -1,3 +1,32 @@
+
+
+
+require("zen-mode").setup {
+  window = {
+    width = 80,
+    height = 1,
+    options = {
+     -- signcolumn = "no", -- disable signcolumn
+     -- number = false, -- disable number column
+     -- relativenumber = false, -- disable relative numbers
+     -- cursorline = false, -- disable cursorline
+     -- cursorcolumn = false, -- disable cursor column
+     -- foldcolumn = "0", -- disable fold column
+     -- list = false, -- disable whitespace characters
+    },
+  },
+  plugins = {
+    options = {
+      enabled = true,
+      ruler = true, -- disables the ruler text in the cmd line area
+      showcmd = true, -- disables the command in the last line of the screen
+    },
+    -- twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+    -- gitsigns = { enabled = false }, -- disables git signs
+    -- tmux = { enabled = false }, -- disables the tmux statusline
+  },
+}
+
 -- This file contains language server protocol mappings and configurations.
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

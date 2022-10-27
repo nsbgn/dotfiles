@@ -9,6 +9,11 @@ endif
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
 
+    " https://github.com/elihunter173/dirbuf.nvim
+    " https://github.com/machakann/vim-sandwich
+    " https://github.com/rbong/vim-flog
+    " https://github.com/folke/trouble.nvim
+
     Plug 'https://github.com/neovim/nvim-lspconfig'
 
     " Colorschemes without much color
@@ -30,9 +35,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/nvim-telescope/telescope.nvim'
 
     " Distraction-free writing
-    Plug 'https://github.com/junegunn/goyo.vim'
-    " Plug 'https://github.com/folke/zen-mode.nvim'
-    " Plug 'https://github.com/Pocco81/true-zen.nvim'
+    Plug 'https://github.com/folke/zen-mode.nvim'
 
     " Syntax highlighting
     Plug 'https://github.com/niklasl/vim-rdf'
@@ -94,8 +97,9 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/chaoren/vim-wordmotion'
 
     " Moving around
-    Plug 'https://github.com/phaazon/hop.nvim'
+    "Plug 'https://github.com/phaazon/hop.nvim'
     Plug 'https://github.com/justinmk/vim-sneak'
+    Plug 'https://github.com/ggandor/leap.nvim'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
@@ -160,7 +164,7 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinko
 
 " Show file in window title
 set title
-set titlestring=%F\ %m
+set titlestring=%f\ %m
 
 " Check if a plugin is loaded
 function! PlugLoaded(name)
@@ -316,25 +320,18 @@ endif
 
 if PlugLoaded('vim-rooter')
     let g:rooter_silent_chdir = 1
-    " this xcwd work for non project files but not for project files...
     let g:rooter_change_directory_for_non_project_files = 'current'
     let g:rooter_resolve_links = 1
     let g:rooter_patterns = ['.git', 'Makefile']
-
-    " Automatically send OSC-7 for the benefit of foot:
-    " <https://stackoverflow.com/questions/32429471/how-to-send-escape-sequences-from-within-vim>
-    " <https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory>
-    " autocmd User RooterChDir execute "silent !echo -ne \e]7;file://" . hostname() . expand("%:p") . "\e\\\""
-    "
 endif
 
 if PlugLoaded('vim-signify')
     set signcolumn=auto
     " See also https://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
-    let g:signify_sign_add               = '✚' " '●' " nf:  / unifont: ⊞⊕
-    let g:signify_sign_delete            = '✖' " '●' " nf:  / unifont: ⊟⊖
-    let g:signify_sign_delete_first_line = '●' " '●' " nf:  / unifont: ⊠⊡⊗⊚⊘⊙⊜⊝
-    let g:signify_sign_change            = '✱' " '●' " nf: פֿ / unifont: ⊛⊙
+    let g:signify_sign_add               = '✚'
+    let g:signify_sign_delete            = '✖'
+    let g:signify_sign_delete_first_line = '●'
+    let g:signify_sign_change            = '✱'
 endif
 
 if PlugLoaded('vim-sneak')
@@ -354,54 +351,6 @@ endif
 if PlugLoaded('vim-expand-region')
     vmap v <Plug>(expand_region_expand)
     vmap <C-v> <Plug>(expand_region_shrink)
-endif
-
-if PlugLoaded('goyo.vim')
-    let g:goyo_width = 80
-    let g:goyo_height = "100%"
-    let g:goyo_linenr = 0
-
-    " Auto set Goyo for Markdown files
-    " <https://github.com/junegunn/goyo.vim/issues/36>
-    " {
-    function! s:auto_goyo()
-      if &ft == 'pandoc.markdown'
-        Goyo 80
-      elseif exists('#goyo')
-        let bufnr = bufnr('%')
-        Goyo!
-        execute 'b '.bufnr
-      endif
-    endfunction
-
-    augroup goyo_markdown
-      autocmd!
-      autocmd BufEnter,BufNewFile,BufRead * call s:auto_goyo()
-    augroup END
-    " }
-
-    " Use :q to quit
-    " <https://github.com/junegunn/goyo.vim/wiki/Customization#ensure-q-to-quit-even-when-goyo-is-active>
-    " {
-    function! s:goyo_enter()
-      let b:quitting = 0
-      let b:quitting_bang = 0
-      autocmd QuitPre <buffer> let b:quitting = 1
-      cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-    endfunction
-    function! s:goyo_leave()
-      " Quit Vim if this is the only remaining buffer
-      if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-        if b:quitting_bang
-          qa!
-        else
-          qa
-        endif
-      endif
-    endfunction
-    autocmd! User GoyoEnter call <SID>goyo_enter()
-    autocmd! User GoyoLeave call <SID>goyo_leave()
-    " }
 endif
 
 if PlugLoaded('hop.nvim')
@@ -445,20 +394,6 @@ endif
 if PlugLoaded('vim-buftabline')
     " Show buffers in tabline, but only if there is more than one
     let g:buftabline_show = 1
-
-    " Reduce conflict with goyo
-    " See https://github.com/ap/vim-buftabline/issues/64
-    if PlugLoaded('goyo.vim')
-        autocmd! User GoyoEnter nested call <SID>GoyoEnter()
-        autocmd! User GoyoLeave nested call <SID>GoyoLeave()
-        function! s:GoyoEnter() "
-            set showtabline=0
-        endfunction "
-        function! s:GoyoLeave() "
-            set showtabline=1
-            :call buftabline#update(0)
-        endfunction "
-    endif
 endif
 
 nnoremap ; :
@@ -473,9 +408,11 @@ nmap tD :bd!<CR>
 " open new file:
 nmap tt :Lf<CR>
 " next buffer:
-nmap . :bnext<CR>
+" nmap . :bnext<CR>
 " previous buffer:
-nmap , :bprevious<CR>
+" nmap , :bprevious<CR>
+
+lua require('leap').add_default_mappings()
 
 " Turn hard wrapped text into soft wrapped.
 " This command will join all lines within a range that are not separated

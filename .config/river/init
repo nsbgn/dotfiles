@@ -10,7 +10,8 @@ riverctl spawn "waybar"
 riverctl spawn "foot --server"
 riverctl spawn "gammastep -O 5500K"
 
-riverctl map normal Super T spawn "foot-cwd"
+riverctl map normal Super T spawn "footclient"
+riverctl map normal Super+Shift T spawn "footclient tmux"
 
 riverctl declare-mode goto
 
@@ -27,6 +28,7 @@ riverctl map-pointer normal Super BTN_RIGHT resize-view
 riverctl map normal Super Semicolon spawn "dmenu-apps"
 riverctl map normal Super M spawn "dmenu-mpv"
 riverctl map normal Super I spawn "dmenu-pass"
+riverctl map normal Super U spawn "dmenu-thesaurus"
 riverctl map normal Super P spawn "playerctl --player=mpv play-pause"
 riverctl map -repeat normal Super V spawn "pactl set-sink-volume 0 +1%"
 riverctl map -repeat normal Super+Shift V spawn "pactl set-sink-volume 0 -1%"

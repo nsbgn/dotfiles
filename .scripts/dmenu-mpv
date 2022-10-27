@@ -18,6 +18,10 @@ MUSIC="$(xdg-user-dir MUSIC)"
 SOCK="/tmp/mpvsocket"
 PLAYLIST="/tmp/mpvplaylist"
 
+# if tty > /dev/null; then
+#     export BEMENU_BACKEND=curses
+# fi
+
 # Test if an instance of mpv is already listening; if not, start one
 if ! test -S "$SOCK" || ! nc -Uz "$SOCK" 2>/dev/null; then
     mpv --idle --no-terminal --no-audio-display --input-ipc-server="$SOCK" &

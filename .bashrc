@@ -8,9 +8,10 @@ if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
 fi
 
 # Git prompt. Wrap non-printables in \[\], see unix.stackexchange.com/q/105958
+# 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
-export PS1="\W\$(__git_ps1) > \[$(tput sgr0)\]" # [\u@\h]
+export PS1="\W\$(__git_ps1) ❯ \[$(tput sgr0)\]" # [\u@\h]
 
 source "$HOME/.bash_aliases"
 source /etc/bash_completion
@@ -66,11 +67,15 @@ function lf {
     [ -d "$dir" ] && [ "$PWD" != "$dir" ] && cd "$dir"
 }
 
-function j {
-    cd $(fdfind . ~ --type d --exec stat --printf='%Y\t%n\n' \
-        | sort --numeric --reverse \
-        | cut -f2- \
-        | fzf --reverse --header='Jump to location')
+function g {
+    F="$(fzf-repo)"
+    if [ -d "$F" ]; then
+        cd "$F"
+    elif file --mime-type "$F" | grep -q ': text'; then
+        nvim "$F"
+    else
+        xdg-open "$F"
+    fi
 }
 
 if which mcfly > /dev/null; then
@@ -78,3 +83,16 @@ if which mcfly > /dev/null; then
 fi
 
 # source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"
+
+# fshow - git commit browser
+# https://gist.github.com/junegunn/f4fca918e937e6bf5bad
+fshow() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}

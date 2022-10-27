@@ -9,7 +9,7 @@ PACKAGES=(
     fonts-{cabin,quicksand,adf-universalis,urw-base35,cantarell,crosextra-caladea}
     # Serif
     # Monospace
-    fonts-{anonymous-pro,hack,inconsolata,firacode,liberation,noto,cascadia-code}
+    fonts-{anonymous-pro,hack,inconsolata,firacode,liberation,noto,cascadia-code,jetbrains-mono}
     # Icon
     fonts-{fork-awesome,font-awesome,material-icons,powerline}
     # Bitmap font

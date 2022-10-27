@@ -30,6 +30,9 @@ Because the configurations assume that my [scripts][scrp] are in your
     [Wayfire][wayf] with [Firedecor][fdec], and, in the X11 world, 
     [bspwm][bspw].
 
+
+<!-- Links ------------------------------------------------------------>
+
 [atla]: https://www.atlassian.com/git/tutorials/git-subtree
 [scrp]: https://github.com/slakkenhuis/scripts
 [dots]: https://dotfiles.github.io/utilities/

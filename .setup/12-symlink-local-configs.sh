@@ -22,11 +22,11 @@ mkdir -p ~/.local/share ~/.config
     ln -srTf $ROOT/.local/share/applications ~/.local/share/applications || \
     :
 
-# for FILE in "$ROOT"/.*; do
-#     if [ -f "$FILE" ]; then
-#         link "$FILE" "$HOME/$(basename $FILE)"
-#    fi
-# done
+for FILE in "$ROOT"/.*; do
+    if [ -f "$FILE" ]; then
+        link "$FILE" "$HOME/$(basename $FILE)"
+   fi
+done
 
 for FILE in "$ROOT"/.config/*; do
     link "$FILE" "$HOME/.config/$(basename $FILE)"
