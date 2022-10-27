@@ -8,27 +8,7 @@ endif
 
 " Plugins
 call plug#begin(stdpath('data') . '/plugged')
-
-    " https://github.com/elihunter173/dirbuf.nvim
-    " https://github.com/machakann/vim-sandwich
-    " https://github.com/rbong/vim-flog
-    " https://github.com/folke/trouble.nvim
-
     Plug 'https://github.com/neovim/nvim-lspconfig'
-
-    " Colorschemes without much color
-    " Plug 'https://github.com/rktjmp/lush.nvim'
-    " Plug 'https://github.com/mcchrish/zenbones.nvim'
-    " Plug 'https://github.com/preservim/vim-colors-pencil'
-    " Plug 'https://gitlab.com/yorickpeterse/vim-paper.git'
-    " Plug 'https://github.com/altercation/vim-colors-solarized'
-    " Plug 'https://github.com/morhetz/gruvbox'
-
-    " Plug 'https://github.com/liuchengxu/vim-clap'
-    " Plug 'https://github.com/liuchengxu/vim-which-key'
-
-    " Email
-    " Plug 'https://github.com/soywod/himalaya', {'rtp': 'vim'}
 
     " Telescope
     Plug 'https://github.com/nvim-lua/plenary.nvim'
@@ -37,28 +17,15 @@ call plug#begin(stdpath('data') . '/plugged')
     " Distraction-free writing
     Plug 'https://github.com/folke/zen-mode.nvim'
 
-    " Syntax highlighting
-    Plug 'https://github.com/niklasl/vim-rdf'
-    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
-    Plug 'https://github.com/vito-c/jq.vim'
-    Plug 'https://github.com/kovetskiy/sxhkd-vim'
-    Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
-    Plug 'https://github.com/dylon/vim-antlr'
-
     " Fuzzy finding
-    " Plug 'https://github.com/kien/ctrlp.vim'
     Plug 'https://github.com/junegunn/fzf'
     Plug 'https://github.com/junegunn/fzf.vim'
-    " Plug 'https://github.com/gfanto/fzf-lsp.nvim'
-    " Plug 'https://github.com/ojroques/nvim-lspfuzzy'
+
+    " Return to last position when editing files
+    Plug 'https://github.com/vladdoster/remember.nvim'
 
     " Inertial scrolling
     Plug 'https://github.com/psliwka/vim-smoothie'
-    " Plug 'https://github.com/yuttie/comfortable-motion.vim'
-    " Plug 'https://github.com/lukelbd/vim-scrollwrapped'
-
-    " Work with GPG-encrypted files
-    "Plug 'https://github.com/jamessan/vim-gnupg.git'
 
     " Sets working directory to project root
     Plug 'https://github.com/airblade/vim-rooter.git'
@@ -69,48 +36,17 @@ call plug#begin(stdpath('data') . '/plugged')
     " Visually indicate marks
     Plug 'https://github.com/kshenoy/vim-signature'
 
-    " Automatic alignment
-    " Plug 'https://github.com/junegunn/vim-easy-align'
-
-    " Automatically detect indentation
-    " Plug 'https://github.com/tpope/vim-sleuth'
-
-    " Auto-edit parentheses
-    Plug 'https://github.com/tpope/vim-surround'
-
-    " Use v* to select word, paragraph, whatever is between delimiting pairs.
-    " Not perfect since I'd like to select sentences, paragraphs
-    " Plug 'https://github.com/gorkunov/smartpairs.vim.git'
-    Plug 'https://github.com/terryma/vim-expand-region'
-    " Plug 'https://github.com/ZhiyuanLck/smart-pairs'
-
-    " Text exchange
-    " Plug 'https://github.com/tommcdo/vim-exchange'
-
-    " Moving text selections around
-    " Plug 'https://github.com/zirrostig/vim-schlepp'
-
     " Auto comment lines
     Plug 'https://github.com/tpope/vim-commentary'
 
     " More sensible word motions
     Plug 'https://github.com/chaoren/vim-wordmotion'
 
-    " Moving around
-    "Plug 'https://github.com/phaazon/hop.nvim'
-    Plug 'https://github.com/justinmk/vim-sneak'
+    " Moving around. Comfortable middle ground between hop and sneak
     Plug 'https://github.com/ggandor/leap.nvim'
 
     " Tabs for every buffer
     Plug 'https://github.com/ap/vim-buftabline'
-    " Plug 'https://github.com/akinsho/bufferline.nvim'
-    " Plug 'https://github.com/bling/vim-bufferline'
-
-    " View LSP symbols & tags
-    " Plug 'https://github.com/liuchengxu/vista.vim'
-
-    " Browse the undo tree
-    "Plug 'https://github.com/sjl/gundo.vim'
 
     " Browse within vim using the `lf` file manager
     Plug 'https://github.com/ptzz/lf.vim'
@@ -119,45 +55,23 @@ call plug#begin(stdpath('data') . '/plugged')
     " cf <https://nic-west.com/posts/workman-layout/>
     Plug 'https://github.com/nicwest/vim-workman'
 
-    " Language server protocol
-    " Plug 'https://github.com/natebosch/vim-lsc'
-    ", { 'tag': 'v0.4.0' }
-
-    " Manage tag files
-    " Plug 'https://github.com/ludovicchabant/vim-gutentags'
-    "
-    "
-    "-- Show context while editing
-    " Plug 'https://github.com/romgrk/nvim-treesitter-context'
-
+    " Syntax highlighting
+    Plug 'https://github.com/niklasl/vim-rdf'
+    Plug 'https://github.com/vim-pandoc/vim-pandoc-syntax.git'
+    Plug 'https://github.com/vito-c/jq.vim'
+    Plug 'https://github.com/kovetskiy/sxhkd-vim'
+    Plug 'https://github.com/ledger/vim-ledger', { 'tag': 'v1.2.0' }
+    Plug 'https://github.com/dylon/vim-antlr'
 call plug#end()
 
-" COLOR SCHEMES
-
-" set termguicolors
 set background=light
-" let g:zenwritten_diagnostic_underline_text=v:true
-" let g:zenwritten_transparent_background=v:true
-" colorscheme zenwritten
-" colorscheme pencil
-
-" let g:gruvbox_contrast_light="hard"
-" let g:gruvbox_sign_column="bg0"
-" colorscheme gruvbox
-
-" Turn off background to take on same bg as my terminal
-highlight Normal guibg=NONE ctermbg=NONE
-
-" Subtle tildes at the end of the buffer
-" highlight EndOfBuffer ctermfg=gray
-set fillchars+=eob:\  " turn off tildes
+set fillchars+=eob:\  " turn off tildes at the end of buffers
 
 highlight Pmenu ctermfg=white ctermbg=black
 
 " Vertical splits are more subtle
 highlight VertSplit cterm=NONE ctermfg=gray
-set fillchars+=vert:▏
-"┆▕▁│▁▏
+set fillchars+=vert:│  "┆▕▁│▁▏
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -310,8 +224,8 @@ endif
 " Language servers
 lua require('lsp')
 
+" Use qwerty-to-workman `langmap` in normal mode
 if PlugLoaded('vim-workman')
-    " Use qwerty-to-workman `langmap` in normal mode
     let g:workman_normal_workman = 0
     let g:workman_insert_workman = 0
     let g:workman_normal_qwerty = 0
@@ -327,45 +241,15 @@ endif
 
 if PlugLoaded('vim-signify')
     set signcolumn=auto
-    " See also https://www.fileformat.info/info/unicode/block/dingbats/utf8test.htm
     let g:signify_sign_add               = '✚'
     let g:signify_sign_delete            = '✖'
     let g:signify_sign_delete_first_line = '●'
     let g:signify_sign_change            = '✱'
 endif
 
-if PlugLoaded('vim-sneak')
-    set ignorecase
-    let g:sneak#use_ic_scs = 1
-    let g:sneak#absolute_dir = 1
-    let g:sneak#s_next = 1
-    let g:sneak#target_labels = "asdfhjklqwertyuiopzxcvbnm"
-    map f <Plug>Sneak_f
-    map F <Plug>Sneak_F
-endif
-
-if PlugLoaded('smartpairs.vim')
-    let g:smartpairs_start_from_word = 1
-endif
-
 if PlugLoaded('vim-expand-region')
     vmap v <Plug>(expand_region_expand)
     vmap <C-v> <Plug>(expand_region_shrink)
-endif
-
-if PlugLoaded('hop.nvim')
-    lua require'hop'.setup()
-    " Later, <space>? should do other things too
-    nmap <space> :HopWord<CR>
-    nmap <C-space> :HopLine<CR>
-
-lua << EOF
-vim.keymap.set("n", "-a", function()
-    -- require'hop'.hint_patterns({}, [[\(\w\+\)\|^.*$]])
-    require'hop'.hint_patterns({}, [[\s*]])
-end, { silent = true, noremap = true })
-EOF
-
 endif
 
 if PlugLoaded('vim-smoothie')
@@ -407,12 +291,9 @@ nmap td :bp<bar>sp<bar>bn<bar>bd<CR>
 nmap tD :bd!<CR>
 " open new file:
 nmap tt :Lf<CR>
-" next buffer:
-" nmap . :bnext<CR>
-" previous buffer:
-" nmap , :bprevious<CR>
 
 lua require('leap').add_default_mappings()
+lua require('leap').opts.highlight_unlabeled_phase_one_targets = true
 
 " Turn hard wrapped text into soft wrapped.
 " This command will join all lines within a range that are not separated
@@ -425,55 +306,3 @@ command! -range=% SoftWrap
 
 set shortmess+=F  " to get rid of the file name displayed in the command line bar
 
-" Use a gui instead?
-" https://www.vim.org/scripts/script.php?script_id=3141
-" func! MScroll()
-"   let l:done=0
-"   let l:n = -1
-"   let l:w0 = line("w0")
-"   let l:last = line("$")
-"   while done!=1
-"     let l:g = getchar()
-"     if l:g != "\<LeftDrag>"
-"       let done = 1
-"     else
-"       if l:n == -1
-"         let l:n = v:mouse_lnum
-"         let l:fln = v:mouse_lnum
-"       else
-"         let l:new = l:w0 - v:mouse_lnum + l:n
-"         if l:new<1
-"           let l:new = 1
-"         endif
-
-"         let l:diff = -v:mouse_lnum + l:n
-"         let l:nd = line("w$")
-"         if l:nd+l:diff>l:last
-"           let l:new = l:last - winheight(0) + 1
-"           if l:new<1
-"             let l:new = 1
-"           endif
-"         end
-
-"         let l:wn = "normal ".string(l:new)."zt"
-"         if (l:n != v:mouse_lnum)
-"           exec(l:wn)
-"           redraw
-"         endif
-"         let l:w0 = line("w0")
-"         let l:n = v:mouse_lnum + l:diff
-"       endif
-"     endif
-"   endwhile
-"   :call cursor(v:mouse_lnum,v:mouse_col)
-" endfunc
-" :set mouse=a
-" :noremap <silent> <LeftMouse> :call MScroll()<CR>
-" :noremap <LeftRelease> <Nop>
-" :noremap <LeftDrag> <Nop>
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-    \ endif
