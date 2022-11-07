@@ -6,7 +6,6 @@
 -- https://github.com/mthnglac/dotfiles
 
 require('plugins')
-
 for key, value in pairs {
   -- Interface elements
   background = "light",

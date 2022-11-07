@@ -1,10 +1,21 @@
 In this file, I collect plugins that I have yet to incorporate in my 
 workflow, or that have been superseded by other plugins.
 
+https://github.com/mfussenegger/nvim-dap
+
+" Statusline
+" See also https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
+" https://github.com/beauwilliams/statusline.lua
+
+https://github.com/folke/noice.nvim
+https://github.com/gorbit99/codewindow.nvim
+https://github.com/wfxr/minimap.vim
+https://github.com/severin-lemaignan/vim-minimap
 https://github.com/kien/ctrlp.vim
 https://github.com/gfanto/fzf-lsp.nvim
 https://github.com/ojroques/nvim-lspfuzzy
 
+https://github.com/ap/vim-buftabline
 https://github.com/akinsho/bufferline.nvim
 https://github.com/bling/vim-bufferline
 

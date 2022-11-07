@@ -22,7 +22,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'https://github.com/junegunn/fzf.vim'
 
     " Return to last position when editing files
-    Plug 'https://github.com/vladdoster/remember.nvim'
+    Plug 'https://github.com/farmergreg/vim-lastplace'
 
     " Inertial scrolling
     Plug 'https://github.com/psliwka/vim-smoothie'
@@ -45,12 +45,12 @@ call plug#begin(stdpath('data') . '/plugged')
     " Moving around. Comfortable middle ground between hop and sneak
     Plug 'https://github.com/ggandor/leap.nvim'
 
-    " Tabs for every buffer
-    Plug 'https://github.com/ap/vim-buftabline'
+    Plug 'https://github.com/dstein64/nvim-scrollview'
 
-    " Browse within vim using the `lf` file manager
-    Plug 'https://github.com/ptzz/lf.vim'
-    Plug 'https://github.com/voldikss/vim-floaterm'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'MunifTanjim/nui.nvim'
+    Plug 'https://github.com/nvim-neo-tree/neo-tree.nvim'
 
     " cf <https://nic-west.com/posts/workman-layout/>
     Plug 'https://github.com/nicwest/vim-workman'
@@ -71,7 +71,7 @@ highlight Pmenu ctermfg=white ctermbg=black
 
 " Vertical splits are more subtle
 highlight VertSplit cterm=NONE ctermfg=gray
-set fillchars+=vert:│  "┆▕▁│▁▏
+set fillchars+=vert:▏  "│┆▕▁│▁▏
 
 " Blinking cursor
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -161,6 +161,9 @@ if has("autocmd")
     " - t sets text to be automatically formatted to textwidth
     " - q allows the gq command to automatically reformat text
 
+
+    autocmd VimEnter *.md nested :ZenMode
+
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
         au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown.pandoc
@@ -199,6 +202,10 @@ if PlugLoaded('vim-pandoc-syntax')
     let g:pandoc#syntax#conceal#use=0
 endif
 
+" So that the first match in leap.nvim is shown
+" See https://github.com/ggandor/leap.nvim/issues/27
+highlight Cursor ctermbg=White ctermfg=Black
+
 highlight htmlH1 cterm=bold ctermfg=DarkMagenta
 highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
 highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
@@ -210,15 +217,6 @@ highlight SignifySignChange ctermfg=Magenta cterm=NONE
 if PlugLoaded('vim-antlr')
     au BufRead,BufNewFile *.g set filetype=antlr3
     au BufRead,BufNewFile *.g4 set filetype=antlr4
-endif
-
-if PlugLoaded('lf.vim')
-    " Unmap default lf key
-    let g:lf_map_keys = 0
-
-    " Unmap e, i and w in lf within vim to make sure we only use it to open a file
-    " and not to start other programs within the lf session
-    let g:lf_command_override = 'lf -command "map e; map i; map w"'
 endif
 
 " Language servers
@@ -275,10 +273,10 @@ if PlugLoaded('telescope.nvim')
     nnoremap gd <cmd>Telescope lsp_definitions<cr>
 endif
 
-if PlugLoaded('vim-buftabline')
-    " Show buffers in tabline, but only if there is more than one
-    let g:buftabline_show = 1
-endif
+" if PlugLoaded('vim-buftabline')
+"     " Show buffers in tabline, but only if there is more than one
+"     let g:buftabline_show = 1
+" endif
 
 nnoremap ; :
 
@@ -290,10 +288,14 @@ nmap td :bp<bar>sp<bar>bn<bar>bd<CR>
 " force close buffer:
 nmap tD :bd!<CR>
 " open new file:
-nmap tt :Lf<CR>
+" nmap tt :Lf<CR>
 
 lua require('leap').add_default_mappings()
 lua require('leap').opts.highlight_unlabeled_phase_one_targets = true
+
+nmap t :NeoTreeFocus<CR>
+
+set showtabline=0
 
 " Turn hard wrapped text into soft wrapped.
 " This command will join all lines within a range that are not separated
@@ -303,6 +305,4 @@ lua require('leap').opts.highlight_unlabeled_phase_one_targets = true
 command! -range=% SoftWrap
             \ <line2>put _ |
             \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
-
-set shortmess+=F  " to get rid of the file name displayed in the command line bar
 
