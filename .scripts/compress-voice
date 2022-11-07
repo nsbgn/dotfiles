@@ -1,0 +1,14 @@
+#!/bin/sh
+# https://stackoverflow.com/questions/167533/best-voice-compression-algorithms-formats
+# https://superuser.com/questions/516806/how-to-encode-audio-with-opus-codec
+# http://ffmpeg.org/ffmpeg-codecs.html#libopus-1
+
+parallel -j4 ffmpeg -i {} -c:a libopus \
+    -b:a 16k -vbr on -compression_level 10 \
+    -ac 1 -apply_phase_inv 0 \
+    -frame_duration 40 \
+    {.}.opus ::: *.mp3
+
+# parallel -j4 opusenc {} {.}.opus \
+#     --bitrate 24 --framesize 40 \
+#     --downmix-mono --discard-comments --discard-pictures ::: *.wav
