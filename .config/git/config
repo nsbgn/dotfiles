@@ -1,6 +1,6 @@
 [user]
-	name = nsv
-	email = nsv@valk.ws
+	name = nsbg
+	email = nsbg@mailbox.org
 [core]
 	editor = nvim
 	pager = delta --light
