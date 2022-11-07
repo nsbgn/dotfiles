@@ -1,14 +1,19 @@
 -- Automatically install Packer plugin manager
-local fn = vim.fn
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    packer_bootstrap = vim.fn.system({
-      'git', 'clone', '--depth', '1',
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1',
       'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
-vim.cmd [[packadd packer.nvim]]
+local packer_bootstrap = ensure_packer()
 
 require('packer').startup(function(use)
+  use 'https://github.com/wbthomason/packer.nvim'
   use 'https://github.com/neovim/nvim-lspconfig'
   -- use 'https://github.com/nvim-lua/plenary.nvim'
   -- use 'https://github.com/nvim-telescope/telescope.nvim'
@@ -293,13 +298,13 @@ require('packer').startup(function(use)
   use {
     'https://github.com/psliwka/vim-smoothie',
     config = function()
-      vim.cmd([[
-        let g:smoothie_no_default_mappings = 1
-        nnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
-        nnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
-        vnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
-        vnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
-      ]])
+      -- vim.cmd([[
+      --   let g:smoothie_no_default_mappings = 1
+      --   nnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
+      --   nnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
+      --   vnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
+      --   vnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
+      -- ]])
     end
   }
 
@@ -388,7 +393,15 @@ require('packer').startup(function(use)
   }
 
   -- Automatically set up configuration after cloning packer.nvim
-  -- if packer_bootstrap then
-  --     require('packer').sync()
-  -- end
+  if packer_bootstrap then
+      require('packer').sync()
+  end
 end)
+
+-- Autocompile Packer config when anything changes
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])

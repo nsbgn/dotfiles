@@ -1,3 +1,6 @@
+lua require('plugins')
+lua require('lsp')
+
 set background=light
 
 set fillchars+=eob:\  " turn off tildes at the end of buffers
@@ -77,47 +80,28 @@ noremap <silent> j gj
 
 vmap <silent> ' S"
 
-lua require('plugins')
-lua require('lsp')
+" formatoptions:
+" - a sets our text to automatically wrap when it reaches textwidth
+" - w defines paragraphs as being separated by a blank line
+" - t sets text to be automatically formatted to textwidth
+" - q allows the gq command to automatically reformat text
 
-if has("autocmd")
-    " formatoptions:
-    " - a sets our text to automatically wrap when it reaches textwidth
-    " - w defines paragraphs as being separated by a blank line
-    " - t sets text to be automatically formatted to textwidth
-    " - q allows the gq command to automatically reformat text
+autocmd VimEnter *.md nested :ZenMode
 
-    autocmd VimEnter *.md nested :ZenMode
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+    au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown.pandoc
+    autocmd FileType markdown.pandoc setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
+augroup END
 
-    augroup pandoc_syntax
-        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-        au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown.pandoc
-        autocmd FileType markdown.pandoc setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
-    augroup END
-
-    augroup latex
-    "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
-    "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
-        au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
-        autocmd FileType tex setlocal conceallevel=0
-        autocmd FileType tex setlocal formatoptions+=aw2tq
-        autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
-    augroup END
-
-    augroup haskell
-        au! BufNewFile,BufFilePre,BufRead *.hs set filetype=haskell
-        autocmd FileType haskell setlocal tabstop=2
-        autocmd FileType haskell setlocal shiftwidth=2
-        autocmd FileType haskell setlocal softtabstop=2
-    augroup END
-
-    augroup lua
-        au! BufNewFile,BufFilePre,BufRead *.lua set filetype=lua
-        autocmd FileType lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    augroup END
-
-
-endif
+augroup latex
+"   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
+"   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
+    au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
+    autocmd FileType tex setlocal conceallevel=0
+    autocmd FileType tex setlocal formatoptions+=aw2tq
+    autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
+augroup END
 
 nnoremap ; :
 nmap t :NeoTreeFocus<CR>
