@@ -35,14 +35,3 @@ for key, value in pairs {
 } do
     vim["o"][key] = value
 end
-
-vim.api.nvim_set_hl(0, "PandocAtxHeader", {
-    cterm = "bold", ctermfg = "DarkMagenta" })
-vim.api.nvim_set_hl(0, "PandocSetexHeader", {
-    cterm = "bold", ctermfg = "DarkMagenta" })
-vim.go["pandoc#syntax#conceal#use"] = 0
-
-
-    -- highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
-    -- highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
-    -- let g:pandoc#syntax#conceal#use=0
