@@ -1,0 +1,16 @@
+#!/bin/sh
+# Concatenate mp3 files into one big file.
+# cf. https://trac.ffmpeg.org/wiki/Concatenate
+
+# Make a temporary directory to unzip to and make sure it gets destroyed
+TMP=$(mktemp "${TMPDIR:-/tmp}/$(basename "$0").XXXXX")
+finalize() {
+    rm -rf "$TMP"
+}
+
+ORIG="$PWD"
+ls -d1 "$PWD"/*.mp3 | sed 's/^\(.\+\)$/file '\''\1'\''/' > "$TMP"
+cd $(dirname "$TMP")
+ffmpeg -f concat -safe 0 -i "$(basename "$TMP")" -c copy output.mp3
+cp output.wav "$ORIG/output.wav"
+
