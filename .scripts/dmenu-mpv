@@ -31,7 +31,7 @@ fi
 $FD . --base-directory "$MUSIC" --type d --min-depth 2 \
 | shuf \
 | dmenu -p Music -i $DMENU_OPTS \
-| xargs -I{} $FD '.(mp3|webm|m4a|flac|ogg|wav)$' "$MUSIC/{}" \
+| xargs -I{} $FD '.(mp3|webm|m4a|flac|ogg|wav|opus)$' "$MUSIC/{}" \
 | sort > "$PLAYLIST"
 
 # Play it

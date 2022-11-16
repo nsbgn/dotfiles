@@ -58,7 +58,8 @@ riverctl map normal Super+Shift Comma send-to-output previous
 
 # Super+Return to bump the focused view to the top of the layout stack
 # riverctl map normal Super Return zoom
-riverctl map normal Super Return toggle-fullscreen
+# riverctl map normal Super Return toggle-fullscreen
+riverctl map normal Super Tab toggle-fullscreen
 
 # Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
@@ -116,10 +117,10 @@ riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
 # Super+Space to toggle float
-riverctl map normal Super Space toggle-fullscreen
+# riverctl unmap normal Super Space
 
 # Super+F to toggle fullscreen
-riverctl map normal Super+Alt Space toggle-float
+# riverctl map normal Super+Alt Space toggle-float
 
 # Super+{Up,Right,Down,Left} to change layout orientation
 riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"

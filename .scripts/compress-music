@@ -1,0 +1,12 @@
+#!/bin/sh
+# Convert FLAC files to ~mp3~ OPUS files
+# A more open format and better cokmpression.
+# https://hydrogenaud.io/index.php/topic,118129.0.html
+set -eu
+
+# parallel -j4 ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: *.flac
+
+# TODO: Do I want these settings?
+parallel -j4 ffmpeg -i {} -c:a libopus \
+    -b:a 128k -vbr on -compression_level 10 \
+    {.}.opus ::: *.flac

@@ -68,14 +68,15 @@ function lf {
 }
 
 function g {
-    F="$(fzf-repo)"
-    if [ -d "$F" ]; then
-        cd "$F"
-    elif file --mime-type "$F" | grep -q ': text'; then
-        nvim "$F"
-    else
-        xdg-open "$F"
-    fi
+    nvim "$(fzf-repo)"
+    # F="$(fzf-repo)"
+    # if [ -d "$F" ]; then
+    #     cd "$F"
+    # elif file --mime-type "$F" | grep -q ': text'; then
+    #     nvim "$F"
+    # else
+    #     xdg-open "$F"
+    # fi
 }
 
 if which mcfly > /dev/null; then
