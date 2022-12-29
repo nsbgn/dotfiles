@@ -9,6 +9,12 @@ case "$1" in
     sway|wayfire|river|labwc)
         CMD="$1"
         ;;
+    foot)
+        CMD="cage -s -r -d -- foot -c $HOME/.config/foot/foot-dark.ini"
+        ;;
+    xournalpp)
+        CMD="cage -s -r -d -- xournalpp"
+        ;;
     *)
         echo "What's this then"
         exit 1

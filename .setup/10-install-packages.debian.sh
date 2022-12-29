@@ -5,11 +5,11 @@ set -euo pipefail
 PACKAGES=(
 
     # Theming
-    # Sans serif
-    fonts-{cabin,quicksand,adf-universalis,urw-base35,cantarell,crosextra-caladea}
+    # Sans serif (missing Barlow)
+    fonts-{cabin,quicksand,adf-universalis,urw-base35,cantarell,crosextra-caladea,linuxlibertine,inter,go}
     # Serif
-    # Monospace
-    fonts-{anonymous-pro,hack,inconsolata,firacode,liberation,noto,cascadia-code,jetbrains-mono}
+    # Monospace (missing Iosevka)
+    fonts-{anonymous-pro,hack,go,inconsolata,firacode,liberation,noto,cascadia-code,jetbrains-mono,spleen,terminus,terminus-otb}
     # Icon
     fonts-{fork-awesome,font-awesome,material-icons,powerline}
     # Bitmap font
@@ -38,7 +38,8 @@ PACKAGES=(
     xserver-xorg-video-{intel,fbdev} # Video driver
     xserver-xorg-input-libinput # Input driver
     xserver-xorg-input-xwiimote # Wiimote input driver
-    light # Controlling the backlight
+    # light # Controlling the backlight
+    brightnessctl # Controlling the backlight
     xinput # List input devices
     unclutter # Hiding mouse
     x11-xkb-utils # Remapping keyboard (xkbcomp)

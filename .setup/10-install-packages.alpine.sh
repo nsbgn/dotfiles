@@ -84,7 +84,8 @@ EOF
 # Fonts
 apk add font-raleway-otf font-liberation-sans-narrow font-overpass \
     font-cascadia-code-nerd ttf-anonymous-pro ttf-font-awesome \
-    ttf-inconsolata unifont fonts-jetbrains-mono
+    ttf-inconsolata unifont fonts-jetbrains-mono \
+    font-opensans
 
 # Network manager
 sudo apk add networkmanager
@@ -102,6 +103,8 @@ apk add command-not-found
 update-command-not-found
 
 # Other
+apk add brightnessctl # brightness control
+apk add fscrypt # file level encryption
 apk add keyd  # key remapping
 apk add lisgd  # touch gestures
 apk add udiskie  # mounted device management

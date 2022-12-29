@@ -1,7 +1,6 @@
 #!/bin/sh
 # Keep presenting synonyms in a dmenu by querying freethesaurus.com
 # Dependencies: dmenu htmlq findutils coreutils
-# You can use dmenu or symlink bemenu or rofi to dmenu
 #
 # (Perhaps later also have an offline variant, using wordnet or use sdcv and
 # https://owenh.net/stardict)

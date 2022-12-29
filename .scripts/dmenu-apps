@@ -12,7 +12,7 @@ def desc(app):
 
 
 p = subprocess.Popen(
-    ["dmenu", "-p", "Applications", "-i", "-fn", "Inconsolata-14", "-l", "20"],
+    ["dmenu", "-f", "-p", "Applications", "-i", "-fn", "Inconsolata-14", "-l", "20"],
     universal_newlines=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
 assert p.stdin and p.stdout

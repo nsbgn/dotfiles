@@ -5,10 +5,16 @@ Here you will find nifty scripts I wrote to make my life easier. The main
 repository is at [github](https://github.com/slakkenhuis/scripts).
 
 Most of them are pretty messy and only intended for personal use, but I did 
-try to make them small and easy to change, so have a look around and do with 
-them as you please. I'm fond of using [dmenu](http://tools.suckless.org/dmenu/) 
-and [jq](https://stedolan.github.io/jq/), because they make quick DIY scripts 
-easy.
+try to make them small and easy to change, so have a look around and do 
+with them as you please. I'm fond of using 
+[`dmenu`](http://tools.suckless.org/dmenu/) and 
+[`jq`](https://stedolan.github.io/jq/), because they make quick DIY 
+scripts easy. You may symlink `dmenu` to an alternative like 
+[`bemenu`](https://github.com/Cloudef/bemenu), 
+[`rofi`](https://github.com/davatorium/rofi), 
+[`wofi`](https://hg.sr.ht/~scoopta/wofi), 
+[`yofi`](https://github.com/l4l/yofi), or 
+[`tofi`](https://github.com/philj56/tofi).
 
 Currently, the repository contains the following tools:
 

@@ -9,8 +9,6 @@
 # support to `mpv`, so that it can be controlled with `playerctl` instead of
 # mpv's own <https://mpv.io/manual/stable/#json-ipc>.
 #
-# Instead of dmenu, you can also use a symlink to rofi/wofi/bemenu.
-#
 # Dependencies: (Debian) mpv netcat-netbsd xdg-dirs fd-find shuf sort
 
 FD="$(which fdfind || which fd)"
@@ -30,7 +28,7 @@ fi
 # Query for album to play, and make corresponding playlist
 $FD . --base-directory "$MUSIC" --type d --min-depth 2 \
 | shuf \
-| dmenu -p Music -i $DMENU_OPTS \
+| dmenu -f -p Music -i $DMENU_OPTS \
 | xargs -I{} $FD '.(mp3|webm|m4a|flac|ogg|wav|opus)$' "$MUSIC/{}" \
 | sort > "$PLAYLIST"
 

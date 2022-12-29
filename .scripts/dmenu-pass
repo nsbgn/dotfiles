@@ -1,7 +1,6 @@
 #!/bin/sh
 # A simple dmenu interface to the password manager `pass`.
 # Dependencies: (Debian) pass coreutils findutils sed wl-clipboard xclip
-# You can use dmenu or symlink bemenu or rofi to dmenu
 
 if [ -z $PASSWORD_STORE_DIR ]; then
     PASSWORD_STORE_DIR="$HOME/.password-store"
