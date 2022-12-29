@@ -15,7 +15,14 @@
 	theme = OneHalfLight
 [includeIf "gitdir:~/work/"]
 	path = ~/work/gitconfig
-
+[url "https://gitlab.com/"]
+	insteadOf = gl:
+[url "https://github.com/"]
+	insteadOf = gh:
+[url "https://codeberg.org/"]
+	insteadOf = cb:
+[url "https://git.sr.ht/"]
+	insteadOf = sh:
 [alias]
 wdiff = diff --word-diff --word-diff-regex='\\w+'
 

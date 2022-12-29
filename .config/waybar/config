@@ -1,20 +1,22 @@
 {
-    "layer": "top",
+    "layer": "bottom",
     "position": "top",
+    "exclusive": true,
     "spacing": 0,
     "modules-left": ["river/tags", "wlr/taskbar"],
     "modules-center": [],
-    "modules-right": ["custom/mpris", "pulseaudio", "battery", "clock", "tray"],
-
+    "modules-right": ["pulseaudio", "battery", "clock", "tray"],
+    /*"custom/mpris", */
     "river/tags": {"num-tags": 4},
     "sway/window": {
         "max-length": 50
     },
     "wlr/taskbar": {
         "all-outputs": true,
-        "format": "{icon} {title}",
+        "format": "{icon} {title:.20}",
         "tooltip-format": "{title}",
-        "on-click": "minimize-raise"
+        "icon-theme": ["Chicago95", "Breeze"]
+        /*"on-click": "minimize-raise"*/
     },
     "pulseaudio": {
         "format": "{icon} {volume}",

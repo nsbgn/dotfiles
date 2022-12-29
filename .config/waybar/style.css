@@ -1,20 +1,24 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Cabin, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    /* font-family: "Inter Display", "Inter", CozetteVector, FontAwesome, Cabin, Roboto, Helvetica, Arial, sans-serif; */
+    font-family: "Roboto Condensed", "FontAwesome", sans-serif;
+    /* font-family: "Open Sans Condensed Light", "FontAwesome", sans-serif; */
+    /* font-family: "Liberation Sans Narrow", "FontAwesome", sans-serif; */
+    font-size: 11pt;
+    font-weight: 500;
 }
 
 window#waybar {
-    background-color: white;
+    background-color: black;
     border-bottom: none;
-    color: black;
+    color: white;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
-}
+/* window#waybar.hidden { */
+/*     opacity: 0.2; */
+/* } */
 
 /*
 window#waybar.empty {
@@ -25,39 +29,34 @@ window#waybar.solo {
 }
 */
 
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
-}
 
 #workspaces button, #tags button {
-    padding: 2px 8px 3px;
+    padding: 0px 2px 1px;
     /* background: rgba(1, 0, 0, 0.2); */
-    color: black;
+    /* color: black; */
     /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -3px transparent;
+    box-shadow: inset 0 3px transparent;
     /* Avoid rounded borders under each workspace name */
     border: none;
     border-radius: 0;
+    color: white;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover, #tags button:hover {
-    background: rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 -3px #000000;
+#workspaces button:hover, #tags button:hover, #taskbar button:hover {
+    background: transparent;
+    box-shadow: none;
 }
 
 #workspaces button.occupied, #tags button.occupied {
-    box-shadow: inset 0 -3px #cccccc;
+    /* box-shadow: inset 0 3px #666; */
+    background: #666;
 }
 
 #workspaces button.focused, #tags button.focused {
-    /* background-color: #64727D; */
-    box-shadow: inset 0 -3px #000000;
+    background-color: white;
+    color: black;
+    box-shadow: none;
 }
 
 #workspaces button.urgent, #tags button.urgent {
@@ -69,12 +68,16 @@ window#waybar.chromium {
 }
 #taskbar button {
     margin: 0 2px;
-    padding: 0 4px;
+    padding: 0 6px;
+    color: white;
+    border: none;
+    border-radius: 0;
 }
 
 #taskbar button.active {
-    box-shadow: inset 0 -3px #000000;
-    background: rgba(0, 0, 0, 0.1);
+    /* box-shadow: inset 0 -3px white; */
+    background: white;
+    color: black;
 }
 #taskbar button.minimized {
     box-shadow: inset 0 -3px #aaaaaa;
@@ -103,7 +106,7 @@ window#waybar.chromium {
 #idle_inhibitor,
 #mpd {
     padding: 0 10px;
-    color: black;
+    color: #cccccc;
 }
 
 #window,
@@ -121,17 +124,7 @@ window#waybar.chromium {
     margin-right: 0;
 }
 
-#clock {
-    background-color: #ffffff;
-}
-
-#battery {
-    background-color: #ffffff;
-    color: #000000;
-}
-
 #battery.charging, #battery.plugged {
-    color: #ffffff;
     background-color: #26A65B;
 }
 
@@ -225,55 +218,3 @@ label:focus {
     -gtk-icon-effect: highlight;
     background-color: #eb4d4b;
 }
-
-#idle_inhibitor {
-    background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
-}
-
-#mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    background-color: #90b1b1;
-}
-
-#mpd.paused {
-    background-color: #51a37a;
-}
-
-#language {
-    background: #00b093;
-    color: #740864;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
-}
-
-#keyboard-state {
-    background: #97e1ad;
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 5px;
-    min-width: 16px;
-}
-
-#keyboard-state > label {
-    padding: 0 5px;
-}
-
-#keyboard-state > label.locked {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-

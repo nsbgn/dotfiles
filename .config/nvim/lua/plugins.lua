@@ -39,7 +39,7 @@ require('packer').startup(function(use)
       vim.fn.sign_define("DiagnosticSignInfo",
         {text = " ", texthl = "DiagnosticSignInfo"})
       vim.fn.sign_define("DiagnosticSignHint",
-        {text = "", texthl = "DiagnosticSignHint"})
+        {text = "", texthl = "DiagnosticSignHint"})  -- 
 
       require("neo-tree").setup({
         close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
@@ -114,16 +114,19 @@ require('packer').startup(function(use)
             },
             ["<2-LeftMouse>"] = "open",
             ["<cr>"] = "open",
-            ["<esc>"] = "revert_preview",
-            ["P"] = { "toggle_preview", config = { use_float = true } },
-            ["S"] = "open_split",
-            ["s"] = "open_vsplit",
+            -- ["<esc>"] = "revert_preview",
+            -- ["P"] = { "toggle_preview", config = { use_float = true } },
+            -- ["S"] = "open_split",
+            -- ["s"] = "open_vsplit",
             -- ["S"] = "split_with_window_picker",
             -- ["s"] = "vsplit_with_window_picker",
-            ["t"] = "open_tabnew",
+            -- ["t"] = "open_tabnew",
+            ["t"] = function()
+              vim.cmd('wincmd p')
+            end,
             -- ["<cr>"] = "open_drop",
             -- ["t"] = "open_tab_drop",
-            ["w"] = "open_with_window_picker",
+            -- ["w"] = "open_with_window_picker",
             --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
             ["C"] = "close_node",
             ["z"] = "close_all_nodes",
@@ -195,9 +198,9 @@ require('packer').startup(function(use)
               ["<bs>"] = "navigate_up",
               ["."] = "set_root",
               ["H"] = "toggle_hidden",
-              ["/"] = "fuzzy_finder",
+              ["f"] = "fuzzy_finder",
               ["D"] = "fuzzy_finder_directory",
-              ["f"] = "filter_on_submit",
+              ["/"] = "filter_on_submit",
               ["<c-x>"] = "clear_filter",
               ["[g"] = "prev_git_modified",
               ["]g"] = "next_git_modified",
@@ -233,7 +236,8 @@ require('packer').startup(function(use)
         }
       })
 
-      vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+      -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+      vim.cmd([[nmap t :Neotree reveal<cr>]])
     end
   }
 
@@ -244,7 +248,7 @@ require('packer').startup(function(use)
       require("zen-mode").setup {
         window = {
           width = 80,
-          height = 1,
+          height = 0.95,
           options = {
            -- signcolumn = "no", -- disable signcolumn
            -- number = false, -- disable number column
@@ -295,7 +299,8 @@ require('packer').startup(function(use)
 
 -- Scrolling ------------------------------------------------------------------
   -- Scrollbar
-  use 'https://github.com/dstein64/nvim-scrollview'
+  -- use 'https://github.com/dstein64/nvim-scrollview'
+
   -- Inertial scroll
   use {
     'https://github.com/psliwka/vim-smoothie',

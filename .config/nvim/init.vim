@@ -86,7 +86,7 @@ vmap <silent> ' S"
 " - t sets text to be automatically formatted to textwidth
 " - q allows the gq command to automatically reformat text
 
-autocmd VimEnter *.md nested :ZenMode
+autocmd VimEnter *.md,*.tex nested :ZenMode
 
 augroup pandoc_syntax
     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
@@ -97,11 +97,12 @@ augroup END
 augroup latex
 "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
+"   https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
     au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
     autocmd FileType tex setlocal conceallevel=0
     autocmd FileType tex setlocal formatoptions+=aw2tq
-    autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
+    autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
 augroup END
 
 nnoremap ; :
-nmap t :NeoTreeFocus<CR>
+

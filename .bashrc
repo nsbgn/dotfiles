@@ -11,7 +11,8 @@ fi
 # 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
-export PS1="\W\$(__git_ps1) ❯ \[$(tput sgr0)\]" # [\u@\h]
+# export PS1="\W\$(__git_ps1) ❯ \[$(tput sgr0)\]" # [\u@\h]
+export PS1="\W\$(__git_ps1) » \[$(tput sgr0)\]" # [\u@\h]
 
 source "$HOME/.bash_aliases"
 source /etc/bash_completion

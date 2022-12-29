@@ -35,6 +35,7 @@ riverctl map -repeat normal Super+Shift V spawn "pactl set-sink-volume 0 -1%"
 
 # Super+Q to close the focused view
 riverctl map normal Super X close
+riverctl map normal Super Super_L spawn "dmenu-apps"
 
 # Super+Shift+E to exit river
 riverctl map normal Super+Shift E exit
@@ -59,7 +60,13 @@ riverctl map normal Super+Shift Comma send-to-output previous
 # Super+Return to bump the focused view to the top of the layout stack
 # riverctl map normal Super Return zoom
 # riverctl map normal Super Return toggle-fullscreen
-riverctl map normal Super Tab toggle-fullscreen
+riverctl map normal None XF86Close close
+riverctl map normal None XF86Favorites spawn "dmenu-apps"
+# riverctl map normal None Super_L spawn "dmenu-apps"
+riverctl map normal Super q close
+riverctl map normal Super Home close
+riverctl map normal Super f2 toggle-fullscreen
+riverctl map normal None XF86Display toggle-fullscreen
 
 # Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
@@ -200,4 +207,4 @@ riverctl input $TOUCH events enabled
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-exec rivertile -view-padding 2 -outer-padding 2 -main-ratio 0.5
+exec rivertile -view-padding 0 -outer-padding 0 -main-ratio 0.5
