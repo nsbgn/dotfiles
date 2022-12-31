@@ -3,7 +3,7 @@
     "position": "top",
     "exclusive": true,
     "spacing": 0,
-    "modules-left": ["river/tags", "wlr/taskbar"],
+    "modules-left": ["sway/workspaces", "wlr/taskbar"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     /*"custom/mpris", */
