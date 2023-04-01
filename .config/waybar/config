@@ -2,6 +2,7 @@
     "layer": "bottom",
     "position": "top",
     "exclusive": true,
+    "output": "!DVI-I-1",
     "spacing": 0,
     "modules-left": ["sway/workspaces", "wlr/taskbar"],
     "modules-center": [],

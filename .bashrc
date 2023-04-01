@@ -84,8 +84,6 @@ if which mcfly > /dev/null; then
     eval "$(mcfly init bash)"
 fi
 
-# source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh"
-
 # fshow - git commit browser
 # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
 fshow() {
@@ -97,4 +95,13 @@ fshow() {
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                 {}
 FZF-EOF"
+}
+
+venv() {
+    VENV="$HOME/.venv"
+    if [ ! -d $VENV ]; then
+        python -m venv "$VENV" --system-site-packages
+        pip3 install -U python-lsp-server[all] pylsp-mypy mypy
+    fi
+    source $VENV/bin/activate
 }

@@ -1,0 +1,4 @@
+# PageUp/PageDown to use the leading text to limit the search
+# # From: http://lauris.github.io/bash-productivity-tips/
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward

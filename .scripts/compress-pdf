@@ -1,0 +1,17 @@
+#!/bin/bash
+# Compressing PDFs.
+#
+# To convert tiffs to pdf:
+#   > tiff2pdf -o doc.pdf *.tif
+# To combine PDFs:
+#   > pdftk *.pdf cat output merged.pdf
+
+# settings can be prepress, ebook, screen
+gs -sDEVICE=pdfwrite \
+    -dCompatibilityLevel=1.4 \
+    -dPDFSETTINGS=/prepress \
+    -dNOPAUSE -dQUIET -dBATCH \
+    -sOutputFile="$1_compressed.pdf" \
+    "$1.pdf"
+
+

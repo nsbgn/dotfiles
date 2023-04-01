@@ -43,12 +43,13 @@ case "$EXT" in
         #    | chafa  --work=1 --symbols=block --fill=block --stretch --colors=256 --size "$(expr $(tput cols) \* 2 / 5)x" -
         ;;
     gpg)
-        gpg --quiet --decrypt "$F" | $BAT --style=plain --italic-text=always --decorations=always --color=always ;;
+        gpg --quiet --decrypt "$F" | $BAT --style=plain --italic-text=always 
+    --decorations=always --color=always ;;
     *)
         if [ "$(file --brief --mime-encoding "$F")" = "binary" ]; then
             hexyl --length 768 "$F"
         else
-            $BAT --theme=OneHalfLight --style=plain --italic-text=always --decorations=always --color=always "$F"
+            $BAT --theme=gruvbox-light --style=plain --italic-text=always --decorations=always --color=always "$F"
         fi
         ;;
 esac

@@ -13,7 +13,12 @@ export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export DMENU_OPTS="-l 20 -fn Inconsolata-13"
-export BEMENU_OPTS="-p '' -l 10 -H 30 --fn 'Inconsolata 13' --scrollbar always"
+export BEMENU_OPTS="\
+    -p '' -l 10 -H 30 --fn 'Inconsolata 13'\
+    --no-overlap --scrollbar always"
+
+#     --nb '#ffffff' --ab '#ffffff' \
+#     --nf '#000000' --af '#000000'
 
 # include .bashrc if running interactively
 if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then

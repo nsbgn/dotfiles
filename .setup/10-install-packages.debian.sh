@@ -9,11 +9,13 @@ PACKAGES=(
     fonts-{cabin,quicksand,adf-universalis,urw-base35,cantarell,crosextra-caladea,linuxlibertine,inter,go}
     # Serif
     # Monospace (missing Iosevka)
-    fonts-{anonymous-pro,hack,go,inconsolata,firacode,liberation,noto,cascadia-code,jetbrains-mono,spleen,terminus,terminus-otb}
+    fonts-{anonymous-pro,hack,go,inconsolata,firacode,liberation,noto,cascadia-code,jetbrains-mono,spleen,terminus,terminus-otb,courier-prime,fantasque-sans}
     # Icon
     fonts-{fork-awesome,font-awesome,material-icons,powerline}
     # Bitmap font
     fonts-unifont
+
+    sway python3-i3ipc
 
     # numix-{gtk,icon}-theme
     # materia-gtk-theme

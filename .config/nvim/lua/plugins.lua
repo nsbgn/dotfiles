@@ -12,232 +12,137 @@ local ensure_packer = function()
 end
 local packer_bootstrap = ensure_packer()
 
+vim.api.nvim_set_keymap(
+  't', '<Esc>', '<C-\\><C-n>', {noremap = true})
+
+vim.fn.sign_define("DiagnosticSignError",
+  {text = " ", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignWarn",
+  {text = " ", texthl = "DiagnosticSignWarn"})
+vim.fn.sign_define("DiagnosticSignInfo",
+  {text = " ", texthl = "DiagnosticSignInfo"})
+vim.fn.sign_define("DiagnosticSignHint",
+  {text = "", texthl = "DiagnosticSignHint"})
+
 require('packer').startup(function(use)
   use 'https://github.com/wbthomason/packer.nvim'
   use 'https://github.com/neovim/nvim-lspconfig'
-  -- use 'https://github.com/nvim-lua/plenary.nvim'
-  -- use 'https://github.com/nvim-telescope/telescope.nvim'
   -- use 'https://github.com/nvim-treesitter/nvim-treesitter'
 
--- File browser ---------------------------------------------------------------
--- Ideally, icons that overlap with
--- https://raw.githubusercontent.com/slavfox/Cozette/master/img/charmap.png
--- https://unicode-table.com/en/blocks/geometric-shapes/
-  use {
-    "https://github.com/nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    requires = {
-      "https://github.com/nvim-lua/plenary.nvim",
-      "https://github.com/kyazdani42/nvim-web-devicons",
-      "https://github.com/MunifTanjim/nui.nvim",
-    },
-    config = function ()
-      vim.fn.sign_define("DiagnosticSignError",
-        {text = " ", texthl = "DiagnosticSignError"})
-      vim.fn.sign_define("DiagnosticSignWarn",
-        {text = " ", texthl = "DiagnosticSignWarn"})
-      vim.fn.sign_define("DiagnosticSignInfo",
-        {text = " ", texthl = "DiagnosticSignInfo"})
-      vim.fn.sign_define("DiagnosticSignHint",
-        {text = "", texthl = "DiagnosticSignHint"})  -- 
+-- See recipes at:
+-- <https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes>
+-- <https://github.com/nvim-telescope/telescope.nvim/issues/791> For ordering 
+-- buffers
+use {
+  'https://github.com/nvim-telescope/telescope.nvim', branch = '0.1.x',
+  requires = { {'https://github.com/nvim-lua/plenary.nvim'} },
+  config = function()
 
-      require("neo-tree").setup({
-        close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
-        popup_border_style = "rounded",
-        enable_git_status = true,
-        enable_diagnostics = true,
-        sort_case_insensitive = false, -- used when sorting files and directories in the tree
-        sort_function = nil , -- use a custom function for sorting files and directories in the tree 
-        default_component_configs = {
-          container = {
-            enable_character_fade = true
-          },
-          indent = {
-            indent_size = 2,
-            padding = 1, -- extra padding on left hand side
-            -- indent guides
-            with_markers = true,
-            indent_marker = "│",
-            last_indent_marker = "└",
-            highlight = "NeoTreeIndentMarker",
-            -- expander config, needed for nesting files
-            with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-            expander_collapsed = "",
-            expander_expanded = "",
-            expander_highlight = "NeoTreeExpander",
-          },
-          icon = {
-            folder_closed = "",
-            folder_open = "",
-            folder_empty = "", --ﰊ
-            -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-            -- then these will never be used.
-            default = "*",
-            highlight = "NeoTreeFileIcon"
-          },
-          modified = {
-            symbol = "[+]",
-            highlight = "NeoTreeModified",
-          },
-          name = {
-            trailing_slash = false,
-            use_git_status_colors = true,
-            highlight = "NeoTreeFileName",
-          },
-          git_status = {
-            symbols = {
-              -- Change type
-              added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-              modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-              deleted   = "✖",-- this can only be used in the git_status source
-              renamed   = "",-- this can only be used in the git_status source
-              -- Status type
-              untracked = "◌", --         ★☆✪✭✫ ⚐⚑ ◌○◎◉●◍◇◈◆    
-              ignored   = "◎",
-              unstaged  = "◉",
-              staged    = "●",
-              conflict  = "◍",
-            }
-          },
+    require('telescope').setup{
+      defaults = {
+        layout_strategy = "horizontal",
+        layout_config = {
+          prompt_position = "top",
+          height = 0.6,
         },
-        window = {
-          position = "left",
-          width = 40,
-          mapping_options = {
-            noremap = true,
-            nowait = true,
-          },
-          mappings = {
-            ["<space>"] = {
-                "toggle_node",
-                nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use 
-            },
-            ["<2-LeftMouse>"] = "open",
-            ["<cr>"] = "open",
-            -- ["<esc>"] = "revert_preview",
-            -- ["P"] = { "toggle_preview", config = { use_float = true } },
-            -- ["S"] = "open_split",
-            -- ["s"] = "open_vsplit",
-            -- ["S"] = "split_with_window_picker",
-            -- ["s"] = "vsplit_with_window_picker",
-            -- ["t"] = "open_tabnew",
-            ["t"] = function()
-              vim.cmd('wincmd p')
-            end,
-            -- ["<cr>"] = "open_drop",
-            -- ["t"] = "open_tab_drop",
-            -- ["w"] = "open_with_window_picker",
-            --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
-            ["C"] = "close_node",
-            ["z"] = "close_all_nodes",
-            --["Z"] = "expand_all_nodes",
-            ["a"] = { 
-              "add",
-              -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-              config = {
-                show_path = "none" -- "none", "relative", "absolute"
-              }
-            },
-            ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add".
-            ["d"] = "delete",
-            ["r"] = "rename",
-            ["y"] = "copy_to_clipboard",
-            ["x"] = "cut_to_clipboard",
-            ["p"] = "paste_from_clipboard",
-            ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
-            -- ["c"] = {
-            --  "copy",
-            --  config = {
-            --    show_path = "none" -- "none", "relative", "absolute"
-            --  }
-            --}
-            ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
-            ["q"] = "close_window",
-            ["R"] = "refresh",
-            ["?"] = "show_help",
-            ["<"] = "prev_source",
-            [">"] = "next_source",
-          }
+        border = true,
+        sorting_strategy = "ascending",
+        mappings = {
+          i = { ["<Esc>"] = require('telescope.actions').close }
         },
-        nesting_rules = {},
-        filesystem = {
-          filtered_items = {
-            visible = false, -- when true, they will just be displayed differently than normal items
-            hide_dotfiles = false,
-            hide_gitignored = true,
-            hide_by_name = {
-              ".git"
-            },
-            hide_by_pattern = { -- uses glob style patterns
-              --"*.meta",
-              --"*/src/*/tsconfig.json",
-            },
-            always_show = { -- remains visible even if other settings would normally hide it
-              ".gitignore",
-            },
-            never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-              --".DS_Store",
-              --"thumbs.db"
-            },
-            never_show_by_pattern = { -- uses glob style patterns
-              --".null-ls_*",
-            },
-          },
-          follow_current_file = false, -- This will find and focus the file in the active buffer every
-                                       -- time the current file is changed while the tree is open.
-          group_empty_dirs = false, -- when true, empty folders will be grouped together
-          hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-                                                  -- in whatever position is specified in window.position
-                                -- "open_current",  -- netrw disabled, opening a directory opens within the
-                                                  -- window like netrw would, regardless of window.position
-                                -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-          use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
-                                          -- instead of relying on nvim autocmd events.
-          window = {
-            mappings = {
-              ["<bs>"] = "navigate_up",
-              ["."] = "set_root",
-              ["H"] = "toggle_hidden",
-              ["f"] = "fuzzy_finder",
-              ["D"] = "fuzzy_finder_directory",
-              ["/"] = "filter_on_submit",
-              ["<c-x>"] = "clear_filter",
-              ["[g"] = "prev_git_modified",
-              ["]g"] = "next_git_modified",
-            }
-          }
-        },
+        prompt_prefix = "🔍 ",
+      },
+      pickers = {
         buffers = {
-          follow_current_file = true, -- This will find and focus the file in the active buffer every
-                                       -- time the current file is changed while the tree is open.
-          group_empty_dirs = true, -- when true, empty folders will be grouped together
-          show_unloaded = true,
-          window = {
-            mappings = {
-              ["bd"] = "buffer_delete",
-              ["<bs>"] = "navigate_up",
-              ["."] = "set_root",
-            }
-          },
+          ignore_current_buffer = true,
+          sort_mru = true,
         },
-        git_status = {
-          window = {
-            position = "float",
-            mappings = {
-              ["A"]  = "git_add_all",
-              ["gu"] = "git_unstage_file",
-              ["ga"] = "git_add_file",
-              ["gr"] = "git_revert_file",
-              ["gc"] = "git_commit",
-              ["gp"] = "git_push",
-              ["gg"] = "git_commit_and_push",
-            }
+      }
+    }
+
+    local builtin = require('telescope.builtin')
+    local project_files = function()
+      local opts = {}
+      vim.fn.system('git rev-parse --is-inside-work-tree')
+      if vim.v.shell_error == 0 then
+        builtin.git_files(opts)
+      else
+        builtin.find_files(opts)
+      end
+    end
+
+    vim.keymap.set('n', 'ts', builtin.lsp_document_symbols, {})
+    vim.keymap.set('n', 'tf', builtin.find_files, {})
+    vim.keymap.set('n', 'tw', builtin.buffers, {})
+  end
+}
+use {
+  'https://github.com/cljoly/telescope-repo.nvim',
+  requires={'https://github.com/nvim-telescope/telescope.nvim'},
+  config=function()
+    require('telescope').setup {
+      extensions = {
+        repo = {
+          list = {
+            search_dirs={
+              "~/work",
+              "~/notes",
+              "~/projects",
+            },
           }
         }
-      })
+      }
+    }
+    require("telescope").load_extension "repo"
+    vim.keymap.set('n', 'tr', require'telescope'.extensions.repo.list, {})
+  end
+}
+-- use {
+--   "https://github.com/nvim-telescope/telescope-frecency.nvim",
+--   requires = {"https://github.com/kkharji/sqlite.lua"},
+--   config = function()
+--     require"telescope".load_extension("frecency")
+--     vim.keymap.set('n', 'tf', require('telescope').extensions.frecency.frecency, {})
+--   end,
+-- }
 
-      -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-      vim.cmd([[nmap t :Neotree reveal<cr>]])
+-- Color scheme ---------------------------------------------------------------
+
+  -- A colorscheme that uses few colors
+  use {
+    "https://github.com/mcchrish/zenbones.nvim",
+    tag = "v2.0.0",
+    requires = "https://github.com/rktjmp/lush.nvim",
+    config = function ()
+      -- vim.g.rosebones_lightness = "bright"
+      vim.g.zenwritten_transparent_background = true
+      vim.cmd("set termguicolors")
+      vim.cmd("set background=light")
+      vim.cmd("colorscheme zenwritten")
+
+      -- Further tweaks
+      local lush = require "lush"
+      local zenbones = require "zenbones"
+      local specs = lush.parse(function()
+        return {
+          -- MsgArea { gui="standout" },
+          -- markdownH1 { gui = "underline,bold" },
+          -- markdownH1Delimiter { gui = "underline,bold" },
+          markdownH2 { gui = "invert" },
+          -- markdownH2Delimiter { gui = "underline,bold" },
+          pandocAtxHeader { gui = "underline,bold" },
+          pandocAtxStart { gui = "underline" },
+          pandocOperator { fg = "#666666" },
+          yamlBlockMappingKey { gui = "bold" },
+          DiffAdd { bg = "none" },
+          DiffChange { bg = "none" },
+          DiffDelete { bg = "none" },
+          Visual { fg = "#cccccc", bg = "#333333" },
+          NonText { fg = "#888888" },
+        }
+      end)
+
+      lush.apply(lush.compile(specs))
     end
   }
 
@@ -247,10 +152,10 @@ require('packer').startup(function(use)
     config = function()
       require("zen-mode").setup {
         window = {
-          width = 80,
-          height = 0.95,
+          width = 82,
+          height = 1,
           options = {
-           -- signcolumn = "no", -- disable signcolumn
+           signcolumn = "yes", -- keep signcolumn
            -- number = false, -- disable number column
            -- relativenumber = false, -- disable relative numbers
            -- cursorline = false, -- disable cursorline
@@ -297,23 +202,46 @@ require('packer').startup(function(use)
     end
   }
 
+  use {
+    'https://github.com/ggandor/flit.nvim',
+    config = function()
+      require('flit').setup()
+    end
+  }
+
 -- Scrolling ------------------------------------------------------------------
   -- Scrollbar
   -- use 'https://github.com/dstein64/nvim-scrollview'
 
   -- Inertial scroll
-  use {
-    'https://github.com/psliwka/vim-smoothie',
-    config = function()
-      -- vim.cmd([[
-      --   let g:smoothie_no_default_mappings = 1
-      --   nnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
-      --   nnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
-      --   vnoremap <unique> <PageUp> <cmd>call smoothie#do("\<C-U>") <CR>
-      --   vnoremap <unique> <PageDown> <cmd>call smoothie#do("\<C-D>") <CR>
-      -- ]])
-    end
-  }
+  -- use {
+  --   'https://github.com/karb94/neoscroll.nvim',
+  --   config = function()
+  --     require('neoscroll').setup({
+  --         -- All these keys will be mapped to their corresponding default scrolling animation
+  --         mappings = {}, --'<C-u>', '<C-d>', '<C-b>', '<C-f>'
+  --         hide_cursor = true,          -- Hide cursor while scrolling
+  --         stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+  --         respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+  --         cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+  --         easing_function = "sine",-- Default easing function
+  --         pre_hook = nil,              -- Function to run before the scrolling animation starts
+  --         post_hook = nil,             -- Function to run after the scrolling animation ends
+  --         performance_mode = false,
+  --     })
+
+  --     local t = {}
+  --     t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '250'}}
+  --     t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '250'}}
+  --     t['<C-y>'] = {'scroll', {'-0.20', 'false', '100'}}
+  --     t['<C-e>'] = {'scroll', { '0.20', 'false', '100'}}
+  --     t['<PageUp>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '400'}}
+  --     t['<PageDown>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '400'}}
+  --     require('neoscroll.config').set_mappings(t)
+  --     -- vim.cmd("map <PageUp> <C-b>")
+  --     -- vim.cmd("map <PageDown> <C-f>")
+  --   end
+  -- }
 
 -- Set working directory to project root --------------------------------------
   use {
@@ -338,26 +266,26 @@ require('packer').startup(function(use)
         let g:signify_sign_delete = '✖'
         let g:signify_sign_delete_first_line = '●'
         let g:signify_sign_change = '✱'
-        highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
-        highlight SignifySignAdd ctermfg=Green cterm=NONE
-        highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
-        highlight SignifySignChange ctermfg=Magenta cterm=NONE
       ]])
+      -- highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
+      -- highlight SignifySignAdd ctermfg=Green cterm=NONE
+      -- highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
+      -- highlight SignifySignChange ctermfg=Magenta cterm=NONE
     end
   }
 
   -- cf <https://nic-west.com/posts/workman-layout/>
-  use {
-    'https://github.com/nicwest/vim-workman',
-    config = function()
-      vim.cmd([[
-        let g:workman_normal_workman = 0
-        let g:workman_insert_workman = 0
-        let g:workman_normal_qwerty = 0
-        let g:workman_insert_qwerty = 0
-      ]])
-    end
-  }
+  -- use {
+  --   'https://github.com/nicwest/vim-workman',
+  --   config = function()
+  --     vim.cmd([[
+  --       let g:workman_normal_workman = 0
+  --       let g:workman_insert_workman = 0
+  --       let g:workman_normal_qwerty = 0
+  --       let g:workman_insert_qwerty = 0
+  --     ]])
+  --   end
+  -- }
 
   -- Visually indicate marks
   use 'https://github.com/kshenoy/vim-signature'
@@ -392,9 +320,6 @@ require('packer').startup(function(use)
     config = function()
       vim.cmd([[
         let g:pandoc#syntax#conceal#use=0
-        highlight htmlH1 cterm=bold ctermfg=DarkMagenta
-        highlight pandocAtxHeader cterm=bold ctermfg=DarkMagenta
-        highlight pandocSetexHeader cterm=bold ctermfg=DarkMagenta
       ]])
     end
   }

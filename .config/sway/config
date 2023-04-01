@@ -1,13 +1,66 @@
+# cf <https://www.chordpro.org/chordpro/pango_markup/>
+
+
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term footclient
 
 exec foot --server
 exec waybar
 exec gammastep -O 5500K
+exec stacki3
+
+output * bg #ffffff solid_color
+output HDMI-A-1 {
+   mode 1920x1080@60.000Hz
+   pos 0 0
+}
+
+# # Unknown Mira133 202105
+# Unknown XtendTouch
+output DVI-I-1 {
+   mode 2200x1650@38.002Hz
+   pos 0 1080
+   transform 90
+   scale 2
+}
+
+input 10176:2136:WingCoolTouch_WingCoolTouch {
+   map_to_output DVI-I-1
+   # map_to_region 0 1080 2200x1650
+   # map_from_region 0x1080 2200x2730
+}
+input 1032:12296:Quanta_OpticalTouchScreen {
+   map_to_output DVI-I-1
+}
+input 8746:1:ILITEK_ILITEK-TP {
+   map_to_output DVI-I-1
+}
+
+
+input type:keyboard {
+    xkb_options compose:menu
+    repeat_delay 300
+    repeat_rate 45
+}
+
+input type:touchpad {
+    tap enabled
+    dwt enabled
+    click_method clickfinger
+    tap_button_map lrm
+}
+
+# title_window_icon yes
+# for_window [] title_format "fdf %title"
+smart_gaps on
+# hide_edge_borders both
+default_border pixel 1
+default_floating_border normal
+font CozetteVector 9
+gaps inner 2
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -15,24 +68,40 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
 
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+client.focused #000000 #000000 #ffffff
+client.unfocused #dddddd #dddddd #000000
+client.focused_inactive #ffffff #ffffff #000000 
 
 floating_modifier $mod normal
 
+
+
 # Start a terminal
-bindsym $mod+t exec $term
+bindsym XF86Terminal exec footclient
+
+bindsym $mod+Multi_key exec "npx mira refresh"
 
 # Kill focused window
 bindsym $mod+z kill
 bindsym XF86Close kill
 
 # Start your launcher
-bindsym $mod+semicolon exec dmenu-apps
+# bindsym $mod+semicolon exec dmenu-apps
+bindsym XF86MenuKB exec dmenu-apps
+# Pressing Super_L by itself opens the menu
+# bindcode 133 --release exec dmenu-apps
+
+# bindsym $mod+t workspace prev
+bindsym $mod+g workspace next
+bindsym $mod+Shift+t workspace prev
+bindsym $mod+Shift+g workspace next
+
 bindsym $mod+m exec dmenu-mpv
 bindsym $mod+i exec dmenu-pass
 bindsym $mod+u exec dmenu-thesaurus
 bindsym $mod+p exec "playerctl --player=mpv play-pause"
 
+bindsym $mod+t exec footclient
 bindsym $mod+Shift+c reload
 
 bindsym $mod+$left focus left
@@ -69,4 +138,4 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+backspace resize shrink width 10px
 bindsym $mod+space resize grow width 10px
 
-include /etc/sway/config.d/*
+# include /etc/sway/config.d/*

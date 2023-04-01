@@ -1,0 +1,35 @@
+#!/bin/bash
+# cf. <https://github.com/ipodnerd3019/mira-js>
+# <https://github.com/elithper/miractl> for Python version
+# <https://onyxboox.com/boox_mirapro> for actual version
+
+# --speed         The refresh speed (1-7)
+# --contrast      The contrast (0-15)
+# --refresh-mode  The refresh mode [choices: "a2", "direct", "gray"]
+# --dither-mode   The dither mode (0-3)
+# --black-filter  The black filter level (0-254).
+# --white-filter  The white filter level (0-254).
+# --cold-light    The cold backlight level (0-254).
+# --warm-light    The warm backlight level (0-254).
+
+# Display Quality: Normal > Speed > A2 > X
+# Refresh Speed: X > A2 > Speed > Normal
+
+install(){
+    sudo apt install npm
+    npm install -g boox-mira
+    sudo tee /etc/udev/rules.d/58-hid.rules << EOF
+SUBSYSTEM=="input", GROUP="input", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE:="666", GROUP="plugdev"
+KERNEL=="hidraw*", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE="0666", GROUP="plugdev"
+EOF
+    udevadm control --reload-rules && udevadm trigger
+}
+
+npx mira settings --refresh-mode gray \
+    --speed 4 \
+    --contrast 2 \
+    --dither-mode 1 \
+    --white-filter 200 --black-filter 100 \
+    --warm-light 40 --cold-light 5
+

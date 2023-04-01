@@ -155,3 +155,4 @@ apk add ocrmypdf
 apk add nicotine-plus nicotine-plus-doc
 apk add bubblewrap  # minimalist firejail
 apk add py3-pip
+apk add httrack

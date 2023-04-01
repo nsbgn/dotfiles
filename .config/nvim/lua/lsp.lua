@@ -1,17 +1,17 @@
-
-
-
-
-
 -- This file contains language server protocol mappings and configurations.
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+
+-- Note that mypy won't work on editable installs. See:
+-- https://github.com/microsoft/pylance-release/blob/main/TROUBLESHOOTING.md#editable-install-modules-not-found
+-- https://setuptools.pypa.io/en/latest/userguide/development_mode.html#strict-editable-installs
 
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', 'ti', vim.diagnostic.open_float, opts)
+
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -39,31 +39,17 @@ local on_attach = function(client, bufnr)
   --vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
-
--- $ npm i -g pyright
--- local util = require("lspconfig/util")
--- require('lspconfig').pyright.setup{
---   on_attach = on_attach,
---   flags = { debounce_text_changes = 150 },
---   root_dir = function(fname)
---     return util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
---       util.path.dirname(fname)
---   end,
---   python = {
---     analysis = {
---       autoSearchPaths = false,
---       diagnosticMode = "workspace",
---       useLibraryCodeForTypes = true,
---     }
---   }
--- }
+require'lspconfig'.marksman.setup{
+  filetypes = { "markdown", "markdown.pandoc" }
+}
 
 -- https://github.com/python-lsp/python-lsp-server
--- $ pip3 install python-lsp-server[all] pylsp-mypy
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
+-- $ pip3 install python-lsp-server[all] pylsp-mypy mypy
 require('lspconfig').pylsp.setup {
   settings = {
     pylsp = {
-      configurationSources = {"flake8"},
+      -- configurationSources = {"flake8"},
       plugins = {
         jedi_completion = {enabled = true},
         jedi_hover = {enabled = true},
@@ -72,10 +58,10 @@ require('lspconfig').pylsp.setup {
         jedi_symbols = {enabled = true, all_scopes = true},
         pycodestyle = {
           enabled = true,
-          ignore = {'E128', 'W503', 'E211'}
+          ignore = {'E128', 'W503', 'E211', 'W291'}
         },
         flake8 = {
-          enabled = true,
+          enabled = false,
           ignore = {'E128', 'W503', 'E211'},
           maxLineLength = 79
         },
@@ -92,3 +78,13 @@ require('lspconfig').pylsp.setup {
     }
   }
 }
+
+-- https://vi.stackexchange.com/questions/39074/user-borders-around-lsp-floating-windows
+local _border = "single"
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, { border = _border }
+)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, { border = _border }
+)
+vim.diagnostic.config{ float={border=_border} }
