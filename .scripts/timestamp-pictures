@@ -6,17 +6,16 @@ for F in *.jpg; do
     if ! grep '^[[:digit:]]\{8\}' <<< "$F" > /dev/null; then
 
         # Use EXIF data preferentially
-        EXIF=$(exif --machine-readable --tag=DateTime "$F" 2> /dev/null)
+        EXIF="$(exif --machine-readable --tag=DateTime "$F" 2> /dev/null)"
         if [ $? -eq 0 ]; then
-            D=$(echo "$EXIF" \
-            | sed -n -e 's/^\([0-9]\+\).\([0-9]\+\).\([0-9]\+\).*$/\1\2\3p')
+            D="$(echo "$EXIF" | tr ': ' '--' | cut -d- -f1-3)"
 
         # Fallback to modification date
         else
-            D=$(date -r "$F" '+%Y%m%dm')
+            D="$(date -r "$F" '+%Y-%m-%dm')?"
         fi
 
-        echo "mv \"${F}\" \"${D}-${F}\""
-        #mv "${F}" "${D}-${F}"
+        echo "mv \"${F}\" \"${D} ${F}\""
+        #mv "${F}" "${D} ${F}"
     fi
 done

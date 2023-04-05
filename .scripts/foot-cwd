@@ -9,7 +9,14 @@
 # - <https://git.sr.ht/~leon_plickat/lswt>
 # - <https://github.com/atx/wtype>
 
-if lswt -j | jq -e '.[] | select(.activated and .app_id == "foot")'; then
+is_foot(){
+    swaymsg -t get_tree | jq -e \
+        '.. | (.nodes? // empty)[] | select(.focused and .app_id == "foot")'
+    # alternative:
+    # lswt -j | jq -e '.[] | select(.activated and .app_id == "foot")'
+}
+
+if is_foot; then
     wtype -M ctrl -M shift -k n
 else
     footclient $@
