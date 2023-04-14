@@ -21,7 +21,4 @@ dunst & # notification daemon
 urxvtd -q -f -o 2>&1 > /tmp/urxvtlog & # terminal daemon
 lf -server & # file manager daemon
 
-# exec openbox
-exec bspwm  # dynamic tiling window manager
-# exec herbstluftwm  # manual tiling window manager
-# exec awesome
+exec openbox
