@@ -113,6 +113,8 @@ PACKAGES=(
     vdirsyncer
     gallery-dl # Download image galleries
 
+    direnv  # Directory-dependent environment variables
+
     # Python dev environment
     python3-pip
     python3-yaml # dependency for crsync

@@ -31,6 +31,9 @@ require('packer').startup(function(use)
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-treesitter/nvim-treesitter'
 
+  -- Integrate direnv; see <https://direnv.net/>
+  use 'https://github.com/direnv/direnv.vim'
+
   -- Visually indicate marks
   use 'https://github.com/kshenoy/vim-signature'
 
@@ -115,6 +118,9 @@ use {
       extensions = {
         repo = {
           list = {
+            bin = {
+              "/usr/bin/fdfind"
+            },
             search_dirs={
               "~/work",
               "~/notes",

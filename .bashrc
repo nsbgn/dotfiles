@@ -7,6 +7,9 @@ if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
     PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
 fi
 
+# Hook direnv; see <https://direnv.net/>
+eval "$(direnv hook bash)"
+
 # Git prompt. Wrap non-printables in \[\], see unix.stackexchange.com/q/105958
 # 
 GIT_PS1_SHOWDIRTYSTATE=1
