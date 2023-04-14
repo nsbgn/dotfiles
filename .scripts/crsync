@@ -235,7 +235,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--config', default='~/.config/crsync/config.yaml',
+        '--config', default='~/.private/crsync/config.yaml',
         help="configuration file")
     parser.add_argument(
         '--log',

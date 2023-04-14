@@ -1,7 +1,7 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
 
 
-set $mod Mod4
+set $mod Mod4+Ctrl
 set $left h
 set $down j
 set $up k
@@ -72,14 +72,15 @@ client.focused #000000 #000000 #ffffff
 client.unfocused #dddddd #dddddd #000000
 client.focused_inactive #ffffff #ffffff #000000 
 
-floating_modifier $mod normal
+floating_modifier Mod4 normal
 
 
 
 # Start a terminal
 bindsym XF86Terminal exec footclient
 
-bindsym $mod+Multi_key exec "npx mira refresh"
+bindsym Mod1+Tab exec "npx mira refresh"
+bindsym $mod+Tab exec "npx mira refresh"
 
 # Kill focused window
 bindsym $mod+z kill
@@ -88,6 +89,7 @@ bindsym XF86Close kill
 # Start your launcher
 # bindsym $mod+semicolon exec dmenu-apps
 bindsym XF86MenuKB exec dmenu-apps
+bindsym $mod+x exec dmenu-apps
 # Pressing Super_L by itself opens the menu
 # bindcode 133 --release exec dmenu-apps
 
@@ -101,7 +103,7 @@ bindsym $mod+i exec dmenu-pass
 bindsym $mod+u exec dmenu-thesaurus
 bindsym $mod+p exec "playerctl --player=mpv play-pause"
 
-bindsym $mod+t exec footclient
+bindsym $mod+t exec foot-cwd
 bindsym $mod+Shift+c reload
 
 bindsym $mod+$left focus left

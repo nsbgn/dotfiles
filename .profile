@@ -3,7 +3,7 @@
 
 export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.go/bin:$HOME/.npm-global/bin:.luarocks/bin:$PATH
-export PATH=$HOME/.scripts:$HOME/dotfiles/.scripts:$HOME/dotfiles/.scripts/private:$HOME/.local/bin:$PATH
+export PATH=$HOME/.scripts:$HOME/dotfiles/.scripts:$HOME/.private/bin:$HOME/.local/bin:$PATH
 export GOPATH=$HOME/.go
 export EDITOR=nvim
 export BROWSER=firefox
@@ -13,6 +13,8 @@ export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export DMENU_OPTS="-l 20 -fn Inconsolata-13"
+export BAT_THEME="Coldark-Cold"
+export BAT_STYLE="plain"
 export BEMENU_OPTS="\
     -p '' -l 10 -H 30 --fn 'Inconsolata 13'\
     --no-overlap --scrollbar always"

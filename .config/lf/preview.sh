@@ -49,7 +49,7 @@ case "$EXT" in
         if [ "$(file --brief --mime-encoding "$F")" = "binary" ]; then
             hexyl --length 768 "$F"
         else
-            $BAT --theme=gruvbox-light --style=plain --italic-text=always --decorations=always --color=always "$F"
+            $BAT --italic-text=always --decorations=always --color=always "$F"
         fi
         ;;
 esac

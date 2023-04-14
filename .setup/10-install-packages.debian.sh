@@ -111,6 +111,7 @@ PACKAGES=(
     mupdf
     khal
     vdirsyncer
+    gallery-dl # Download image galleries
 
     # Python dev environment
     python3-pip

@@ -12,8 +12,10 @@ local ensure_packer = function()
 end
 local packer_bootstrap = ensure_packer()
 
-vim.api.nvim_set_keymap(
-  't', '<Esc>', '<C-\\><C-n>', {noremap = true})
+------------------------------------------------------------------------------
+
+
+
 
 vim.fn.sign_define("DiagnosticSignError",
   {text = " ", texthl = "DiagnosticSignError"})
@@ -27,12 +29,45 @@ vim.fn.sign_define("DiagnosticSignHint",
 require('packer').startup(function(use)
   use 'https://github.com/wbthomason/packer.nvim'
   use 'https://github.com/neovim/nvim-lspconfig'
-  -- use 'https://github.com/nvim-treesitter/nvim-treesitter'
+  use 'https://github.com/nvim-treesitter/nvim-treesitter'
+
+  -- Visually indicate marks
+  use 'https://github.com/kshenoy/vim-signature'
+
+  -- Automatically detect indentation
+  use 'https://github.com/tpope/vim-sleuth'
+
+  -- More sensible word motions
+  use 'https://github.com/chaoren/vim-wordmotion'
+
+  -- Auto comment lines
+  use 'https://github.com/tpope/vim-commentary'
+
+  -- Return to last position when editing files
+  use 'https://github.com/farmergreg/vim-lastplace'
+
+  -- Alternatively, see <https://github.com/akinsho/toggleterm.nvim>
+  use {
+    "https://github.com/numToStr/FTerm.nvim",
+    config = function()
+      local ft = require'FTerm'
+      ft.setup({
+        border = 'rounded',
+        dimensions  = {
+            height = 0.9,
+            width = 84,
+        },
+      })
+      vim.keymap.set('n', 'tt', ft.toggle, {})
+      vim.keymap.set('n', '<C-t>', ft.toggle, {})
+      vim.keymap.set('t', '<C-t>', ft.toggle, {})
+      vim.api.nvim_set_keymap(
+        't', '<C-Esc>', '<C-\\><C-n>', {noremap = true})
+    end
+  }
 
 -- See recipes at:
 -- <https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes>
--- <https://github.com/nvim-telescope/telescope.nvim/issues/791> For ordering 
--- buffers
 use {
   'https://github.com/nvim-telescope/telescope.nvim', branch = '0.1.x',
   requires = { {'https://github.com/nvim-lua/plenary.nvim'} },
@@ -40,10 +75,14 @@ use {
 
     require('telescope').setup{
       defaults = {
-        layout_strategy = "horizontal",
+        layout_strategy = "vertical",
+        file_ignore_patterns = { ".git/" },
         layout_config = {
+          mirror = true,
           prompt_position = "top",
-          height = 0.6,
+          height = 0.95,
+          width = 84,
+          preview_height = 10
         },
         border = true,
         sorting_strategy = "ascending",
@@ -53,6 +92,7 @@ use {
         prompt_prefix = "🔍 ",
       },
       pickers = {
+        -- Order: <https://github.com/nvim-telescope/telescope.nvim/issues/791>
         buffers = {
           ignore_current_buffer = true,
           sort_mru = true,
@@ -61,18 +101,9 @@ use {
     }
 
     local builtin = require('telescope.builtin')
-    local project_files = function()
-      local opts = {}
-      vim.fn.system('git rev-parse --is-inside-work-tree')
-      if vim.v.shell_error == 0 then
-        builtin.git_files(opts)
-      else
-        builtin.find_files(opts)
-      end
-    end
 
     vim.keymap.set('n', 'ts', builtin.lsp_document_symbols, {})
-    vim.keymap.set('n', 'tf', builtin.find_files, {})
+    -- vim.keymap.set('n', 'tf', builtin.find_files, {})
     vim.keymap.set('n', 'tw', builtin.buffers, {})
   end
 }
@@ -97,14 +128,82 @@ use {
     vim.keymap.set('n', 'tr', require'telescope'.extensions.repo.list, {})
   end
 }
--- use {
---   "https://github.com/nvim-telescope/telescope-frecency.nvim",
---   requires = {"https://github.com/kkharji/sqlite.lua"},
---   config = function()
---     require"telescope".load_extension("frecency")
---     vim.keymap.set('n', 'tf', require('telescope').extensions.frecency.frecency, {})
---   end,
--- }
+use {
+    "https://github.com/nvim-telescope/telescope-file-browser.nvim",
+    requires = {
+      "https://github.com/nvim-telescope/telescope.nvim",
+      "https://github.com/nvim-lua/plenary.nvim",
+      "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    config = function()
+
+      local action_state = require "telescope.actions.state"
+      local fb_actions = require "telescope".extensions.file_browser.actions
+      local fb_utils = require "telescope._extensions.file_browser.utils"
+
+      --- If the prompt is empty, goes to parent directory.
+      local backward = function(prompt_bufnr, bypass)
+        local current_picker = action_state.get_current_picker(prompt_bufnr)
+
+        if current_picker:_get_prompt() == "" then
+          fb_actions.goto_parent_dir(prompt_bufnr, bypass)
+        else
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<left>", true, false, true), "tn", false)
+        end
+      end
+
+      --- If the prompt is empty and the selection is a directory, enter it.
+      local forward = function(prompt_bufnr, bypass)
+        local current_picker = action_state.get_current_picker(prompt_bufnr)
+        local entry_path = action_state.get_selected_entry().Path
+        local finder = current_picker.finder
+        local current_dir = finder.path
+
+        if current_picker:_get_prompt() == "" and entry_path:is_dir() then
+          finder.path = entry_path:absolute()
+          fb_utils.redraw_border_title(current_picker)
+          -- fb_utils.selection_callback(current_picker, current_dir)
+          current_picker:refresh(
+            finder, {
+              new_prefix = fb_utils.relative_path_prefix(finder),
+              reset_prompt = true, multi = current_picker._multi }
+          )
+        else
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<right>", true, false, true), "tn", false)
+        end
+      end
+
+      require("telescope").setup {
+        extensions = {
+          file_browser = {
+            hijack_netrw = true,
+            respect_gitignore = true,
+            grouped = true,
+            dir_icon = "📁︎",
+            hide_parent_dir = true,
+            hidden = true,
+            path = "%:p:h",
+            display_stat = false,
+            select_buffer = true,
+            mappings = {
+              ["i"] = {
+                -- ["<C-h>"] = fb_actions.goto_cwd,
+                ["<left>"] = backward,
+                ["<right>"] = forward,
+                -- ["<backspace>"] = fb_actions.open,
+              },
+              ["n"] = {
+              },
+            },
+          },
+        },
+      }
+
+      require"telescope".load_extension("file_browser")
+      vim.keymap.set('n', 'tf',
+        require('telescope').extensions.file_browser.file_browser, {})
+  end,
+}
 
 -- Color scheme ---------------------------------------------------------------
 
@@ -167,12 +266,9 @@ use {
         plugins = {
           options = {
             enabled = true,
-            ruler = true, -- disables the ruler text in the cmd line area
-            showcmd = true, -- disables the command in the last line of the screen
+            ruler = true,
+            showcmd = true,
           },
-          -- twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
-          -- gitsigns = { enabled = false }, -- disables git signs
-          -- tmux = { enabled = false }, -- disables the tmux statusline
         },
         -- cf <https://github.com/folke/zen-mode.nvim/issues/35>
         on_open = function(_)
@@ -186,10 +282,16 @@ use {
           end
         end,
       }
+
+      vim.cmd([[
+        " autocmd VimEnter *.md,*.tex nested :ZenMode
+      ]])
     end
   }
 
--- Moving around. Comfortable middle ground between hop and sneak -------------
+-- Moving around --------------------------------------------------------------
+
+-- Comfortable middle ground between hop and sneak
   use {
     'https://github.com/ggandor/leap.nvim',
     config = function()
@@ -202,6 +304,7 @@ use {
     end
   }
 
+  -- 'f' motion using the leap interface
   use {
     'https://github.com/ggandor/flit.nvim',
     config = function()
@@ -256,7 +359,33 @@ use {
     end
   }
 
--- Show git/svn changes ------------------------------------------------------
+-- Git -----------------------------------------------------------------------
+
+  -- use {
+  --     'https://github.com/nvim-treesitter/nvim-treesitter',
+  --     run = ':TSUpdate'
+  -- }
+-- use {
+--   'https://github.com/sindrets/diffview.nvim'
+-- }
+  -- use {
+  --   'https://github.com/TimUntersberger/neogit',
+  --   requires = 'https://github.com/nvim-lua/plenary.nvim'
+  -- }
+-- use {
+--   'https://github.com/tpope/vim-fugitive'
+-- }
+-- use {
+--   'https://github.com/lewis6991/gitsigns.nvim'
+-- }
+-- use {
+--   'https://github.com/tanvirtin/vgit.nvim',
+--   requires = {
+--     'https://github.com/nvim-lua/plenary.nvim'
+--   }
+-- }
+
+  -- Works for both git and svn
   use {
     'https://github.com/mhinz/vim-signify.git',
     config = function()
@@ -274,33 +403,57 @@ use {
     end
   }
 
-  -- cf <https://nic-west.com/posts/workman-layout/>
-  -- use {
-  --   'https://github.com/nicwest/vim-workman',
-  --   config = function()
-  --     vim.cmd([[
-  --       let g:workman_normal_workman = 0
-  --       let g:workman_insert_workman = 0
-  --       let g:workman_normal_qwerty = 0
-  --       let g:workman_insert_qwerty = 0
-  --     ]])
-  --   end
-  -- }
+-- Tests ---------------------------------------------------------------------
 
-  -- Visually indicate marks
-  use 'https://github.com/kshenoy/vim-signature'
+-- use {
+--   'https://github.com/klen/nvim-test',
+--   requires = {
+--     "https://github.com/nvim-lua/plenary.nvim",
+--     "https://github.com/nvim-treesitter/nvim-treesitter",
+--   },
+--   config = function()
+--     require('nvim-test').setup()
+--   end
+-- }
+-- use {
+--   'https://github.com/vim-test/vim-test'
+-- }
+-- vim.cmd([[let g:ultest_deprecation_notice = 0]])
+-- use {
+--   "https://github.com/rcarriga/vim-ultest",
+--   requires = {"https://github.com/vim-test/vim-test"},
+--   run = ":UpdateRemotePlugins",
+--   config = function()
+--   end
+-- }
+use {
+  "https://github.com/nvim-neotest/neotest",
+  requires = {
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/antoinemadec/FixCursorHold.nvim",
+    "https://github.com/nvim-neotest/neotest-python",
+    "https://github.com/rouge8/neotest-rust"
+  },
+  config = function()
+    require("neotest").setup({
+      adapters = {
+        -- require("neotest-python")({
+        --   dap = { justMyCode = false },
+        -- }),
+        -- require("neotest-plenary"),
+        -- require("neotest-vim-test")({
+        --   ignore_file_types = { "python", "vim", "lua" },
+        -- }),
+      },
+    })
 
-  -- Automatically detect indentation
-  use 'https://github.com/tpope/vim-sleuth'
+    local nt = require("neotest")
+    vim.keymap.set('n', 'xt', nt.run.run, {})
+    vim.keymap.set('n', 'xs', nt.summary.open, {})
 
-  -- More sensible word motions
-  use 'https://github.com/chaoren/vim-wordmotion'
-
-  -- Auto comment lines
-  use 'https://github.com/tpope/vim-commentary'
-
-  -- Return to last position when editing files
-  use 'https://github.com/farmergreg/vim-lastplace'
+  end
+}
 
 -- Syntax highlighting --------------------------------------------------------
   use 'https://github.com/niklasl/vim-rdf'
