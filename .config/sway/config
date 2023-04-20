@@ -1,6 +1,4 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
-
-
 set $mod Mod4+Ctrl
 set $left h
 set $down j
@@ -74,8 +72,6 @@ client.focused_inactive #ffffff #ffffff #000000
 
 floating_modifier Mod4 normal
 
-
-
 # Start a terminal
 bindsym XF86Terminal exec footclient
 
@@ -89,6 +85,7 @@ bindsym XF86Close kill
 # Start your launcher
 # bindsym $mod+semicolon exec dmenu-apps
 bindsym XF86MenuKB exec dmenu-apps
+bindsym Mod4+XF86MenuKB exec dmenu-apps
 bindsym $mod+x exec dmenu-apps
 # Pressing Super_L by itself opens the menu
 # bindcode 133 --release exec dmenu-apps
@@ -119,10 +116,10 @@ bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
 bindsym $mod+4 workspace number 4
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
 
 # bindsym $mod+b splith
 # bindsym $mod+v splitv
