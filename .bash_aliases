@@ -2,7 +2,6 @@ alias b="bemenu -l 10 -H 30 --fn 'Cabin 10'"
 
 # alias sudo="doas"
 alias thumb="convert cover.* -resize 96x96! -quality 65% folder.jpg"
-alias nnvim="nvim -u ~/.config/nvim/init-new.lua"
 alias bak="crsync"
 alias vim="nvim"
 alias t="vim $HOME/notes/todo/todo.md"
@@ -15,8 +14,8 @@ alias trash-more="srm -l"
 alias ledger="ledger --strict -f $LEDGER"
 alias ls="ls --color=always"
 alias du="ncdu"
-alias ytdl-sub="youtube-dl --all-subs --convert-subs srt --skip-download"
-alias reload="polybar-msg cmd restart"
+alias yt="yt-dlp"
+alias yt-sub="yt-dlp --all-subs --convert-subs srt --skip-download"
 alias flac2mp3="parallel ffmpeg -i {} -qscale:a 2 {.}.mp3 ::: ./*.flac"
 
 # https://www.techspeak.dev/2019/01/14/improve-your-git-flow-with-fuzzy-find.html
