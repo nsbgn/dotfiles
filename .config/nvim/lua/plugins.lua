@@ -30,6 +30,31 @@ require('packer').startup(function(use)
   use 'https://github.com/wbthomason/packer.nvim'
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-treesitter/nvim-treesitter'
+  use {
+   'https://github.com/nvim-treesitter/playground',
+    config = function()
+      require "nvim-treesitter.configs".setup {
+        playground = {
+          enable = true,
+          disable = {},
+          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          persist_queries = false, -- Whether the query persists across vim sessions
+          keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+          },
+        }
+      }
+    end
+  }
 
   -- Integrate direnv; see <https://direnv.net/>
   use 'https://github.com/direnv/direnv.vim'
@@ -235,7 +260,7 @@ use {
           -- markdownH1Delimiter { gui = "underline,bold" },
           markdownH2 { gui = "invert" },
           -- markdownH2Delimiter { gui = "underline,bold" },
-          pandocAtxHeader { gui = "underline,bold" },
+          pandocAtxHeader { fg = "red", gui = "underline,bold" },
           pandocAtxStart { gui = "underline" },
           pandocOperator { fg = "#666666" },
           yamlBlockMappingKey { gui = "bold" },
@@ -248,6 +273,7 @@ use {
       end)
 
       lush.apply(lush.compile(specs))
+
     end
   }
 
@@ -496,3 +522,11 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
+
+-- Temporary solution after Neovim 0.9.
+vim.cmd([[
+  autocmd VimEnter *.md,*.tex nested highlight pandocAtxHeader gui=underline,bold
+  autocmd VimEnter *.md,*.tex nested highlight pandocAtxStart gui=underline
+]])
+
+
