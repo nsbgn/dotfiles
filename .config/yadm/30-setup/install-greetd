@@ -1,7 +1,14 @@
 #!/bin/sh
 
-sudo apt install -y greetd
-sudo mkdir /etc/greetd
+if ! dpkg-query -W -f='${Status}' greetd | grep -q "ok installed"; then
+    sudo apt install -y greetd
+else
+    echo "greetd is already installed" >&2
+fi
+
+if [ ! -d /etc/greetd ]; then
+
+sudo mkdir -p /etc/greetd
 sudo tee /etc/greetd/config.toml <<EOF
 [terminal]
 vt = 1
@@ -22,3 +29,7 @@ wl phosh
 wl cage foot
 bash
 EOF
+
+else
+    echo "greetd config is already installed" >&2
+fi

@@ -20,8 +20,9 @@ fi
 # <https://gist.githubusercontent.com/rvaiya/be31f42049a4b5ad46666a8e120d9843/>
 # <https://cgit.freedesktop.org/xorg/proto/x11proto/tree/XF86keysym.h>
 #
+echo "Updating keyd config..." >&2
 sudo mkdir -p /etc/keyd
-sudo tee /etc/keyd/default.conf <<EOF
+sudo tee /etc/keyd/default.conf > /dev/null <<EOF
 [ids]
 
 # Microsoft Keyboard
@@ -69,7 +70,7 @@ j = 4
 k = 5
 l = 6
 ; = 0
-' = `
+' = grave
 
 z = !
 x = {
@@ -89,7 +90,7 @@ p = macro(backspace :)
 space = swapm(meta, menu)
 # leftmeta = macro(menu leftmeta)
 
-` = M-C-`
+grave = M-C-grave
 1 = M-C-1
 2 = M-C-2
 3 = M-C-3
@@ -151,7 +152,7 @@ m = M-C-m
 
 [fn+symbol]
 
-# XF86WLAN / 0xf6. See also `rfkill` for XF86RFKill
+# XF86WLAN / 0xf6. See also rfkill for XF86RFKill
 tab = wlan
 # XF86AudioPrev
 q = previoussong
@@ -211,3 +212,5 @@ m = f3
 / = f10
 rightshift = delete
 EOF
+
+sudo keyd reload

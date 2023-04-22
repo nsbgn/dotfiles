@@ -7,9 +7,13 @@
 # DEBIAN: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=944028
 set -euo pipefail
 
-mkdir -p ~/.builds/debs
-wget -P ~/.builds/debs/ "$( \
-    curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' \
-    | jq -r 'first(.assets | .[] | .browser_download_url | select(endswith("amd64.deb")))'\
-)"
-sudo dpkg -i ~/.builds/debs/git-delta*.deb
+if ! which delta > /dev/null; then
+    mkdir -p ~/.builds
+    wget -P ~/.builds/ "$( \
+        curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' \
+        | jq -r 'first(.assets | .[] | .browser_download_url | select(endswith("amd64.deb")))'\
+    )"
+    sudo dpkg -i ~/.builds/git-delta*.deb
+else
+    echo "delta is already installed." >&2
+fi

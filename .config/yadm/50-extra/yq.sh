@@ -9,9 +9,15 @@
 # is dedicated to HTML/XML, and <https://github.com/mgdm/htmlq>, which is for 
 # HTML. There's also <https://github.com/sclevine/yj>, which converts between 
 # YAML and JSON.
+set -euo pipefail
 
 VERSION=v4.33.3
 BINARY=yq_linux_amd64
-EXE="${HOME}/.local/bin/yq"
-wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O ${EXE} &&\
-    chmod +x ${EXE}
+DIR="${HOME}/.local/bin"
+BIN="${DIR}/yq"
+if ! which yq; then
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O "${BIN}"
+    chmod +x "${BIN}"
+else
+    echo "yq is already installed" >&2
+fi

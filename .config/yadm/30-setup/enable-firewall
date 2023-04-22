@@ -4,6 +4,11 @@
 # https://www.linuxbabe.com/security/ufw-firewall-debian-ubuntu-linux-mint-server
 set -e
 
+if [ -f /usr/sbin/ufw ]; then
+    echo "UFW is already installed" >&2
+    exit 0
+fi
+
 if grep -q debian /etc/os-release; then
     sudo apt-get install ufw
 else

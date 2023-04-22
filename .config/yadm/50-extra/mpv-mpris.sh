@@ -7,7 +7,14 @@
 # DEBIAN: https://packages.debian.org/bookworm/mpv-mpris
 set -euo pipefail
 
-URL="$(curl -s 'https://api.github.com/repos/hoyon/mpv-mpris/releases/latest' \
-    | jq -r '.assets[] | select(.name == "mpris.so") | .browser_download_url')"
-mkdir -p ~/.config/mpv/scripts
-curl -fLo ~/.config/mpv/scripts/mpris.so "$URL"
+DIR="$HOME/.config/mpv/scripts"
+BIN="mpris.so"
+
+if [ ! -f "$DIR/$BIN" ]; then
+    URL="$(curl -s 'https://api.github.com/repos/hoyon/mpv-mpris/releases/latest' \
+        | jq -r '.assets[] | select(.name == "mpris.so") | .browser_download_url')"
+    mkdir -p "$DIR"
+    curl -fLo "$DIR/$BIN" "$URL"
+else
+    echo "$BIN is already installed" >&2
+fi
