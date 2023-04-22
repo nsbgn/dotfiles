@@ -43,7 +43,8 @@ PACKAGES=(
     innoextract # Extract from Windows installers
     jq # Parsing JSON
     khal # TUI calendar
-    lf # Directory
+    lf # File browser
+    lisgd # Gesture recognition
     libglib2.0-bin # Trashbin via `gio trash`
     lowdown # Markdown processor and terminal viewer
     lxpolkit # Policy kit
