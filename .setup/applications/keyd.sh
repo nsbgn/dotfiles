@@ -1,16 +1,213 @@
-#!/bin/bash
-# keyd
-# Keyboard remapper
-#
+#!/bin/sh
+# keyd - Keyboard remapper
+
 # SOURCE: https://github.com/rvaiya/keyd
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/keyd
 # DEBIAN: -
-set -euo pipefail
+set -eu
 
-mkdir -p ~/.builds
-sudo apt install libudev-dev
-git clone https://github.com/rvaiya/keyd ~/.builds/keyd
-cd ~/.builds/keyd
-make
-sudo make install
-sudo systemctl enable keyd
+if ! which keyd > /dev/null; then
+    mkdir -p ~/.builds
+    sudo apt install -y libudev-dev
+    git clone https://github.com/rvaiya/keyd ~/.builds/keyd
+    cd ~/.builds/keyd
+    make
+    sudo make install
+    sudo systemctl enable keyd
+fi
+
+# also set setxkbmap -option compose:menu
+# <https://gist.githubusercontent.com/rvaiya/be31f42049a4b5ad46666a8e120d9843/>
+# <https://cgit.freedesktop.org/xorg/proto/x11proto/tree/XF86keysym.h>
+#
+sudo mkdir -p /etc/keyd
+sudo tee /etc/keyd/default.conf <<EOF
+[ids]
+
+# Microsoft Keyboard
+045e:07a5
+# Laptop keyboard
+0001:0001
+
+[global]
+chord_timeout = 50
+overload_tap_timeout = 300
+oneshot_timeout = 1000
+
+[main]
+leftalt = overload(fn, escape)
+leftcontrol = overload(control, compose)
+leftmeta = overload(alt, compose)
+rightalt = oneshot(symbol)
+leftshift = oneshot(shift)
+
+capslock = backspace
+[ = \
+rightshift = delete
+
+[symbol]
+rightalt = layerm(symbol, compose)
+q = @
+w = [
+e = $
+r = #
+t = ]
+y = ^
+u = 7
+i = 8
+o = 9
+p = oneshotm(symbol2, .)
+[ = &
+
+a = *
+s = (
+d = -
+f = =
+g = )
+h = ~
+j = 4
+k = 5
+l = 6
+; = 0
+' = `
+
+z = !
+x = {
+c = +
+v = _
+b = }
+n = %
+m = 1
+, = 2
+. = 3
+/ = /
+
+[symbol2]
+p = macro(backspace :)
+
+[fn]
+space = swapm(meta, menu)
+# leftmeta = macro(menu leftmeta)
+
+` = M-C-`
+1 = M-C-1
+2 = M-C-2
+3 = M-C-3
+4 = M-C-4
+5 = M-C-5
+6 = M-C-6
+7 = M-C-7
+8 = M-C-8
+9 = M-C-9
+0 = M-C-0
+
+tab = M-C-tab
+q = home
+w = up
+e = end
+r = pageup
+t = M-C-t
+
+backspace = backspace
+a = left
+s = down
+d = right
+f = pagedown
+g = M-C-g
+
+# Close window: XF86Close / close
+z = M-C-z
+# Open menu: XF86MenuKB / XF86Start / leftmeta itself?
+# macro(menu leftmeta)
+x = M-C-x
+# c = M-C-C-right  # Next virtual desktop. Alternatively: next / XF86Next_VMode.
+c = M-C-c
+# v = display  # Change window layout: XF86RotateWindows
+v = M-C-v
+b = M-C-b
+# alternatively, XF86Prev_VMode
+#c = M-C-C-left
+
+
+y = M-C-y
+u = M-C-u
+i = M-C-i
+o = M-C-o
+p = M-C-p
+[ = M-C-[
+
+h = M-C-h
+j = M-C-j
+k = M-C-k
+l = M-C-l
+; = M-C-;
+' = M-C-apostrophe
+
+n = M-C-n
+m = M-C-m
+, = M-C-,
+. = M-C-.
+/ = M-C-/
+
+[fn+symbol]
+
+# XF86WLAN / 0xf6. See also `rfkill` for XF86RFKill
+tab = wlan
+# XF86AudioPrev
+q = previoussong
+# XF86AudioRaiseVolume
+w = volumeup
+# XF86AudioNext
+e = nextsong
+# XF86AudioStop
+r = stopcd
+# XF86MonBrightnessUp
+t = brightnessup
+
+# XF86TouchpadToggle
+capslock = f21
+# XF86AudioRewind
+a = rewind
+# XF86AudioLowerVolume
+s = volumedown
+# XF86AudioForward
+d = fastforward
+# XF86AudioPlay
+f = playpause
+# XF86KbdBrightnessDown
+g = brightnessdown
+
+# XF86Bluetooth / 0xf5
+leftshift = bluetooth
+# XF86AudioMicMute
+z = f20
+# XF86AudioMute
+x = mute
+# XF86AudioPreset / 0xdd
+c = sound
+# XF86AudioRecord
+v = record
+b = toggle(workman)
+
+
+y = scrolllock
+u = f7
+i = f8
+o = f9
+p = f12
+[ = toggle(workman)
+
+h = print
+j = f4
+k = f5
+l = f6
+semicolon = f11
+apostrophe = insert
+
+n = pause
+m = f3
+, = f2
+. = f1
+/ = f10
+rightshift = delete
+EOF
