@@ -36,6 +36,7 @@ PACKAGES=(
     dtrx # Unzipping various formats
     fd-find # Search for files on the filesystem; `find` alternative
     firefox-esr # Web browser
+    foot # Terminal emulator
     git # Version control
     gnupg # Encrypt files and emails
     htop # System monitor
