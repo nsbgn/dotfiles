@@ -38,7 +38,6 @@ PACKAGES=(
     firefox-esr # Web browser
     git # Version control
     gnupg # Encrypt files and emails
-    greetd # Login
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers

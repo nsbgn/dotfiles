@@ -5,12 +5,17 @@
 
 case $(lsb_release -si) in
     Debian)
-        echo Debian
-        ;;
-    Alpine)
-        echo Alpine
-        ;;
-    *)
-        echo Unsupported
-        exit 1
+        echo On Debian...
+        sudo apt-get install -y findutils coreutils
+    ;;
 esac
+
+cd "$(dirname "$0")"
+find -L "." -mindepth 2 -type f -executable ! -name "*##*" \
+        | sort | while IFS= read -r SCRIPT; do
+    echo "Running $SCRIPT"
+    # if ! "$SCRIPT"; then
+    #     echo "Error: bootstrap '$SCRIPT' failed" >&2
+    #     exit 1
+    # fi
+done

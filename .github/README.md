@@ -19,9 +19,9 @@ Because the configurations assume that my [scripts][scrp] are in your
     repositories of [Debian][drep] is preferred, especially where it 
     overlaps with [Alpine][arep]. [Fedora][frep] is also considered.
 
--   The [`.setup/`](../.setup) directory contains scripts for setting up 
-    a new installation. I don't recommend running them as-is: they're 
-    mostly there as a reminder to myself.
+-   The [`.config/yadm/`](../.config/yadm) directory contains scripts 
+    for setting up a new installation. I don't recommend running them 
+    as-is: they're mostly there as a reminder to myself.
 
 -   Eventually, I want to make the install fully [automatic][auto], or 
     using a [preseed][seed]. Also, make proper packages for 
