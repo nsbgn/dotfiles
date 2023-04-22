@@ -20,10 +20,14 @@ PACKAGES=(
     swaylock
     wl-clipboard
     wdisplays
+    waybar
+    yambar
 
     # Utilities
+    aerc # TUI email client
     apt-file # Finding files in Debian packages
     bat # Highlighting
+    bemenu # dmenu-like menu for Wayland
     brightnessctl # Controlling the backlight
     bubblewrap # Wrapper for jailing applications
     command-not-found # Suggest packages
@@ -34,6 +38,7 @@ PACKAGES=(
     firefox-esr # Web browser
     git # Version control
     gnupg # Encrypt files and emails
+    greetd # Login
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers
@@ -43,6 +48,7 @@ PACKAGES=(
     libglib2.0-bin # Trashbin via `gio trash`
     lowdown # Markdown processor and terminal viewer
     lxpolkit # Policy kit
+    moreutils # Contains `vipe`, which can edit data between pipes
     mpv # Video viewer
     ncdu # See size of directories
     network-manager # Network

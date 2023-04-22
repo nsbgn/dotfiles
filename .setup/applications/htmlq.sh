@@ -4,7 +4,7 @@
 #
 # SOURCE: https://github.com/mgdm/htmlq
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/testing/x86_64/htmlq
-# DEBIAN: -
+# DEBIAN: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1018733
 set -euo pipefail
 
 TMPDIR="$(mktemp -d /tmp/htmlq-XXX)"

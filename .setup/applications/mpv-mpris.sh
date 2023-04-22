@@ -1,6 +1,6 @@
 #!/bin/bash
 # mpv-mpris
-# MPRIS support for MPV
+# MPRIS support for MPV. Debian's version is 0.7.1
 #
 # SOURCE: https://github.com/hoyon/mpv-mpris
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/testing/x86_64/mpv-mpris
