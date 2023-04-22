@@ -5,6 +5,7 @@ set $down j
 set $up k
 set $right l
 
+exec dbus-update-activation-environment --verbose --systemd --all
 exec foot --server
 exec waybar
 exec gammastep -O 5500K

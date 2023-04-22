@@ -41,7 +41,4 @@ export MOZ_USE_XINPUT2=1  # Enable touch scrolling on firefox
 
 # systemd-cat --identifier=sway sway $@
 
-# Avoid slow startup of GTK apps. See /etc/X11/xinit/xinitrc
-dbus-update-activation-environment --verbose --systemd --all
-
 exec $CMD
