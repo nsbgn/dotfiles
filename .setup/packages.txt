@@ -1,0 +1,262 @@
+packages:
+  - acpi # Information on acpi devices
+  - alsa-utils # Audio configuration
+  - arbtt # Rule-based time tracker
+  - asciinema # Record terminal sessions
+  - binutils # Assembler, linker, C compiler
+  - bison # YACC parser generator
+  - blender # 3D modeller/renderer
+  - blueman # Bluetooth manager GUI
+  - bluez bluez-tools # Bluetooth support, tools and daemons
+  - bluez-cups # Bluetooth for printer driver
+  - bpython # Interactive Python interpreter
+  - btscanner # Bluetooth manager for terminal
+  - build-essential # build tools
+  - cloc # Count lines of code
+  - cmake # Assorted build tools
+  - cups-bsd enscript # CLI printing
+  - curl # Command line tool to transfer data
+  - desmume # Nintendo DS emulator
+  - dvtm # Tiling window manager for the terminal
+  - elinks # Text internet browser
+  - epub-utils # Contains einfo, for inspecting EPUB metadata
+  - evince # PDF viewer
+  - fbreader # Ebook reader
+  - file-roller # Integration of archives into file managers
+  - fdupes # Remove duplicate files
+  - findimagedupes # Find image duplicates even if theyve been resized etc
+  - fontforge # Font editor
+  - gbdfed # Bitmap font editor
+  - gbsplay # Play GB music
+  - gcc
+  - geany # Generic text editor/IDE
+  - gimagereader # Graphical interface for optical character recognition using tesseract
+  - gimp # Image editor
+  - gnome-packagekit # Package manager, update notifier (see update-notifier)
+  - gnome-software # Software center
+  - gnuplot # Plotting graphics
+  - gparted # Partition editor
+  - gperiodic # Periodic table application
+  - gtk-vector-screenshot # Vector screenshots of GTK3 applications
+  - handbrake # Conversion of multimedia files
+  - hexchat # IRC client
+  - hexer # Hex editing
+  - hexyl # Hex output
+  - httrack # Website downloader
+  - hugo # Static site generator
+  - icdiff # Terminal side-by-side diff
+  - ideviceinstaller ifuse # For connecting iPhones, iPods and iPads
+  - inkscape # Vector graphics
+  - jami # Distributed chat & video client
+  - jigdo-file # Download installation media
+  - jq # Query and manipulate JSON text
+  - kalzium # Chemistry tools
+  - kdenlive # Video editing software
+  - kiwix # Offline Wikipedia reader
+  - krita # Image editor
+  - krop # Crop PDFs
+  - ledger # Budgetting software. see also hledger and hledger-ui less # Text 
+  - libimage-exiftool-perl # Inspect EXIF data of media files
+  - libreoffice-calc # Spreadsheet
+  - libreoffice-gtk3 # Libreoffice
+  - libreoffice-impress
+  - libreoffice-writer # Word processor
+  - libvulkan1
+  - lm-sensors # Temperature sensors, etc
+  - lxterminal # Terminal emulatou
+  - marble # Map software
+  - mesa-vulkan-drivers
+  - mpv # Media player
+  - neovim # Text editor
+  - network-manager # Network configuration
+  - network-manager-gnome # Network configuration frontend
+  - notmuch # Email search
+  - ntp # Time daemon to automatically set time
+  - octave # MATLAB-compatible numerical analysis software
+  - okular{,-extra-backends,-mobile} # Okular, for PDF annotations on touchscreen
+  - pager
+  - paperkey # Dump secret information of gnupg keys for backup
+  - parchive # Archives for data repair
+  - pavucontrol # Audio configuration frontend
+  - pcmanfm # File manager
+  - pdd # Stopwatch, time diff calculator
+  - phantomjs # Headless browser with JavaScript API
+  - pinentry-gtk2 # For keyring
+  - powertop # Power saving (manual)
+  - ppp
+  - pqiv # Image viewer
+  - puddletag # Audio tag editor
+  - pulseaudio-module-bluetooth # Bluetooth for sound server
+  - python3-breadability # Readability implementation in Python
+  - qgis # Geographic Information System 
+  - qmapshack # GPS map manager
+  - qtox # Distributed chat & video client
+  - quaternion # Distributed chat client for Matrix
+  - r-base # R statistical analysis software
+  - rover # Terminal update-alternatives frontent
+  - rtv # Terminal reddit viewer
+  - saga # System for automated geoscientific analysis
+  - sassc # SASS CSS precompiler
+  - scilab # MATLAB-like numerical analysis software
+  - scribus # Document publishing
+  - sigil # Ebook editor
+  - simple-scan # GUI scan utility
+  - socat # Communicate with sockets
+  - software-properties-gtk # Manage repositories
+  - spectral # Distributed chat client for Matrix
+  - sqlitebrowser # SQLite database editor
+  - subtitleeditor # Subtitle editor
+  - synaptic # Package manager
+  - syncthing # Decentralized synchronization of directories between devices
+  - system-config-printer gtklp # Printer configuration
+  - timidity # Playing MIDI files
+  - tldr # Quickly see how to use a command
+  - tlp # Laptop power saving (auto)
+  - urlview # Selecting urls from email text
+  - utox # Distrubted chat & video client
+  - visidata # Visualiser of spreadsheet data in terminal
+  - vulkan-tools # Vulkan stuff
+  - w3m # Text internet browser
+  - wakeonlan # See https://wiki.debian.org/WakeOnLan
+  - watson # Time management CLI tool
+  - weechat # IRC client
+  - wput # Command line FTP client
+  - wuzz # interactive HTTP request inspection tool
+  - xxd # Hex editor CLI
+    lxappearance
+    meld # diff merge tool
+
+# Downloading
+transmission-cli # BitTorrent client
+transmission-gtk # BitTorrent client
+
+    qt5-gtk-platform-theme
+    qt5-gtk2-platform-theme
+
+
+conversion:
+    # scantailor # Book digitization
+    # csv2latex # CSV to LaTeX converter
+    # csvkit # CSV manipulation on the command line
+    # weasyprint # HTML to PDF printer
+    # wit # Conversion of GameCube and Wii ISOs
+    # unoconv # Convert any format supported by libreoffice
+    # unrtf # Convert from RTF to text
+    # ytnef-tools # For opening winmail.dat files in emails, via console
+    # ktnef # For opening pesky winmail.dat files in emails
+    # webp # Convert WebP pictures
+    # xz-utils xzdec # XZ-format compression and decompression
+    # calibre # Ebook library and conversion suite
+    # catdoc # Convert Word documents to text
+    # docx2txt # Convert Word XML documents to text
+    # imagemagick # Conversion and batch editing of images
+    # ffmpeg # Conversion of various media formats
+    # qpdf # Manipulating PDF files (decryption, etc)
+    # ebook2epub # Conversion of various ebook formats to EPUB
+    # shntool # Manipulating WAV audio files
+    # cuetools # Manipulating CUE files from CD rips
+
+  diff:
+    # diffpdf # PDF comparison
+    # imediff # Graphical merge tool for the terminal
+    # dwdiff # Word diff
+    python3-jsondiff # JSON diff
+
+gaming:
+  - openmw # Role playing game (reimplementation of Morrowind, no data files)
+  - 0ad
+  - retroarch
+  - libretro-bsnes-mercury-balanced
+  - libretro-beetle-psx
+  - libretro-desmume
+  - libretro-mgba
+  - libretro-mupen64plus
+  - libretro-nestopia
+
+other:
+  - visidata # CSV data terminal viewer
+  - gallery-dl # Download image galleries
+  - ssh # Remote shell
+  - smbclient
+  - samba # Print via Samba
+  - sshfs # Mount filesystem via SSH
+
+printing:
+    cups
+    printer-driver-gutenprint
+    printer-driver-cups-pdf # Print to PDF
+    libinput-tools # For detecting tablet mode
+    sane-utils # Contains `scanimage` for scanning
+
+    lftp # Command line FTP client
+
+filesystem:
+  - exfatprogs # exFAT support
+  - fuseiso # Mount ISOs
+  - fatsort # Sort FAT filesystems (for hardware mp3 players)
+  - e2fsprogs
+  - exfat-utils
+  - dosfstools
+  - hfsplus
+  - hfsprogs
+
+conversion:
+    atool
+    zip
+    unzip
+    p7zip-full
+    bzip2
+    rpm
+    # jp2a # Convert JPEG images to ASCII
+    # libtiff-tools # tiff2pdf
+    # libvips # Fast conversion and batch editing of images
+    # ocrodjvu # Perform OCR on DJVU documents
+    # pdf2djvu # Conversion of PDF to DJVU
+    # mdbtools # Microsoft Access databases
+    # minidjvu # Conversion of pages to DJVU
+    # mkvtoolnix-gui # Multiplexing audio/video/subtitles into MKV files
+    # mkvtoolnix # MKV media container editor
+    gimp # Image editor
+    net-tools # Contains ifconfig, netstat, route ...
+    nethogs # Network monitor
+    unar # Extract/compress archives
+
+    jc # Output of popular CLI utilities to JSON
+
+
+    # Python
+    python3-pip
+    python3-yaml # dependency for crsync
+    python3-future # fixes an issue
+    # python3-pyls flake8 pylint python3-autopep8 python3-pycodestyle 
+    # python3-yapf
+    #
+fonts-mono:
+    fonts-hack
+    fonts-go
+    fonts-firacode
+    fonts-liberation
+    fonts-noto
+    fonts-spleen
+    fonts-terminus
+    fonts-courier-prime
+    fonts-fantasque-sans
+
+
+fonts-sans:
+    fonts-quicksand
+    fonts-adf-universalis
+    fonts-urw-base35
+    fonts-cantarell
+    fonts-crosextra-caladea
+    fonts-linuxlibertine
+    fonts-inter
+    fonts-go
+    fonts-dejavu
+
+fonts-icons:
+    fonts-fork-awesome
+    fonts-material-icons
+    fonts-powerline
+
+
