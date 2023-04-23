@@ -5,7 +5,9 @@
 # SOURCE: https://neovim.io/
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/neovim
 # DEBIAN: https://packages.debian.org/bullseye/neovim
-set -euo pipefail
+set -eu
+
+CUR="$(which nvim || echo)"
 
 OLDVER="$(nvim -v | grep "NVIM v" | cut -d' ' -f2)"
 NEWVER="$(curl -s 'https://api.github.com/repos/neovim/neovim/releases' | \
@@ -15,9 +17,8 @@ DIR="$HOME/.local/bin"
 BIN="nvim"
 URL="https://github.com/neovim/neovim/releases/download/stable/nvim.appimage"
 
-CUR="$(which nvim)"
 if [ "$CUR" = "$DIR/$BIN" -a "$OLDVER" = "$NEWVER" ]; then
-    echo "You have the latest version of Neovim ($NEWVER) installed already." >&2
+    echo "Neovim stable ($NEWVER) is installed already." >&2
 elif [ ! -z "$CUR" ]; then
     echo "You have Neovim $OLDVER installed already (newest is $NEWVER)." >&2
 else
