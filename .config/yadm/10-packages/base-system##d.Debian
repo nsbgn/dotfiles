@@ -45,6 +45,7 @@ PACKAGES=(
     foot # Terminal emulator
     git # Version control
     gnupg # Encrypt files and emails
+    gojq # Go implementation of jq, with YAML support
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers
