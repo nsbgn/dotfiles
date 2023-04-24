@@ -505,6 +505,7 @@ use {
     config = function()
       vim.cmd([[
         let g:pandoc#syntax#conceal#use=0
+        set conceallevel=0
       ]])
     end
   }
@@ -524,9 +525,9 @@ vim.cmd([[
 ]])
 
 -- Temporary solution after Neovim 0.9.
-vim.cmd([[
-  autocmd VimEnter *.md,*.tex nested highlight pandocAtxHeader gui=underline,bold
-  autocmd VimEnter *.md,*.tex nested highlight pandocAtxStart gui=underline
-]])
+-- vim.cmd([[
+--   autocmd VimEnter *.md,*.tex nested highlight pandocAtxHeader gui=underline,bold
+--   autocmd VimEnter *.md,*.tex nested highlight pandocAtxStart gui=underline
+-- ]])
 
 
