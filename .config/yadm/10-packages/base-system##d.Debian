@@ -5,7 +5,7 @@ PACKAGES=(
     # Theme
     fonts-font-awesome # Font icon
     fonts-cabin # Sans serif font
-    fonts-{anonymous-pro,inconsolata,cascadia-code,jetbrains-mono} # Monospace
+    fonts-{anonymous-pro,inconsolata,jetbrains-mono} # Monospace
     fonts-terminus-otb # Bitmap monospace
     dmz-cursor-theme
 
@@ -14,12 +14,18 @@ PACKAGES=(
     fscrypt # Linux kernel file encryption
     libpam-fscrypt # Auto-unencrypt
 
+    # Build stuff
+    gcc
+    make
+    build-essential
+
     # Sway
     sway
     python3-i3ipc
     swaylock
     wl-clipboard
     wdisplays
+    wtype
     waybar
     yambar
 
