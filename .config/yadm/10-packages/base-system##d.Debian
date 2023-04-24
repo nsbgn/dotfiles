@@ -53,7 +53,7 @@ PACKAGES=(
     mpv # Video viewer
     ncdu # See size of directories
     network-manager # Network
-    pandoc pandoc-citeproc # Document converter
+    pandoc # Document converter
     parallel # Execute commands in parallel
     pass # Simple password manager based on gnupg
     playerctl # Controlling MPRIS media players
