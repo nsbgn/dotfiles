@@ -82,6 +82,9 @@ PACKAGES=(
     xdg-utils # Open in defaul program via `xdg-open`
     xournalpp # Drawing & PDF annotations
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
+
+    # Dependencies for scripts
+    python3-gi  # For dmenu-apps
 )
 
 sudo apt update -y
