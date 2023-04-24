@@ -85,6 +85,7 @@ PACKAGES=(
 
     # Dependencies for scripts
     python3-gi  # For dmenu-apps
+    python3-yaml  # For crsync
 )
 
 sudo apt update -y

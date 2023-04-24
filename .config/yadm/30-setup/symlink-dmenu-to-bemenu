@@ -1,5 +1,7 @@
 #!/bin/sh
 set -eu
 
-mkdir -p $HOME/.local/bin
-ln -s /usr/bin/bemenu $HOME/.local/bin/dmenu
+if ! which dmenu > /dev/null; then
+    mkdir -p $HOME/.local/bin
+    ln -s /usr/bin/bemenu $HOME/.local/bin/dmenu
+fi
