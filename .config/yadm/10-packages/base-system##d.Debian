@@ -82,6 +82,7 @@ PACKAGES=(
     wget # Retrieve files from the web
     xdg-utils # Open in defaul program via `xdg-open`
     xournalpp # Drawing & PDF annotations
+    xq # XML processor, like jq or htmlq
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
 
     # Dependencies for scripts
