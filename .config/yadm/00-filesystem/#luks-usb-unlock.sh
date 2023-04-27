@@ -11,8 +11,8 @@
 # 3. Add a script to initramfs to unlock the container with the USB.
 #
 ### See also:
-# <https://www.cemocom.de/2020/04/15/open-luks-encrypted-device-via-key-on-usb-stick/>
 # <https://stackoverflow.com/questions/19713918/how-to-load-luks-passphrase-from-usb-falling-back-to-keyboard>
+# <https://www.cemocom.de/2020/04/15/open-luks-encrypted-device-via-key-on-usb-stick/>
 # <https://gist.github.com/da-n/4c77d09720f3e5989dd0f6de5fe3cbfb>
 # <https://tqdev.com/2022-luks-with-usb-unlock>
 #
@@ -27,4 +27,56 @@
 # <https://linuxconfig.org/how-to-install-debian-on-an-existing-luks-container>
 set -eu
 
-:
+# Create a random passphrase:
+#   dd if=/dev/urandom bs=1 count=256 > passphrase
+#   cryptsetup luksAddKey /dev/sda5 passphrase
+
+tee /bin/passphrase-from-usb <<EOF
+##!/bin/sh
+set -e
+
+if ! [ -e /passphrase-from-usb-tried ]; then
+    touch /passphrase-from-usb-tried
+    if ! [ -e "$CRYPTTAB_KEY" ]; then
+        echo "Waiting for USB stick to be recognized..." >&2
+        sleep 3
+    fi
+    if [ -e "$CRYPTTAB_KEY" ]; then
+        echo "Unlocking the disk $CRYPTTAB_SOURCE ($CRYPTTAB_NAME) from USB key" >&2
+        dd if="$CRYPTTAB_KEY" bs=1 skip=129498880 count=256 2>/dev/null
+        exit
+    else
+        echo "Can't find $CRYPTTAB_KEY; USB stick not present?" >&2
+    fi
+fi
+
+/lib/cryptsetup/askpass "Unlocking the disk $CRYPTTAB_SOURCE ($CRYPTTAB_NAME)\nEnter passphrase: "
+EOF
+
+# Add the following to /etc/crypttab:
+#   ... luks,keyscript=/bin/passphrase-from-usb
+
+# Ensure that this script is available in the initramfs. 
+tee /etc/initramfs-tools/hooks/passphrase-from-usb <<EOF
+#!/bin/sh
+
+PREREQ=""
+
+prereqs() {
+        echo "$PREREQ"
+}
+
+case "$1" in
+        prereqs)
+                prereqs
+                exit 0
+        ;;
+esac
+
+. "${CONFDIR}/initramfs.conf"
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /bin/passphrase-from-usb /bin
+EOF
+
+sudo update-initramfs -u
