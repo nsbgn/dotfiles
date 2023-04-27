@@ -26,3 +26,8 @@
 -   https://github.com/daa84/neovim-gtk
 -   https://github.com/beeender/glrnvim
 -   https://github.com/yatli/fvim
+
+# Multiboot ISO
+
+Check out <https://ventoy.net> for a convenient way for multiboot 
+pendrives.
