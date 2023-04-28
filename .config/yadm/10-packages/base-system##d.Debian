@@ -21,6 +21,7 @@ PACKAGES=(
 
     # Sway
     sway
+    xwayland
     python3-i3ipc
     swaylock
     wl-clipboard
