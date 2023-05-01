@@ -1,0 +1,9 @@
+#!/bin/sh
+
+
+# Just select the first touchscreen you can find
+# cf. https://askubuntu.com/questions/520359/
+DEV="$(udevadm info --export-db \
+    | awk '/ID_INPUT_TOUCHSCREEN=1/' RS= \
+    | grep "^E: DEVNAME=/dev/input/event" \
+    | cut -d= -f2 | tail -n1)"
