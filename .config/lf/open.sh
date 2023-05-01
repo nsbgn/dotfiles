@@ -47,24 +47,25 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     audio/*) 
         mpv --no-audio-display "$F" ;;
     image/*) 
-        cd "$(dirname "$F")" && feh \
-            --borderless \
-            --scale-down \
-            --image-bg '#ffffee' \
-            --caption-path '.' \
-            --font 'Anonymous Pro/13' \
-            --fontpath '/usr/share/fonts/truetype/anonymous-pro/' \
-            --draw-tinted \
-            --draw-filename \
-            --draw-actions \
-            --info "exiv2 %F | grep -v ':\s*$'; echo Size: %w×%h - %Sb; echo -n Modification:; date -r %F '+%%Y-%%m-%%d %%R'" \
-            --auto-rotate \
-            --edit \
-            --sort filename \
-            --start-at "$(basename "$F")" \
-            --action1 '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
-            --action9 '[remove]zenity --question && gio trash %F' \
-            .
+        imv-folder "$F"
+        # feh \
+        #     --borderless \
+        #     --scale-down \
+        #     --image-bg '#ffffee' \
+        #     --caption-path '.' \
+        #     --font 'Anonymous Pro/13' \
+        #     --fontpath '/usr/share/fonts/truetype/anonymous-pro/' \
+        #     --draw-tinted \
+        #     --draw-filename \
+        #     --draw-actions \
+        #     --info "exiv2 %F | grep -v ':\s*$'; echo Size: %w×%h - %Sb; echo -n Modification:; date -r %F '+%%Y-%%m-%%d %%R'" \
+        #     --auto-rotate \
+        #     --edit \
+        #     --sort filename \
+        #     --start-at "$(basename "$F")" \
+        #     --action1 '[rename]zenity --entry --text "Rename:" --entry-text %F | xargs mv %F' \
+        #     --action9 '[remove]zenity --question && gio trash %F' \
+        #     .
         ;;
     application/epub+zip:*) 
         gui mupdf -r 70 "$F" ;; #epr "$F" within terminal

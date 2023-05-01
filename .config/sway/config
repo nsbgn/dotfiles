@@ -19,15 +19,24 @@ output HDMI-A-1 {
 
 # # Unknown Mira133 202105
 # Unknown XtendTouch
-output DVI-I-1 {
+output 'Unknown Mira133 202105'  {
    mode 2200x1650@38.002Hz
    pos 0 1080
-   transform 90
+   transform 270
    scale 2
 }
 
+# output DP-2 {
+#    # mode 2200x1650@38.002Hz
+#    pos 0 0
+#    transform 0
+#    scale 1.5
+# }
+
+
 input 10176:2136:WingCoolTouch_WingCoolTouch {
-   map_to_output DVI-I-1
+   # map_to_output DVI-I-1
+   map_to_output DP-2
    # map_to_region 0 1080 2200x1650
    # map_from_region 0x1080 2200x2730
 }
@@ -35,7 +44,7 @@ input 1032:12296:Quanta_OpticalTouchScreen {
    map_to_output DVI-I-1
 }
 input 8746:1:ILITEK_ILITEK-TP {
-   map_to_output DVI-I-1
+   map_to_output DP-2
 }
 
 

@@ -13,8 +13,8 @@ if ! which "$BIN" > /dev/null; then
     URL="$(curl -s 'https://api.github.com/repos/sclevine/yj/releases/latest' \
         | jq -r '.assets[] | select(.name == "yj-linux-amd64") | .browser_download_url')"
     mkdir -p "$DIR"
-    curl -fLo "$BIN" "$URL"
-    chmod +x "$BIN"
+    curl -fLo "$DIR/$BIN" "$URL"
+    chmod +x "$DIR/$BIN"
 else
     echo "$BIN is already installed." >&2
 fi

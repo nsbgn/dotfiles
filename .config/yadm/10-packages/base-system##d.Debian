@@ -47,6 +47,7 @@ PACKAGES=(
     git # Version control
     gnupg # Encrypt files and emails
     gojq # Go implementation of jq, with YAML support
+    graphicsmagick # Imagemagick: Graphics processing
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers
@@ -66,6 +67,7 @@ PACKAGES=(
     pass # Simple password manager based on gnupg
     playerctl # Controlling MPRIS media players
     pmount # Mount filesystems as normal user
+    puddletag # Tagging audio files
     rename # Use like `rename 's/S([0-9]*)E([0-9]*) (.*)/$1x$2 $3/g' *.mkv`
     rfkill # Enabling & disabling wireless
     ripgrep # Search directories for a regex pattern
@@ -89,6 +91,8 @@ PACKAGES=(
     # Dependencies for scripts
     python3-gi  # For dmenu-apps
     python3-yaml  # For crsync
+    python3-pypandoc # For download-article
+    python3-readability # Should be for download-article
 )
 
 sudo apt update -y

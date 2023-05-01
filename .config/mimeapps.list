@@ -6,7 +6,7 @@ x-scheme-handler/mailto=exo-mail-reader.desktop
 application/epub+zip=sigil.desktop;FBReader.desktop;userapp-FBReader "%f"-9L2HKZ.desktop;
 application/pdf=zathura.desktop;org.pwmt.zathura-pdf-poppler.desktop;
 text/html=userapp-Firefox-OWDDVZ.desktop;userapp-firefox "%f"-L2F6JZ.desktop;firefox-esr.desktop;
-image/jpeg=sxiv.desktop;
+image/jpeg=imv.desktop;
 application/x-desktop=vim.desktop;
 inode/directory=exo-file-manager.desktop;pcmanfm.desktop;
 audio/mpeg=vlc.desktop;
@@ -16,7 +16,7 @@ audio/flac=vlc.desktop;
 audio/mp4=vlc.desktop;
 image/svg+xml=userapp-%f"-UB0FYZ.desktop;userapp-firefox "%f"-1FB9XZ.desktop;
 audio/x-opus+ogg=mpv.desktop;
-image/png=ristretto.desktop;
+image/png=imv.desktop;
 video/webm=vlc.desktop;
 audio/midi=vlc.desktop;
 text/x-log=gvim.desktop;vim.desktop;
@@ -34,6 +34,7 @@ application/xhtml+xml=firefox-esr.desktop;
 application/x-extension-xhtml=firefox-esr.desktop;
 application/x-extension-xht=firefox-esr.desktop;
 text/x-shellscript=gvim.desktop;
+x-scheme-handler/magnet=userapp-transmission-gtk-C6VN31.desktop;
 
 [Default Applications]
 application/pdf=firefox-esr.desktop
@@ -51,5 +52,6 @@ application/x-extension-xht=firefox-esr.desktop
 inode/directory=pcmanfm.desktop
 x-scheme-handler/discord-455712169795780630=discord-455712169795780630.desktop
 x-scheme-handler/discord-812421731238019073=discord-812421731238019073.desktop
+x-scheme-handler/magnet=userapp-transmission-gtk-C6VN31.desktop
 
 [Removed Associations]

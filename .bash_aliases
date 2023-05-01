@@ -1,7 +1,7 @@
 alias b="bemenu -l 10 -H 30 --fn 'Cabin 10'"
 
 # alias sudo="doas"
-alias thumb="convert cover.* -resize 96x96! -quality 65% folder.jpg"
+alias thumb="gm convert cover.* -resize 96x96! -quality 65% folder.jpg"
 alias bak="crsync"
 alias vim="nvim"
 alias t="vim $HOME/notes/todo/todo.md"

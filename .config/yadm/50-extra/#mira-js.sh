@@ -2,6 +2,9 @@
 
 # npm install -g boox-mira
 
+sudo apt install -y npm
+npm install boox-mira
+
 sudo tee /etc/udev/rules.d/58-hid.rules << EOF
 SUBSYSTEM=="input", GROUP="input", MODE="0666"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5020", MODE:="666", GROUP="plugdev"
