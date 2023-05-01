@@ -256,7 +256,8 @@ use {
       local specs = lush.parse(function()
         return {
           -- MsgArea { gui="standout" },
-          -- markdownH1 { gui = "underline,bold" },
+          markdownH1 { gui = "underline,bold" },
+          Title { gui = "underline,bold" },
           -- markdownH1Delimiter { gui = "underline,bold" },
           markdownH2 { gui = "invert" },
           -- markdownH2Delimiter { gui = "underline,bold" },
@@ -500,15 +501,6 @@ use {
       ]])
     end
   }
-  use {
-    'https://github.com/vim-pandoc/vim-pandoc-syntax.git',
-    config = function()
-      vim.cmd([[
-        let g:pandoc#syntax#conceal#use=0
-        set conceallevel=0
-      ]])
-    end
-  }
 
   -- Automatically set up configuration after cloning packer.nvim
   if packer_bootstrap then
@@ -525,9 +517,13 @@ vim.cmd([[
 ]])
 
 -- Temporary solution after Neovim 0.9.
--- vim.cmd([[
---   autocmd VimEnter *.md,*.tex nested highlight pandocAtxHeader gui=underline,bold
---   autocmd VimEnter *.md,*.tex nested highlight pandocAtxStart gui=underline
--- ]])
+vim.cmd([[
+  autocmd VimEnter *.md highlight markdownH1 gui=underline,bold
+  autocmd VimEnter *.md highlight markdownH1Delimiter gui=underline
+  autocmd VimEnter *.md highlight markdownItalic gui=italic
+  autocmd VimEnter *.md highlight markdownBold gui=bold
+  autocmd VimEnter *.md highlight markdownCode guibg=#eeeeee
+  autocmd VimEnter *.md highlight markdownAutomaticLink gui=underline
+]])
 
 

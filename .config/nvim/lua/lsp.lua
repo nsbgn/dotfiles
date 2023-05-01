@@ -39,9 +39,9 @@ local on_attach = function(client, bufnr)
   --vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
-require'lspconfig'.marksman.setup{
-  filetypes = { "markdown", "markdown.pandoc" }
-}
+-- require'lspconfig'.marksman.setup{
+--   filetypes = { "markdown", "markdown.pandoc" }
+-- }
 
 -- https://github.com/python-lsp/python-lsp-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
