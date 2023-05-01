@@ -9,7 +9,7 @@
 # support to `mpv`, so that it can be controlled with `playerctl` instead of
 # mpv's own <https://mpv.io/manual/stable/#json-ipc>.
 #
-# Dependencies: (Debian) mpv netcat-netbsd xdg-dirs fd-find shuf sort
+# Dependencies: (Debian) mpv socat xdg-dirs fd-find shuf sort
 
 FD="$(which fdfind || which fd)"
 MUSIC="$(xdg-user-dir MUSIC)"
@@ -21,7 +21,7 @@ PLAYLIST="/tmp/mpvplaylist"
 # fi
 
 # Test if an instance of mpv is already listening; if not, start one
-if ! test -S "$SOCK" || ! nc -Uz "$SOCK" 2>/dev/null; then
+if ! test -S "$SOCK" || ! socat /dev/null "$SOCK" 2>/dev/null; then
     mpv --idle --no-terminal --no-audio-display --input-ipc-server="$SOCK" &
 fi
 
@@ -36,6 +36,6 @@ $FD . --base-directory "$MUSIC" --type d --min-depth 2 \
 if [ -s "$PLAYLIST" ]; then
     echo '
     {"command":["loadlist","'$PLAYLIST'","replace"]}
-    {"command":["set","pause","no"]}' | nc -UN "$SOCK"
+    {"command":["set","pause","no"]}' | socat - "$SOCK"
 fi
 
