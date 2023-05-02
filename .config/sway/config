@@ -17,8 +17,6 @@ output HDMI-A-1 {
    pos 0 0
 }
 
-# # Unknown Mira133 202105
-# Unknown XtendTouch
 output 'Unknown Mira133 202105'  {
    mode 2200x1650@38.002Hz
    pos 0 1080
@@ -26,12 +24,19 @@ output 'Unknown Mira133 202105'  {
    scale 2
 }
 
-# output DP-2 {
-#    # mode 2200x1650@38.002Hz
-#    pos 0 0
-#    transform 0
-#    scale 1.5
-# }
+output 'Unknown XtendTouch ' {
+   mode 1920x1080@60.000Hz
+   pos 0 0
+   transform 0
+   scale 1.5
+}
+
+output Virtual-1 {
+   mode 1920x1080@60.000Hz
+   pos 0 0
+   transform 0
+   scale 1.5
+}
 
 
 input 10176:2136:WingCoolTouch_WingCoolTouch {
