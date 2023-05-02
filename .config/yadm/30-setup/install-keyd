@@ -40,12 +40,12 @@ oneshot_timeout = 1000
 leftalt = overload(fn, escape)
 leftcontrol = overload(control, compose)
 leftmeta = overload(alt, compose)
-rightalt = oneshot(symbol)
+# rightalt = oneshot(symbol)
+rightalt = overload(symbol, enter)
 leftshift = oneshot(shift)
-
-capslock = backspace
-[ = \
 rightshift = delete
+capslock = backspace
+[ = backslash
 
 [symbol]
 rightalt = layerm(symbol, compose)
