@@ -520,6 +520,10 @@ vim.cmd([[
 vim.cmd([[
   autocmd VimEnter *.md highlight markdownH1 gui=underline,bold
   autocmd VimEnter *.md highlight markdownH1Delimiter gui=underline
+  autocmd VimEnter *.md highlight markdownH2 gui=underline,bold,italic
+  autocmd VimEnter *.md highlight markdownH2Delimiter gui=underline
+  autocmd VimEnter *.md highlight markdownH3 gui=underline,italic
+  autocmd VimEnter *.md highlight markdownH3Delimiter gui=underline
   autocmd VimEnter *.md highlight markdownItalic gui=italic
   autocmd VimEnter *.md highlight markdownBold gui=bold
   autocmd VimEnter *.md highlight markdownCode guibg=#eeeeee
