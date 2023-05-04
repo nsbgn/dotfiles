@@ -1,0 +1,7 @@
+#!/bin/sh
+# Just a very quick script to get a YouTube channel URL
+
+curl -sL "$1" \
+    | grep -m1 -o '{"key":"browse_id","value":"[a-Z0-9\-]*"}' \
+    | tail -n1 \
+    | jq -r '"https://www.youtube.com/feeds/videos.xml?channel_id=" + .value'
