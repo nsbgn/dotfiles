@@ -6,6 +6,7 @@ export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.go/bin:$HOME/.npm-global/bi
 export PATH=$HOME/.scripts:$HOME/dotfiles/.scripts:$HOME/.private/bin:$HOME/.local/bin:$PATH
 
 export PASSWORD_STORE_DIR=$HOME/.private/password-store
+export VDIRSYNCER_CONFIG=$HOME/.private/vdirsyncer/config
 export GNUPGHOME=$HOME/.private/gnupg
 
 export GOPATH=$HOME/.go
