@@ -47,6 +47,37 @@ rightshift = delete
 capslock = backspace
 [ = backslash
 
+[colemakdh]
+q = q
+w = w
+e = f
+r = p
+t = b
+y = j
+u = l
+i = u
+o = y
+p = colon
+
+a = a
+s = r
+d = s
+f = t
+g = g
+h = m
+j = n
+k = e
+l = i
+; = o
+
+z = z
+x = x
+c = c
+v = d
+b = v
+n = k
+m = h
+
 [symbol]
 rightalt = layerm(symbol, compose)
 q = @
@@ -189,7 +220,7 @@ x = mute
 c = sound
 # XF86AudioRecord
 v = record
-b = toggle(workman)
+b = noop
 
 
 y = scrolllock
@@ -197,7 +228,7 @@ u = f7
 i = f8
 o = f9
 p = f12
-[ = toggle(workman)
+[ = toggle(colemakdh)
 
 h = print
 j = f4
