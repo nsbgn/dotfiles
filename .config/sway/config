@@ -27,7 +27,7 @@ output 'Unknown Mira133 202105'  {
 output 'Unknown XtendTouch ' {
    mode 1920x1080@60.000Hz
    pos 0 0
-   transform 0
+   transform 180
    scale 1.5
 }
 

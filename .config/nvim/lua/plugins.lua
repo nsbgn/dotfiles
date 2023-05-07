@@ -518,16 +518,22 @@ vim.cmd([[
 
 -- Temporary solution after Neovim 0.9.
 vim.cmd([[
-  autocmd VimEnter *.md highlight markdownH1 gui=underline,bold
-  autocmd VimEnter *.md highlight markdownH1Delimiter gui=underline
-  autocmd VimEnter *.md highlight markdownH2 gui=underline,bold,italic
-  autocmd VimEnter *.md highlight markdownH2Delimiter gui=underline
-  autocmd VimEnter *.md highlight markdownH3 gui=underline,italic
-  autocmd VimEnter *.md highlight markdownH3Delimiter gui=underline
-  autocmd VimEnter *.md highlight markdownItalic gui=italic
-  autocmd VimEnter *.md highlight markdownBold gui=bold
-  autocmd VimEnter *.md highlight markdownCode guibg=#eeeeee
-  autocmd VimEnter *.md highlight markdownAutomaticLink gui=underline
+  autocmd VimEnter * highlight markdownH1 gui=underline,bold
+  autocmd VimEnter * highlight markdownH2 gui=underline,bold,italic
+  autocmd VimEnter * highlight markdownH3 gui=underline,italic
+  " highlight markdownH1Delimiter gui=underline
+  " highlight markdownH2Delimiter gui=underline
+  " highlight markdownH3Delimiter gui=underline
+  autocmd VimEnter * highlight markdownItalic gui=italic
+  autocmd VimEnter * highlight markdownBold gui=bold
+  autocmd VimEnter * highlight markdownCode guibg=#eeeeee
+  autocmd VimEnter * highlight markdownAutomaticLink gui=underline
+
+  autocmd VimEnter * highlight DiffAdd guibg=none
+  autocmd VimEnter * highlight DiffChange guibg=none
+  autocmd VimEnter * highlight DiffDelete guibg=none
+  autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
+  autocmd VimEnter * highlight NonText guifg=#888888
 ]])
 
 

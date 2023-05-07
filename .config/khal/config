@@ -8,6 +8,10 @@
 path = ~/.private/calendars/*
 type = discover
 
+[[bdays]]
+path = ~/.private/contacts/*
+type = discover
+
 [locale]
 timeformat = %H:%M
 dateformat = %Y-%m-%d
@@ -17,3 +21,6 @@ longdatetimeformat = %Y-%m-%d %H:%M
 
 [default]
 default_calendar = default
+
+[view]
+theme = dark

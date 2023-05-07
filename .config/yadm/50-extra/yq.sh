@@ -8,7 +8,7 @@
 # which is Python-based. See also <https://github.com/sibprogrammer/xq>, which 
 # is dedicated to HTML/XML, and <https://github.com/mgdm/htmlq>, which is for 
 # HTML. There's also <https://github.com/sclevine/yj>, which converts between 
-# YAML and JSON.
+# YAML and JSON. And finally <https://github.com/tomwright/dasel>.
 set -euo pipefail
 
 VERSION=v4.33.3
