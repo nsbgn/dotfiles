@@ -15,6 +15,11 @@ bar {
    swaybar_command waybar
 }
 
+client.focused #3d2d22 #3d2d22 #ffffff
+client.unfocused #ffeac1 #dddddd #000000
+client.focused_inactive #ffffff #ffffff #000000 
+
+# output * bg #fffaf0 solid_color
 output * bg #ffffff solid_color
 output HDMI-A-1 {
    mode 1920x1080@60.000Hz
@@ -86,9 +91,6 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
 
-client.focused #000000 #000000 #ffffff
-client.unfocused #dddddd #dddddd #000000
-client.focused_inactive #ffffff #ffffff #000000 
 
 floating_modifier Mod4 normal
 

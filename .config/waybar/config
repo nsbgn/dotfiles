@@ -18,7 +18,7 @@
         "tooltip-format": "{title}",
         "icon-theme": ["HighContrast", "Chicago95", "Breeze"],
         "on-click": "activate",
-        "active-first": true
+        /* "active-first": true */
     },
     "pulseaudio": {
         "format": "{icon} {volume}",
