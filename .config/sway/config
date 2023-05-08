@@ -72,8 +72,8 @@ smart_gaps off
 # hide_edge_borders off
 default_border pixel 2
 default_floating_border normal
-font Inconsolata 15
-gaps inner 2
+font Inconsolata 12
+gaps inner 4
 # gaps horizontal 0
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened

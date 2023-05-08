@@ -1,19 +1,18 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     /* font-family: "Inter Display", "Inter", CozetteVector, FontAwesome, Cabin, Roboto, Helvetica, Arial, sans-serif; */
-    font-family: "Roboto Condensed", "FontAwesome", sans-serif;
+    font-family: "Inconsolata", "FontAwesome", sans-serif;
     /* font-family: "Open Sans Condensed Light", "FontAwesome", sans-serif; */
     /* font-family: "Liberation Sans Narrow", "FontAwesome", sans-serif; */
-    font-size: 11pt;
+    letter-spacing: -0.08em;
+    font-size: 12pt;
     font-weight: 500;
 }
 
 window#waybar {
     background-color: white;
-    /* border-bottom: 1px solid black; */
+    border-bottom: 2px dotted black;
     color: black;
-    transition-property: background-color;
-    transition-duration: .5s;
 }
 
 /* window#waybar.hidden { */
@@ -37,8 +36,8 @@ window#waybar.solo {
     /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 3px transparent;
     /* Avoid rounded borders under each workspace name */
-    border: none;
-    border-radius: 0;
+    /* border: none; */
+    /* border-radius: 0; */
     color: black;
 }
 
@@ -70,12 +69,12 @@ window#waybar.solo {
     margin: 0 2px;
     padding: 0 6px;
     color: black;
-    border: 1px solid white;
+    border: none;
     border-radius: 2;
 }
 
 #taskbar button.active {
-    border: 1px solid black;
+    border: 2px solid black;
     /* box-shadow: inset 0 -3px white; */
     background: white;
     color: black;
