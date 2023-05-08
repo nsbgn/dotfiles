@@ -3,11 +3,12 @@
 # https://superuser.com/questions/516806/how-to-encode-audio-with-opus-codec
 # http://ffmpeg.org/ffmpeg-codecs.html#libopus-1
 
-parallel -j4 ffmpeg -i {} -c:a libopus \
+find ./ -maxdepth 1 -type f \( -iname \*.m4b -o -iname \*.mp3 -o -iname \*.mp4 \) \
+| parallel -j4 ffmpeg -i {} -c:a libopus \
     -b:a 16k -vbr on -compression_level 10 \
     -ac 1 -apply_phase_inv 0 \
     -frame_duration 40 \
-    {.}.opus ::: *.mp3
+    {.}.opus :::: -
 
 # parallel -j4 opusenc {} {.}.opus \
 #     --bitrate 24 --framesize 40 \
