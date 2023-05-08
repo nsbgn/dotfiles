@@ -7,9 +7,13 @@ set $right l
 
 exec dbus-update-activation-environment --verbose --systemd --all
 exec foot --server
-exec waybar
 exec gammastep -O 5500K
 exec stacki3
+
+bar {
+   id bar0
+   swaybar_command waybar
+}
 
 output * bg #ffffff solid_color
 output HDMI-A-1 {

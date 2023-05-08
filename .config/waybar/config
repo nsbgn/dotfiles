@@ -2,22 +2,23 @@
     "layer": "bottom",
     "position": "top",
     "exclusive": true,
-    /* "output": "!DVI-I-1", */
     "spacing": 0,
+    "ipc": true,
+    "id": "bar0",
     "modules-left": ["sway/workspaces", "wlr/taskbar"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     /*"custom/mpris", */
-    "river/tags": {"num-tags": 4},
     "sway/window": {
         "max-length": 50
     },
     "wlr/taskbar": {
         "all-outputs": true,
-        "format": "{icon} {title:.20}",
+        "format": "{icon} {title:.50}",
         "tooltip-format": "{title}",
-        "icon-theme": ["Chicago95", "Breeze"]
-        /*"on-click": "minimize-raise"*/
+        "icon-theme": ["HighContrast", "Chicago95", "Breeze"],
+        "on-click": "activate",
+        "active-first": true
     },
     "pulseaudio": {
         "format": "{icon} {volume}",

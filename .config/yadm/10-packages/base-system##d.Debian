@@ -8,6 +8,7 @@ PACKAGES=(
     fonts-{anonymous-pro,inconsolata,jetbrains-mono} # Monospace
     fonts-terminus-otb # Bitmap monospace
     dmz-cursor-theme
+    gnome-accessibility-icons # High contrast icons
 
     # Encryption
     cryptsetup # Block device encryption
