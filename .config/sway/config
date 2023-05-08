@@ -68,12 +68,13 @@ input type:touchpad {
 
 # title_window_icon yes
 # for_window [] title_format "fdf %title"
-smart_gaps on
-# hide_edge_borders both
-default_border pixel 1
+smart_gaps off
+# hide_edge_borders off
+default_border pixel 2
 default_floating_border normal
-font CozetteVector 9
+font Inconsolata 15
 gaps inner 2
+# gaps horizontal 0
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
