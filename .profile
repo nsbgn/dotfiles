@@ -21,11 +21,15 @@ export DMENU_OPTS="-l 20 -fn Inconsolata-13"
 export BAT_THEME="Coldark-Cold"
 export BAT_STYLE="plain"
 export BEMENU_OPTS="\
-    -p '' -l 10 -H 30 --fn 'Inconsolata 13'\
-    --no-overlap --scrollbar always"
-
-#     --nb '#ffffff' --ab '#ffffff' \
-#     --nf '#000000' --af '#000000'
+    --grab -p '' -l 12 -H 30 --fn 'Inconsolata 15'\
+    --no-overlap --scrollbar always\
+     --nb #f0f0f0  --nf #000000 \
+     --ab #ebebeb  --af #000000 \
+     --hb #909090  --hf #ffffff \
+    --scb #b0b0b0 --scf #303030 \
+     --fb #303030  --ff #ffffff \
+     --tb #303030  --tf #b0b0b0 \
+     "
 
 # include .bashrc if running interactively
 if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then
