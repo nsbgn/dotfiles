@@ -117,6 +117,7 @@ bindsym $mod+g workspace next
 bindsym $mod+Shift+t workspace prev
 bindsym $mod+Shift+g workspace next
 
+bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $mod+m exec dmenu-mpv
 bindsym $mod+i exec dmenu-pass
 bindsym $mod+u exec dmenu-thesaurus
