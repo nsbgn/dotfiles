@@ -90,10 +90,12 @@ PACKAGES=(
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
 
     # Dependencies for scripts
+    pipx  # pip with auto venv
     python3-gi  # For dmenu-apps
     python3-yaml  # For crsync
     python3-pypandoc # For download-article
     python3-readability # Should be for download-article
+    shntool cuetools  # For split-flac-from-cue
 )
 
 sudo apt update -y
