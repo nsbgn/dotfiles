@@ -19,4 +19,4 @@ find $PASSWORD_STORE_DIR/ -iname '*.gpg' \
 | sort \
 | dmenu -p Password -i $DMENU_OPTS \
 | xargs --no-run-if-empty pass show \
-| xargs --no-run-if-empty $TYPIST
+| xargs -0 --no-run-if-empty $TYPIST
