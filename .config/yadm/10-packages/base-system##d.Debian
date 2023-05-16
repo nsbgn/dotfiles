@@ -89,6 +89,9 @@ PACKAGES=(
     xq # XML processor, like jq or htmlq
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
 
+    # Bluetooth
+    bluez bluez-alsa-utils pulseaudio-module-bluetooth
+
     # Dependencies for scripts
     pipx  # pip with auto venv
     python3-gi  # For dmenu-apps
