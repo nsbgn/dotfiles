@@ -30,6 +30,7 @@ PACKAGES=(
     wtype
     waybar
     yambar
+    xdg-desktop-portal-wlr
 
     # Utilities
     aerc # TUI email client
