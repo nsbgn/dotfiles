@@ -91,6 +91,7 @@ PACKAGES=(
 
     # Bluetooth
     bluez bluez-alsa-utils pulseaudio-module-bluetooth
+    firmware-intel-sound
 
     # Dependencies for scripts
     pipx  # pip with auto venv

@@ -2,13 +2,12 @@
     "layer": "bottom",
     "position": "top",
     "exclusive": true,
-    "spacing": 0,
+    "spacing": 1,
     "ipc": true,
     "id": "bar0",
     "modules-left": ["sway/workspaces", "wlr/taskbar"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "battery", "clock", "tray"],
-    /*"custom/mpris", */
+    "modules-right": ["custom/mpris", "pulseaudio", "battery", "clock", "tray"],
     "sway/window": {
         "max-length": 50
     },
