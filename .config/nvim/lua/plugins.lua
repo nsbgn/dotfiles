@@ -534,6 +534,7 @@ vim.cmd([[
   autocmd VimEnter * highlight DiffDelete guibg=none
   autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
   autocmd VimEnter * highlight NonText guifg=#888888
+  autocmd VimEnter * highlight yamlBlockMappingKey gui=bold
 ]])
 
 
