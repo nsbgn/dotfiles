@@ -138,8 +138,9 @@ use {
     local builtin = require('telescope.builtin')
 
     vim.keymap.set('n', 'ts', builtin.lsp_document_symbols, {})
-    -- vim.keymap.set('n', 'tf', builtin.find_files, {})
+    vim.keymap.set('n', 'ta', builtin.find_files, {})
     vim.keymap.set('n', 'tw', builtin.buffers, {})
+    -- vim.keymap.set('n', 'tj', builtin.fd, {})
   end
 }
 use {
