@@ -11,6 +11,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec foot --server
 exec gammastep -O 5500K
 exec stacki3
+exec sway-autoexit-fullscreen
 
 bar {
    id bar0
