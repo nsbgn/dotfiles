@@ -15,17 +15,6 @@
 -   <https://github.com/kivikakk/comrak>
 -   <https://githubcom/raphlinux/pulldown-cmark>
 
-# Editors
-
--   https://github.com/lapce/lapce
--   helix
--   kakoune
--   https://github.com/neovide/neovide
--   https://github.com/akiyosi/goneovim
--   https://github.com/vhakulinen/gnvim
--   https://github.com/daa84/neovim-gtk
--   https://github.com/beeender/glrnvim
--   https://github.com/yatli/fvim
 
 # Multiboot ISO
 
