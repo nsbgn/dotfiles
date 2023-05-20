@@ -285,6 +285,20 @@ use {
     end
   }
 
+  use {
+    "https://github.com/folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
+
 -- Distraction-free writing ---------------------------------------------------
   use {
     'https://github.com/folke/zen-mode.nvim',
@@ -341,6 +355,8 @@ use {
       -- So that the first match in leap.nvim is shown
       -- See https://github.com/ggandor/leap.nvim/issues/27
       vim.cmd([[ highlight Cursor ctermbg=White ctermfg=Black ]])
+
+      --vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#777777' })
     end
   }
 
@@ -528,20 +544,22 @@ vim.cmd([[
   autocmd VimEnter * highlight markdownH1 gui=underline,bold
   autocmd VimEnter * highlight markdownH2 gui=underline,bold,italic
   autocmd VimEnter * highlight markdownH3 gui=underline,italic
-  " highlight markdownH1Delimiter gui=underline
-  " highlight markdownH2Delimiter gui=underline
-  " highlight markdownH3Delimiter gui=underline
   autocmd VimEnter * highlight markdownItalic gui=italic
+  autocmd VimEnter * highlight markdownItalicDelimiter gui=italic guifg=gray
   autocmd VimEnter * highlight markdownBold gui=bold
+  autocmd VimEnter * highlight markdownBoldDelimiter gui=bold guifg=gray
   autocmd VimEnter * highlight markdownCode guibg=#eeeeee
   autocmd VimEnter * highlight markdownAutomaticLink gui=underline
-
-  autocmd VimEnter * highlight DiffAdd guibg=none
-  autocmd VimEnter * highlight DiffChange guibg=none
-  autocmd VimEnter * highlight DiffDelete guibg=none
+  autocmd VimEnter * highlight DiffAdd guibg=none guifg=lightgreen
+  autocmd VimEnter * highlight DiffChange guibg=none guifg=lightblue
+  autocmd VimEnter * highlight DiffDelete guibg=none guifg=lightred
   autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
   autocmd VimEnter * highlight NonText guifg=#888888
-  autocmd VimEnter * highlight yamlBlockMappingKey gui=bold
+  autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=gray
+  autocmd VimEnter * highlight yamlDocumentStart gui=none guifg=gray
+  autocmd VimEnter * highlight LeapBackdrop guifg=gray
+  autocmd VimEnter * highlight LeapLabelPrimary guifg=red guibg=white
+  autocmd VimEnter * highlight LeapMatch guifg=black guibg=white
 ]])
 
 
