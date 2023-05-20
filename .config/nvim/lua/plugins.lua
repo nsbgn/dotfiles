@@ -143,6 +143,14 @@ use {
     -- vim.keymap.set('n', 'tj', builtin.fd, {})
   end
 }
+-- Handle spaces in Telescope sanely
+-- https://www.reddit.com/r/neovim/comments/sut6bk/telescope_fzf_not_working_with_spaces/
+use {
+  "https://github.com/natecraddock/telescope-zf-native.nvim",
+  config=function()
+    require("telescope").load_extension("zf-native")
+  end
+}
 use {
   'https://github.com/cljoly/telescope-repo.nvim',
   requires={'https://github.com/nvim-telescope/telescope.nvim'},
