@@ -137,9 +137,9 @@ use {
 
     local builtin = require('telescope.builtin')
 
-    vim.keymap.set('n', 'ts', builtin.lsp_document_symbols, {})
-    vim.keymap.set('n', 'ta', builtin.find_files, {})
-    vim.keymap.set('n', 'tw', builtin.buffers, {})
+    vim.keymap.set('n', '<space>s', builtin.lsp_document_symbols, {})
+    vim.keymap.set('n', '<space>a', builtin.find_files, {})
+    vim.keymap.set('n', '<space>w', builtin.buffers, {})
     -- vim.keymap.set('n', 'tj', builtin.fd, {})
   end
 }
@@ -172,7 +172,7 @@ use {
       }
     }
     require("telescope").load_extension "repo"
-    vim.keymap.set('n', 'tr', require'telescope'.extensions.repo.list, {})
+    vim.keymap.set('n', '<space>r', require'telescope'.extensions.repo.list, {})
   end
 }
 use {
@@ -247,7 +247,7 @@ use {
       }
 
       require"telescope".load_extension("file_browser")
-      vim.keymap.set('n', 'tf',
+      vim.keymap.set('n', '<space>f',
         require('telescope').extensions.file_browser.file_browser, {})
   end,
 }
@@ -294,18 +294,18 @@ use {
     end
   }
 
-  use {
-    "https://github.com/folke/which-key.nvim",
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require("which-key").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
+  -- use {
+  --   "https://github.com/folke/which-key.nvim",
+  --   config = function()
+  --     vim.o.timeout = true
+  --     vim.o.timeoutlen = 300
+  --     require("which-key").setup {
+  --       -- your configuration comes here
+  --       -- or leave it empty to use the default settings
+  --       -- refer to the configuration section below
+  --     }
+  --   end
+  -- }
 
 
 -- Distraction-free writing ---------------------------------------------------
@@ -364,8 +364,6 @@ use {
       -- So that the first match in leap.nvim is shown
       -- See https://github.com/ggandor/leap.nvim/issues/27
       vim.cmd([[ highlight Cursor ctermbg=White ctermfg=Black ]])
-
-      --vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = '#777777' })
     end
   }
 
@@ -461,10 +459,6 @@ use {
         let g:signify_sign_delete_first_line = '●'
         let g:signify_sign_change = '✱'
       ]])
-      -- highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE
-      -- highlight SignifySignAdd ctermfg=Green cterm=NONE
-      -- highlight SignifySignDelete ctermfg=DarkRed cterm=NONE
-      -- highlight SignifySignChange ctermfg=Magenta cterm=NONE
     end
   }
 

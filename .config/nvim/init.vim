@@ -82,7 +82,7 @@ set noswapfile
 " Open in browser with gx
 nmap gx <Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>
 
-noremap <silent> <space> :b#<CR>
+" noremap <silent> <space> :b#<CR>
 
 " Always move by screen lines, not real lines
 noremap <silent> k gk
