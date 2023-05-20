@@ -69,7 +69,14 @@ require('packer').startup(function(use)
   use 'https://github.com/chaoren/vim-wordmotion'
 
   -- Auto comment lines
-  use 'https://github.com/tpope/vim-commentary'
+  use {
+    "https://github.com/tpope/vim-commentary",
+    config = function()
+      vim.cmd[[
+      autocmd FileType turtle setlocal commentstring=#\ %s
+      ]]
+    end
+  }
 
   -- Return to last position when editing files
   use 'https://github.com/farmergreg/vim-lastplace'
