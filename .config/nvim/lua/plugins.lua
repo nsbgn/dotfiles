@@ -338,7 +338,7 @@ use {
       }
 
       vim.cmd([[
-        " autocmd VimEnter *.md,*.tex nested :ZenMode
+        autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
       ]])
     end
   }
