@@ -295,6 +295,16 @@ use {
   }
 
   -- use {
+  --   "https://github.com/cbochs/portal.nvim",
+  --   -- Optional dependencies
+  --   requires = {
+  --     "https://github.com/cbochs/grapple.nvim",
+  --     "https://github.com/ThePrimeagen/harpoon"
+  --   },
+  -- }
+
+
+  -- use {
   --   "https://github.com/folke/which-key.nvim",
   --   config = function()
   --     vim.o.timeout = true

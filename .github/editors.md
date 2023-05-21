@@ -8,7 +8,7 @@ Tracking features.
 -   <https://kakoune.org/>
 
 
-## Sharing buffers between terminal windows
+## Sharing buffers between instances
 
 Native: Kakoune.
 
@@ -49,4 +49,14 @@ Helix:
 -   <https://github.com/helix-editor/helix/issues/274>
 
 
-## Centering text
+## Pagination and centering
+
+Zen-mode and kinetic scroll on Neovim helps somewhat with keeping track 
+of your position when reading or writing. However, ideally, I would have 
+some way of visually indicating pages to *really* know what's happening.
+
+-   Ideal: actual "pages", with grey areas in between. PgUp and PgDn 
+    would vertically re-center the page.
+-   A vertical ruler next to the page with notches to indicate position, 
+    or a horizontal ruler between pages.
+-   Simply an alternating background for pages.
