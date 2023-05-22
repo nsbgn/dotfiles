@@ -553,15 +553,15 @@ vim.cmd([[
   autocmd VimEnter * highlight markdownBoldDelimiter gui=bold guifg=gray
   autocmd VimEnter * highlight markdownCode guibg=#eeeeee
   autocmd VimEnter * highlight markdownAutomaticLink gui=underline
-  autocmd VimEnter * highlight DiffAdd guibg=none guifg=lightgreen
-  autocmd VimEnter * highlight DiffChange guibg=none guifg=lightblue
-  autocmd VimEnter * highlight DiffDelete guibg=none guifg=lightred
+  autocmd VimEnter * highlight DiffAdd guibg=none guifg=gray
+  autocmd VimEnter * highlight DiffChange guibg=none guifg=gray
+  autocmd VimEnter * highlight DiffDelete guibg=none guifg=gray
   autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
   autocmd VimEnter * highlight NonText guifg=#888888
   autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=gray
   autocmd VimEnter * highlight yamlDocumentStart gui=none guifg=gray
   autocmd VimEnter * highlight LeapBackdrop guifg=gray
-  autocmd VimEnter * highlight LeapLabelPrimary guifg=red guibg=white
+  autocmd VimEnter * highlight LeapLabelPrimary gui=reverse
   autocmd VimEnter * highlight LeapMatch guifg=black guibg=white
 ]])
 
