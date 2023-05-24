@@ -1,0 +1,2 @@
+-- https://github.com/mrjones2014/smart-splits.nvim
+-- https://github.com/numToStr/Navigator.nvim

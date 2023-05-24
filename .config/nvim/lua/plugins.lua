@@ -138,8 +138,8 @@ use {
     local builtin = require('telescope.builtin')
 
     vim.keymap.set('n', '<space>s', builtin.lsp_document_symbols, {})
-    vim.keymap.set('n', '<space>a', builtin.find_files, {})
-    vim.keymap.set('n', '<space>w', builtin.buffers, {})
+    vim.keymap.set('n', '<space>p', builtin.find_files, {})
+    vim.keymap.set('n', '<space>b', builtin.buffers, {})
     -- vim.keymap.set('n', 'tj', builtin.fd, {})
   end
 }
@@ -377,14 +377,6 @@ use {
     end
   }
 
-  -- 'f' motion using the leap interface
-  use {
-    'https://github.com/ggandor/flit.nvim',
-    config = function()
-      require('flit').setup()
-    end
-  }
-
 -- Scrolling ------------------------------------------------------------------
   -- Scrollbar
   -- use 'https://github.com/dstein64/nvim-scrollview'
@@ -571,7 +563,7 @@ vim.cmd([[
   autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=gray
   autocmd VimEnter * highlight yamlDocumentStart gui=none guifg=gray
   autocmd VimEnter * highlight LeapBackdrop guifg=gray
-  autocmd VimEnter * highlight LeapLabelPrimary gui=reverse
+  autocmd VimEnter * highlight LeapLabelPrimary gui=bold,italic guibg=white
   autocmd VimEnter * highlight LeapMatch guifg=black guibg=white
 ]])
 

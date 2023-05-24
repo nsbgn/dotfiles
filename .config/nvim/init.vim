@@ -1,16 +1,10 @@
 lua require('plugins')
 lua require('lsp')
+lua require('splits')
 
-set fillchars+=eob:\  " turn off tildes at the end of buffers
-
-highlight Pmenu ctermfg=white ctermbg=black
-
-" Vertical splits are more subtle
 highlight VertSplit cterm=NONE ctermfg=gray
-set fillchars+=vert:▏
-
-" Blinking cursor
-" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
+" set fillchars+=vert:*
+" set fillchars+=eob:\  " turn off tildes at the end of buffers
 
 " Show file in window title
 set title
@@ -19,6 +13,7 @@ set titlestring=%f\ %m
 
 " Stop annoying window from popping up
 map q: :q
+nnoremap ; :
 
 " cursor makes it obvious what mode I am in anyway
 set noshowmode
@@ -114,11 +109,6 @@ augroup latex
     autocmd FileType tex setlocal formatoptions+=aw2tq
     autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
 augroup END
-
-nnoremap ; :
-
-" https://vi.stackexchange.com/questions/18454/how-to-know-which-highlighting-group-is-used-for-the-background-of-a-word
-command SynID  echo synIDattr(synID(line("."), col("."), 1), "name")
 
 " func! MScroll()
 "     let l:done=0
