@@ -13,7 +13,7 @@
     },
     "wlr/taskbar": {
         "all-outputs": true,
-        "format": "{icon} {title:.50}",
+        "format": "{icon}",
         "tooltip-format": "{title}",
         "icon-theme": ["HighContrast", "Chicago95", "Breeze"],
         "on-click": "activate",
