@@ -390,6 +390,13 @@ use {
 -- Scrolling ------------------------------------------------------------------
   -- Scrollbar
   -- use 'https://github.com/dstein64/nvim-scrollview'
+  use {
+    'https://github.com/lewis6991/satellite.nvim',
+    config = function()
+      require('satellite').setup()
+    end
+  }
+  -- use 'https://github.com/petertriho/nvim-scrollbar'
 
   -- Inertial scroll
   -- use {
