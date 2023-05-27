@@ -14,8 +14,7 @@ local packer_bootstrap = ensure_packer()
 
 ------------------------------------------------------------------------------
 
-
-
+vim.keymap.set('n', '<space><space>', ':')
 
 vim.fn.sign_define("DiagnosticSignError",
   {text = " ", texthl = "DiagnosticSignError"})
