@@ -104,14 +104,10 @@ require('packer').startup(function(use)
 use {
   'https://github.com/yochem/autosplit.nvim',
   config = function()
-
     require('autosplit').setup({
         split = 'auto', -- choose one of 'auto', 'horizontal' and 'vertical'
         min_win_width = 80 -- the minimal width you want for a splitted window
     })
-
-    vim.keymap.set('n', '<C-n>', '<C-w><C-w>')
-    vim.keymap.set('n', '<C-A-n>', ':Split<CR>')
   end
 }
 
