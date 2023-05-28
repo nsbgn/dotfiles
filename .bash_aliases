@@ -14,7 +14,7 @@ alias trash-more="srm -l"
 alias ledger="ledger --strict -f $LEDGER"
 alias ls="ls --color=always"
 alias du="ncdu"
-alias yt="yt-dlp"
+alias yt="yt-dlp --embed-metadata --embed-subs --embed-thumbnail"
 alias yt-sub="yt-dlp --all-subs --convert-subs srt --skip-download"
 alias flac2mp3="parallel ffmpeg -i {} -qscale:a 2 {.}.mp3 ::: ./*.flac"
 
