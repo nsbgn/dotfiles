@@ -147,8 +147,8 @@ use {
     local builtin = require('telescope.builtin')
 
     vim.keymap.set('n', '<space>s', builtin.lsp_document_symbols, {})
-    vim.keymap.set('n', '<space>p', builtin.find_files, {})
-    vim.keymap.set('n', '<space>b', builtin.buffers, {})
+    vim.keymap.set('n', '<space>f', builtin.find_files, {})
+    vim.keymap.set('n', '<space>w', builtin.buffers, {})
     vim.keymap.set('n', '<space>j', builtin.jumplist, {})
     -- vim.keymap.set('n', 'tj', builtin.fd, {})
   end
@@ -257,7 +257,7 @@ use {
       }
 
       require"telescope".load_extension("file_browser")
-      vim.keymap.set('n', '<space>f',
+      vim.keymap.set('n', '<space>x',
         require('telescope').extensions.file_browser.file_browser, {})
   end,
 }
@@ -272,35 +272,11 @@ use {
     config = function ()
       -- vim.g.rosebones_lightness = "bright"
       vim.g.zenwritten_transparent_background = true
-      vim.cmd("set termguicolors")
-      vim.cmd("set background=light")
-      vim.cmd("colorscheme zenwritten")
-
-      -- Further tweaks
-      local lush = require "lush"
-      local zenbones = require "zenbones"
-      local specs = lush.parse(function()
-        return {
-          -- MsgArea { gui="standout" },
-          markdownH1 { gui = "underline,bold" },
-          Title { gui = "underline,bold" },
-          -- markdownH1Delimiter { gui = "underline,bold" },
-          markdownH2 { gui = "invert" },
-          -- markdownH2Delimiter { gui = "underline,bold" },
-          pandocAtxHeader { fg = "red", gui = "underline,bold" },
-          pandocAtxStart { gui = "underline" },
-          pandocOperator { fg = "#666666" },
-          yamlBlockMappingKey { gui = "bold" },
-          DiffAdd { bg = "none" },
-          DiffChange { bg = "none" },
-          DiffDelete { bg = "none" },
-          Visual { fg = "#cccccc", bg = "#333333" },
-          NonText { fg = "#888888" },
-        }
-      end)
-
-      lush.apply(lush.compile(specs))
-
+      vim.cmd([[
+        set termguicolors
+        set background=light
+        colorscheme zenwritten
+      ]])
     end
   }
 
@@ -582,6 +558,7 @@ vim.cmd([[
   autocmd VimEnter * highlight LeapBackdrop guifg=gray
   autocmd VimEnter * highlight LeapLabelPrimary gui=bold,italic guibg=white
   autocmd VimEnter * highlight LeapMatch guifg=black guibg=white
+  autocmd VimEnter * highlight ScrollView guifg=red guibg=black
 ]])
 
 
