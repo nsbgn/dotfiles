@@ -7,7 +7,8 @@
     "id": "bar0",
     "modules-left": ["sway/workspaces", "wlr/taskbar"],
     "modules-center": [],
-    "modules-right": ["custom/mpris", "pulseaudio", "battery", "clock", "tray"],
+    "modules-right": ["custom/vkbd", "custom/mpris", "pulseaudio", "battery", 
+    "clock", "tray"],
     "sway/window": {
         "max-length": 50
     },
@@ -47,5 +48,9 @@
         /* "rotate": 90, */
         "exec": "monitor-mpris",
         "on-click": "playerctl --player=mpv play-pause"
+    },
+    "custom/vkbd": {
+        "format": "",
+        "on-click": "busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true"
     }
 }

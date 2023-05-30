@@ -9,6 +9,7 @@ set $right l
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 exec foot --server
+exec squeekboard
 exec gammastep -O 5500K
 exec stacki3
 exec sway-autoexit-fullscreen
