@@ -6,6 +6,7 @@ CARBS=$(< ~/.local/share/bds/NEVO2021_details.csv \
     grep '|CHO|' \
     | grep '|per 100g|' \
     | cut -d'|' -f5,13,14,7 \
+    | uniq \
     | tr '|,' ':.' \
     | fzf --no-color \
     | cut -d: -f3)
