@@ -33,11 +33,11 @@ set ruler
 
 " Show line numbers in left margin
 set nonumber
-nmap <Tab> :set number! relativenumber!<CR>
+nmap <Tab> :set number!<CR>
 
 " Once available in stable
 " cf. https://github.com/neovim/neovim/pull/23320
-"set smoothscroll
+set smoothscroll
 
 set signcolumn=yes
 
@@ -82,6 +82,8 @@ nmap gx <Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<
 " Always move by screen lines, not real lines
 noremap <silent> k gk
 noremap <silent> j gj
+noremap <silent> down gk
+noremap <silent> up gj
 
 vmap <silent> ' S"
 
@@ -106,7 +108,7 @@ augroup latex
 "   https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
     au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
     autocmd FileType tex setlocal conceallevel=0
-    autocmd FileType tex setlocal formatoptions+=aw2tq
+    autocmd FileType tex setlocal formatoptions=w2qj
     autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
 augroup END
 
