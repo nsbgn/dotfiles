@@ -8,7 +8,7 @@ PACKAGES=(
     fonts-{anonymous-pro,inconsolata,jetbrains-mono} # Monospace
     fonts-terminus-otb # Bitmap monospace
     dmz-cursor-theme
-    gnome-accessibility-icons # High contrast icons
+    # gnome-accessibility-icons # High contrast icons
 
     # Encryption
     cryptsetup # Block device encryption
@@ -82,6 +82,7 @@ PACKAGES=(
     ufw # Firewall
     util-linux # System utilities like checking filesystem, block devices..
     vdirsyncer # Synchronise CalDAV and CardDAV
+    visidata # Terminal CSV viewer
     webext-browserpass # `pass` plugin
     webext-ublock-origin-firefox # Ad blocker
     wget # Retrieve files from the web
