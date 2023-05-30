@@ -1,0 +1,11 @@
+#!/bin/sh
+# Just a quick script for finding carbs
+# Obtain data at <https://www.rivm.nl/form/nevo-online-gegevensbestand-2>
+
+CARBS=$(< ~/.local/share/bds/NEVO2021_details.csv \
+    grep '|CHO|' \
+    | grep '|per 100g|' \
+    | cut -d'|' -f5,13,14,7 \
+    | tr '|,' ':.' \
+    | fzf --no-color \
+    | cut -d: -f3)
