@@ -39,6 +39,11 @@ local on_attach = function(client, bufnr)
   --vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
+require'lspconfig'.texlab.setup{
+  filetypes = { "latex", "tex" }
+}
+
+
 -- require'lspconfig'.marksman.setup{
 --   filetypes = { "markdown", "markdown.pandoc" }
 -- }
