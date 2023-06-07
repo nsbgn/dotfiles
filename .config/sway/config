@@ -82,13 +82,13 @@ input type:touchpad {
 # for_window [] title_format "fdf %title"
 smart_gaps off
 # hide_edge_borders off
-#default_border pixel 2
+default_border normal 1
 # title_format "%title"
 titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
 font Cozette 8
-gaps inner 4
+gaps inner 3
 # gaps horizontal 0
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
