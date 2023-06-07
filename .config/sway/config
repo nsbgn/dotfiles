@@ -9,7 +9,6 @@ set $right l
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 exec foot --server
-exec squeekboard
 exec gammastep -O 5500K
 exec stacki3
 exec sway-autoexit-fullscreen
@@ -19,8 +18,8 @@ bar {
    swaybar_command waybar
 }
 
-client.focused #3d2d22 #3d2d22 #ffffff
-client.unfocused #ffeac1 #dddddd #000000
+client.focused #3d2d22 #3d2d22 #cccccc
+client.unfocused #dddddd #dddddd #000000
 client.focused_inactive #ffffff #ffffff #000000 
 
 # output * bg #fffaf0 solid_color
@@ -33,7 +32,7 @@ output HDMI-A-1 {
 output 'Unknown Mira133 202105'  {
    mode 2200x1650@38.002Hz
    pos 0 1080
-   transform 270
+   transform 90
    scale 2
 }
 
@@ -83,9 +82,12 @@ input type:touchpad {
 # for_window [] title_format "fdf %title"
 smart_gaps off
 # hide_edge_borders off
-default_border pixel 2
+#default_border pixel 2
+# title_format "%title"
+titlebar_border_thickness 1
+titlebar_padding 6 2
 default_floating_border normal
-font Inconsolata 12
+font Cozette 8
 gaps inner 4
 # gaps horizontal 0
 

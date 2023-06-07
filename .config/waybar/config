@@ -50,7 +50,7 @@
         "on-click": "playerctl --player=mpv play-pause"
     },
     "custom/vkbd": {
-        "format": "",
-        "on-click": "busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true"
+        "format": " ",
+        "on-click": "squeekboard; busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true"
     }
 }

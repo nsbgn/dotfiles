@@ -1,5 +1,5 @@
 #!/bin/bash
-# Bitmap fonts, which look better at small resolutions
+# Cozette Bitmap fonts, which look better at small resolutions
 # Of particular interest:
 #   - Dina: https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61
 #   - Cozette: https://github.com/slavfox/Cozette
@@ -20,16 +20,11 @@ if [ ! -e "$DIR/$BIN" ]; then
     URL=$(curl -s 'https://api.github.com/repos/slavfox/cozette/releases/latest' \
         | jq -r '.assets[] | select(.name == "cozette.otb") | .browser_download_url')
     curl -fLo "$TMPDIR/$BIN" "$URL"
-    mkdir -p "$DIR"
+    sudo mkdir -p "$DIR"
     sudo cp "$TMPDIR/$BIN" "$DIR/$BIN"
 else
     echo "$BIN is already installed." >&2
 fi
-
-# Install Cozette
-# wget -O /tmp/cozette.otb 'https://github.com/slavfox/Cozette/releases/download/v.1.9.3/cozette.otb'
-# sudo mkdir /usr/share/fonts/cozette
-# sudo cp /tmp/cozette.otb /usr/share/fonts/cozette/
 
 # Reload stuff
 cd "$DIR"
