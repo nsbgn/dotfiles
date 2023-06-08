@@ -1,0 +1,10 @@
+#!/bin/bash
+
+read NAME TRANSFORM < <(swaymsg -t get_outputs \
+    | jq -r '.[] | select(.active) | .name+" "+.transform')
+
+if [ "$TRANSFORM" != 90 ]; then
+    swaymsg output "$NAME" transform 90
+else
+    swaymsg output "$NAME" transform 0
+fi
