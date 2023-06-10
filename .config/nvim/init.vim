@@ -67,7 +67,7 @@ set wildmode=longest,list,full
 " Copy to system clipboard by default
 set clipboard=unnamedplus
 
-" Show visible indication for tabs & spaces
+"" Show visible indication for tabs & spaces
 set list
 set listchars=tab:⇥\ ,trail:⸱,nbsp:⎵ "⸱
 
@@ -79,15 +79,16 @@ nmap gx <Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<
 
 " noremap <silent> <space> :b#<CR>
 
-" Always move by screen lines, not real lines
-noremap <silent> k gk
-noremap <silent> j gj
-noremap <silent> down gk
-noremap <silent> up gj
+" Always move by screen lines, not real lines. Wait, this makes things go slwo
+" for some reason
+"noremap <silent> k gk
+"noremap <silent> j gj
+"noremap <silent> down gk
+"noremap <silent> up gj
 
-vmap <silent> ' S"
+" vmap <silent> ' S"
 
-set formatoptions+=aw2tq
+ set formatoptions+=aw2tq
 
 " formatoptions:
 " - a sets our text to automatically wrap when it reaches textwidth
