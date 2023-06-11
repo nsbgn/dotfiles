@@ -1,0 +1,39 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "exclusive": true,
+    "spacing": 2,
+    "ipc": true,
+    "id": "bar1",
+    "modules-left": [],
+    "modules-center": [],
+    "modules-right": ["sway/workspaces", "pulseaudio", "battery", "clock", 
+    "tray"],
+    "sway/workspaces": {
+        "current-only": true
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}",
+        "format-bluetooth": "{icon} {volume}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute 0 false",
+        "on-right-click": "pavucontrol"
+    },
+    "battery": {
+        "format": "{icon} {capacity}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format": " {:%H:%M %a %d}"
+    }
+}

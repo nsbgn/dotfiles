@@ -28,6 +28,7 @@ PACKAGES=(
     wl-clipboard
     wdisplays
     wtype
+    wob # progress bar overlay
     waybar
     yambar
     xdg-desktop-portal-wlr
@@ -68,6 +69,7 @@ PACKAGES=(
     pandoc # Document converter
     parallel # Execute commands in parallel
     pass # Simple password manager based on gnupg
+    pamixer # Controlling pulseaudio
     pdfdiff # Compare PDF files
     playerctl # Controlling MPRIS media players
     pmount # Mount filesystems as normal user
