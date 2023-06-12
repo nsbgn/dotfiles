@@ -91,6 +91,7 @@ titlebar_padding 6 2
 default_floating_border normal
 font Cozette 8
 gaps inner 3
+focus_wrapping workspace
 
 workspace_layout tabbed
 # gaps horizontal 0
@@ -132,6 +133,11 @@ bindsym $mod+m exec dmenu-mpv
 bindsym $mod+u exec dmenu-thesaurus
 # bindsym $mod+p exec "playerctl --player=mpv play-pause"
 bindsym $mod+p exec dmenu-pass
+
+bindsym $mod+comma workspace prev_on_output
+bindsym $mod+period workspace next_on_output
+bindsym $mod+Shift+comma move container to workspace prev_on_output
+bindsym $mod+Shift+period move container to workspace next_on_output
 
 bindsym $mod+i focus prev
 bindsym $mod+o focus next
