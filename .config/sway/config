@@ -129,9 +129,12 @@ bindsym $mod+Shift+g workspace next
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $mod+m exec dmenu-mpv
-bindsym $mod+i exec dmenu-pass
 bindsym $mod+u exec dmenu-thesaurus
-bindsym $mod+p exec "playerctl --player=mpv play-pause"
+# bindsym $mod+p exec "playerctl --player=mpv play-pause"
+bindsym $mod+p exec dmenu-pass
+
+bindsym $mod+i focus prev
+bindsym $mod+o focus next
 
 bindsym $mod+t exec foot-cwd
 bindsym $mod+Shift+c reload
