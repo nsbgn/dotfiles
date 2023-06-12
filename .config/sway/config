@@ -20,7 +20,7 @@ bar {
 }
 
 client.focused #3d2d22 #3d2d22 #cccccc
-client.unfocused #dddddd #dddddd #000000
+client.unfocused #cccccc #dddddd #000000
 client.focused_inactive #ffffff #ffffff #000000 
 
 # output * bg #fffaf0 solid_color
@@ -91,6 +91,8 @@ titlebar_padding 6 2
 default_floating_border normal
 font Cozette 8
 gaps inner 3
+
+workspace_layout tabbed
 # gaps horizontal 0
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
