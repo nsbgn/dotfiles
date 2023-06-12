@@ -25,6 +25,8 @@ PACKAGES=(
     xwayland
     python3-i3ipc
     swaylock
+    clipman # Clipboard manager
+    mako # Notifications
     wl-clipboard
     wdisplays
     wtype

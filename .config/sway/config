@@ -9,6 +9,7 @@ exec foot --server
 exec gammastep -O 5500K
 exec stacki3
 exec sway-autoexit-fullscreen
+exec wl-paste -t text --watch clipman store --no-persist
 
 bar {
    id bar0
@@ -93,7 +94,7 @@ font Cozette 8
 gaps inner 3
 focus_wrapping workspace
 
-workspace_layout tabbed
+# workspace_layout tabbed
 # gaps horizontal 0
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -133,6 +134,7 @@ bindsym $mod+m exec dmenu-mpv
 bindsym $mod+u exec dmenu-thesaurus
 # bindsym $mod+p exec "playerctl --player=mpv play-pause"
 bindsym $mod+p exec dmenu-pass
+bindsym $mod+apostrophe clipman pick -t bemenu
 
 bindsym $mod+comma workspace prev_on_output
 bindsym $mod+period workspace next_on_output
