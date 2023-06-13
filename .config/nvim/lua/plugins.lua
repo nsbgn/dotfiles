@@ -363,6 +363,13 @@ use {
     end
   }
 
+  use {
+    'https://github.com/ggandor/flit.nvim',
+    config = function()
+      require('flit').setup()
+    end
+  }
+
 -- Scrolling ------------------------------------------------------------------
   -- Scrollbar
   -- use 'https://github.com/dstein64/nvim-scrollview'
