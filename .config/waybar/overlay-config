@@ -1,7 +1,10 @@
 {
-    "layer": "bottom",
+    "layer": "top",
     "position": "top",
-    "exclusive": true,
+    "exclusive": false,
+    "height": 30,
+    "margin": "-3 5 0 0",
+    "mode": "overlay",
     "spacing": 2,
     "ipc": true,
     "id": "bar1",

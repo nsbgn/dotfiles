@@ -1,7 +1,6 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
 set $mod Mod4+Ctrl
 
-
 # exec dbus-update-activation-environment --verbose --systemd --all
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
@@ -15,7 +14,7 @@ bar {
    id bar0
    swaybar_command waybar
    # hidden_state hide
-   mode hide
+   mode overlay
    modifier Mod1
    position top
 }
@@ -41,7 +40,7 @@ output 'Unknown Mira133 202105'  {
 output 'Unknown XtendTouch ' {
    mode 1920x1080@60.000Hz
    pos 0 0
-   transform 180
+   transform 0
    scale 1.5
 }
 
@@ -114,20 +113,18 @@ bindsym $mod+Tab exec "npx mira refresh"
 
 # Kill focused window
 bindsym $mod+z kill
-bindsym XF86Close kill
 
 # Start your launcher
 # bindsym $mod+semicolon exec dmenu-apps
 bindsym XF86MenuKB exec dmenu-apps
 bindsym Mod4+XF86MenuKB exec dmenu-apps
-bindsym $mod+x exec dmenu-apps
+bindsym $mod+g exec dmenu-apps
 # Pressing Super_L by itself opens the menu
 # bindcode 133 --release exec dmenu-apps
 
 # bindsym $mod+t workspace prev
-bindsym $mod+g workspace next
-bindsym $mod+Shift+t workspace prev
-bindsym $mod+Shift+g workspace next
+bindsym $mod+c workspace next
+bindsym $mod+Shift+c workspace prev
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $mod+m exec dmenu-mpv
@@ -145,7 +142,7 @@ bindsym $mod+i focus prev
 bindsym $mod+o focus next
 
 bindsym $mod+t exec foot-cwd
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+Tab reload
 
 set $left h
 set $down j
