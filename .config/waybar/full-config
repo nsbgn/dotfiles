@@ -1,0 +1,56 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "exclusive": true,
+    "spacing": 1,
+    "ipc": true,
+    "id": "bar0",
+    "modules-left": ["sway/workspaces", "wlr/taskbar"],
+    "modules-center": [],
+    "modules-right": ["custom/vkbd", "custom/mpris", "pulseaudio", "battery", 
+    "clock", "tray"],
+    "sway/window": {
+        "max-length": 50
+    },
+    "wlr/taskbar": {
+        "all-outputs": true,
+        "format": "{icon}",
+        "tooltip-format": "{title}",
+        "icon-theme": ["HighContrast", "Chicago95", "Breeze"],
+        "on-click": "activate",
+        /* "active-first": true */
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}",
+        "format-bluetooth": "{icon} {volume}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute 0 false",
+        "on-right-click": "pavucontrol"
+    },
+    "battery": {
+        "format": "{icon} {capacity}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format": " {:%H:%M %a %d}"
+    },
+    "custom/mpris": {
+        /* "rotate": 90, */
+        "exec": "monitor-mpris",
+        "on-click": "playerctl --player=mpv play-pause"
+    },
+    "custom/vkbd": {
+        "format": " ",
+        "on-click": "squeekboard; busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true"
+    }
+}
