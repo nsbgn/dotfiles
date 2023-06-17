@@ -12,18 +12,19 @@ set -euo pipefail
 # sudo cp /tmp/dina/* /usr/share/fonts/dina/
 
 DIR="/usr/share/fonts/cozette"
-BIN="cozette.otb"
 
-if [ ! -e "$DIR/$BIN" ]; then
+if [ ! -e "$DIR/cozette.otb" ]; then
     TMPDIR="$(mktemp -d /tmp/cozette-XXX)"
     trap "rm -rf $TMPDIR" EXIT
-    URL=$(curl -s 'https://api.github.com/repos/slavfox/cozette/releases/latest' \
-        | jq -r '.assets[] | select(.name == "cozette.otb") | .browser_download_url')
-    curl -fLo "$TMPDIR/$BIN" "$URL"
+    curl -s 'https://api.github.com/repos/slavfox/cozette/releases/latest' \
+    | jq -r '.assets[] | select(.name | endswith(".otb")) | .name + " " + .browser_download_url' \
+    | while read NAME URL; do
+        curl -fLo "$TMPDIR/$NAME" "$URL"
+    done
     sudo mkdir -p "$DIR"
-    sudo cp "$TMPDIR/$BIN" "$DIR/$BIN"
+    sudo cp "$TMPDIR/"*.otb "$DIR/"
 else
-    echo "$BIN is already installed." >&2
+    echo "Cozette is already installed." >&2
 fi
 
 # Reload stuff
