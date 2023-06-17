@@ -147,7 +147,7 @@ use {
     local builtin = require('telescope.builtin')
 
     vim.keymap.set('n', '<space>s', builtin.lsp_document_symbols, {})
-    vim.keymap.set('n', '<space>f', builtin.find_files, {})
+    vim.keymap.set('n', '<space>g', builtin.find_files, {})
     vim.keymap.set('n', '<space>w', builtin.buffers, {})
     vim.keymap.set('n', '<space>j', builtin.jumplist, {})
     -- vim.keymap.set('n', 'tj', builtin.fd, {})
@@ -257,7 +257,7 @@ use {
       }
 
       require"telescope".load_extension("file_browser")
-      vim.keymap.set('n', '<space>x',
+      vim.keymap.set('n', '<space>f',
         require('telescope').extensions.file_browser.file_browser, {})
   end,
 }

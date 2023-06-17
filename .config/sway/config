@@ -89,7 +89,7 @@ default_border normal 1
 titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
-font Cozette 8
+font Inconsolata 9
 gaps inner 3
 focus_wrapping workspace
 
@@ -123,8 +123,10 @@ bindsym $mod+g exec dmenu-apps
 # bindcode 133 --release exec dmenu-apps
 
 # bindsym $mod+t workspace prev
+bindsym $mod+x workspace prev
 bindsym $mod+c workspace next
-bindsym $mod+Shift+c workspace prev
+bindsym $mod+Shift+x move container to workspace prev
+bindsym $mod+Shift+c move container to workspace next
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $mod+m exec dmenu-mpv

@@ -1,9 +1,9 @@
 * {
     font-family: "Cozette", "FontAwesome", sans-serif;
-    font-size: 11pt;
+    font-size: 9pt;
 }
 
 window#waybar {
     background-color: transparent;
-    color: gray;
+    color: #bbbbbb;
 }
