@@ -7,6 +7,8 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec foot --server
 exec gammastep -O 5500K
 exec stacki3
+exec wvkbd-mobintl --hidden
+# Toggle with `pkill -SIGRTMIN wvkbd-mobintl`
 exec sway-autoexit-fullscreen
 exec wl-paste -t text --watch clipman store --no-persist
 
@@ -90,7 +92,7 @@ titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
 font Inconsolata 9
-gaps inner 3
+gaps inner 0
 focus_wrapping workspace
 
 # workspace_layout tabbed

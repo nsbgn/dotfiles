@@ -34,6 +34,7 @@ PACKAGES=(
     waybar
     yambar
     xdg-desktop-portal-wlr
+    wvkbd # On-screen keyboard
 
     # Utilities
     aerc # TUI email client
