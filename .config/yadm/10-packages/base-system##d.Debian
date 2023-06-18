@@ -68,6 +68,7 @@ PACKAGES=(
     mpv # Video viewer
     ncdu # See size of directories
     network-manager # Network
+    offlineimap3 # Offline syncer for IMAP email
     pandoc # Document converter
     parallel # Execute commands in parallel
     pass # Simple password manager based on gnupg
