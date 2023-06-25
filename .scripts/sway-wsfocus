@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+# Instead of switching between previous/next workspaces, this script provides 
+# commands to additionally drop you into the empty workspaces in between.
+#
+# There are two ways to make sure that the workflows stay tightly packed:
+# 1. We can periodically remove "gaps" by scooting the highest level container 
+#    on each workflow over to an early empty workflow (and, if it was the 
+#    current workspace, to move along with it). See also 
+#    <gh:altdesktop/i3ipc-python/examples/workspace_renumber.py>
+# 2. We can just move to the lowest-numbered empty workflow if we are on its 
+#    predecessor/successor workspace, and use `workspace next`/`prev` as normal 
+#    otherwise. That's clearly the simplest approach.
+
+import sys
+from i3ipc import Connection, Event  # type: ignore
+
+def find_empty(workspaces: list) -> tuple[int, int, int]:
+    for counter, ws in enumerate(workspaces, start=1):
+        i = ws.num
+        if counter != i:
+            return (counter - 1 or len(workspaces), # before_empty
+                    counter, # empty workspace
+                    i) # after_empty
+    n = len(workspaces)
+    return (n, n + 1, 1)
+
+def find_current(workspaces: list) -> int:
+    for ws in workspaces:
+        if ws.focused:
+            return ws.num
+    raise RuntimeError
+
+if __name__ == '__main__':
+    try:
+        dir = sys.argv[1]
+    except IndexError:
+        sys.stderr.write("Needs argument\n")
+        exit(1)
+
+    conn = Connection()
+    workspaces = conn.get_workspaces()
+    cur = find_current(workspaces)
+    before, empty, after = find_empty(workspaces)
+
+    if (dir == 'next' and cur == before) or (dir == 'prev' and cur == after):
+        conn.command(f"workspace number {empty}")
+    else:
+        conn.command(f"workspace {dir}")
