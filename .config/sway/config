@@ -10,7 +10,7 @@ exec stacki3
 exec wvkbd-mobintl --hidden
 # Toggle with `pkill -SIGRTMIN wvkbd-mobintl`
 exec sway-autoexit-fullscreen
-exec wl-paste -t text --watch clipman store --no-persist
+# exec wl-paste -t text --watch clipman store --no-persist
 
 bar {
    id bar0
