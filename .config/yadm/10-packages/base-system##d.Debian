@@ -38,6 +38,7 @@ PACKAGES=(
 
     # Utilities
     aerc # TUI email client
+    alacritty # Another terminal
     apt-file # Finding files in Debian packages
     bat # Highlighting
     bemenu # dmenu-like menu for Wayland
@@ -54,6 +55,7 @@ PACKAGES=(
     gnupg # Encrypt files and emails
     gojq # Go implementation of jq, with YAML support
     graphicsmagick # Imagemagick: Graphics processing
+    hexyl # CLI hex viewer
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers
