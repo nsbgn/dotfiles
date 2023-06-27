@@ -2,16 +2,15 @@
     "layer": "top",
     "position": "top",
     "exclusive": false,
-    "height": 30,
+    "height": 25,
     "margin": "-3 5 0 0",
-    "mode": "overlay",
+    "mode": "dock", // overlay
     "spacing": 2,
     "ipc": true,
     "id": "bar1",
-    "modules-left": [],
+    "modules-left": ["custom/ws"],
     "modules-center": [],
-    "modules-right": ["sway/workspaces", "pulseaudio", "battery", "clock", 
-    "tray"],
+    "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     "sway/workspaces": {
         "current-only": true
     },
@@ -38,5 +37,9 @@
     },
     "clock": {
         "format": " {:%H:%M %a %d}"
+    },
+    "custom/ws": {
+        "exec": "/home/nsbg/projects/dualpane/i3dp-show-ws.py",
+        "format": "{}"
     }
 }

@@ -12,14 +12,14 @@ exec wvkbd-mobintl --hidden
 exec sway-autoexit-fullscreen
 # exec wl-paste -t text --watch clipman store --no-persist
 
-bar {
-   id bar0
-   swaybar_command waybar
-   # hidden_state hide
-   mode overlay
-   modifier Mod1
-   position top
-}
+# bar {
+#    id bar0
+#    swaybar_command waybar
+#    # hidden_state hide
+#    mode overlay
+#    modifier Mod1
+#    position top
+# }
 
 client.focused #3d2d22 #3d2d22 #cccccc
 client.unfocused #cccccc #dddddd #000000
@@ -125,8 +125,8 @@ bindsym $mod+g exec dmenu-apps
 # bindcode 133 --release exec dmenu-apps
 
 # bindsym $mod+t workspace prev
-bindsym $mod+x workspace prev
-bindsym $mod+c workspace next
+bindsym $mod+x exec sway-wsfocus prev || swaymsg workspace prev
+bindsym $mod+c exec sway-wsfocus next || swaymsg workspace next
 bindsym $mod+Shift+x move container to workspace prev
 bindsym $mod+Shift+c move container to workspace next
 
