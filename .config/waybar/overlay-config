@@ -2,7 +2,7 @@
     "layer": "top",
     "position": "top",
     "exclusive": false,
-    "height": 25,
+    "height": 14,
     "margin": "0 0 0 0",
     "mode": "dock", // overlay
     "spacing": 5,

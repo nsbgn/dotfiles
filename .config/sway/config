@@ -12,14 +12,14 @@ exec wvkbd-mobintl --hidden
 exec sway-autoexit-fullscreen
 # exec wl-paste -t text --watch clipman store --no-persist
 
-# bar {
-#    id bar0
-#    swaybar_command waybar
-#    # hidden_state hide
-#    mode overlay
-#    modifier Mod1
-#    position top
-# }
+bar {
+   id bar0
+   swaybar_command waybar
+   # hidden_state hide
+   mode dock
+   modifier Mod1
+   position top
+}
 
 client.focused #3d2d22 #3d2d22 #cccccc
 client.unfocused #cccccc #dddddd #000000
@@ -91,7 +91,7 @@ default_border normal 1
 titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
-font Inconsolata 9
+font Cozette 9
 gaps inner 0
 focus_wrapping workspace
 
