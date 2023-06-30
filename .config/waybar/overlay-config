@@ -3,9 +3,9 @@
     "position": "top",
     "exclusive": false,
     "height": 25,
-    "margin": "-3 5 0 0",
+    "margin": "0 0 0 0",
     "mode": "dock", // overlay
-    "spacing": 2,
+    "spacing": 5,
     "ipc": true,
     "id": "bar1",
     "modules-left": ["custom/ws"],
