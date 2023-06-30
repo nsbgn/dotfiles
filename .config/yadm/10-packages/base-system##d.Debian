@@ -42,6 +42,7 @@ PACKAGES=(
     apt-file # Finding files in Debian packages
     bat # Highlighting
     bemenu # dmenu-like menu for Wayland
+    black # Python3 code formatter
     brightnessctl # Controlling the backlight
     bubblewrap # Wrapper for jailing applications
     command-not-found # Suggest packages
