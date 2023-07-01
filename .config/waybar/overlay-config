@@ -39,7 +39,7 @@
         "format": " {:%H:%M %a %d}"
     },
     "custom/ws": {
-        "exec": "/home/nsbg/projects/dualpane/i3dp-show-ws.py",
+        "exec": "/home/nsbg/projects/twins/twins-wsshow",
         "format": "{}"
     }
 }
