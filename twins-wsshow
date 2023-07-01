@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+from i3ipc import Event, Connection  # type: ignore
+
+def workspace(ws) -> str:
+    if ws.find_focused():
+        return f"[{ws.name}: {len(ws.leaves())}]"
+    else:
+        return f" {ws.name}: {len(ws.leaves())} "
+
+def workspaces(i3) -> str:
+    return "   ".join(workspace(ws) for ws in i3.get_tree().workspaces())
+
+def refresh(i3, e) -> None:
+    print(workspaces(i3), flush=True)
+
+i3 = Connection()
+print(workspaces(i3), flush=True)
+i3.on(Event.WORKSPACE, refresh)
+i3.on(Event.WINDOW, refresh)
+i3.main()
