@@ -3,7 +3,7 @@
 
 export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.go/bin:$HOME/.npm-global/bin:.luarocks/bin:$PATH
-export PATH=$HOME/.scripts:$HOME/dotfiles/.scripts:$HOME/.private/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/projects/twins:$HOME/.scripts:$HOME/dotfiles/.scripts:$HOME/.private/bin:$HOME/.local/bin:$PATH
 
 export PASSWORD_STORE_DIR=$HOME/.private/password-store
 export VDIRSYNCER_CONFIG=$HOME/.private/vdirsyncer/config
