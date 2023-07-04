@@ -82,7 +82,7 @@ m = h
 rightalt = layerm(symbol, compose)
 q = !
 w = [
-e = $
+e = +
 r = #
 t = ]
 y = ^
@@ -106,7 +106,7 @@ l = 6
 
 z = @
 x = {
-c = +
+c = $
 v = _
 b = }
 n = %
