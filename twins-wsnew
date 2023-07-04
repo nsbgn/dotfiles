@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 # Pack workspaces tight, then go to the new window at the end.
 
+import sys
 from i3ipc import Connection  # type: ignore
 
 if __name__ == "__main__":
     conn = Connection()
-    workspaces = conn.get_tree().workspaces()
+    tree = conn.get_tree()
+    focused = tree.find_focused()
+    workspaces = tree.workspaces()
     i = 1
     for ws in workspaces:
         if ws.nodes:
@@ -15,4 +18,6 @@ if __name__ == "__main__":
                     if err := c.command(cmd)[0].error:
                         print(err)
             i += 1
+    if sys.argv[1] == "move":
+        focused.command(f"move container to workspace number {i}")
     conn.command(f"workspace number {i}")
