@@ -125,10 +125,11 @@ bindsym $mod+g exec dmenu-apps
 # bindcode 133 --release exec dmenu-apps
 
 # bindsym $mod+t workspace prev
-bindsym $mod+x exec sway-wsfocus prev || swaymsg workspace prev
-bindsym $mod+c exec sway-wsfocus next || swaymsg workspace next
-bindsym $mod+Shift+x move container to workspace prev
-bindsym $mod+Shift+c move container to workspace next
+# bindsym $mod+x exec sway-wsfocus prev || swaymsg workspace prev
+# bindsym $mod+Shift+x move container to workspace prev
+
+bindsym $mod+c exec twins-wsnew
+bindsym $mod+Shift+c exec twins-wsnew move
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $mod+m exec dmenu-mpv
