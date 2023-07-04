@@ -80,7 +80,7 @@ m = h
 
 [symbol]
 rightalt = layerm(symbol, compose)
-q = @
+q = !
 w = [
 e = $
 r = #
@@ -104,7 +104,7 @@ l = 6
 ; = 0
 ' = grave
 
-z = !
+z = @
 x = {
 c = +
 v = _
