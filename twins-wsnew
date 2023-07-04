@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Pack workspaces tight, then go to the new window at the end.
+# Pack workspaces tight, then go to a new workspace at the end.
 
 import sys
 from i3ipc import Connection  # type: ignore
@@ -18,6 +18,11 @@ if __name__ == "__main__":
                     if err := c.command(cmd)[0].error:
                         print(err)
             i += 1
-    if sys.argv[1] == "move":
+    try:
+        move = sys.argv[1] == "move"
+    except IndexError:
+        move = False
+
+    if move:
         focused.command(f"move container to workspace number {i}")
     conn.command(f"workspace number {i}")
