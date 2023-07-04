@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+# Pack workspaces tight, then go to the new window at the end.
+
+from i3ipc import Connection  # type: ignore
+
+if __name__ == "__main__":
+    conn = Connection()
+    workspaces = conn.get_tree().workspaces()
+    for i, ws in enumerate(workspaces, start=1):
+        if ws.num != i:
+            cmd = f"move container to workspace number {i}"
+            for c in ws.children:
+                if err := c.command(cmd)[0].error:
+                    print(err)
+    conn.command(f"workspace number {i+1}")
