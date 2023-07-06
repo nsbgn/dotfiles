@@ -17,11 +17,11 @@
 # this by just checking the current app id and merely executing something like 
 # `wtype -M ctrl -M shift -k n` if it's `foot`.
 #
-# However, this still means that every subsequent process needs to manually 
-# inform `foot` of the current directory. `foot`'s wiki mentions how to make 
-# the shell prompt do that, but what about your file manager or editor? You 
-# *could* make Neovim call `chansend(v:stderr, "\e]7;file://…\e\\")` on every 
-# directory change, but that's only one application down.
+# However, this still means that every terminal process needs to manually send 
+# OSC-7. The guide only mentions your shell, but what about your file manager 
+# or editor? You *could* make Neovim call `chansend(v:stderr, 
+# "\e]7;file://…\e\\")` on every directory change, but that's only one 
+# application down.
 #
 # I propose instead to start a footclient instance by setting its app_id to 
 # match an environment variable in the shell process it starts, allowing us to 
@@ -35,8 +35,7 @@
 set -eu
 
 eval $(swaymsg -t get_tree | jq -r 'recurse(.nodes[]) | select(.focused) |
-"PID=\(.pid) FOOT=\(.app_id | if startswith("foot") then "foot" else "" end) APPID=\(.app_id)"')
-NAPPID=foot-$(uuid)
+"PID=\(.pid) APPID=\(.app_id) NEWAPPID=foot-\(now)"')
 DIR="$(readlink /proc/$(ps e --ppid "$PID" -o tpgid=,args= \
     | awk -F' ' "/APPID=$APPID/ {print \$1}")/cwd || echo $HOME)"
-footclient -o environment.APPID="$NAPPID" -a "$NAPPID" -D "$DIR"
+footclient -o environment.APPID="$NEWAPPID" -a "$NEWAPPID" -D "$DIR"
