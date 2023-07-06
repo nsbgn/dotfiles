@@ -1,23 +1,42 @@
 #!/bin/sh
-# A hacky way to either open the `foot` terminal, or spawn a new `foot`
-# terminal in the same directory as the currently opened one. For this to work,
-# you must use the OSC-7 escape sequence. See also:
-# <https://codeberg.org/dnkl/foot/wiki#user-content-spawning-new-terminal-instances-in-the-current-working-directory>
+# Sway version of my `xcwd.sh`. Starts a new footclient window; and if there is 
+# already a terminal window in focus, starts it in the same working directory. 
+# Crucially, this *takes into account the foreground process*.
 #
-# Dependencies:
-# - <https://codeberg.org/dnkl/foot>
-# - <https://git.sr.ht/~leon_plickat/lswt>
-# - <https://github.com/atx/wtype>
+# Inspired by:
+# - https://github.com/wknapik/lastcwd
+# - https://gist.github.com/viking/5851049
+#
+# Canonically, to start a terminal in the same directory, you follow this: 
+# <https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory>. 
+# That is, you send an OSC-7 escape sequence to notify `foot` of its working 
+# directory, and then you press Ctrl+Shift+N to open a new window.
+#
+# The first problem is that this means that you need to have a different 
+# shortcut for when you're not focused on `foot` at all. You can easily solve 
+# this by just checking the current app id and merely executing something like 
+# `wtype -M ctrl -M shift -k n` if it's `foot`.
+#
+# However, this still means that every subsequent process needs to manually 
+# inform `foot` of the current directory. `foot`'s wiki mentions how to make 
+# the shell prompt do that, but what about your file manager or editor? You 
+# *could* make Neovim call `chansend(v:stderr, "\e]7;file://…\e\\")` on every 
+# directory change, but that's only one application down.
+#
+# I propose instead to start a footclient instance by setting its app_id to 
+# match an environment variable in the shell process it starts, allowing us to 
+# tie the shell process back to the window.
+#
+# The following will net you the PID of the focused window:
+# PID=$(swaymsg -t get_tree | jq 'recurse(.nodes[]) | select(.focused).pid')
+#
+# And this will get you the current directory of the foreground process:
+#   readlink /proc/$(ps p $BASHPID -o tpgid= | tr -d ' ')/cwd
+set -eu
 
-is_foot(){
-    swaymsg -t get_tree | jq -e \
-        '.. | (.nodes? // empty)[] | select(.focused and .app_id == "foot")'
-    # alternative:
-    # lswt -j | jq -e '.[] | select(.activated and .app_id == "foot")'
-}
-
-if is_foot; then
-    wtype -M ctrl -M shift -k n
-else
-    footclient $@
-fi
+eval $(swaymsg -t get_tree | jq -r 'recurse(.nodes[]) | select(.focused) |
+"PID=\(.pid) FOOT=\(.app_id | if startswith("foot") then "foot" else "" end) APPID=\(.app_id)"')
+NAPPID=foot-$(uuid)
+DIR="$(readlink /proc/$(ps e --ppid "$PID" -o tpgid=,args= \
+    | awk -F' ' "/APPID=$APPID/ {print \$1}")/cwd || echo $HOME)"
+footclient -o environment.APPID="$NAPPID" -a "$NAPPID" -D "$DIR"
