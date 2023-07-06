@@ -22,24 +22,6 @@ source /etc/bash_completion
 # eval "$(register-python-argcomplete3 pubs)" # ~/.local/bin/pubs adds layer of
 # indirection, hiding "PYTHON_ARGCOMPLETE_OK" (kislyuk.github.io/argcomplete)
 
-# <https://codeberg.org/dnkl/foot/wiki#user-content-bash>
-osc7_cwd() {
-    local strlen=${#PWD}
-    local encoded=""
-    local pos c o
-    for (( pos=0; pos<strlen; pos++ )); do
-        c=${PWD:$pos:1}
-        case "$c" in
-            [-/:_.!\'\(\)~[:alnum:]] ) o="${c}" ;;
-            * ) printf -v o '%%%02X' "'${c}" ;;
-        esac
-        encoded+="${o}"
-    done
-    printf '\e]7;file://%s%s\e\\' "${HOSTNAME}" "${encoded}"
-}
-PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }osc7_cwd
-
-
 # Vi editing mode
 # set -o vi
 
