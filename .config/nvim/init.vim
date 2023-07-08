@@ -37,7 +37,7 @@ nmap <Tab> :set number!<CR>
 
 " Once available in stable
 " cf. https://github.com/neovim/neovim/pull/23320
-set smoothscroll
+" set smoothscroll
 
 set signcolumn=yes
 
