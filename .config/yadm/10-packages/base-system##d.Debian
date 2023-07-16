@@ -61,6 +61,7 @@ PACKAGES=(
     imv # Image viewer
     innoextract # Extract from Windows installers
     jq # Parsing JSON
+    jqp # Playground for gojq
     khal # TUI calendar
     latexdiff # Annotate changes in latex files
     lf # File browser
