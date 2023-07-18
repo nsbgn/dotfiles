@@ -63,6 +63,7 @@ PACKAGES=(
     jq # Parsing JSON
     jqp # Playground for gojq
     khal # TUI calendar
+    kiwix # Offline reader
     latexdiff # Annotate changes in latex files
     lf # File browser
     libglib2.0-bin # Trashbin via `gio trash`
@@ -101,6 +102,7 @@ PACKAGES=(
     xournalpp # Drawing & PDF annotations
     xq # XML processor, like jq or htmlq
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
+    zim-tools
 
     # Bluetooth
     bluez bluez-alsa-utils pulseaudio-module-bluetooth
