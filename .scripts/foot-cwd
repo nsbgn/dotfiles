@@ -35,10 +35,11 @@ foot_cwd(){
     PID=$1
     APPID=$2
     NEWAPPID=$3
+    shift 3
     DIR="$(readlink /proc/$(ps e --ppid "$PID" -o tpgid=,args= \
         | awk -F' ' "/APPID=$APPID/ {print \$1}")/cwd || echo $HOME)"
-    footclient -o environment.APPID="$NEWAPPID" -a "$NEWAPPID" -D "$DIR"
+    footclient -o environment.APPID="$NEWAPPID" -a "$NEWAPPID" -D "$DIR" "$@"
 }
 
 foot_cwd $(swaymsg -t get_tree | jq -r 'recurse(.nodes[]) | select(.focused) |
-    "\(.pid) \(.app_id) foot-\(now)"')
+    "\(.pid) \(.app_id) foot-\(now)"') "$@"
