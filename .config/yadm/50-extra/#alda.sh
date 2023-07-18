@@ -1,6 +1,10 @@
 #!/bin/bash
 # Text-based music composition
 # https://github.com/alda-lang/alda
+#
+# See also: https://github.com/ccrma/chuck (in Debian)
+# See also: https://gitlab.com/lilypond/lilypond (in Debian)
+
 set -euo pipefail
 
 wget -P ~/.local/bin/ "$( \
