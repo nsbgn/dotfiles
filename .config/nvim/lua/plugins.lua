@@ -29,31 +29,31 @@ require('packer').startup(function(use)
   use 'https://github.com/wbthomason/packer.nvim'
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-treesitter/nvim-treesitter'
-  -- use {
-  --  'https://github.com/nvim-treesitter/playground',
-  --   config = function()
-  --     require "nvim-treesitter.configs".setup {
-  --       playground = {
-  --         enable = true,
-  --         disable = {},
-  --         updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-  --         persist_queries = false, -- Whether the query persists across vim sessions
-  --         keybindings = {
-  --           toggle_query_editor = 'o',
-  --           toggle_hl_groups = 'i',
-  --           toggle_injected_languages = 't',
-  --           toggle_anonymous_nodes = 'a',
-  --           toggle_language_display = 'I',
-  --           focus_language = 'f',
-  --           unfocus_language = 'F',
-  --           update = 'R',
-  --           goto_node = '<cr>',
-  --           show_help = '?',
-  --         },
-  --       }
-  --     }
-  --   end
-  -- }
+  use {
+   'https://github.com/nvim-treesitter/playground',
+    config = function()
+      require "nvim-treesitter.configs".setup {
+        playground = {
+          enable = true,
+          disable = {},
+          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          persist_queries = false, -- Whether the query persists across vim sessions
+          keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injected_languages = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+          },
+        }
+      }
+    end
+  }
 
   -- Integrate direnv; see <https://direnv.net/>
   use 'https://github.com/direnv/direnv.vim'
@@ -265,20 +265,20 @@ use {
 -- Color scheme ---------------------------------------------------------------
 
   -- A colorscheme that uses few colors
-  use {
-    "https://github.com/mcchrish/zenbones.nvim",
-    tag = "v2.0.0",
-    requires = "https://github.com/rktjmp/lush.nvim",
-    config = function ()
-      -- vim.g.rosebones_lightness = "bright"
-      vim.g.zenwritten_transparent_background = true
-      vim.cmd([[
-        set termguicolors
-        set background=light
-        colorscheme zenwritten
-      ]])
-    end
-  }
+  -- use {
+  --   "https://github.com/mcchrish/zenbones.nvim",
+  --   tag = "v2.0.0",
+  --   requires = "https://github.com/rktjmp/lush.nvim",
+  --   config = function ()
+  --     -- vim.g.rosebones_lightness = "bright"
+  --     vim.g.zenwritten_transparent_background = true
+  --     vim.cmd([[
+  --       set termguicolors
+  --       set background=light
+  --       colorscheme zenwritten
+  --     ]])
+  --   end
+  -- }
 
   -- use {
   --   "https://github.com/cbochs/portal.nvim",
@@ -545,27 +545,27 @@ vim.cmd([[
 ]])
 
 -- Temporary solution after Neovim 0.9.
-vim.cmd([[
-  autocmd VimEnter * highlight markdownH1 gui=underline,bold
-  autocmd VimEnter * highlight markdownH2 gui=underline,bold,italic
-  autocmd VimEnter * highlight markdownH3 gui=underline,italic
-  autocmd VimEnter * highlight markdownItalic gui=italic
-  autocmd VimEnter * highlight markdownItalicDelimiter gui=italic guifg=gray
-  autocmd VimEnter * highlight markdownBold gui=bold
-  autocmd VimEnter * highlight markdownBoldDelimiter gui=bold guifg=gray
-  autocmd VimEnter * highlight markdownCode guibg=#eeeeee
-  autocmd VimEnter * highlight markdownAutomaticLink gui=underline
-  autocmd VimEnter * highlight DiffAdd guibg=none guifg=gray
-  autocmd VimEnter * highlight DiffChange guibg=none guifg=gray
-  autocmd VimEnter * highlight DiffDelete guibg=none guifg=gray
-  autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
-  autocmd VimEnter * highlight NonText guifg=#888888
-  autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=black
-  autocmd VimEnter * highlight yamlDocumentStart gui=none guifg=gray
-  autocmd VimEnter * highlight LeapBackdrop guifg=gray
-  autocmd VimEnter * highlight LeapLabelPrimary gui=bold,italic guibg=white
-  autocmd VimEnter * highlight LeapMatch guifg=black guibg=white
-  autocmd VimEnter * highlight ScrollView guifg=red guibg=black
-]])
+-- vim.cmd([[
+--   autocmd VimEnter * highlight markdownH1 gui=underline,bold
+--   autocmd VimEnter * highlight markdownH2 gui=underline,bold,italic
+--   autocmd VimEnter * highlight markdownH3 gui=underline,italic
+--   autocmd VimEnter * highlight markdownItalic gui=italic
+--   autocmd VimEnter * highlight markdownItalicDelimiter gui=italic guifg=gray
+--   autocmd VimEnter * highlight markdownBold gui=bold
+--   autocmd VimEnter * highlight markdownBoldDelimiter gui=bold guifg=gray
+--   autocmd VimEnter * highlight markdownCode guibg=#eeeeee
+--   autocmd VimEnter * highlight markdownAutomaticLink gui=underline
+--   autocmd VimEnter * highlight DiffAdd guibg=none guifg=gray
+--   autocmd VimEnter * highlight DiffChange guibg=none guifg=gray
+--   autocmd VimEnter * highlight DiffDelete guibg=none guifg=gray
+--   autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
+--   autocmd VimEnter * highlight NonText guifg=#888888
+--   autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=black
+--   autocmd VimEnter * highlight yamlDocumentStart gui=none guifg=gray
+--   autocmd VimEnter * highlight LeapBackdrop guifg=gray
+--   autocmd VimEnter * highlight LeapLabelPrimary gui=bold,italic guibg=white
+--   autocmd VimEnter * highlight LeapMatch guifg=black guibg=white
+--   autocmd VimEnter * highlight ScrollView guifg=red guibg=black
+-- ]])
 
 

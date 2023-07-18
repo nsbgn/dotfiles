@@ -2,6 +2,38 @@ lua require('plugins')
 lua require('lsp')
 lua require('splits')
 
+set termguicolors
+set background=light
+colorscheme peachpuff
+highlight Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
+highlight markdownH1 gui=underline,bold
+highlight markdownH2 gui=underline,bold,italic
+highlight markdownH3 gui=underline,italic
+highlight markdownItalic gui=italic
+highlight markdownItalicDelimiter gui=italic guifg=gray
+highlight markdownBold gui=bold
+highlight markdownBoldDelimiter gui=bold guifg=gray
+highlight markdownCode guibg=#eeeeee
+highlight markdownAutomaticLink gui=underline
+highlight DiffAdd guibg=none guifg=darkgreen
+highlight DiffChange guibg=none guifg=purple
+highlight DiffDelete guibg=none guifg=darkred
+highlight Visual guifg=#cccccc guibg=#333333
+highlight NonText guifg=#888888
+highlight yamlBlockMappingKey gui=bold guifg=black
+highlight yamlDocumentStart gui=none guifg=gray
+highlight LeapBackdrop guifg=gray
+highlight LeapLabelPrimary gui=bold,italic guibg=white
+highlight LeapMatch guifg=black guibg=white
+highlight ScrollView guifg=red guibg=black
+highlight Comment gui=italic guifg=gray
+highlight Constant gui=italic guifg=darkgreen
+highlight Identifier gui=bold guifg=darkblue
+highlight Statement gui=bold guifg=darkred
+highlight Type gui=bold guifg=black
+highlight Todo gui=underline,bold
+
+
 highlight VertSplit cterm=NONE ctermfg=gray
 " set fillchars+=vert:*
 " set fillchars+=eob:\  " turn off tildes at the end of buffers
