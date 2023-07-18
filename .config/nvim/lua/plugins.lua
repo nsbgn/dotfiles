@@ -29,31 +29,31 @@ require('packer').startup(function(use)
   use 'https://github.com/wbthomason/packer.nvim'
   use 'https://github.com/neovim/nvim-lspconfig'
   use 'https://github.com/nvim-treesitter/nvim-treesitter'
-  use {
-   'https://github.com/nvim-treesitter/playground',
-    config = function()
-      require "nvim-treesitter.configs".setup {
-        playground = {
-          enable = true,
-          disable = {},
-          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-          persist_queries = false, -- Whether the query persists across vim sessions
-          keybindings = {
-            toggle_query_editor = 'o',
-            toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
-            toggle_anonymous_nodes = 'a',
-            toggle_language_display = 'I',
-            focus_language = 'f',
-            unfocus_language = 'F',
-            update = 'R',
-            goto_node = '<cr>',
-            show_help = '?',
-          },
-        }
-      }
-    end
-  }
+  -- use {
+  --  'https://github.com/nvim-treesitter/playground',
+  --   config = function()
+  --     require "nvim-treesitter.configs".setup {
+  --       playground = {
+  --         enable = true,
+  --         disable = {},
+  --         updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+  --         persist_queries = false, -- Whether the query persists across vim sessions
+  --         keybindings = {
+  --           toggle_query_editor = 'o',
+  --           toggle_hl_groups = 'i',
+  --           toggle_injected_languages = 't',
+  --           toggle_anonymous_nodes = 'a',
+  --           toggle_language_display = 'I',
+  --           focus_language = 'f',
+  --           unfocus_language = 'F',
+  --           update = 'R',
+  --           goto_node = '<cr>',
+  --           show_help = '?',
+  --         },
+  --       }
+  --     }
+  --   end
+  -- }
 
   -- Integrate direnv; see <https://direnv.net/>
   use 'https://github.com/direnv/direnv.vim'
@@ -81,34 +81,34 @@ require('packer').startup(function(use)
   use 'https://github.com/farmergreg/vim-lastplace'
 
   -- Alternatively, see <https://github.com/akinsho/toggleterm.nvim>
-  use {
-    "https://github.com/numToStr/FTerm.nvim",
-    config = function()
-      local ft = require'FTerm'
-      ft.setup({
-        border = 'rounded',
-        dimensions  = {
-            height = 0.9,
-            width = 84,
-        },
-      })
-      vim.keymap.set('n', 'tt', ft.toggle, {})
-      vim.keymap.set('n', '<C-t>', ft.toggle, {})
-      vim.keymap.set('t', '<C-t>', ft.toggle, {})
-      vim.api.nvim_set_keymap(
-        't', '<C-Esc>', '<C-\\><C-n>', {noremap = true})
-    end
-  }
+  -- use {
+  --   "https://github.com/numToStr/FTerm.nvim",
+  --   config = function()
+  --     local ft = require'FTerm'
+  --     ft.setup({
+  --       border = 'rounded',
+  --       dimensions  = {
+  --           height = 0.9,
+  --           width = 84,
+  --       },
+  --     })
+  --     vim.keymap.set('n', 'tt', ft.toggle, {})
+  --     vim.keymap.set('n', '<C-t>', ft.toggle, {})
+  --     vim.keymap.set('t', '<C-t>', ft.toggle, {})
+  --     vim.api.nvim_set_keymap(
+  --       't', '<C-Esc>', '<C-\\><C-n>', {noremap = true})
+  --   end
+  -- }
 
-use {
-  'https://github.com/yochem/autosplit.nvim',
-  config = function()
-    require('autosplit').setup({
-        split = 'auto', -- choose one of 'auto', 'horizontal' and 'vertical'
-        min_win_width = 80 -- the minimal width you want for a splitted window
-    })
-  end
-}
+-- use {
+--   'https://github.com/yochem/autosplit.nvim',
+--   config = function()
+--     require('autosplit').setup({
+--         split = 'auto', -- choose one of 'auto', 'horizontal' and 'vertical'
+--         min_win_width = 80 -- the minimal width you want for a splitted window
+--     })
+--   end
+-- }
 
 -- See recipes at:
 -- <https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes>
@@ -487,34 +487,34 @@ use {
 --   config = function()
 --   end
 -- }
-use {
-  "https://github.com/nvim-neotest/neotest",
-  requires = {
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/nvim-treesitter/nvim-treesitter",
-    "https://github.com/antoinemadec/FixCursorHold.nvim",
-    "https://github.com/nvim-neotest/neotest-python",
-    "https://github.com/rouge8/neotest-rust"
-  },
-  config = function()
-    require("neotest").setup({
-      adapters = {
-        -- require("neotest-python")({
-        --   dap = { justMyCode = false },
-        -- }),
-        -- require("neotest-plenary"),
-        -- require("neotest-vim-test")({
-        --   ignore_file_types = { "python", "vim", "lua" },
-        -- }),
-      },
-    })
+-- use {
+--   "https://github.com/nvim-neotest/neotest",
+--   requires = {
+--     "https://github.com/nvim-lua/plenary.nvim",
+--     "https://github.com/nvim-treesitter/nvim-treesitter",
+--     "https://github.com/antoinemadec/FixCursorHold.nvim",
+--     "https://github.com/nvim-neotest/neotest-python",
+--     "https://github.com/rouge8/neotest-rust"
+--   },
+--   config = function()
+--     require("neotest").setup({
+--       adapters = {
+--         -- require("neotest-python")({
+--         --   dap = { justMyCode = false },
+--         -- }),
+--         -- require("neotest-plenary"),
+--         -- require("neotest-vim-test")({
+--         --   ignore_file_types = { "python", "vim", "lua" },
+--         -- }),
+--       },
+--     })
 
-    local nt = require("neotest")
-    vim.keymap.set('n', 'xt', nt.run.run, {})
-    vim.keymap.set('n', 'xs', nt.summary.open, {})
+--     local nt = require("neotest")
+--     vim.keymap.set('n', 'xt', nt.run.run, {})
+--     vim.keymap.set('n', 'xs', nt.summary.open, {})
 
-  end
-}
+--   end
+-- }
 
 -- Syntax highlighting --------------------------------------------------------
   use 'https://github.com/niklasl/vim-rdf'
@@ -560,7 +560,7 @@ vim.cmd([[
   autocmd VimEnter * highlight DiffDelete guibg=none guifg=gray
   autocmd VimEnter * highlight Visual guifg=#cccccc guibg=#333333
   autocmd VimEnter * highlight NonText guifg=#888888
-  autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=gray
+  autocmd VimEnter * highlight yamlBlockMappingKey gui=bold guifg=black
   autocmd VimEnter * highlight yamlDocumentStart gui=none guifg=gray
   autocmd VimEnter * highlight LeapBackdrop guifg=gray
   autocmd VimEnter * highlight LeapLabelPrimary gui=bold,italic guibg=white
