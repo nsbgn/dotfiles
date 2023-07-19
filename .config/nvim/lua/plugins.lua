@@ -264,6 +264,7 @@ use {
 
 -- Color scheme ---------------------------------------------------------------
 
+  use 'https://github.com/morhetz/gruvbox'
   -- A colorscheme that uses few colors
   -- use {
   --   "https://github.com/mcchrish/zenbones.nvim",

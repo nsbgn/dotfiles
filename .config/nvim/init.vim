@@ -5,36 +5,41 @@ lua require('splits')
 set termguicolors
 set background=light
 colorscheme peachpuff
-highlight Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
-highlight markdownH1 gui=underline,bold
-highlight markdownH2 gui=underline,bold,italic
-highlight markdownH3 gui=underline,italic
-highlight markdownItalic gui=italic
-highlight markdownItalicDelimiter gui=italic guifg=gray
-highlight markdownBold gui=bold
-highlight markdownBoldDelimiter gui=bold guifg=gray
-highlight markdownCode guibg=#eeeeee
-highlight markdownAutomaticLink gui=underline
-highlight DiffAdd guibg=none guifg=darkgreen
-highlight DiffChange guibg=none guifg=purple
-highlight DiffDelete guibg=none guifg=darkred
-highlight Visual guifg=#cccccc guibg=#333333
-highlight NonText guifg=#888888
-highlight yamlBlockMappingKey gui=bold guifg=black
-highlight yamlDocumentStart gui=none guifg=gray
-highlight LeapBackdrop guifg=gray
-highlight LeapLabelPrimary gui=bold,italic guibg=white
-highlight LeapMatch guifg=black guibg=white
-highlight ScrollView guifg=red guibg=black
-highlight Comment gui=italic guifg=gray
-highlight Constant gui=italic guifg=darkgreen
-highlight Identifier gui=bold guifg=darkblue
-highlight Statement gui=bold guifg=darkred
-highlight Type gui=bold guifg=black
-highlight Todo gui=underline,bold
 
+hi Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
+hi Visual guifg=#cccccc guibg=#333333
 
-highlight VertSplit cterm=NONE ctermfg=gray
+hi Comment gui=italic guifg=gray
+hi Statement gui=bold guifg=black
+hi Constant gui=italic guifg=darkgreen
+hi Identifier gui=NONE guifg=darkred
+hi Type gui=italic guifg=black
+hi PreProc gui=bold guifg=black
+hi Todo gui=underline,bold
+
+hi DiffAdd guifg=lightgreen guibg=NONE
+hi DiffChange guifg=lightgray guibg=NONE
+hi DiffDelete guifg=lightred guibg=NONE
+
+hi NonText guifg=#888888
+
+hi LeapBackdrop guifg=gray
+hi LeapLabelPrimary gui=bold,italic guibg=white
+hi LeapMatch guifg=black guibg=white
+hi ScrollView guifg=red guibg=black
+
+hi markdownH1 gui=underline,bold
+hi markdownH2 gui=underline,bold,italic
+hi markdownH3 gui=underline,italic
+hi markdownItalic gui=italic
+hi markdownItalicDelimiter gui=italic guifg=gray
+hi markdownBold gui=bold
+hi markdownBoldDelimiter gui=bold guifg=gray
+hi markdownCode guibg=#eeeeee
+hi markdownAutomaticLink gui=underline
+hi yamlBlockMappingKey gui=bold guifg=black
+hi yamlDocumentStart gui=none guifg=gray
+hi pythonBuiltin gui=none guifg=darkblue
 " set fillchars+=vert:*
 " set fillchars+=eob:\  " turn off tildes at the end of buffers
 
