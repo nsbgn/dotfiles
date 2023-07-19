@@ -91,7 +91,7 @@ default_border normal 1
 titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
-font Cozette 9
+font Inconsolata 9
 gaps inner 0
 focus_wrapping workspace
 
