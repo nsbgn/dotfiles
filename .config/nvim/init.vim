@@ -39,7 +39,8 @@ hi markdownCode guibg=#eeeeee
 hi markdownAutomaticLink gui=underline
 hi yamlBlockMappingKey gui=bold guifg=black
 hi yamlDocumentStart gui=none guifg=gray
-hi pythonBuiltin gui=none guifg=darkblue
+hi pythonBuiltin gui=none guifg=black
+hi pythonFunction gui=bold guifg=darkred
 " set fillchars+=vert:*
 " set fillchars+=eob:\  " turn off tildes at the end of buffers
 

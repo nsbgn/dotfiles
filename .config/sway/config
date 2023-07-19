@@ -149,6 +149,9 @@ bindsym $mod+o focus next
 bindsym $mod+t exec foot-cwd
 bindsym $mod+Shift+Tab reload
 
+bindsym $mod+y scratchpad show
+bindsym $mod+Shift+y move scratchpad
+
 bindsym $mod+h focus prev
 bindsym $mod+Shift+h swap prev
 
