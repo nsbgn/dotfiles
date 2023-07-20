@@ -167,7 +167,7 @@ u = M-C-u
 i = M-C-i
 o = M-C-o
 p = M-C-p
-[ = M-C-[
+[ = M-C-backslash
 
 h = M-C-h
 j = M-C-j
