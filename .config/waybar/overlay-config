@@ -8,7 +8,7 @@
     "spacing": 5,
     "ipc": true,
     "id": "bar1",
-    "modules-left": ["custom/ws"],
+    "modules-left": ["sway/workspaces"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     "sway/workspaces": {
@@ -37,6 +37,9 @@
     },
     "clock": {
         "format": " {:%H:%M %a %d}"
+    },
+    "sway/workspaces": {
+        "disable-auto-back-and-forth": true
     },
     "custom/ws": {
         "exec": "/home/nsbg/projects/twins/twins-wsshow",

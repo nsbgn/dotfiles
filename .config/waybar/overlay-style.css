@@ -1,9 +1,26 @@
-* {
-    background: #000000;
-    font-family: "Inconsolata", monospace; /* "FontAwesome", */
+window#waybar {
+    font-family: "Inconsolata", monospace;
     font-size: 9pt;
     color: #dddddd;
-    /* background-color: transparent; */
+    background-color: black;
 }
-window#waybar {
+#workspaces button {
+    font-size: 13pt;
+    padding: 0px 2px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    color: white;
+}
+#workspaces button:hover {
+    background-color: #333333;
+    color: black;
+    box-shadow: none;
+}
+#workspaces button.focused {
+    background-color: white;
+    color: black;
+}
+#workspaces button.urgent {
+    background-color: red;
 }
