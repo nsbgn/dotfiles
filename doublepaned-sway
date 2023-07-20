@@ -43,7 +43,8 @@ def new_workspace(conn: i3.Connection) -> int:
             commands.append(
                 f"[con_id={con.id}] move container to workspace number {i}")
     conn.command("; ".join(commands))
-    return i + 1
+    # Return the next workspace or the last one if it was already empty
+    return i + 1 if ws.nodes else i
 
 
 def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
@@ -100,7 +101,7 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
         if command[0] != "doublepaned":
             return
     except IndexError:
-        pass
+        return
 
     if command[1] == "new_workspace":
         conn.command(f"workspace number {new_workspace(conn)}")
