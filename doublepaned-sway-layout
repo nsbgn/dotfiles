@@ -57,22 +57,24 @@ def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
 
 
 def window_close(conn: i3.Connection, event: i3.WindowEvent) -> None:
-    """If the main window has been closed, move the most recent window in the 
+    """If the main window has been closed, move the first/last window in the 
     supplementary area to be main window."""
     tree = conn.get_tree()
     for ws in tree.workspaces():
         if len(ws.nodes) == 1:
             con = ws.nodes[0]
-            if con.layout == 'tabbed' and len(con.nodes) > 1:
+            n = len(con.nodes)
+            if con.layout == 'tabbed' and n > 1:
                 if con.parent.orientation == "vertical":
                     dir = "down" if MAIN else "up"
                 else:
                     dir = "right" if MAIN else "left"
-                r = conn.command(f"[con_id={con.focus[0]}] move {dir}")
+                conn.command(
+                    f"[con_id={con.nodes[MAIN * (n - 1)].id}] move {dir}")
             else:
-                assert len(con.nodes) == 1
-                r = conn.command(f"[con_id={con.focus[0]}] split none")
-            print(r.ipc_data)
+                assert n == 1
+                conn.command(f"[con_id={con.nodes[0].id}] split none")
+
 
 if __name__ == "__main__":
     conn = i3.Connection(auto_reconnect=True)
