@@ -1,6 +1,7 @@
 alias b="bemenu -l 10 -H 30 --fn 'Cabin 10'"
 
 # alias sudo="doas"
+alias dp="swaymsg -t send_tick doublepaned"
 alias thumb="gm convert cover.* -resize 96x96! -quality 65% folder.jpg"
 alias bak="crsync"
 alias vim="nvim"

@@ -1,12 +1,12 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
 set $mod Mod4+Ctrl
+set $dp swaymsg -t send_tick doublepaned
 
 # exec dbus-update-activation-environment --verbose --systemd --all
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 exec foot --server
 exec gammastep -O 5500K
-exec stacki3
 exec wvkbd-mobintl --hidden
 # Toggle with `pkill -SIGRTMIN wvkbd-mobintl`
 exec sway-autoexit-fullscreen
@@ -128,8 +128,9 @@ bindsym $mod+g exec dmenu-apps
 # bindsym $mod+x exec sway-wsfocus prev || swaymsg workspace prev
 # bindsym $mod+Shift+x move container to workspace prev
 
-bindsym $mod+c exec twins-wsnew
-bindsym $mod+Shift+c exec twins-wsnew move
+bindsym $mod+backslash exec "$dp new_workspace"
+#$dp workspace_new
+# bindsym $mod+Shift+c exec twins-wsnew move
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $mod+m exec dmenu-mpv
