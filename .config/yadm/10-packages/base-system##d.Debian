@@ -115,6 +115,14 @@ PACKAGES=(
     python3-pypandoc # For download-article
     python3-readability # Should be for download-article
     shntool cuetools  # For split-flac-from-cue
+
+    # Python LSP
+    python3-pylsp  # Language server
+    python3-pylsp-black  # Autoformatter
+    python3-pylsp-rope  # Completions, renaming
+    python3-pylsp-isort  # Automatic import sorting
+    python3-flake8  # Error checking
+    python3-pep8-naming  # PEP8 naming
 )
 
 sudo apt update -y
