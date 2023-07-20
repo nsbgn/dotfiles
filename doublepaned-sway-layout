@@ -76,8 +76,16 @@ def window_close(conn: i3.Connection, event: i3.WindowEvent) -> None:
                 conn.command(f"[con_id={con.nodes[0].id}] split none")
 
 
+def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
+    """The tick event is used to avoid having to reimplement inter-process 
+    communication: we can just use `swaymsg -t send_tick message` to pass a 
+    message to this process."""
+    print(event.payload)
+
+
 if __name__ == "__main__":
     conn = i3.Connection(auto_reconnect=True)
     conn.on(i3.Event.WINDOW_NEW, window_new)
     conn.on(i3.Event.WINDOW_CLOSE, window_close)
+    conn.on(i3.Event.TICK, tick)
     conn.main()
