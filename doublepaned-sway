@@ -17,23 +17,35 @@ def command(payload: str, on: i3.Con | i3.Connection) -> None:
         raise RuntimeError(f"{payload}: {result['error']}")
 
 
-def unify_container(con: i3.Con, dir: Literal["h", "v"]) -> None:
-    """Change container such that all of its children descend from a single 
-    container with the given split direction."""
-    assert con.layout in ("splith", "splitv")
-    if len(con.nodes) > 1:
-        x = con.nodes[0]
-        if x.type == "none":
-            command(f"split{dir}", x)
-        else:
-            command(f"layout split{dir}", x)
-        for y in con.nodes[1:]:
-            command("move left" if con.layout == "splith" else "move up", y)
+def find_empty_workspace(workspaces: list[i3.Con]) -> tuple[int, int, int]:
+    """Return a tuple containing the lowest-numbered empty workspace, plus its 
+    predecessor and successor workspaces."""
+    for counter, ws in enumerate(workspaces, start=1):
+        i = ws.num
+        if counter != i or not ws.nodes:
+            return (counter - 1 or len(workspaces), counter, i)
+    n = len(workspaces)
+    return (n, n + 1, 1)
 
 
-def new_workspace(conn: i3.Connection) -> int:
+def focus_workspace(conn: i3.Connection, forward: bool) -> None:
+    """Focus on the next or previous occupied workspace, or the lowest-numbered 
+    empty workspace --- whichever is first."""
+    tree = conn.get_tree()
+    workspaces = tree.workspaces()
+    cur = tree.find_focused().workspace().num
+    pre, empty, succ = find_empty_workspace(workspaces)
+
+    if cur != empty and (
+            (forward and cur == pre) or (not forward and cur == succ)):
+        conn.command(f"workspace number {empty}")
+    else:
+        conn.command(f"workspace {dir}")
+
+
+def pack_workspaces(conn: i3.Connection) -> int:
     """Make sure that workspaces are packed tight, then return the number of 
-    the empty workspace at the end."""
+    the now-empty workspace at the end."""
     tree = conn.get_tree()
     commands = []
     for i, ws in enumerate(tree.workspaces(), start=1):
@@ -92,6 +104,10 @@ def window_close(conn: i3.Connection, event: i3.WindowEvent) -> None:
                 conn.command(f"[con_id={con.nodes[0].id}] split none")
 
 
+def cmd_new_workspace(conn: i3.Connection) -> None:
+    conn.command(f"workspace number {pack_workspaces(conn)}")
+
+
 def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
     """The tick event is used to avoid having to reimplement inter-process 
     communication: we can just use `swaymsg -t send_tick message` to pass a 
@@ -103,8 +119,9 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
     except IndexError:
         return
 
-    if command[1] == "new_workspace":
-        conn.command(f"workspace number {new_workspace(conn)}")
+    cmd = command[1]
+    if cmd == "new_workspace":
+        cmd_new_workspace(conn)
 
 
 if __name__ == "__main__":
