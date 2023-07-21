@@ -1,7 +1,11 @@
 #!/bin/sh
 # Just a very quick script to get a YouTube channel URL
+# Dependencies: curl libxml2-utils
 
-curl -sL "$1" \
-    | grep -m1 -o '{"key":"browse_id","value":"[a-Z0-9\-]*"}' \
-    | tail -n1 \
-    | jq -r '"https://www.youtube.com/feeds/videos.xml?channel_id=" + .value'
+# curl -sL "$1" \
+#     | grep -m1 -o '{"key":"browse_id","value":"[a-Z0-9\-]*"}' \
+#     | tail -n1 \
+#     | jq -r '"https://www.youtube.com/feeds/videos.xml?channel_id=" + .value'
+
+# cf. https://old.reddit.com/r/commandline/comments/155j3bd/cli_youtube_client/
+curl -s "$1" | xmllint --html --xpath 'string(//link[@title="RSS"]/@href)' - 2>/dev/null
