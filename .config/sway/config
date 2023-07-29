@@ -1,6 +1,6 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
 set $mod Mod4+Ctrl
-set $dp swaymsg -t send_tick doublepaned
+set $pwm swaymsg -t send_tick pilingwm
 
 # exec dbus-update-activation-environment --verbose --systemd --all
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -21,9 +21,10 @@ bar {
    position top
 }
 
-client.focused #3d2d22 #3d2d22 #cccccc
-client.unfocused #cccccc #dddddd #000000
-client.focused_inactive #ffffff #ffffff #000000 
+#                       tBorder      bg    text indic8r wBorder
+client.focused          #333333 #013220 #ffffff #ff0000 #333333
+client.unfocused        #dddddd #000000 #ffffff #ff0000 #dddddd
+client.focused_inactive #dddddd #000000 #ffffff #ff0000 #dddddd
 
 # output * bg #fffaf0 solid_color
 output * bg #ffffff solid_color
@@ -85,14 +86,14 @@ input type:touchpad {
 # for_window [] title_format "fdf %title"
 smart_gaps off
 smart_borders off
-hide_edge_borders smart
-default_border normal 1
+# hide_edge_borders false
+default_border pixel 2
 # title_format "%title"
 titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
 font Inconsolata 9
-gaps inner 0
+gaps inner 2
 focus_wrapping workspace
 
 # workspace_layout tabbed
@@ -128,8 +129,8 @@ bindsym $mod+g exec dmenu-apps
 # bindsym $mod+x exec sway-wsfocus prev || swaymsg workspace prev
 # bindsym $mod+Shift+x move container to workspace prev
 
-bindsym $mod+backslash exec "$dp new_workspace"
-#$dp workspace_new
+bindsym $mod+backslash exec "$pwm new_workspace"
+#$pwm workspace_new
 # bindsym $mod+Shift+c exec twins-wsnew move
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
@@ -144,8 +145,8 @@ bindsym $mod+period workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
 bindsym $mod+Shift+period move container to workspace next_on_output
 
-bindsym $mod+i focus prev
-bindsym $mod+o focus next
+bindsym $mod+i exec "$pwm win_focus_prev"
+bindsym $mod+o exec "$pwm win_focus_next"
 
 bindsym $mod+t exec foot-cwd
 bindsym $mod+Shift+Tab reload
@@ -156,10 +157,10 @@ bindsym $mod+Shift+y move scratchpad
 bindsym $mod+h focus prev
 bindsym $mod+Shift+h swap prev
 
-bindsym $mod+j workspace prev
+bindsym $mod+j exec "$pwm pile_focus_prev"
 bindsym $mod+Shift+j move container to workspace prev; workspace prev
 
-bindsym $mod+k workspace next
+bindsym $mod+k exec "$pwm pile_focus_next"
 bindsym $mod+Shift+k move container to workspace next; workspace next
 
 bindsym $mod+l focus next

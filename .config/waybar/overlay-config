@@ -8,7 +8,7 @@
     "spacing": 5,
     "ipc": true,
     "id": "bar1",
-    "modules-left": ["sway/workspaces"],
+    "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     "sway/workspaces": {
