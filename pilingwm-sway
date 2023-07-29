@@ -175,7 +175,7 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
     message to this process."""
     command = event.payload.split()
     try:
-        if command[0] != "doublepaned":
+        if command[0] != "pilingwm":
             return
     except IndexError:
         return
