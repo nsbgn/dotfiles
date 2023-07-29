@@ -10,6 +10,7 @@ hi Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
 hi Visual guifg=#cccccc guibg=#333333
 
 hi Comment gui=italic guifg=gray
+hi Special gui=NONE guifg=gray
 hi Statement gui=bold guifg=black
 hi Constant gui=italic guifg=darkgreen
 hi Identifier gui=NONE guifg=darkred
@@ -17,9 +18,9 @@ hi Type gui=italic guifg=black
 hi PreProc gui=bold guifg=black
 hi Todo gui=underline,bold
 
-hi DiffAdd guifg=lightgreen guibg=NONE
-hi DiffChange guifg=lightgray guibg=NONE
-hi DiffDelete guifg=lightred guibg=NONE
+hi DiffAdd guifg=darkgreen guibg=NONE
+hi DiffChange guifg=gray guibg=NONE
+hi DiffDelete guifg=darkred guibg=NONE
 
 hi NonText guifg=#888888
 
