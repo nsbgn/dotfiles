@@ -108,6 +108,67 @@ def cmd_new_workspace(conn: i3.Connection) -> None:
     conn.command(f"workspace number {pack_workspaces(conn)}")
 
 
+def find_window_in_pile(con: i3.Con) -> i3.Con:
+    """Find the window in a pile that should get focus once the pile gets 
+    focus."""
+    while con.focus:
+        id = con.focus[0]
+        for c in con.nodes:
+            if c.id == id:
+                con = c
+    return con
+
+
+def cmd_pile_focus(conn: i3.Connection, forward: bool,
+        insert_empty: bool = True) -> None:
+    """Move between piles (top-level panes, occupied workspaces and empty 
+    workspaces)."""
+    tree = conn.get_tree()
+    focused = tree.find_focused()
+    if not focused:
+        return
+
+    workspace = focused.workspace()
+    workspaces = tree.workspaces()
+    dir = 1 if forward else -1
+
+    if workspace.nodes:
+        new_pile_idx = dir + next(i
+            for i, ws in enumerate(workspace.nodes)
+            if ws.id == workspace.focus[0])
+    else:
+        new_pile_idx = -1
+
+    # Selecting piles on the same workspace
+    if new_pile_idx >= 0 and new_pile_idx < len(workspace.nodes):
+        piletop = find_window_in_pile(workspace.nodes[new_pile_idx])
+        piletop.command("focus")
+
+    # .. or spilling over to other workspaces
+    else:
+        if insert_empty:
+            ws_cur_id = workspace.num
+            ws_pre_empty_id, ws_empty_id, ws_succ_empty_id = \
+                find_empty_workspace(workspaces)
+            if ws_cur_id != ws_empty_id and (
+                    (forward and ws_cur_id == ws_pre_empty_id)
+                    or (not forward and ws_cur_id == ws_succ_empty_id)):
+                conn.command(f"workspace number {ws_empty_id}")
+                return
+
+        ws_cur_idx = workspaces.index(workspace)
+        ws_new_idx = (ws_cur_idx + dir) % len(workspaces)
+        ws_new = workspaces[ws_new_idx]
+        if ws_new.nodes:
+            pile_new = ws_new.nodes[0 if forward else -1]
+            win_new = find_window_in_pile(pile_new)
+            win_new.command("focus")
+
+
+def cmd_win_focus(conn: i3.Connection, forward: bool) -> None:
+    raise NotImplementedError
+
+
 def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
     """The tick event is used to avoid having to reimplement inter-process 
     communication: we can just use `swaymsg -t send_tick message` to pass a 
@@ -122,6 +183,14 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
     cmd = command[1]
     if cmd == "new_workspace":
         cmd_new_workspace(conn)
+    elif cmd == "pile_focus_next":
+        cmd_pile_focus(conn, True)
+    elif cmd == "pile_focus_prev":
+        cmd_pile_focus(conn, False)
+    elif cmd == "win_focus_next":
+        cmd_win_focus(conn, True)
+    elif cmd == "win_focus_prev":
+        cmd_win_focus(conn, False)
 
 
 if __name__ == "__main__":
