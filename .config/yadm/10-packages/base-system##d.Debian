@@ -26,7 +26,7 @@ PACKAGES=(
     python3-i3ipc
     swaylock
     clipman # Clipboard manager
-    mako # Notifications
+    mako-notifier # Notifications
     wl-clipboard
     wdisplays
     wtype
@@ -78,7 +78,6 @@ PACKAGES=(
     parallel # Execute commands in parallel
     pass # Simple password manager based on gnupg
     pamixer # Controlling pulseaudio
-    pdfdiff # Compare PDF files
     playerctl # Controlling MPRIS media players
     pmount # Mount filesystems as normal user
     puddletag # Tagging audio files
