@@ -170,7 +170,16 @@ def cmd_pile_focus(conn: i3.Connection, forward: bool,
 
 
 def cmd_win_focus(conn: i3.Connection, forward: bool) -> None:
-    raise NotImplementedError
+    tree = conn.get_tree()
+    focused = tree.find_focused()
+    if not focused:
+        return
+    pile = focused.parent
+    if pile.type == 'workspace':
+        return
+    windows = pile.leaves()
+    i = (windows.index(focused) + (1 if forward else -1)) % len(windows)
+    conn.command(f"[con_id={windows[i].id}] focus")
 
 
 def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
