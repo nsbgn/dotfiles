@@ -22,12 +22,12 @@ bar {
 }
 
 #                       tBorder      bg    text indic8r wBorder
-client.focused          #000000 #005000 #ffffff #ff0000 #bbbbbb
-client.unfocused        #666666 #000000 #ffffff #ff0000 #bbbbbb
-client.focused_inactive #666666 #000000 #ffffff #ff0000 #bbbbbb
+client.focused          #99dd99 #005000 #ffffff #ff0000 #ffffff
+client.unfocused        #000000 #000000 #ffffff #ff0000 #bbbbbb
+client.focused_inactive #444444 #000000 #ffffff #ff0000 #bbbbbb
 
 # output * bg #fffaf0 solid_color
-output * bg #ffffff solid_color
+output * bg #000000 solid_color
 output HDMI-A-1 {
    mode 1920x1080@60.000Hz
    pos 0 0
@@ -87,14 +87,14 @@ input type:touchpad {
 
 smart_gaps off
 smart_borders off
-hide_edge_borders none
+hide_edge_borders both
 default_border normal 1
-# title_format "%title"
-titlebar_border_thickness 2
+# for_window [title="."] title_format "%title"
+titlebar_border_thickness 1
 titlebar_padding 6 2
 default_floating_border normal
 font pango:Inconsolata 12
-gaps inner 2
+gaps inner 0
 # focus_wrapping workspace
 
 # workspace_layout tabbed
