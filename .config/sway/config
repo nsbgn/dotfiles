@@ -22,9 +22,9 @@ bar {
 }
 
 #                       tBorder      bg    text indic8r wBorder
-client.focused          #333333 #013220 #ffffff #ff0000 #333333
-client.unfocused        #dddddd #000000 #ffffff #ff0000 #dddddd
-client.focused_inactive #dddddd #000000 #ffffff #ff0000 #dddddd
+client.focused          #000000 #005000 #ffffff #ff0000 #bbbbbb
+client.unfocused        #666666 #000000 #ffffff #ff0000 #bbbbbb
+client.focused_inactive #666666 #000000 #ffffff #ff0000 #bbbbbb
 
 # output * bg #fffaf0 solid_color
 output * bg #ffffff solid_color
@@ -82,19 +82,20 @@ input type:touchpad {
     tap_button_map lrm
 }
 
+# https://docs.gtk.org/Pango/pango_markup.html
 # title_window_icon yes
-# for_window [] title_format "fdf %title"
+
 smart_gaps off
 smart_borders off
-# hide_edge_borders false
-default_border pixel 2
+hide_edge_borders none
+default_border normal 1
 # title_format "%title"
-titlebar_border_thickness 1
+titlebar_border_thickness 2
 titlebar_padding 6 2
 default_floating_border normal
-font Inconsolata 9
+font pango:Inconsolata 12
 gaps inner 2
-focus_wrapping workspace
+# focus_wrapping workspace
 
 # workspace_layout tabbed
 # gaps horizontal 0
@@ -134,12 +135,14 @@ bindsym $mod+backslash exec "$pwm new_workspace"
 # bindsym $mod+Shift+c exec twins-wsnew move
 
 bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
-bindsym $mod+m exec dmenu-mpv
+# bindsym $mod+m exec dmenu-mpv
 bindsym $mod+u exec dmenu-thesaurus
 # bindsym $mod+p exec "playerctl --player=mpv play-pause"
 bindsym $mod+p exec dmenu-pass
 bindsym $mod+apostrophe clipman pick -t bemenu
 
+bindsym $mod+m exec "$pwm shift_focus first second floating"
+bindsym $mod+Shift+m exec "$pwm move_between first second floating"
 bindsym $mod+comma workspace prev_on_output
 bindsym $mod+period workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
