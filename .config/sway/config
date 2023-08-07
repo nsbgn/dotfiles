@@ -89,7 +89,7 @@ smart_gaps off
 smart_borders off
 hide_edge_borders both
 default_border normal 1
-for_window [title="."] title_format "⯁  <b>%title</b>"
+for_window [title="."] title_format "⯁ %title"
 titlebar_border_thickness 1
 titlebar_padding 5 2
 default_floating_border normal
