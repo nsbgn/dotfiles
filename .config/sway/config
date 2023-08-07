@@ -89,9 +89,9 @@ smart_gaps off
 smart_borders off
 hide_edge_borders both
 default_border normal 1
-# for_window [title="."] title_format "%title"
+for_window [title="."] title_format "⯁  <b>%title</b>"
 titlebar_border_thickness 1
-titlebar_padding 6 2
+titlebar_padding 5 2
 default_floating_border normal
 font pango:Inconsolata 12
 gaps inner 0
