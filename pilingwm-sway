@@ -76,7 +76,7 @@ def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
             conn.command(
                 f"[con_id={con.id}] move "
                 f"{'right' if ws.layout == 'splith' else 'left'}; "
-                f"[con_id={con.id}] splitt")
+                f"[con_id={con.id}] splitt; [con_id={con.id}] layout tabbed")
 
     # Put all top-level windows inside a container. We cannot do this if 
     # there's only one singleton pile, since it'll just change the workspace 
@@ -85,7 +85,7 @@ def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
         assert npiles > 1
         for pile in ws.nodes:
             if pile.layout == "none":
-                conn.command(f"[con_id={pile.id}] splitt")
+                conn.command(f"[con_id={pile.id}] splitt; [con_id={pile.id}] layout tabbed")
 
 
 def window_close(conn: i3.Connection, event: i3.WindowEvent) -> None:
@@ -121,6 +121,23 @@ def find_window_in_pile(con: i3.Con) -> i3.Con:
             if c.id == id:
                 con = c
     return con
+
+def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) -> None:
+    """Cycle between the top-level panes and floating windows. That is, focus 
+    will be given to the focused window on the first top-level pane, then the 
+    second, and so on, then the floating windows."""
+    tree = conn.get_tree()
+    focused = tree.find_focused()
+    workspace = focused.workspace()
+    piles = workspace.nodes
+
+    cur = focused
+    while cur.parent.type != "workspace":
+        cur = cur.parent
+
+    new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
+    con = find_window_in_pile(new)
+    conn.command(f"[con_id={con.id}] focus")
 
 
 def cmd_pile_focus(conn: i3.Connection, forward: bool,
@@ -196,6 +213,8 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
     cmd = command[1]
     if cmd == "new_workspace":
         cmd_new_workspace(conn)
+    elif cmd == "pile_focus_shift":
+        cmd_pile_focus_shift(conn)
     elif cmd == "pile_focus_next":
         cmd_pile_focus(conn, True)
     elif cmd == "pile_focus_prev":
