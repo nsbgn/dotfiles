@@ -4,17 +4,38 @@
 contains tabs for all other windows. The workspace itself is split vertically 
 in portrait mode and horizontally in landscape mode, as usual."""
 
+import traceback
+import sys
 import i3ipc as i3  # type: ignore
-from typing import Literal
+from typing import Literal, Iterator, Callable
 
 MAIN: Literal[0, 1] = 1
 
 
-def command(payload: str, on: i3.Con | i3.Connection) -> None:
-    reply = on.command(payload)
-    result = reply[0].ipc_data
-    if not result["success"]:
-        raise RuntimeError(f"{payload}: {result['error']}")
+def wrap_error(fn):
+    def mod(*args, **kwargs):
+        try:
+            fn(*args, **kwargs)
+        except Exception:
+            print(traceback.format_exc(), file=sys.stderr)
+            raise
+    return mod
+
+
+def command(fn: Callable[[i3.Connection], Iterator[str]]) \
+        -> Callable[[i3.Connection], None]:
+    """Decorator to run an iterator of i3 commands on i3 and raise an error if 
+    the result is an error."""
+
+    def mod(conn: i3.Connection, *args, **kwargs) -> None:
+        payload = "; ".join(fn(conn, *args, **kwargs))
+        reply = conn.command(payload)
+        result = reply[0].ipc_data
+        if not result["success"]:
+            raise RuntimeError(
+                f"An error for payload '{payload}': {result['error']}")
+
+    return mod
 
 
 def find_empty_workspace(workspaces: list[i3.Con]) -> tuple[int, int, int]:
@@ -146,7 +167,8 @@ def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) -> None:
     conn.command(f"[con_id={con.id}] focus")
 
 
-def cmd_pile_move(conn: i3.Connection, forward: bool = True) -> None:
+@command
+def cmd_pile_move(conn: i3.Connection, forward: bool = True) -> Iterator[str]:
     """Move the focused window in the current pile to another pile in the same 
     workspace."""
     tree = conn.get_tree()
@@ -155,17 +177,20 @@ def cmd_pile_move(conn: i3.Connection, forward: bool = True) -> None:
     piles = workspace.nodes
     cur = find_pile(focused)
     if len(piles) <= 1:
-        conn.command(
-            f"[con_id={focused.id}] move "
-            f"{'right' if workspace.layout == 'splith' else 'left'}; "
-            f"[con_id={focused.id}] splitt; [con_id={focused.id}] layout tabbed")
+        if workspace.layout == 'splith':
+            yield f"[con_id={focused.id}] move right"
+        else:
+            yield f"[con_id={focused.id}] move left"
+
+        yield f"[con_id={focused.id}] splitt"
+        yield f"[con_id={focused.id}] layout tabbed"
     else:
         new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
-        conn.command(
-            f"[con_id={new.id}] mark _tmp; "
-            f"[con_id={focused.id}] move container to mark _tmp; "
-            f"[con_id={new.id}] unmark _tmp; "
-            f"[con_id={focused.id}] focus")
+        yield f"[con_id={new.id}] mark _tmp"
+        yield f"[con_id={focused.id}] move container to mark _tmp"
+        yield f"[con_id={new.id}] unmark _tmp"
+        yield f"[con_id={focused.id}] focus"
+
 
 def cmd_pile_focus(conn: i3.Connection, forward: bool,
         insert_empty: bool = True) -> None:
@@ -252,18 +277,6 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
         cmd_win_focus(conn, True)
     elif cmd == "win_focus_prev":
         cmd_win_focus(conn, False)
-
-
-def wrap_error(fn):
-    import traceback
-
-    def mod(*args, **kwargs):
-        try:
-            fn(*args, **kwargs)
-        except Exception:
-            print(traceback.format_exc())
-            raise
-    return mod
 
 
 if __name__ == "__main__":
