@@ -33,5 +33,8 @@ gestures that are needed to do so.
     addition to the static labels, there are two dynamic ones for the 
     first and second pile on the current screen.
 
+-   Every command should make just as much sense on stacking window 
+    managers or terminal multiplexers, in case I want to port.
+
 [SWA]: https://swaywm.org/
 [I3W]: https://i3wm.org/
