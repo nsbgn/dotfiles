@@ -122,6 +122,15 @@ def find_window_in_pile(con: i3.Con) -> i3.Con:
                 con = c
     return con
 
+
+def find_pile(current: i3.Con) -> i3.Con:
+    while current.parent and current.parent.type != "workspace":
+        current = current.parent
+    if not current.parent:
+        raise RuntimeError
+    else:
+        return current
+
 def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) -> None:
     """Cycle between the top-level panes and floating windows. That is, focus 
     will be given to the focused window on the first top-level pane, then the 
@@ -131,14 +140,32 @@ def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) -> None:
     workspace = focused.workspace()
     piles = workspace.nodes
 
-    cur = focused
-    while cur.parent.type != "workspace":
-        cur = cur.parent
-
+    cur = find_pile(focused)
     new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
     con = find_window_in_pile(new)
     conn.command(f"[con_id={con.id}] focus")
 
+
+def cmd_pile_move(conn: i3.Connection, forward: bool = True) -> None:
+    """Move the focused window in the current pile to another pile in the same 
+    workspace."""
+    tree = conn.get_tree()
+    focused = tree.find_focused()
+    workspace = focused.workspace()
+    piles = workspace.nodes
+    cur = find_pile(focused)
+    if len(piles) <= 1:
+        conn.command(
+            f"[con_id={focused.id}] move "
+            f"{'right' if workspace.layout == 'splith' else 'left'}; "
+            f"[con_id={focused.id}] splitt; [con_id={focused.id}] layout tabbed")
+    else:
+        new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
+        conn.command(
+            f"[con_id={new.id}] mark _tmp; "
+            f"[con_id={focused.id}] move container to mark _tmp; "
+            f"[con_id={new.id}] unmark _tmp; "
+            f"[con_id={focused.id}] focus")
 
 def cmd_pile_focus(conn: i3.Connection, forward: bool,
         insert_empty: bool = True) -> None:
@@ -215,6 +242,8 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
         cmd_new_workspace(conn)
     elif cmd == "pile_focus_shift":
         cmd_pile_focus_shift(conn)
+    elif cmd == "pile_move":
+        cmd_pile_move(conn)
     elif cmd == "pile_focus_next":
         cmd_pile_focus(conn, True)
     elif cmd == "pile_focus_prev":
