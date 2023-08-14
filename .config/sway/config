@@ -141,8 +141,8 @@ bindsym $mod+u exec dmenu-thesaurus
 bindsym $mod+p exec dmenu-pass
 bindsym $mod+apostrophe clipman pick -t bemenu
 
-bindsym $mod+m exec "$pwm shift_focus first second floating"
-bindsym $mod+Shift+m exec "$pwm move_between first second floating"
+bindsym $mod+m exec "$pwm pile_focus_shift"
+bindsym $mod+Shift+m exec "$pwm pile_move"
 bindsym $mod+comma workspace prev_on_output
 bindsym $mod+period workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
@@ -199,7 +199,7 @@ bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $WOBSO
 bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
 bindsym XF86AudioMute exec pamixer --toggle-mute && ( [ "$(pamixer --get-mute)" = "true" ] && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
 bindsym XF86MonBrightnessDown exec brightnessctl set 2%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-bindsym XF86MonBrightnessUp exec brightnessctl set +2% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+bindsym XF86MonBrightnessUp exec brightnessctl set 2%+ | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
 
 bindsym XF86AudioRewind exec playerctl position -1
 bindsym XF86AudioForward exec playerctl position +1
