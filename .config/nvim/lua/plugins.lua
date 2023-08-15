@@ -77,6 +77,17 @@ require('packer').startup(function(use)
     end
   }
 
+  -- Seperate 'cut' and 'delete' actions
+  use {
+    "https://github.com/gbprod/cutlass.nvim",
+    config = function()
+      require("cutlass").setup({
+        cut_key = 'x',
+        exclude = { "ns", "nS" },
+      })
+    end
+  }
+
   -- Return to last position when editing files
   use 'https://github.com/farmergreg/vim-lastplace'
 
