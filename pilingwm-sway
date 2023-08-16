@@ -152,6 +152,14 @@ def find_pile(current: i3.Con) -> i3.Con:
     else:
         return current
 
+
+def index(con: i3.Con) -> int:
+    """Find the index position of the container in its tree."""
+    parent = con.parent
+    assert parent
+    return parent.nodes.index(con)
+
+
 def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) -> None:
     """Cycle between the top-level panes and floating windows. That is, focus 
     will be given to the focused window on the first top-level pane, then the 
