@@ -4,15 +4,13 @@
 contains tabs for all other windows. The workspace itself is split vertically 
 in portrait mode and horizontally in landscape mode, as usual."""
 
-import traceback
 import sys
+import traceback
+from typing import Callable, Iterator
 import i3ipc as i3  # type: ignore
-from typing import Literal, Iterator, Callable
-
-MAIN: Literal[0, 1] = 1
 
 
-def wrap_error(fn):
+def print_errors(fn: Callable) -> Callable:
     def mod(*args, **kwargs):
         try:
             fn(*args, **kwargs)
@@ -49,7 +47,8 @@ def find_empty_workspace(workspaces: list[i3.Con]) -> tuple[int, int, int]:
     return (n, n + 1, 1)
 
 
-def focus_workspace(conn: i3.Connection, forward: bool) -> None:
+@command
+def focus_workspace(conn: i3.Connection, forward: bool) -> Iterator[str]:
     """Focus on the next or previous occupied workspace, or the lowest-numbered 
     empty workspace --- whichever is first."""
     tree = conn.get_tree()
@@ -59,28 +58,24 @@ def focus_workspace(conn: i3.Connection, forward: bool) -> None:
 
     if cur != empty and (
             (forward and cur == pre) or (not forward and cur == succ)):
-        conn.command(f"workspace number {empty}")
+        yield f"workspace number {empty}"
     else:
-        conn.command(f"workspace {dir}")
+        yield f"workspace {dir}"
 
 
-def pack_workspaces(conn: i3.Connection) -> int:
-    """Make sure that workspaces are packed tight, then return the number of 
-    the now-empty workspace at the end."""
+@command
+def pack_workspaces(conn: i3.Connection) -> Iterator[str]:
+    """Reorder workspaces so that they are packed tight."""
     tree = conn.get_tree()
-    commands = []
     for i, ws in enumerate(tree.workspaces(), start=1):
-        if ws.num == i:
-            continue  # No need to do anything if we're not out of order
-        for con in ws.nodes:
-            commands.append(
-                f"[con_id={con.id}] move container to workspace number {i}")
-    conn.command("; ".join(commands))
-    # Return the next workspace or the last one if it was already empty
-    return i + 1 if ws.nodes else i
+        if ws.num != i:  # No need to do anything if we're not out of order
+            for c in ws.nodes:
+                yield f"[con_id={c.id}] move container to workspace number {i}"
 
 
-def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
+@command
+def window_new(conn: i3.Connection, event: i3.WindowEvent) -> Iterator[str]:
+    """"""
     tree = conn.get_tree()
     con = tree.find_by_id(event.container.id)
     ws = con.workspace()
@@ -94,10 +89,12 @@ def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
     if npiles == 1:
         pile = ws.nodes[0]
         if len(pile.nodes) > 1:
-            conn.command(
-                f"[con_id={con.id}] move "
-                f"{'right' if ws.layout == 'splith' else 'left'}; "
-                f"[con_id={con.id}] splitt; [con_id={con.id}] layout tabbed")
+            if ws.layout == 'splith':
+                yield f"[con_id={con.id}] move right"
+            else:
+                yield f"[con_id={con.id}] move down"
+            yield f"[con_id={con.id}] splitt"
+            yield f"[con_id={con.id}] layout tabbed"
 
     # Put all top-level windows inside a container. We cannot do this if 
     # there's only one singleton pile, since it'll just change the workspace 
@@ -106,35 +103,17 @@ def window_new(conn: i3.Connection, event: i3.WindowEvent) -> None:
         assert npiles > 1
         for pile in ws.nodes:
             if pile.layout == "none":
-                conn.command(f"[con_id={pile.id}] splitt; [con_id={pile.id}] layout tabbed")
+                yield f"[con_id={pile.id}] splitt"
+                yield f"[con_id={pile.id}] layout tabbed"
 
 
-def window_close(conn: i3.Connection, event: i3.WindowEvent) -> None:
-    """If the main window has been closed, move the first/last window in the 
-    supplementary area to be main window."""
-    tree = conn.get_tree()
-    for ws in tree.workspaces():
-        if len(ws.nodes) == 1:
-            con = ws.nodes[0]
-            n = len(con.nodes)
-            if con.layout == 'tabbed' and n > 1:
-                if con.parent.orientation == "vertical":
-                    dir = "down" if MAIN else "up"
-                else:
-                    dir = "right" if MAIN else "left"
-                conn.command(
-                    f"[con_id={con.nodes[MAIN * (n - 1)].id}] move {dir}")
-            else:
-                assert n == 1
-                conn.command(f"[con_id={con.nodes[0].id}] split none")
+@command
+def cmd_new_workspace(conn: i3.Connection) -> Iterator[str]:
+    yield f"workspace number {find_empty_workspace(conn.get_tree())}"
 
 
-def cmd_new_workspace(conn: i3.Connection) -> None:
-    conn.command(f"workspace number {pack_workspaces(conn)}")
-
-
-def find_window_in_pile(con: i3.Con) -> i3.Con:
-    """Find the window in a pile that should get focus once the pile gets 
+def find_focus(con: i3.Con) -> i3.Con:
+    """Find the leaf window that should get focus once the given container gets 
     focus."""
     while con.focus:
         id = con.focus[0]
@@ -145,12 +124,16 @@ def find_window_in_pile(con: i3.Con) -> i3.Con:
 
 
 def find_pile(current: i3.Con) -> i3.Con:
+    """Find the top-level container to which the given container belongs."""
     while current.parent and current.parent.type != "workspace":
         current = current.parent
-    if not current.parent:
-        raise RuntimeError
-    else:
-        return current
+    return current
+
+
+def find_sibling(con: i3.Con, forward: bool = True) -> i3.Con:
+    parent = con.parent
+    return parent.nodes[(index(con) + (1 if forward else -1))
+        % len(parent.nodes)]
 
 
 def index(con: i3.Con) -> int:
@@ -160,19 +143,16 @@ def index(con: i3.Con) -> int:
     return parent.nodes.index(con)
 
 
-def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) -> None:
-    """Cycle between the top-level panes and floating windows. That is, focus 
-    will be given to the focused window on the first top-level pane, then the 
-    second, and so on, then the floating windows."""
+@command
+def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) \
+        -> Iterator[str]:
+    """Cycle between the top-level panes. That is, focus will be given to the 
+    focused window on the first top-level pane, then the second, and so on."""
+    # TODO and floating windows
     tree = conn.get_tree()
     focused = tree.find_focused()
-    workspace = focused.workspace()
-    piles = workspace.nodes
-
-    cur = find_pile(focused)
-    new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
-    con = find_window_in_pile(new)
-    conn.command(f"[con_id={con.id}] focus")
+    con = find_focus(find_sibling(find_pile(focused)))
+    yield f"[con_id={con.id}] focus"
 
 
 @command
@@ -200,63 +180,16 @@ def cmd_pile_move(conn: i3.Connection, forward: bool = True) -> Iterator[str]:
         yield f"[con_id={focused.id}] focus"
 
 
-def cmd_pile_focus(conn: i3.Connection, forward: bool,
-        insert_empty: bool = True) -> None:
-    """Move between piles (top-level panes, occupied workspaces and empty 
-    workspaces)."""
-    tree = conn.get_tree()
-    focused = tree.find_focused()
-    if not focused:
-        return
-
-    workspace = focused.workspace()
-    workspaces = tree.workspaces()
-    dir = 1 if forward else -1
-
-    if workspace.nodes:
-        new_pile_idx = dir + next(i
-            for i, ws in enumerate(workspace.nodes)
-            if ws.id == workspace.focus[0])
-    else:
-        new_pile_idx = -1
-
-    # Selecting piles on the same workspace
-    if new_pile_idx >= 0 and new_pile_idx < len(workspace.nodes):
-        piletop = find_window_in_pile(workspace.nodes[new_pile_idx])
-        piletop.command("focus")
-
-    # .. or spilling over to other workspaces
-    else:
-        if insert_empty:
-            ws_cur_id = workspace.num
-            ws_pre_empty_id, ws_empty_id, ws_succ_empty_id = \
-                find_empty_workspace(workspaces)
-            if ws_cur_id != ws_empty_id and (
-                    (forward and ws_cur_id == ws_pre_empty_id)
-                    or (not forward and ws_cur_id == ws_succ_empty_id)):
-                conn.command(f"workspace number {ws_empty_id}")
-                return
-
-        ws_cur_idx = workspaces.index(workspace)
-        ws_new_idx = (ws_cur_idx + dir) % len(workspaces)
-        ws_new = workspaces[ws_new_idx]
-        if ws_new.nodes:
-            pile_new = ws_new.nodes[0 if forward else -1]
-            win_new = find_window_in_pile(pile_new)
-            win_new.command("focus")
-
-
+@command
 def cmd_win_focus(conn: i3.Connection, forward: bool) -> None:
+    """Shift focus between leaf windows within a single pile."""
     tree = conn.get_tree()
     focused = tree.find_focused()
     if not focused:
         return
-    pile = focused.parent
-    if pile.type == 'workspace':
-        return
-    windows = pile.leaves()
-    i = (windows.index(focused) + (1 if forward else -1)) % len(windows)
-    conn.command(f"[con_id={windows[i].id}] focus")
+    leaves = focused.parent.leaves()
+    i = (leaves.index(focused) + (1 if forward else -1)) % len(leaves)
+    yield f"[con_id={leaves[i].id}] focus"
 
 
 def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
@@ -277,10 +210,6 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
         cmd_pile_focus_shift(conn)
     elif cmd == "pile_move":
         cmd_pile_move(conn)
-    elif cmd == "pile_focus_next":
-        cmd_pile_focus(conn, True)
-    elif cmd == "pile_focus_prev":
-        cmd_pile_focus(conn, False)
     elif cmd == "win_focus_next":
         cmd_win_focus(conn, True)
     elif cmd == "win_focus_prev":
@@ -289,7 +218,7 @@ def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
 
 if __name__ == "__main__":
     conn = i3.Connection(auto_reconnect=True)
-    conn.on(i3.Event.WINDOW_NEW, wrap_error(window_new))
+    conn.on(i3.Event.WINDOW_NEW, print_errors(window_new))
     # conn.on(i3.Event.WINDOW_CLOSE, wrap_error(window_close))
-    conn.on(i3.Event.TICK, wrap_error(tick))
+    conn.on(i3.Event.TICK, print_errors(tick))
     conn.main()
