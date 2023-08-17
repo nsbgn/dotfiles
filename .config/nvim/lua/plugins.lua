@@ -91,6 +91,11 @@ require('packer').startup(function(use)
   -- Return to last position when editing files
   use 'https://github.com/farmergreg/vim-lastplace'
 
+  use {
+    'https://github.com/stevearc/oil.nvim',
+    config = function() require('oil').setup() end
+  }
+
   -- Alternatively, see <https://github.com/akinsho/toggleterm.nvim>
   -- use {
   --   "https://github.com/numToStr/FTerm.nvim",
