@@ -127,28 +127,31 @@ class Connection(i3.Connection):
         i = (leaves.index(focused) + (1 if forward else -1)) % len(leaves)
         yield f"[con_id={leaves[i].id}] focus"
 
+    def move_out(self, con: i3.Con, forward: bool = True) -> Iterator[str]:
+        """Move a container to just outside its parent container."""
+        # We must use a directional move here, because you can't mark the 
+        # workspace container, and moving to a lower-level container puts it 
+        # inside the container instead of next to it (unless it's a leaf)
+        parent = con.parent
+        layout = parent.layout
+        if layout in ('splith', 'tabbed'):
+            d = 'right' if forward else 'left'
+        else:
+            assert layout in ('splith', 'tabbed')
+            d = 'down' if forward else 'up'
+
+        idx = index(con)
+        for _ in range(len(parent.nodes) - idx if forward else idx + 1):
+            yield f"[con_id={con.id}] move {d}"
+
     def move_pile(self, forward: bool = True) -> Iterator[str]:
         """Move the focused window in the current pile to the sibling pile in 
         the same workspace. Create one if necessary."""
         tree = self.get_tree()
         focused = tree.find_focused()
         workspace = focused.workspace()
-        piles = workspace.nodes
-
-        if len(piles) <= 1:
-            pile = focused.parent
-
-            layout = focused.parent.layout
-            if layout in ('splith', 'tabbed'):
-                d = 'right' if forward else 'left'
-            else:
-                assert layout in ('splith', 'tabbed')
-                d = 'down' if forward else 'up'
-
-            idx = index(focused)
-            for _ in range(len(pile.nodes) - idx if forward else idx + 1):
-                yield f"[con_id={focused.id}] move {d}"
-
+        if len(workspace.nodes) <= 1:
+            yield from self.move_out(focused, forward)
             yield f"[con_id={focused.id}] splitt"
             yield f"[con_id={focused.id}] layout tabbed"
         else:
@@ -168,17 +171,11 @@ class Connection(i3.Connection):
         npiles = len(ws.nodes)
 
         # If we opened a window inside an existing pile and there's not yet 
-        # multiple piles, we put it into a new pile. We must use a directional 
-        # move here, because you can't mark the workspace container, and moving 
-        # to a lower-level container puts it inside the container instead of 
-        # next to it unless it's a leaf
+        # multiple piles, we put it into a new pile.
         if npiles == 1:
             pile = ws.nodes[0]
             if len(pile.nodes) > 1:
-                if ws.layout == 'splith':
-                    yield f"[con_id={con.id}] move right"
-                else:
-                    yield f"[con_id={con.id}] move down"
+                yield from self.move_out(con)
                 yield f"[con_id={con.id}] splitt"
                 yield f"[con_id={con.id}] layout tabbed"
 
