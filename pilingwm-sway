@@ -10,130 +10,23 @@ from typing import Callable, Iterator
 import i3ipc as i3  # type: ignore
 
 
-def print_errors(fn: Callable) -> Callable:
-    def mod(*args, **kwargs):
+def handler(fn: Callable[[i3.Connection, i3.Event], Iterator[str]]) \
+        -> Callable[[i3.Connection, i3.Event], None]:
+    """Modify an iterator of strings such that its contents are executed by i3 
+    and any errors printed to stderr."""
+
+    def mod(conn: i3.Connection, *args, **kwargs):
         try:
-            fn(*args, **kwargs)
+            payload = "; ".join(fn(conn, *args, **kwargs))
+            reply = conn.command(payload)
+            result = reply[0].ipc_data
+            if not result["success"]:
+                raise RuntimeError(
+                    f"An error for payload '{payload}': {result['error']}")
         except Exception:
             print(traceback.format_exc(), file=sys.stderr)
             raise
     return mod
-
-
-def command(fn: Callable[[i3.Connection], Iterator[str]]) \
-        -> Callable[[i3.Connection], None]:
-    """Decorator to run an iterator of i3 commands on i3 and raise an error if 
-    the result is an error."""
-
-    def mod(conn: i3.Connection, *args, **kwargs) -> None:
-        payload = "; ".join(fn(conn, *args, **kwargs))
-        reply = conn.command(payload)
-        result = reply[0].ipc_data
-        if not result["success"]:
-            raise RuntimeError(
-                f"An error for payload '{payload}': {result['error']}")
-
-    return mod
-
-
-def find_empty_workspace(workspaces: list[i3.Con]) -> tuple[int, int, int]:
-    """Return a tuple containing the lowest-numbered empty workspace, plus its 
-    predecessor and successor workspaces."""
-    for counter, ws in enumerate(workspaces, start=1):
-        i = ws.num
-        if counter != i or not ws.nodes:
-            return (counter - 1 or len(workspaces), counter, i)
-    n = len(workspaces)
-    return (n, n + 1, 1)
-
-
-@command
-def focus_workspace(conn: i3.Connection, forward: bool) -> Iterator[str]:
-    """Focus on the next or previous occupied workspace, or the lowest-numbered 
-    empty workspace --- whichever is first."""
-    tree = conn.get_tree()
-    workspaces = tree.workspaces()
-    cur = tree.find_focused().workspace().num
-    pre, empty, succ = find_empty_workspace(workspaces)
-
-    if cur != empty and (
-            (forward and cur == pre) or (not forward and cur == succ)):
-        yield f"workspace number {empty}"
-    else:
-        yield f"workspace {dir}"
-
-
-@command
-def pack_workspaces(conn: i3.Connection) -> Iterator[str]:
-    """Reorder workspaces so that they are packed tight."""
-    tree = conn.get_tree()
-    for i, ws in enumerate(tree.workspaces(), start=1):
-        if ws.num != i:  # No need to do anything if we're not out of order
-            for c in ws.nodes:
-                yield f"[con_id={c.id}] move container to workspace number {i}"
-
-
-@command
-def window_new(conn: i3.Connection, event: i3.WindowEvent) -> Iterator[str]:
-    """"""
-    tree = conn.get_tree()
-    con = tree.find_by_id(event.container.id)
-    ws = con.workspace()
-    npiles = len(ws.nodes)
-
-    # If we opened a window inside an existing pile and there's not yet 
-    # multiple piles, we put it into a new pile. We must use a directional move 
-    # here, because you can't mark the workspace container, and moving to a 
-    # lower-level container puts it inside the container instead of next to it 
-    # unless it's a leaf
-    if npiles == 1:
-        pile = ws.nodes[0]
-        if len(pile.nodes) > 1:
-            if ws.layout == 'splith':
-                yield f"[con_id={con.id}] move right"
-            else:
-                yield f"[con_id={con.id}] move down"
-            yield f"[con_id={con.id}] splitt"
-            yield f"[con_id={con.id}] layout tabbed"
-
-    # Put all top-level windows inside a container. We cannot do this if 
-    # there's only one singleton pile, since it'll just change the workspace 
-    # orientation
-    else:
-        assert npiles > 1
-        for pile in ws.nodes:
-            if pile.layout == "none":
-                yield f"[con_id={pile.id}] splitt"
-                yield f"[con_id={pile.id}] layout tabbed"
-
-
-@command
-def cmd_new_workspace(conn: i3.Connection) -> Iterator[str]:
-    yield f"workspace number {find_empty_workspace(conn.get_tree())}"
-
-
-def find_focus(con: i3.Con) -> i3.Con:
-    """Find the leaf window that should get focus once the given container gets 
-    focus."""
-    while con.focus:
-        id = con.focus[0]
-        for c in con.nodes:
-            if c.id == id:
-                con = c
-    return con
-
-
-def find_pile(current: i3.Con) -> i3.Con:
-    """Find the top-level container to which the given container belongs."""
-    while current.parent and current.parent.type != "workspace":
-        current = current.parent
-    return current
-
-
-def find_sibling(con: i3.Con, forward: bool = True) -> i3.Con:
-    parent = con.parent
-    return parent.nodes[(index(con) + (1 if forward else -1))
-        % len(parent.nodes)]
 
 
 def index(con: i3.Con) -> int:
@@ -143,82 +36,181 @@ def index(con: i3.Con) -> int:
     return parent.nodes.index(con)
 
 
-@command
-def cmd_pile_focus_shift(conn: i3.Connection, forward: bool = True) \
-        -> Iterator[str]:
-    """Cycle between the top-level panes. That is, focus will be given to the 
-    focused window on the first top-level pane, then the second, and so on."""
-    # TODO and floating windows
-    tree = conn.get_tree()
-    focused = tree.find_focused()
-    con = find_focus(find_sibling(find_pile(focused)))
-    yield f"[con_id={con.id}] focus"
+def find_focus(con: i3.Con) -> i3.Con:
+    """Find the leaf window to get focus once this container gets focus."""
+    while con.focus:
+        i = con.focus[0]
+        for c in con.nodes:
+            if c.id == i:
+                con = c
+                break
+    return con
 
 
-@command
-def cmd_pile_move(conn: i3.Connection, forward: bool = True) -> Iterator[str]:
-    """Move the focused window in the current pile to another pile in the same 
-    workspace."""
-    tree = conn.get_tree()
-    focused = tree.find_focused()
-    workspace = focused.workspace()
-    piles = workspace.nodes
-    cur = find_pile(focused)
-    if len(piles) <= 1:
-        if workspace.layout == 'splith':
-            yield f"[con_id={focused.id}] move right"
+def find_pile(con: i3.Con) -> i3.Con:
+    """Find the top-level container to which the given container belongs."""
+    while con.parent and con.parent.type != "workspace":
+        con = con.parent
+    assert con.parent and con.parent.type == "workspace"
+    return con
+
+
+def find_sibling(con: i3.Con, forward: bool = True) -> i3.Con:
+    """Find the sibling node of the given node."""
+    parent = con.parent
+    return parent.nodes[(index(con) + (1 if forward else -1))
+        % len(parent.nodes)]
+
+
+def find_empty_workspace(tree: i3.Con) -> tuple[int, int, int]:
+    """Return a tuple containing the number of the lowest-numbered empty 
+    workspace, plus the numbers of the closest occupied predecessor and 
+    successor workspaces."""
+    workspaces = tree.workspaces()
+    for counter, ws in enumerate(workspaces, start=1):
+        i = ws.num
+        if counter != i or not ws.nodes:
+            return (counter - 1 or len(workspaces), counter, i)
+    n = len(workspaces)
+    return (n, n + 1, 1)
+
+
+class Connection(i3.Connection):
+
+    def __init__(self, *nargs, **kwargs):
+        super().__init__(*nargs, **kwargs)
+
+    def cycle_workspace(self, forward: bool) -> Iterator[str]:
+        """Focus on the next or previous occupied workspace, or the 
+        lowest-numbered empty workspace --- whichever is first."""
+        tree = self.get_tree()
+        workspaces = tree.workspaces()
+        cur = tree.find_focused().workspace().num
+        pre, empty, succ = find_empty_workspace(workspaces)
+
+        if cur != empty and (
+                (forward and cur == pre) or (not forward and cur == succ)):
+            yield f"workspace number {empty}"
         else:
-            yield f"[con_id={focused.id}] move left"
+            yield f"workspace {dir}"
 
-        yield f"[con_id={focused.id}] splitt"
-        yield f"[con_id={focused.id}] layout tabbed"
-    else:
-        new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
-        yield f"[con_id={new.id}] mark _tmp"
-        yield f"[con_id={focused.id}] move container to mark _tmp"
-        yield f"[con_id={new.id}] unmark _tmp"
-        yield f"[con_id={focused.id}] focus"
+    def new_workspace(self) -> Iterator[str]:
+        yield f"workspace number {find_empty_workspace(self.get_tree())}"
 
+    def pack_workspaces(self) -> Iterator[str]:
+        """Reorder workspaces so that they are packed tight."""
+        tree = self.get_tree()
+        for i, ws in enumerate(tree.workspaces(), start=1):
+            if ws.num != i:  # No need to do anything if we're not out of order
+                for c in ws.nodes:
+                    yield (f"[con_id={c.id}] move container "
+                           f"to workspace number {i}")
 
-@command
-def cmd_win_focus(conn: i3.Connection, forward: bool) -> None:
-    """Shift focus between leaf windows within a single pile."""
-    tree = conn.get_tree()
-    focused = tree.find_focused()
-    if not focused:
-        return
-    leaves = focused.parent.leaves()
-    i = (leaves.index(focused) + (1 if forward else -1)) % len(leaves)
-    yield f"[con_id={leaves[i].id}] focus"
+    def cycle_pile(self, forward: bool = True) \
+            -> Iterator[str]:
+        """Cycle between top-level containers. Focus will be given to the 
+        focused window on the first pile, then the second, and so on."""
+        # TODO and floating windows
+        tree = self.get_tree()
+        focused = tree.find_focused()
+        con = find_focus(find_sibling(find_pile(focused), forward))
+        yield f"[con_id={con.id}] focus"
 
-
-def tick(conn: i3.Connection, event: i3.TickEvent) -> None:
-    """The tick event is used to avoid having to reimplement inter-process 
-    communication: we can just use `swaymsg -t send_tick message` to pass a 
-    message to this process."""
-    command = event.payload.split()
-    try:
-        if command[0] != "pilingwm":
+    def cycle_leaf(self, forward: bool) -> Iterator[str]:
+        """Cycle focus between the leaf windows of the pile currently in 
+        focus."""
+        tree = self.get_tree()
+        focused = tree.find_focused()
+        if not focused:
             return
-    except IndexError:
-        return
+        leaves = focused.parent.leaves()
+        i = (leaves.index(focused) + (1 if forward else -1)) % len(leaves)
+        yield f"[con_id={leaves[i].id}] focus"
 
-    cmd = command[1]
-    if cmd == "new_workspace":
-        cmd_new_workspace(conn)
-    elif cmd == "pile_focus_shift":
-        cmd_pile_focus_shift(conn)
-    elif cmd == "pile_move":
-        cmd_pile_move(conn)
-    elif cmd == "win_focus_next":
-        cmd_win_focus(conn, True)
-    elif cmd == "win_focus_prev":
-        cmd_win_focus(conn, False)
+    def move_pile(self, forward: bool = True) -> Iterator[str]:
+        """Move the focused window in the current pile to another pile in the 
+        same workspace."""
+        tree = self.get_tree()
+        focused = tree.find_focused()
+        workspace = focused.workspace()
+        piles = workspace.nodes
+        cur = find_pile(focused)
+        if len(piles) <= 1:
+            if workspace.layout == 'splith':
+                yield f"[con_id={focused.id}] move right"
+            else:
+                yield f"[con_id={focused.id}] move left"
+
+            yield f"[con_id={focused.id}] splitt"
+            yield f"[con_id={focused.id}] layout tabbed"
+        else:
+            new = piles[(piles.index(cur) + (1 if forward else -1)) % len(piles)]
+            yield f"[con_id={new.id}] mark _tmp"
+            yield f"[con_id={focused.id}] move container to mark _tmp"
+            yield f"[con_id={new.id}] unmark _tmp"
+            yield f"[con_id={focused.id}] focus"
+
+    @handler
+    def make_piles(self, event: i3.WindowEvent) -> Iterator[str]:
+        """An event handler that makes sure that new windows are put into 
+        piles, that is, into top-level containers."""
+        tree = self.get_tree()
+        con = tree.find_by_id(event.container.id)
+        ws = con.workspace()
+        npiles = len(ws.nodes)
+
+        # If we opened a window inside an existing pile and there's not yet 
+        # multiple piles, we put it into a new pile. We must use a directional 
+        # move here, because you can't mark the workspace container, and moving 
+        # to a lower-level container puts it inside the container instead of 
+        # next to it unless it's a leaf
+        if npiles == 1:
+            pile = ws.nodes[0]
+            if len(pile.nodes) > 1:
+                if ws.layout == 'splith':
+                    yield f"[con_id={con.id}] move right"
+                else:
+                    yield f"[con_id={con.id}] move down"
+                yield f"[con_id={con.id}] splitt"
+                yield f"[con_id={con.id}] layout tabbed"
+
+        # Put all top-level windows inside a container. We cannot do this if 
+        # there's only one singleton pile, since it'll just change the 
+        # workspace orientation
+        else:
+            assert npiles > 1
+            for pile in ws.nodes:
+                if pile.layout == "none":
+                    yield f"[con_id={pile.id}] splitt"
+                    yield f"[con_id={pile.id}] layout tabbed"
+
+    @handler
+    def execute_commands(self, event: i3.TickEvent) -> Iterator[str]:
+        """The tick event is used to avoid having to reimplement inter-process 
+        communication: we can just use `i3msg`/`swaymsg -t send_tick message` 
+        to pass a message to this process."""
+        command = event.payload.split()
+        try:
+            if command[0] != "pilingwm":
+                return
+        except IndexError:
+            return
+
+        cmd = command[1]
+        if cmd == "new_workspace":
+            yield from self.new_workspace()
+        elif cmd == "pile_focus_shift":
+            yield from self.cycle_pile()
+        elif cmd == "pile_move":
+            yield from self.move_pile()
+        elif cmd == "win_focus_next":
+            yield from self.cycle_leaf(True)
+        elif cmd == "win_focus_prev":
+            yield from self.cycle_leaf(False)
 
 
 if __name__ == "__main__":
-    conn = i3.Connection(auto_reconnect=True)
-    conn.on(i3.Event.WINDOW_NEW, print_errors(window_new))
-    # conn.on(i3.Event.WINDOW_CLOSE, wrap_error(window_close))
-    conn.on(i3.Event.TICK, print_errors(tick))
+    conn = Connection(auto_reconnect=True)
+    conn.on(i3.Event.WINDOW_NEW, Connection.make_piles)
+    conn.on(i3.Event.TICK, Connection.execute_commands)
     conn.main()
