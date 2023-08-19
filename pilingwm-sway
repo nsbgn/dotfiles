@@ -18,11 +18,12 @@ def handler(fn: Callable[[i3.Connection, i3.Event], Iterator[str]]) \
     def mod(conn: i3.Connection, *args, **kwargs):
         try:
             payload = "; ".join(fn(conn, *args, **kwargs))
-            reply = conn.command(payload)
-            result = reply[0].ipc_data
-            if not result["success"]:
-                raise RuntimeError(
-                    f"An error for payload '{payload}': {result['error']}")
+            if payload:
+                reply = conn.command(payload)
+                result = reply[0].ipc_data
+                if not result["success"]:
+                    raise RuntimeError(
+                        f"An error for payload '{payload}': {result['error']}")
         except Exception:
             print(traceback.format_exc(), file=sys.stderr)
             raise
@@ -144,6 +145,12 @@ class Connection(i3.Connection):
         for _ in range(len(parent.nodes) - idx if forward else idx + 1):
             yield f"[con_id={con.id}] move {d}"
 
+    def move_to(self, src: i3.Con, target: i3.Con) -> Iterator[str]:
+        assert target.type != "workspace"
+        yield f"[con_id={target.id}] mark _tmp"
+        yield f"[con_id={src.id}] move container to mark _tmp"
+        yield f"[con_id={target.id}] unmark _tmp"
+
     def move_pile(self, forward: bool = True) -> Iterator[str]:
         """Move the focused window in the current pile to the sibling pile in 
         the same workspace. Create one if necessary."""
@@ -156,9 +163,7 @@ class Connection(i3.Connection):
             yield f"[con_id={focused.id}] layout tabbed"
         else:
             pile = find_sibling(find_pile(focused), forward)
-            yield f"[con_id={pile.id}] mark _tmp"
-            yield f"[con_id={focused.id}] move container to mark _tmp"
-            yield f"[con_id={pile.id}] unmark _tmp"
+            yield from self.move_to(focused, pile)
             yield f"[con_id={focused.id}] focus"
 
     @handler
@@ -182,12 +187,15 @@ class Connection(i3.Connection):
         # Put all top-level windows inside a container. We cannot do this if 
         # there's only one singleton pile, since it'll just change the 
         # workspace orientation
-        else:
-            assert npiles > 1
-            for pile in ws.nodes:
+        elif npiles > 1:
+            for pile in ws.nodes[:2]:
                 if pile.layout == "none":
                     yield f"[con_id={pile.id}] splitt"
                     yield f"[con_id={pile.id}] layout tabbed"
+
+            for pile in ws.nodes[2:]:
+                for leaf in pile.leaves():
+                    yield from self.move_to(leaf, ws.nodes[1])
 
     @handler
     def execute_commands(self, event: i3.TickEvent) -> Iterator[str]:
