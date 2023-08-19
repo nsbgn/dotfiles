@@ -13,6 +13,18 @@ import i3ipc as i3  # type: ignore
 MARKERS = "jkliohnypu"
 
 
+def execute(conn: i3.Connection, commands: Iterable[str]) -> None:
+    """Execute the commands in the given iterator by sending it to i3/sway, all 
+    in one message."""
+    payload = "; ".join(commands)
+    if payload:
+        reply = conn.command(payload)
+        result = reply[0].ipc_data
+        if not result["success"]:
+            raise RuntimeError(
+                f"An error for payload '{payload}': {result['error']}")
+
+
 def handler(fn: Callable[[i3.Connection, i3.Event], Iterator[str]]) \
         -> Callable[[i3.Connection, i3.Event], None]:
     """Modify an iterator of strings such that its contents are executed by i3 
@@ -20,13 +32,7 @@ def handler(fn: Callable[[i3.Connection, i3.Event], Iterator[str]]) \
 
     def mod(conn: i3.Connection, *args, **kwargs):
         try:
-            payload = "; ".join(fn(conn, *args, **kwargs))
-            if payload:
-                reply = conn.command(payload)
-                result = reply[0].ipc_data
-                if not result["success"]:
-                    raise RuntimeError(
-                        f"An error for payload '{payload}': {result['error']}")
+            execute(conn, fn(conn, *args, **kwargs))
         except Exception:
             print(traceback.format_exc(), file=sys.stderr)
             raise
@@ -179,6 +185,16 @@ class Connection(i3.Connection):
             yield from self.move_to(focused, pile)
             yield f"[con_id={focused.id}] focus"
 
+    def add_markers(self) -> Iterator[str]:
+        current_marks = self.get_marks()
+        tree = self.get_tree()
+        for leaf in tree.leaves():
+            marks = leaf.marks
+            if not marks:
+                new_mark = get_new_mark(current_marks)
+                current_marks.append(new_mark)
+                yield f"[con_id={leaf.id}] mark {new_mark}"
+
     @handler
     def add_marker(self, event: i3.WindowEvent) -> Iterator[str]:
         con_id = event.container.id
@@ -247,4 +263,5 @@ if __name__ == "__main__":
     conn.on(i3.Event.WINDOW_NEW, Connection.make_piles)
     conn.on(i3.Event.WINDOW_NEW, Connection.add_marker)
     conn.on(i3.Event.TICK, Connection.execute_commands)
+    execute(conn, conn.add_markers())
     conn.main()
