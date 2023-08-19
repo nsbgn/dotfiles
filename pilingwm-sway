@@ -6,8 +6,11 @@ in portrait mode and horizontally in landscape mode, as usual."""
 
 import sys
 import traceback
-from typing import Callable, Iterator
+from itertools import count
+from typing import Callable, Iterator, Iterable
 import i3ipc as i3  # type: ignore
+
+MARKERS = "jkliohnypu"
 
 
 def handler(fn: Callable[[i3.Connection, i3.Event], Iterator[str]]) \
@@ -28,6 +31,16 @@ def handler(fn: Callable[[i3.Connection, i3.Event], Iterator[str]]) \
             print(traceback.format_exc(), file=sys.stderr)
             raise
     return mod
+
+
+def get_new_mark(exclude: Iterable[str]) -> str:
+    for i in count():
+        prefix = i * 'b'
+        for m in MARKERS:
+            marker = prefix + m
+            if marker not in exclude:
+                return marker
+    raise RuntimeError("unreachable state")
 
 
 def index(con: i3.Con) -> int:
@@ -167,6 +180,13 @@ class Connection(i3.Connection):
             yield f"[con_id={focused.id}] focus"
 
     @handler
+    def add_marker(self, event: i3.WindowEvent) -> Iterator[str]:
+        con_id = event.container.id
+        current_marks = self.get_marks()
+        new_mark = get_new_mark(current_marks)
+        yield f"[con_id={con_id}] mark {new_mark}"
+
+    @handler
     def make_piles(self, event: i3.WindowEvent) -> Iterator[str]:
         """An event handler that makes sure that new windows are put into 
         piles, that is, into top-level containers."""
@@ -225,5 +245,6 @@ class Connection(i3.Connection):
 if __name__ == "__main__":
     conn = Connection(auto_reconnect=True)
     conn.on(i3.Event.WINDOW_NEW, Connection.make_piles)
+    conn.on(i3.Event.WINDOW_NEW, Connection.add_marker)
     conn.on(i3.Event.TICK, Connection.execute_commands)
     conn.main()
