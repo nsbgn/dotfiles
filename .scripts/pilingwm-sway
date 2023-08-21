@@ -37,6 +37,8 @@ are needed to do so.
 # all those dependencies and compiling is a large downside. Using the `tick` 
 # command is fast enough.
 
+# TODO also move windows with < >
+
 # *Tiling degree*: By default, the tiling degree is 0. That is, each pile is 
 # just a stack of windows. However, each pile can get a higher tilling degree
 
@@ -62,9 +64,11 @@ import sys
 import traceback
 from itertools import count
 from typing import Callable, Iterable, Iterator
+from time import time
 
 import i3ipc as i3  # type: ignore
 
+INTERVAL = 200
 MARKERS = "JKLIOHNYPU"
 
 
@@ -98,10 +102,18 @@ def get_new_mark(exclude: Iterable[str]) -> str:
     for i in count():
         prefix = i * 'b'
         for m in MARKERS:
-            marker = prefix + m
-            if marker not in exclude:
-                return marker
+            mark = prefix + m
+            if mark not in exclude:
+                return mark
     raise RuntimeError("unreachable state")
+
+
+def focus_order(con: i3.Con) -> Iterator[i3.Con]:
+    """Iterate through the leaves of a container, starting with the container 
+    that most recently recieved focus, the ones around it, and so on."""
+    for n in sorted(con.nodes, key=lambda x: con.focus.index(x.id)):
+        yield from focus_order(n)
+    yield con
 
 
 def index(con: i3.Con) -> int:
@@ -152,7 +164,9 @@ def find_empty_workspace(tree: i3.Con) -> tuple[int, int, int]:
 
 class Connection(i3.Connection):
 
-    def __init__(self, *nargs, **kwargs):
+    def __init__(self, *nargs, **kwargs) -> None:
+        self.mark_path = ""
+        self.mark_time = 0.0
         super().__init__(*nargs, **kwargs)
 
     def cycle_workspace(self, forward: bool) -> Iterator[str]:
@@ -253,6 +267,35 @@ class Connection(i3.Connection):
                 current_marks.append(new_mark)
                 yield f"[con_id={leaf.id}] mark {new_mark}"
 
+    def mark_focus(self, mark: str) -> Iterator[str]:
+        """Focus on a window with a particular mark, or refine an earlier call 
+        to this command."""
+        now = time()
+        if now - self.mark_time <= INTERVAL:
+            self.mark_path = mark = self.mark_path + mark
+        else:
+            self.mark_path = ""
+
+        mark = mark.upper()
+        self.mark_time = now
+        current_marks = self.get_marks()
+
+        # If there is a mark that matches exactly, just focus on it
+        if mark in current_marks:
+            yield f"[con_mark={mark}] focus"
+
+        # If there are containers with marks to which the current mark is a 
+        # prefix, we focus on the first one we find if we descend in focus 
+        # order; later calls to mark_focus may refine this.
+        elif any(m.startswith(mark) for m in current_marks):
+            tree = self.get_tree()
+            for leaf in focus_order(tree):
+                if any(m.startswith(mark) for m in leaf.marks):
+                    yield f"[con_id={leaf.id}] focus"
+                    break
+        else:
+            self.mark_time = 0.0
+
     # @handler
     # def rename_workspace(self, event: i3.WindowEvent) -> Iterator[str]:
     #     """An event handler to rename workspaces when a window is given a 
@@ -316,7 +359,15 @@ class Connection(i3.Connection):
             return
 
         cmd = command[1]
-        if cmd == "new_workspace":
+        if cmd == "mark_focus":
+            yield from self.mark_focus(command[2])
+        elif cmd == "mark_periphery":
+            raise NotImplementedError
+        elif cmd == "mark_move":
+            raise NotImplementedError
+        elif cmd == "mark_":
+            raise NotImplementedError
+        elif cmd == "new_workspace":
             yield from self.new_workspace()
         elif cmd == "pile_focus_shift":
             yield from self.cycle_pile()
