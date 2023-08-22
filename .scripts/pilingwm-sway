@@ -68,7 +68,7 @@ from time import time
 
 import i3ipc as i3  # type: ignore
 
-INTERVAL = 200
+INTERVAL = 0.2
 MARKERS = "JKLIOHNYPU"
 
 
@@ -267,6 +267,14 @@ class Connection(i3.Connection):
                 current_marks.append(new_mark)
                 yield f"[con_id={leaf.id}] mark {new_mark}"
 
+    def reassign_mark(self, mark: str) -> Iterator[str]:
+        """Give the currently focused window a specific mark. If that 
+        overwrites an existing mark, give the old window a new mark too."""
+        current_marks = self.get_marks()
+        if mark in current_marks:
+            yield f"[con_mark={mark}] mark {get_new_mark(current_marks)}"
+        yield "f[{con_id=__focused__]"
+
     def mark_focus(self, mark: str) -> Iterator[str]:
         """Focus on a window with a particular mark, or refine an earlier call 
         to this command."""
@@ -275,9 +283,9 @@ class Connection(i3.Connection):
             self.mark_path = mark = self.mark_path + mark
         else:
             self.mark_path = ""
+        self.mark_time = now
 
         mark = mark.upper()
-        self.mark_time = now
         current_marks = self.get_marks()
 
         # If there is a mark that matches exactly, just focus on it
@@ -365,8 +373,8 @@ class Connection(i3.Connection):
             raise NotImplementedError
         elif cmd == "mark_move":
             raise NotImplementedError
-        elif cmd == "mark_":
-            raise NotImplementedError
+        elif cmd == "mark_reassign":
+            yield from self.mark_reassign(command[2])
         elif cmd == "new_workspace":
             yield from self.new_workspace()
         elif cmd == "pile_focus_shift":
