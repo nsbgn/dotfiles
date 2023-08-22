@@ -78,22 +78,76 @@ require('packer').startup(function(use)
   }
 
   -- Seperate 'cut' and 'delete' actions
-  use {
-    "https://github.com/gbprod/cutlass.nvim",
-    config = function()
-      require("cutlass").setup({
-        cut_key = 'x',
-        exclude = { "ns", "nS" },
-      })
-    end
-  }
+  -- use {
+  --   "https://github.com/gbprod/cutlass.nvim",
+  --   config = function()
+  --     require("cutlass").setup({
+  --       cut_key = 'x',
+  --       exclude = { "ns", "nS" },
+  --     })
+  --   end
+  -- }
 
   -- Return to last position when editing files
   use 'https://github.com/farmergreg/vim-lastplace'
 
   use {
     'https://github.com/stevearc/oil.nvim',
-    config = function() require('oil').setup() end
+    config = function()
+      local oil = require("oil")
+      oil.setup({
+        default_file_explorer = false,
+        columns = {
+          "icon", -- "permissions", "size", "mtime",
+        },
+        buf_options = {
+          buflisted = true,
+          bufhidden = "hide",
+        },
+        win_options = {
+          wrap = false,
+          signcolumn = "no",
+          cursorcolumn = false,
+          foldcolumn = "0",
+          spell = false,
+          list = false,
+          conceallevel = 3,
+          concealcursor = "n",
+        },
+        restore_win_options = true,
+        skip_confirm_for_simple_edits = false,
+        delete_to_trash = false,
+        trash_command = "trash-put",
+        prompt_save_on_select_new_entry = true,
+        -- See :help oil-actions for a list of all available actions
+        keymaps = {
+          ["g?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["<C-s>"] = "actions.select_vsplit",
+          ["<C-h>"] = "actions.select_split",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-p>"] = "actions.preview",
+          ["<C-c>"] = "actions.close",
+          ["<C-l>"] = "actions.refresh",
+          ["q"] = { callback = oil.parent, desc = "", nowait = true },
+          ["_"] = "actions.open_cwd",
+          ["`"] = "actions.cd",
+          ["~"] = "actions.tcd",
+          ["g."] = "actions.toggle_hidden",
+        },
+        use_default_keymaps = true,
+        view_options = {
+          show_hidden = false,
+          is_hidden_file = function(name, bufnr)
+            return vim.startswith(name, ".")
+          end,
+          is_always_hidden = function(name, bufnr)
+            return false
+          end,
+        },
+      })
+      -- vim.keymap.set('n', 'q', "<CMD>Oil<CR>", {})
+    end
   }
 
   -- Alternatively, see <https://github.com/akinsho/toggleterm.nvim>
@@ -280,7 +334,7 @@ use {
 
 -- Color scheme ---------------------------------------------------------------
 
-  use 'https://github.com/morhetz/gruvbox'
+  -- use 'https://github.com/morhetz/gruvbox'
   -- A colorscheme that uses few colors
   -- use {
   --   "https://github.com/mcchrish/zenbones.nvim",
@@ -437,6 +491,7 @@ use {
         let g:rooter_change_directory_for_non_project_files = 'current'
         let g:rooter_resolve_links = 1
         let g:rooter_patterns = ['.git', 'Makefile']
+        let g:rooter_buftypes = ['']
       ]])
     end
   }
