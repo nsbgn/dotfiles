@@ -41,11 +41,12 @@ leftalt = overload(fn, escape)
 leftcontrol = overload(control, compose)
 leftmeta = overload(alt, compose)
 rightalt = oneshot(symbol)
-# rightalt = overload(symbol, enter)
 leftshift = oneshot(shift)
 rightshift = delete
 capslock = backspace
 [ = backslash
+
+tab = overload(meta, tab)
 
 [colemakdh]
 q = q
@@ -79,7 +80,6 @@ n = k
 m = h
 
 [symbol]
-rightalt = layerm(symbol, compose)
 q = !
 w = [
 e = +
@@ -118,69 +118,19 @@ m = 1
 [symbol2]
 p = macro(backspace :)
 
-[fn]
-space = swapm(meta, menu)
-# leftmeta = macro(menu leftmeta)
+[fn:M-C]
+capslock = backspace
+rightshift = delete
 
-grave = M-C-grave
-1 = M-C-1
-2 = M-C-2
-3 = M-C-3
-4 = M-C-4
-5 = M-C-5
-6 = M-C-6
-7 = M-C-7
-8 = M-C-8
-9 = M-C-9
-0 = M-C-0
-
-tab = M-C-tab
 q = home
 w = up
 e = end
 r = pageup
-t = M-C-t
 
-backspace = backspace
 a = left
 s = down
 d = right
 f = pagedown
-g = M-C-g
-
-# Close window: XF86Close / close
-z = M-C-z
-# Open menu: XF86MenuKB / XF86Start / leftmeta itself?
-# macro(menu leftmeta)
-x = M-C-x
-# c = M-C-C-right  # Next virtual desktop. Alternatively: next / XF86Next_VMode.
-c = M-C-c
-# v = display  # Change window layout: XF86RotateWindows
-v = M-C-v
-b = M-C-b
-# alternatively, XF86Prev_VMode
-#c = M-C-C-left
-
-
-y = M-C-y
-u = M-C-u
-i = M-C-i
-o = M-C-o
-p = M-C-p
-[ = M-C-backslash
-
-h = M-C-h
-j = M-C-j
-k = M-C-k
-l = M-C-l
-; = M-C-;
-' = M-C-apostrophe
-
-n = M-C-n
-m = M-C-m
-, = M-C-,
-. = M-C-.
-/ = M-C-/
 
 [fn+symbol]
 
