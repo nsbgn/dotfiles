@@ -1,4 +1,5 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
+set $mods Mod4
 set $mod Mod4+Ctrl
 set $pwm swaymsg -t send_tick pilingwm
 
@@ -172,7 +173,6 @@ bindsym $mod+n exec "$pwm mark_focus n"
 bindsym $mod+m exec "$pwm pile_focus_shift"
 bindsym $mod+Shift+m exec "$pwm pile_move"
 
-
 # bindsym $mod+l exec "$pwm mark_focus k"
 bindsym $mod+semicolon exec "$pwm mark_focus k"
 
@@ -183,14 +183,14 @@ bindsym $mod+Shift+k move container to workspace next; workspace next
 bindsym $mod+l focus next
 # bindsym $mod+Shift+l swap next
 
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mods+j workspace number 1
+bindsym $mods+k workspace number 2
+bindsym $mods+l workspace number 3
+bindsym $mods+semicolon workspace number 4
+bindsym $mods+Shift+j move container to workspace number 1; workspace number 1
+bindsym $mods+Shift+k move container to workspace number 2; workspace number 2
+bindsym $mods+Shift+l move container to workspace number 3; workspace number 3
+bindsym $mods+Shift+semicolon move container to workspace number 4; workspace number 4
 
 bindsym $mod+v fullscreen
 
