@@ -6,6 +6,10 @@ set $pwm swaymsg -t send_tick pilingwm
 # exec dbus-update-activation-environment --verbose --systemd --all
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
+
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id lxpolkit
+
 exec foot --server
 exec gammastep -O 5500K
 exec wvkbd-mobintl --hidden
