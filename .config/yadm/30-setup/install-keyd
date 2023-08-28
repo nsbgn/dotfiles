@@ -80,6 +80,8 @@ n = k
 m = h
 
 [symbol]
+leftshift = swap(shift)
+rightshift = swap(shift)
 q = !
 w = [
 e = +
