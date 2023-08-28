@@ -17,6 +17,7 @@ hi Identifier gui=NONE guifg=darkred
 hi Type gui=italic guifg=black
 hi PreProc gui=bold guifg=black
 hi Todo gui=underline,bold
+hi MatchParen gui=bold guifg=black guibg=lightgray
 
 hi DiffAdd guifg=darkgreen guibg=NONE
 hi DiffChange guifg=gray guibg=NONE
