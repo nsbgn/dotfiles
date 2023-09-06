@@ -1,5 +1,5 @@
 window#waybar {
-    font-family: "Inconsolata", monospace;
+    font-family: "Inconsolata", "Font Awesome", monospace;
     font-size: 12pt;
     color: #dddddd;
     background-color: black;
