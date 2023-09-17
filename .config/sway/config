@@ -1,6 +1,6 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
-set $mods Mod4
-set $mod Mod4+Ctrl
+set $meta Mod4
+set $fn Mod4+Ctrl
 set $pwm swaymsg -t send_tick pilingwm
 
 # exec dbus-update-activation-environment --verbose --systemd --all
@@ -101,7 +101,6 @@ default_floating_border normal
 font pango:Inconsolata 12
 gaps inner 0
 # focus_wrapping workspace
-
 # workspace_layout tabbed
 # gaps horizontal 0
 
@@ -110,101 +109,103 @@ gaps inner 0
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
-
-
 floating_modifier Mod4 normal
 
-# Start a terminal
-bindsym XF86Terminal exec footclient
+##############################################################################
+# $fn: Navigation between and within windows
 
-bindsym Mod1+Tab exec "npx mira refresh"
-bindsym $mod+Tab exec "npx mira refresh"
+# ROW 1 LEFT #################################################################
 
-# Kill focused window
-bindsym $mod+z kill
+# bindsym $fn+q key home
+# bindsym $fn+w key up
+# bindsym $fn+e key end
+# bindsym $fn+r key pgup
+bindsym $fn+t exec foot-cwd
 
-# Start your launcher
-# bindsym $mod+semicolon exec dmenu-apps
+# ROW 2 LEFT #################################################################
+
+# bindsym $fn+a key left
+# bindsym $fn+s key down
+# bindsym $fn+d key right
+# bindsym $fn+f key pgdn
+bindsym $fn+g exec dmenu-apps
+
+# ROW 3 LEFT #################################################################
+
+bindsym $fn+z kill
+# bindsym $fn+x
+# bindsym $fn+c
+bindsym $fn+v fullscreen
+# bindsym $fn+b
+
+# ROW 1 RIGHT ################################################################
+
+bindsym $fn+y exec "$pwm mark_focus y"
+bindsym $fn+u exec "$pwm mark_focus u"
+bindsym $fn+i exec "$pwm mark_focus i"
+bindsym $fn+o exec "$pwm mark_focus o"
+bindsym $fn+p exec "$pwm mark_focus p"
+
+# ROW 2 RIGHT ################################################################
+
+# bindsym $fn+h exec "$pwm mark_focus h"
+bindsym $fn+h focus prev
+bindsym $fn+Shift+h swap prev
+
+bindsym $fn+j exec "$pwm mark_focus j"
+bindsym $fn+Shift+j move container to workspace prev; workspace prev
+
+bindsym $fn+k exec "$pwm mark_focus k"
+bindsym $fn+Shift+k move container to workspace next; workspace next
+
+bindsym $fn+l focus next
+#bindsym $fn+l exec "$pwm mark_focus k"
+#bindsym $fn+Shift+l swap next
+#bindsym $fn+l exec "$pwm mark_focus l"
+
+bindsym $fn+semicolon exec "$pwm mark_focus k"
+
+# ROW 3 RIGHT ################################################################
+
+bindsym $fn+n exec "$pwm mark_focus n"
+
+#bindsym $fn+m exec "$pwm mark_focus m"
+bindsym $fn+m exec "$pwm pile_focus_shift"
+bindsym $fn+Shift+m exec "$pwm pile_move"
+
+bindsym $fn+comma workspace prev_on_output
+# bindsym $fn+comma exec "$pwm win_focus_prev"
+bindsym $fn+Shift+comma move container to workspace prev_on_output
+
+bindsym $fn+period workspace next_on_output
+bindsym $fn+Shift+period move container to workspace next_on_output
+
+bindsym $fn+backslash exec "$pwm new_workspace"
+
+bindsym $fn+space floating toggle
+
+##############################################################################
+# $meta: Function keys
+
 bindsym XF86MenuKB exec dmenu-apps
-bindsym Mod4+XF86MenuKB exec dmenu-apps
-bindsym $mod+g exec dmenu-apps
-# Pressing Super_L by itself opens the menu
-# bindcode 133 --release exec dmenu-apps
+bindsym $meta+g exec dmenu-apps
+bindsym $meta+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
+# bindsym $meta+m exec dmenu-mpv
+bindsym $meta+u exec dmenu-thesaurus
+bindsym $meta+p exec dmenu-pass
+bindsym $meta+apostrophe clipman pick -t bemenu
 
-# bindsym $mod+t workspace prev
-# bindsym $mod+x exec sway-wsfocus prev || swaymsg workspace prev
-# bindsym $mod+Shift+x move container to workspace prev
+bindsym $meta+m workspace number 1
+bindsym $meta+comma workspace number 2
+bindsym $meta+period workspace number 3
+bindsym $meta+slash workspace number 4
+bindsym $meta+Shift+m move container to workspace number 1; workspace number 1
+bindsym $meta+Shift+comma move container to workspace number 2; workspace number 2
+bindsym $meta+Shift+period move container to workspace number 3; workspace number 3
+bindsym $meta+Shift+slash move container to workspace number 4; workspace number 4
 
-bindsym $mod+backslash exec "$pwm new_workspace"
-#$pwm workspace_new
-# bindsym $mod+Shift+c exec twins-wsnew move
-
-bindsym $mod+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
-# bindsym $mod+m exec dmenu-mpv
-# bindsym $mod+u exec dmenu-thesaurus
-# bindsym $mod+p exec "playerctl --player=mpv play-pause"
-bindsym $mod+p exec dmenu-pass
-bindsym $mod+apostrophe clipman pick -t bemenu
-
-bindsym $mod+comma workspace prev_on_output
-bindsym $mod+period workspace next_on_output
-bindsym $mod+Shift+comma move container to workspace prev_on_output
-bindsym $mod+Shift+period move container to workspace next_on_output
-
-# bindsym $mod+i exec "$pwm win_focus_prev"
-# bindsym $mod+o exec "$pwm win_focus_next"
-
-bindsym $mod+t exec foot-cwd
-bindsym $mod+Shift+Tab reload
-
-# bindsym $mod+y scratchpad show
-# bindsym $mod+Shift+y move scratchpad
-
-bindsym $mod+h focus prev
-bindsym $mod+Shift+h swap prev
-
-bindsym $mod+y exec "$pwm mark_focus y"
-bindsym $mod+u exec "$pwm mark_focus u"
-bindsym $mod+i exec "$pwm mark_focus i"
-bindsym $mod+o exec "$pwm mark_focus o"
-# bindsym $mod+p exec "$pwm mark_focus i"
-# bindsym $mod+h exec "$pwm mark_focus h"
-bindsym $mod+j exec "$pwm mark_focus j"
-bindsym $mod+k exec "$pwm mark_focus k"
-#bindsym $mod+l exec "$pwm mark_focus l"
-bindsym $mod+n exec "$pwm mark_focus n"
-#bindsym $mod+m exec "$pwm mark_focus m"
-bindsym $mod+m exec "$pwm pile_focus_shift"
-bindsym $mod+Shift+m exec "$pwm pile_move"
-
-# bindsym $mod+l exec "$pwm mark_focus k"
-bindsym $mod+semicolon exec "$pwm mark_focus k"
-
-bindsym $mod+Shift+j move container to workspace prev; workspace prev
-
-bindsym $mod+Shift+k move container to workspace next; workspace next
-
-bindsym $mod+l focus next
-# bindsym $mod+Shift+l swap next
-
-bindsym $mods+j workspace number 1
-bindsym $mods+k workspace number 2
-bindsym $mods+l workspace number 3
-bindsym $mods+semicolon workspace number 4
-bindsym $mods+Shift+j move container to workspace number 1; workspace number 1
-bindsym $mods+Shift+k move container to workspace number 2; workspace number 2
-bindsym $mods+Shift+l move container to workspace number 3; workspace number 3
-bindsym $mods+Shift+semicolon move container to workspace number 4; workspace number 4
-
-bindsym $mod+v fullscreen
-
-bindsym $mod+Shift+space floating toggle
-# bindsym $mod+space focus mode_toggle
-
-bindsym $mod+backspace resize shrink width 10px
-bindsym $mod+space resize grow width 10px
-
-# include /etc/sway/config.d/*
+bindsym Ctrl+F1 reload
+bindsym Ctrl+F2 exec "npx mira reload"
 
 # See also https://github.com/francma/wob
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
