@@ -1,57 +1,28 @@
 #!/usr/bin/env python3
 """
 This is a set of commands to reduce the mental overhead of using Sway and i3. 
-Turn your tiling window manager into a piling window manager!
+Each virtual desktop becomes a carousel that shows at most two windows.
 
-I don't find myself ever benefiting from having more than two windows open on 
-the same screen at any one time. (Maybe three, if there's a video playing and I 
-pretend to multitask.) So, rather than manually arranging windows, or 
-implementing elaborate and abstract ways to do so automatically, I think it's 
-better to go for a tangible physical metaphor --- like piles of paper.
+Rationale: I don't find myself ever benefiting from having more than two 
+windows open on the same screen at any one time. (Maybe three, if there's a 
+video playing and I pretend to multitask.) So, rather than manually arranging 
+windows, or implementing elaborate and abstract ways to do so automatically, I 
+think it's better to go for a more tangible metaphor: every desktop shows only 
+the active window, plus, optionally, a reference window to the side of it. It 
+is tiled horizontally if the aspect ratio exceeds 1, and vertically otherwise.
 
-You might hold two sheets side-by-side as a reference, but you're only ever 
-writing on one at a time. You can pick up a whole pile and move it around, or 
-draw a single sheet from the pile and reinsert it elsewhere. The hard part is 
-not the *layout*, but leafing through the pile to find the sheet you need.
+What I try to make easier is not the *layout*, but leafing through the pile to 
+find the sheet you need. I try to keep the amount of keyboard shortcuts or 
+touchscreen gestures small. Every window gets automatically assigned a 
+one-letter label, so that you can instantly bring it to focus. In addition to 
+the static labels, there is one dynamic label that switches between the active 
+and reference windows, and two that cycle forward or backward through the 
+inactive windows.
 
-We also minimize the amount of keyboard shortcuts or touchscreen gestures that 
-are needed to do so.
-
--   Piles are tiled horizontally if the aspect ratio exceeds 1, and vertically 
-    otherwise. By default, the constituent windows are tabbed, but they may 
-    also be tiled in the orthogonal direction.
-
--   Each desktop can show at most two piles simultaneously. Every pile gets 
-    automatically assigned a one-letter label, so that you can instantly bring 
-    it to focus or bring another window into focus. In addition to the static 
-    labels, there are two dynamic ones for the first and second pile on the 
-    current screen.
-
--   Every command should make just as much sense on stacking window managers or 
-    terminal multiplexers, in case I want to port.
+To stay as environment-agnostic as possible, command should make just as much 
+sense on stacking window managers (Wayfire/labwc) or terminal multiplexers 
+(tmux).
 """
-# Some notes:
-
-# *Implementation*: I also considered Rust and C. Speed is very important for 
-# UI-related commands that will be run countless of times, but having to pull 
-# all those dependencies and compiling is a large downside. Using the `tick` 
-# command is fast enough.
-
-# TODO also move windows with < >
-
-# *Tiling degree*: By default, the tiling degree is 0. That is, each pile is 
-# just a stack of windows. However, each pile can get a higher tilling degree
-
-# *Targets*: Make sure it also makes sense on stacking window managers or 
-# terminal multiplexers, in case I want to port the idea to tmux, to Wayfire, 
-# or to labwc using wlctrl.
-
-# *Touchscreen*: Simpler behaviour also means that it becomes viable to
-# accommodate the touchscreen alongside the keyboard. Something like `lisgd` 
-# could help with this.
-
-# *asyncio*: At some point. use `i3ipc.aio` to `asyncio.run`?
-
 # *Unicode*: Use labels from the Unicode enclosed alphanumeric supplement:
 # ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ
 # Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ
@@ -254,10 +225,8 @@ class Connection(i3.Connection):
             yield from self.move_to(focused, pile)
             yield f"[con_id={focused.id}] focus"
 
-    # def goto_mark(self) -> Iterator[str]:
-    #     pass
-
     def add_markers(self) -> Iterator[str]:
+        """Add markers to existing windows."""
         current_marks = self.get_marks()
         tree = self.get_tree()
         for leaf in tree.leaves():
@@ -367,24 +336,33 @@ class Connection(i3.Connection):
             return
 
         cmd = command[1]
-        if cmd == "mark_focus":
+        if cmd == "main_focus_mark":
             yield from self.mark_focus(command[2])
-        elif cmd == "mark_periphery":
+        elif cmd == "ref_focus_mark":
             raise NotImplementedError
-        elif cmd == "mark_move":
+        elif cmd == "main_cycle":
             raise NotImplementedError
-        elif cmd == "mark_reassign":
-            yield from self.mark_reassign(command[2])
-        elif cmd == "new_workspace":
-            yield from self.new_workspace()
-        elif cmd == "pile_focus_shift":
-            yield from self.cycle_pile()
-        elif cmd == "pile_move":
-            yield from self.move_pile()
-        elif cmd == "win_focus_next":
-            yield from self.cycle_leaf(True)
-        elif cmd == "win_focus_prev":
-            yield from self.cycle_leaf(False)
+        elif cmd == "ref_cycle":
+            raise NotImplementedError
+
+        # if cmd == "mark_focus":
+        #     yield from self.mark_focus(command[2])
+        # elif cmd == "mark_periphery":
+        #     raise NotImplementedError
+        # elif cmd == "mark_move":
+        #     raise NotImplementedError
+        # elif cmd == "mark_reassign":
+        #     yield from self.mark_reassign(command[2])
+        # elif cmd == "new_workspace":
+        #     yield from self.new_workspace()
+        # elif cmd == "pile_focus_shift":
+        #     yield from self.cycle_pile()
+        # elif cmd == "pile_move":
+        #     yield from self.move_pile()
+        # elif cmd == "win_focus_next":
+        #     yield from self.cycle_leaf(True)
+        # elif cmd == "win_focus_prev":
+        #     yield from self.cycle_leaf(False)
 
 
 if __name__ == "__main__":
