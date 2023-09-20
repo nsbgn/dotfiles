@@ -2,13 +2,10 @@
 
 # This allows xdg-desktop-portal-wlr to function (e.g. for screen-recording)
 XDG_CURRENT_DESKTOP=wlroots
-
-# Set keyboard layout to Swedish
-XKB_DEFAULT_LAYOUT=se
+XKB_DEFAULT_LAYOUT=us
 
 # Set two keyboard layouts and toggle between them using alt+shift
-XKB_DEFAULT_LAYOUT=se,de
-XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle
+XKB_DEFAULT_OPTIONS=compose:menu
 
 # Force firefox to use wayland backend
 MOZ_ENABLE_WAYLAND=1
@@ -26,3 +23,15 @@ WLR_NO_HARDWARE_CURSORS=1
 # to avoid menus with incorrect offset and blank windows
 # See https://github.com/swaywm/sway/issues/595
 _JAVA_AWT_WM_NONREPARENTING=1
+
+XDG_SESSION_TYPE=wayland
+# export XDG_RUNTIME_DIR=/run/user/$(id -u)/
+# XDG_SESSION_DESKTOP=sway
+# XDG_CURRENT_DESKTOP=sway
+MOZ_ENABLE_WAYLAND=1
+CLUTTER_BACKEND=wayland
+SDL_VIDEODRIVER=wayland
+NO_AT_BRIDGE=1
+GDK_BACKEND=wayland,x11
+MOZ_USE_XINPUT2=1  # Enable touch scrolling on firefox
+

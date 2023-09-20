@@ -1,37 +1,28 @@
 <?xml version="1.0"?>
-
-<!--
-  This is a very simple config file with many options missing. For a complete
-  set of options with comments, see docs/rc.xml.all
--->
+<!-- For a complete set of options with comments, see docs/rc.xml.all -->
 
 <labwc_config>
-
   <core>
     <gap>10</gap>
   </core>
-
   <theme>
     <name></name>
-    <cornerRadius>8</cornerRadius>
-    <font name="sans" size="10" />
+    <cornerRadius>10</cornerRadius>
+    <keepBorder>yes</keepBorder>
+    <font name="Inconsolata" size="8" />
   </theme>
-
   <keyboard>
+    <repeatRate>45</repeatRate>
+    <repeatDelay>300</repeatDelay>
+    <keybind key="W-C-t"><action name="Execute" command="footclient" /></keybind>
+    <keybind key="W-C-g"><action name="Execute" command="dmenu-apps" /></keybind>
+    <keybind key="W-C-z"><action name="Close" /></keybind>
+    <keybind key="W-C-v"><action name="ToggleMaximize" /></keybind>
+    <keybind key="W-C-m"><action name="PreviousWindow" /></keybind>
+    <keybind key="W-C-,"><action name="SnapToEdge" direction="left" /></keybind>
+    <keybind key="W-C-."><action name="SnapToEdge" direction="right" /></keybind>
     <default />
-    <!-- Use a different terminal emulator -->
-    <keybind key="W-Return">
-      <action name="Execute" command="foot" />
-    </keybind>
-    <!--
-      Remove a previously defined keybind
-      A shorter alternative is <keybind key="W-F4" />
-    -->
-    <keybind key="W-F4">
-      <action name="None" />
-    </keybind>
   </keyboard>
-
   <mouse>
     <default />
     <!-- Show a custom menu on desktop right click -->
@@ -41,5 +32,4 @@
       </mousebind>
     </context>
   </mouse>
-
 </labwc_config>

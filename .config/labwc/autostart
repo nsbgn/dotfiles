@@ -1,13 +1,8 @@
-# Example autostart file
-
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=labwc &
-
 lxpolkit &
 foot --server &
 gammastep -O 5500K &
 wvkbd-mobintl --hidden &
-
-# Set background color.
 swaybg -c '#113344' >/dev/null 2>&1 &
 
 # Configure output directives such as mode, position, scale and transform.
@@ -17,7 +12,7 @@ swaybg -c '#113344' >/dev/null 2>&1 &
 #     output HDMI-A-1 position 1366,0
 #     output eDP-1 position 0,0
 #   }
-kanshi >/dev/null 2>&1 &
+# kanshi >/dev/null 2>&1 &
 
 # Launch a panel such as yambar or waybar.
 waybar >/dev/null 2>&1 &
@@ -39,3 +34,4 @@ swayidle -w \
 	timeout 600 'wlopm --off \*' \
 	resume 'wlopm --on \*' \
 	before-sleep 'swaylock -f -c 000000' >/dev/null 2>&1 &
+
