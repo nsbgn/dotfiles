@@ -172,7 +172,7 @@ bindsym $fn+n exec "$pwm mark_focus n"
 
 #bindsym $fn+m exec "$pwm mark_focus m"
 bindsym $fn+m exec "$pwm pile_focus_shift"
-bindsym $fn+Shift+m exec "$pwm pile_move"
+bindsym $fn+Shift+m exec "$pwm toggle_aux"
 
 bindsym $fn+comma workspace prev_on_output
 # bindsym $fn+comma exec "$pwm win_focus_prev"
