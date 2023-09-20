@@ -1,5 +1,12 @@
 # Example autostart file
 
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=labwc &
+
+lxpolkit &
+foot --server &
+gammastep -O 5500K &
+wvkbd-mobintl --hidden &
+
 # Set background color.
 swaybg -c '#113344' >/dev/null 2>&1 &
 
