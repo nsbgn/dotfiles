@@ -12,7 +12,7 @@ exec --no-startup-id lxpolkit
 
 exec foot --server
 exec gammastep -O 5500K
-exec wvkbd-mobintl --hidden
+# exec wvkbd-mobintl --hidden
 # Toggle with `pkill -SIGRTMIN wvkbd-mobintl`
 exec sway-autoexit-fullscreen
 # exec wl-paste -t text --watch clipman store --no-persist
