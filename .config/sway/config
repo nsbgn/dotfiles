@@ -155,9 +155,9 @@ bindsym $fn+p exec "$pwm mark_focus p"
 bindsym $fn+h focus prev
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+j exec "$pwm mark_focus j"
+bindsym $fn+j focus prev; focus child; focus child
 
-bindsym $fn+k exec "$pwm mark_focus k"
+bindsym $fn+k focus next; focus child; focus child
 
 bindsym $fn+l focus next
 #bindsym $fn+l exec "$pwm mark_focus k"
