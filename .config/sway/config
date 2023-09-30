@@ -27,7 +27,7 @@ bar {
 }
 
 #                       tBorder      bg    text indic8r wBorder
-client.focused          #99dd99 #005000 #ffffff #ff0000 #ffffff
+client.focused          #ff0000 #005000 #ffffff #ff0000 #ff0000
 client.unfocused        #000000 #000000 #ffffff #ff0000 #bbbbbb
 client.focused_inactive #444444 #000000 #ffffff #ff0000 #bbbbbb
 
@@ -92,14 +92,15 @@ input type:touchpad {
 
 smart_gaps off
 smart_borders off
-hide_edge_borders both
-default_border normal 1
+hide_edge_borders none
+default_border pixel 2
+#normal 1
 for_window [title="."] title_format "⯁ %title"
 titlebar_border_thickness 1
 titlebar_padding 5 2
 default_floating_border normal
 font pango:Inconsolata 12
-gaps inner 0
+gaps inner 2
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0
@@ -133,10 +134,10 @@ bindsym $fn+g exec dmenu-apps
 # ROW 3 LEFT #################################################################
 
 bindsym $fn+z kill
-bindsym $fn+x workspace prev
-bindsym $fn+Shift+x move container to workspace prev; workspace prev
-bindsym $fn+c workspace next
-bindsym $fn+Shift+c move container to workspace next; workspace next
+bindsym $fn+x move container to scratchpad
+# bindsym $fn+Shift+x move container to workspace prev; workspace prev
+# bindsym $fn+c []
+# bindsym $fn+Shift+c move container to workspace next; workspace next
 bindsym $fn+v fullscreen
 bindsym $fn+b focus mode_toggle
 bindsym $fn+Shift+b floating toggle
@@ -152,14 +153,14 @@ bindsym $fn+p exec "$pwm mark_focus p"
 # ROW 2 RIGHT ################################################################
 
 # bindsym $fn+h exec "$pwm mark_focus h"
-bindsym $fn+h focus prev
+bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+j focus prev; focus child; focus child
+bindsym $fn+j focus down
 
-bindsym $fn+k focus next; focus child; focus child
+bindsym $fn+k focus up
 
-bindsym $fn+l focus next
+bindsym $fn+l focus right
 #bindsym $fn+l exec "$pwm mark_focus k"
 #bindsym $fn+Shift+l swap next
 #bindsym $fn+l exec "$pwm mark_focus l"

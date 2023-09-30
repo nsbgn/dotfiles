@@ -2,7 +2,7 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 lxpolkit &
 foot --server &
 gammastep -O 5500K &
-wvkbd-mobintl --hidden &
+# wvkbd-mobintl --hidden &
 swaybg -c '#113344' >/dev/null 2>&1 &
 
 # Configure output directives such as mode, position, scale and transform.
