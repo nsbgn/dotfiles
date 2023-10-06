@@ -67,6 +67,14 @@ require('packer').startup(function(use)
   -- More sensible word motions
   use 'https://github.com/chaoren/vim-wordmotion'
 
+  -- Block matching via %
+  use {
+    'https://github.com/andymass/vim-matchup',
+    setup = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end
+  }
+
   -- Auto comment lines
   use {
     "https://github.com/tpope/vim-commentary",
