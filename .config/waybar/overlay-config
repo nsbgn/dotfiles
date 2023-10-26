@@ -8,7 +8,7 @@
     "spacing": 5,
     "ipc": true,
     "id": "bar1",
-    "modules-left": ["sway/workspaces", "sway/window"],
+    "modules-left": ["sway/workspaces", "sway/window", "wlr/taskbar"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     "sway/workspaces": {
@@ -44,5 +44,20 @@
     "custom/ws": {
         "exec": "/home/nsbg/projects/twins/twins-wsshow",
         "format": "{}"
+    },
+    "wlr/taskbar": {
+        "format": "{icon} {title:.30}",
+        "icon-size": 14,
+        "icon-theme": "Numix-Circle",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "app_ids-mapping": {
+          "firefoxdeveloperedition": "firefox-developer-edition"
+        },
+        "rewrite": {
+            "Firefox Web Browser": "Firefox",
+            "Foot Server": "Terminal"
+        }
     }
 }

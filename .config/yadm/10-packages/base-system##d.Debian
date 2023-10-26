@@ -4,7 +4,7 @@
 PACKAGES=(
     # Theme
     fonts-font-awesome # Font icon
-    fonts-cabin # Sans serif font
+    fonts-{cabin,karla,karmilla} # Sans serif font
     fonts-{anonymous-pro,inconsolata,jetbrains-mono} # Monospace
     fonts-terminus-otb # Bitmap monospace
     dmz-cursor-theme
