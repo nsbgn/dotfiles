@@ -9,7 +9,7 @@
     <name></name>
     <cornerRadius>10</cornerRadius>
     <keepBorder>yes</keepBorder>
-    <font name="Inconsolata" size="8" />
+    <font name="Karla" size="10" />
   </theme>
   <keyboard>
     <repeatRate>45</repeatRate>
