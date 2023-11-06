@@ -13,7 +13,7 @@
         "max-length": 50
     },
     "wlr/taskbar": {
-        "all-outputs": true,
+        "all-outputs": false,
         "format": "{icon}",
         "tooltip-format": "{title}",
         "icon-theme": ["HighContrast", "Chicago95", "Breeze"],

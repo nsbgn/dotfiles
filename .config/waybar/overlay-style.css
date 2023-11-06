@@ -40,10 +40,12 @@ window#waybar {
     background-color: #000000;
 }
 #taskbar button.active {
+    font-style: italic;
     color: black;
     background-color: white;
+    text-decoration: line-through;
 }
 #taskbar button.minimized {
-    color: gray;
+    color: darkgray;
     background-color: black;
 }
