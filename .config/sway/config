@@ -27,12 +27,12 @@ bar {
 }
 
 #                       tBorder      bg    text indic8r wBorder
-client.focused          #ff0000 #005000 #ffffff #ff0000 #ff0000
-client.unfocused        #000000 #000000 #ffffff #ff0000 #bbbbbb
-client.focused_inactive #444444 #000000 #ffffff #ff0000 #bbbbbb
+client.focused          #000000 #000000 #ffffff #ff0000 #000000
+client.unfocused        #cccccc #aaaaaa #000000 #ff0000 #cccccc
+client.focused_inactive #444444 #000000 #ffffff #ff0000 #cccccc
 
-# output * bg #fffaf0 solid_color
-output * bg #000000 solid_color
+output * bg #fffaf0 solid_color
+# output * bg #ffffff solid_color
 output HDMI-A-1 {
    mode 1920x1080@60.000Hz
    pos 0 0
@@ -95,12 +95,12 @@ smart_borders off
 hide_edge_borders none
 default_border pixel 2
 #normal 1
-for_window [title="."] title_format "⯁ %title"
+for_window [title="."] title_format "  %title"
 titlebar_border_thickness 1
-titlebar_padding 5 2
-default_floating_border normal
-font pango:Inconsolata 12
-gaps inner 2
+titlebar_padding 10 2
+default_floating_border normal 2
+font pango:Karla 11
+gaps inner 4
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0
