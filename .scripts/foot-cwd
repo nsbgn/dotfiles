@@ -1,7 +1,7 @@
 #!/bin/sh
-# Sway version of my `xcwd.sh`. Starts a new footclient window; and if there is 
-# already a terminal window in focus, starts it in the same working directory. 
-# Crucially, this takes into account the foreground process.
+# Starts a new footclient window; and if there is already a terminal window in 
+# focus, starts it in the same working directory as the running one. Crucially, 
+# this takes into account the foreground process. Sway version of my `xcwd.sh`.
 #
 # Inspired by:
 # - https://github.com/wknapik/lastcwd
@@ -20,7 +20,7 @@
 # However, this still means that every terminal process needs to manually send 
 # OSC-7. foot's guide only mentions your shell, but what about your file 
 # manager or editor? You *could* make Neovim call `chansend(v:stderr, 
-# "\e]7;file://…\e\\")` on every directory change, but that's only one 
+# "\e]7;file://…\e\\")` on every directory change... but that's only one 
 # application down.
 #
 # I propose instead to start a footclient instance by setting its app_id to 
@@ -41,5 +41,5 @@ foot_cwd(){
     footclient -o environment.APPID="$NEWAPPID" -a "$NEWAPPID" -D "$DIR" "$@"
 }
 
-foot_cwd $(swaymsg -t get_tree | jq -r 'recurse(.nodes[]) | select(.focused) |
-    "\(.pid) \(.app_id) foot-\(now)"') "$@"
+foot_cwd $(swaymsg -t get_tree | jq -r 'recurse((.nodes + .floating_nodes)[]) | select(.focused) |
+    "\(.pid) \(.app_id) foot-\(now)"') "$@" || footclient
