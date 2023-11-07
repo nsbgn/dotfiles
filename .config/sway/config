@@ -93,14 +93,14 @@ input type:touchpad {
 smart_gaps off
 smart_borders off
 hide_edge_borders none
-default_border pixel 2
-#normal 1
+default_border normal 2
+default_floating_border normal 2
 for_window [title="."] title_format "  %title"
+# for_window [title="."] floating enable
 titlebar_border_thickness 1
 titlebar_padding 10 2
-default_floating_border normal 2
 font pango:Karla 11
-gaps inner 4
+gaps inner 5
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0

@@ -1,28 +1,29 @@
 window#waybar {
     font-family: "Karla", "Font Awesome", monospace;
     font-size: 12pt;
-    color: #dddddd;
-    background-color: black;
+    background-color: #fffaf0;
+    color: black;
+    margin: 0;
+    padding: 0;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect 
  * */
 #workspaces button:hover, #tags button:hover, #taskbar button:hover {
-    background: transparent;
     box-shadow: none;
     text-shadow: none;
-    border: 1px solid grey;
+    border: 2px solid gray;
 }
 
-#workspaces button {
-    font-size: 13pt;
-    padding: 0px 2px;
-    margin: 0px 2px;
-    border: none;
-    border-radius: 0;
-    background-color: transparent;
-    color: white;
+button {
+    padding: 0px 4px;
+    margin: 2px 2px 0px 2px;
+    border-radius: 5px;
+    color: black;
+    background-color: #fffaf0;
+    border: 2px solid #fffaf0;
 }
+
 #workspaces button:hover {
     background-color: #333333;
     color: black;
@@ -31,21 +32,19 @@ window#waybar {
 #workspaces button.focused {
     background-color: white;
     color: black;
+    border: 2px solid black;
 }
 #workspaces button.urgent {
     background-color: red;
 }
+
 #taskbar button {
-    color: #dddddd;
-    background-color: #000000;
 }
 #taskbar button.active {
     font-style: italic;
     color: black;
-    background-color: white;
-    text-decoration: line-through;
+    border: 2px solid black;
 }
 #taskbar button.minimized {
-    color: darkgray;
-    background-color: black;
+    color: gray;
 }
