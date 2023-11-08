@@ -41,10 +41,6 @@
     "sway/workspaces": {
         "disable-auto-back-and-forth": true
     },
-    "custom/ws": {
-        "exec": "/home/nsbg/projects/twins/twins-wsshow",
-        "format": "{}"
-    },
     "wlr/taskbar": {
         "format": "{icon} {title:.30}",
         "icon-size": 14,
