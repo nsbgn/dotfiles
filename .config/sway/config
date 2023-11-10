@@ -3,8 +3,8 @@ set $meta Mod4
 set $fn Mod4+Ctrl
 set $pwm swaymsg -t send_tick pilingwm
 
-# exec dbus-update-activation-environment --verbose --systemd --all
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --verbose --systemd --all
+# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 
 #exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
