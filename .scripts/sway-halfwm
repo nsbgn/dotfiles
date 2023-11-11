@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+import sys
+import traceback
+from typing import Callable, Iterable, Iterator
+import i3ipc as i3  # type: ignore
+
+
+class Connection(i3.Connection):
+    def __init__(self, *nargs, **kwargs) -> None:
+        super().__init__(*nargs, **kwargs)
+        self.reply: dict[str, Callable[[list[str]], Iterator[str]]] = dict()
+        self.on(i3.Event.TICK, Connection._handle_event_tick)
+
+    def execute(self, commands: Iterable[str]) -> None:
+        """Execute the commands in the given iterator by sending it to i3/sway 
+        combined into one message, with any errors shown in stderr."""
+        try:
+            payload = "; ".join(commands)
+            if payload:
+                reply = self.command(payload)
+                result = reply[0].ipc_data
+                if not result["success"]:
+                    raise RuntimeError(
+                        f"An error occurred for '{payload}': "
+                        f"{result['error']}")
+        except Exception:
+            print(traceback.format_exc(), file=sys.stderr)
+            raise
+
+    def _handle_event_tick(self, event: i3.TickEvent) -> None:
+        """The tick event is used to avoid having to reimplement inter-process 
+        communication: we can just use `i3msg`/`swaymsg -t send_tick message` 
+        to pass a message to this process."""
+        message = event.payload.split()
+
+        try:  # Ignore messages not meant for halfwm
+            if message[0] != "halfwm":
+                return
+        except IndexError:
+            return
+
+        command, args = message[1], message[2:]
+        self.execute(self.reply[command](args))
+
+    def handle_event(self, event: i3.Event) \
+            -> Callable[[Callable[[i3.IpcBaseEvent], Iterator[str]]], None]:
+        """Creates a decorator that makes i3/sway execute the messages produced 
+        by the original function when the given event occurs."""
+        def decorator(fn: Callable[[i3.IpcBaseEvent], Iterator[str]]) -> None:
+            self.on(event, lambda conn, event: conn.execute(fn(event)))
+        return decorator
+
+    def handle_message(self, command: str) -> \
+            Callable[[Callable[[list[str]], Iterator[str]]], None]:
+        """Creates a decorator that makes i3/sway execute the messages produced 
+        by the original function when the payload of the `tick` event starts 
+        with the given command."""
+        assert self.subscriptions & i3.Event.TICK
+
+        def decorator(fn: Callable[[list[str]], Iterator[str]]) -> None:
+            self.reply[command] = fn
+        return decorator
+
+
+if __name__ == "__main__":
+    conn = Connection(auto_reconnect=True)
+
+    @conn.handle_event(i3.Event.WINDOW_NEW)
+    def new_window(event: i3.Event) -> Iterator[str]:
+        ...
+
+    @conn.handle_message("push")
+    def push(args: list[str]) -> Iterator[str]:
+        ...
+
+    conn.main()
