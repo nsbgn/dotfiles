@@ -6,8 +6,14 @@ import i3ipc as i3  # type: ignore
 
 
 class Connection(i3.Connection):
-    def __init__(self, *nargs, **kwargs) -> None:
+    """Extend `i3ipc`'s `Connection`s with a more ergonomic interface. In 
+    particular, the tick event is used to avoid having to reimplement 
+    inter-process communication: we can just use `i3msg -t send_tick prefix 
+    message` (or `swaymsg`) to pass a message to this process."""
+
+    def __init__(self, prefix: str, *nargs, **kwargs) -> None:
         super().__init__(*nargs, **kwargs)
+        self.prefix: str = prefix
         self.reply: dict[str, Callable[[list[str]], Iterator[str]]] = dict()
         self.on(i3.Event.TICK, Connection._handle_event_tick)
 
@@ -28,19 +34,10 @@ class Connection(i3.Connection):
             raise
 
     def _handle_event_tick(self, event: i3.TickEvent) -> None:
-        """The tick event is used to avoid having to reimplement inter-process 
-        communication: we can just use `i3msg`/`swaymsg -t send_tick message` 
-        to pass a message to this process."""
-        message = event.payload.split()
-
-        try:  # Ignore messages not meant for halfwm
-            if message[0] != "halfwm":
-                return
-        except IndexError:
-            return
-
-        command, args = message[1], message[2:]
-        self.execute(self.reply[command](args))
+        msg = event.payload.split()
+        if len(msg) > 1 and msg[0] == self.prefix:  # only relevant messages
+            command, args = msg[1], msg[2:]
+            self.execute(self.reply[command](args))
 
     def handle_event(self, event: i3.Event) \
             -> Callable[[Callable[[i3.IpcBaseEvent], Iterator[str]]], None]:
@@ -55,15 +52,13 @@ class Connection(i3.Connection):
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the payload of the `tick` event starts 
         with the given command."""
-        assert self.subscriptions & i3.Event.TICK
-
         def decorator(fn: Callable[[list[str]], Iterator[str]]) -> None:
             self.reply[command] = fn
         return decorator
 
 
 if __name__ == "__main__":
-    conn = Connection(auto_reconnect=True)
+    conn = Connection(prefix="halfwm", auto_reconnect=True)
 
     @conn.handle_event(i3.Event.WINDOW_NEW)
     def new_window(event: i3.Event) -> Iterator[str]:
