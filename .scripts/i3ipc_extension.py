@@ -38,12 +38,16 @@ class Connection(i3.Connection):
             command, args = msg[1], msg[2:]
             self.execute(self.reply[command](args))
 
-    def handle_event(self, event: i3.Event) \
+    def handle_event(self, *events: i3.Event) \
             -> Callable[[Callable[[i3.IpcBaseEvent], Iterator[str]]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the given event occurs."""
         def decorator(fn: Callable[[i3.IpcBaseEvent], Iterator[str]]) -> None:
-            self.on(event, lambda conn, event: conn.execute(fn(event)))
+            def handler(conn, event):
+                conn.execute(fn(event))
+
+            for e in events:
+                self.on(e, handler)
         return decorator
 
     def handle_message(self, command: str) -> \
