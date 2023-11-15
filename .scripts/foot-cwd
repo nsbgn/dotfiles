@@ -42,4 +42,4 @@ foot_cwd(){
 }
 
 foot_cwd $(swaymsg -t get_tree | jq -r 'recurse((.nodes + .floating_nodes)[]) | select(.focused) |
-    "\(.pid) \(.app_id) foot-\(now)"') "$@" || footclient
+    "\(.pid) \(.app_id) foot-\(now)"') "$@"
