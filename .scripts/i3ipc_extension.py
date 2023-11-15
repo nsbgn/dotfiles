@@ -2,6 +2,7 @@ import sys
 import traceback
 from typing import Callable, Iterable, Iterator
 import i3ipc as i3  # type: ignore
+from i3ipc.events import IpcBaseEvent
 
 
 class Connection(i3.Connection):
@@ -42,10 +43,10 @@ class Connection(i3.Connection):
                 self.execute(reaction)
 
     def handle_event(self, *events: i3.Event) \
-            -> Callable[[Callable[[i3.IpcBaseEvent], Iterator[str]]], None]:
+            -> Callable[[Callable[[IpcBaseEvent], Iterator[str]]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the given event occurs."""
-        def dec(fn: Callable[[i3.IpcBaseEvent], Iterator[str] | None]) -> None:
+        def dec(fn: Callable[[IpcBaseEvent], Iterator[str] | None]) -> None:
             def handler(conn, event):
                 reaction = fn(event)
                 if reaction:
