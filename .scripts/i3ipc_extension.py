@@ -13,7 +13,8 @@ class Connection(i3.Connection):
     def __init__(self, prefix: str, *nargs, **kwargs) -> None:
         super().__init__(*nargs, **kwargs)
         self.prefix: str = prefix
-        self.reply: dict[str, Callable[[list[str]], Iterator[str]]] = dict()
+        self.reply: dict[str, Callable[[list[str]], Iterator[str] | None]] \
+            = dict()
         self.on(i3.Event.TICK, Connection._handle_event_tick)
 
     def execute(self, commands: Iterable[str]) -> None:
@@ -36,25 +37,29 @@ class Connection(i3.Connection):
         msg = event.payload.split()
         if len(msg) > 1 and msg[0] == self.prefix:  # only relevant messages
             command, args = msg[1], msg[2:]
-            self.execute(self.reply[command](args))
+            reaction = self.reply[command](args)
+            if reaction:
+                self.execute(reaction)
 
     def handle_event(self, *events: i3.Event) \
             -> Callable[[Callable[[i3.IpcBaseEvent], Iterator[str]]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the given event occurs."""
-        def decorator(fn: Callable[[i3.IpcBaseEvent], Iterator[str]]) -> None:
+        def dec(fn: Callable[[i3.IpcBaseEvent], Iterator[str] | None]) -> None:
             def handler(conn, event):
-                conn.execute(fn(event))
+                reaction = fn(event)
+                if reaction:
+                    conn.execute(reaction)
 
             for e in events:
                 self.on(e, handler)
-        return decorator
+        return dec
 
     def handle_message(self, command: str) -> \
             Callable[[Callable[[list[str]], Iterator[str]]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the payload of the `tick` event starts 
         with the given command."""
-        def decorator(fn: Callable[[list[str]], Iterator[str]]) -> None:
+        def decorator(fn: Callable[[list[str]], Iterator[str] | None]) -> None:
             self.reply[command] = fn
         return decorator
