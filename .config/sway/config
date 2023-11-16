@@ -1,7 +1,7 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
 set $meta Mod4
 set $fn Mod4+Ctrl
-set $pwm swaymsg -t send_tick pilingwm
+set $hwm swaymsg -t send_tick halfwm
 
 exec dbus-update-activation-environment --verbose --systemd --all
 # exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -144,11 +144,11 @@ bindsym $fn+Shift+b floating toggle
 
 # ROW 1 RIGHT ################################################################
 
-bindsym $fn+y exec "$pwm mark_focus y"
-bindsym $fn+u exec "$pwm mark_focus u"
-bindsym $fn+i exec "$pwm mark_focus i"
-bindsym $fn+o exec "$pwm mark_focus o"
-bindsym $fn+p exec "$pwm mark_focus p"
+# bindsym $fn+y exec "$pwm mark_focus y"
+# bindsym $fn+u exec "$pwm mark_focus u"
+# bindsym $fn+i exec "$pwm mark_focus i"
+# bindsym $fn+o exec "$pwm mark_focus o"
+# bindsym $fn+p exec "$pwm mark_focus p"
 
 # ROW 2 RIGHT ################################################################
 
@@ -165,15 +165,15 @@ bindsym $fn+l focus right
 #bindsym $fn+Shift+l swap next
 #bindsym $fn+l exec "$pwm mark_focus l"
 
-bindsym $fn+semicolon exec "$pwm mark_focus k"
+# bindsym $fn+semicolon exec "$pwm mark_focus k"
 
 # ROW 3 RIGHT ################################################################
 
-bindsym $fn+n exec "$pwm mark_focus n"
+# bindsym $fn+n exec "$pwm mark_focus n"
 
 #bindsym $fn+m exec "$pwm mark_focus m"
-bindsym $fn+m exec "$pwm pile_focus_shift"
-bindsym $fn+Shift+m exec "$pwm toggle_aux"
+# bindsym $fn+m exec "$pwm pile_focus_shift"
+# bindsym $fn+Shift+m exec "$pwm toggle_aux"
 
 bindsym $fn+comma workspace prev_on_output
 # bindsym $fn+comma exec "$pwm win_focus_prev"
@@ -182,7 +182,7 @@ bindsym $fn+Shift+comma move container to workspace prev_on_output
 bindsym $fn+period workspace next_on_output
 bindsym $fn+Shift+period move container to workspace next_on_output
 
-bindsym $fn+backslash exec "$pwm new_workspace"
+# bindsym $fn+backslash exec "$pwm new_workspace"
 
 bindsym $fn+space floating toggle
 
