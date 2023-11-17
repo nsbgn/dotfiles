@@ -17,6 +17,7 @@ alias ls="ls --color=always"
 alias du="ncdu"
 alias yt="yt-dlp --embed-metadata --embed-subs --embed-thumbnail"
 alias yt-sub="yt-dlp --all-subs --convert-subs srt --skip-download"
+alias yt-audio="yt-dlp -f 'ba[acodec=opus]' -S +size"
 alias flac2mp3="parallel ffmpeg -i {} -qscale:a 2 {.}.mp3 ::: ./*.flac"
 alias rss="newsboat -r -u <(gojq --yaml-input -r '.content[].rss // empty' $HOME/notes/web/*.yaml)"
 
