@@ -1,5 +1,6 @@
 import sys
 import traceback
+from time import time
 from typing import Callable, Iterable, Iterator
 import i3ipc as i3  # type: ignore
 from i3ipc.events import IpcBaseEvent
@@ -17,6 +18,8 @@ class Connection(i3.Connection):
         self.reply: dict[str, Callable[[list[str]], Iterator[str] | None]] \
             = dict()
         self.on(i3.Event.TICK, Connection._handle_event_tick)
+        self.last_msg_command: list[str] = []
+        self.last_msg_time: float = time()
 
     def execute(self, commands: Iterable[str]) -> None:
         """Execute the commands in the given iterator by sending it to i3/sway 
@@ -37,6 +40,8 @@ class Connection(i3.Connection):
     def _handle_event_tick(self, event: i3.TickEvent) -> None:
         msg = event.payload.split()
         if len(msg) > 1 and msg[0] == self.prefix:  # only relevant messages
+            self.last_msg_command = msg
+            self.last_msg_time = time()
             command, args = msg[1], msg[2:]
             reaction = self.reply[command](args)
             if reaction:
