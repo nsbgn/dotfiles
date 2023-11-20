@@ -3,7 +3,7 @@ import traceback
 from time import time
 from typing import Callable, Iterable, Iterator
 import i3ipc as i3  # type: ignore
-from i3ipc.events import IpcBaseEvent
+from i3ipc.events import IpcBaseEvent  # type: ignore
 
 
 class Connection(i3.Connection):
@@ -15,7 +15,7 @@ class Connection(i3.Connection):
     def __init__(self, prefix: str, *nargs, **kwargs) -> None:
         super().__init__(*nargs, **kwargs)
         self.prefix: str = prefix
-        self.reply: dict[str, Callable[[list[str]], Iterator[str] | None]] \
+        self.reply: dict[str, Callable[..., Iterator[str] | None]] \
             = dict()
         self.on(i3.Event.TICK, Connection._handle_event_tick)
         self.last_msg_command: list[str] = []
@@ -43,7 +43,7 @@ class Connection(i3.Connection):
             self.last_msg_command = msg
             self.last_msg_time = time()
             command, args = msg[1], msg[2:]
-            reaction = self.reply[command](args)
+            reaction = self.reply[command](*args)
             if reaction:
                 self.execute(reaction)
 
@@ -62,10 +62,10 @@ class Connection(i3.Connection):
         return dec
 
     def handle_message(self, command: str) -> \
-            Callable[[Callable[[list[str]], Iterator[str]]], None]:
+            Callable[[Callable[..., Iterator[str]]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the payload of the `tick` event starts 
         with the given command."""
-        def decorator(fn: Callable[[list[str]], Iterator[str] | None]) -> None:
+        def decorator(fn: Callable[..., Iterator[str] | None]) -> None:
             self.reply[command] = fn
         return decorator
