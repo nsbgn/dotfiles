@@ -20,6 +20,7 @@ alias yt-sub="yt-dlp --all-subs --convert-subs srt --skip-download"
 alias yt-audio="yt-dlp -f 'ba[acodec=opus]' -S +size"
 alias flac2mp3="parallel ffmpeg -i {} -qscale:a 2 {.}.mp3 ::: ./*.flac"
 alias rss="newsboat -r -u <(gojq --yaml-input -r '.content[].rss // empty' $HOME/notes/web/*.yaml)"
+alias hwm="swaymsg -t send_tick halfwm"
 
 # https://www.techspeak.dev/2019/01/14/improve-your-git-flow-with-fuzzy-find.html
 alias gfzf="git ls-files -m -o --exclude-standard | fzf --print0 -m -1 | xargs -0 -t -o"
