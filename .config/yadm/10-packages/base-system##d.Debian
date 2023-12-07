@@ -74,6 +74,7 @@ PACKAGES=(
     ncdu # See size of directories
     network-manager # Network
     offlineimap3 # Offline syncer for IMAP email
+    otpclient otpclient-cli # TOTP authentication
     pandoc # Document converter
     parallel # Execute commands in parallel
     pass # Simple password manager based on gnupg
