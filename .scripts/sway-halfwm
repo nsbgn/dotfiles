@@ -133,5 +133,6 @@ def swap(direction: Literal['previous', 'next']) -> Iterator[str]:
 #     # elif x == 'second':
 #     #     yield ''
 
-
-conn.main()
+if __name__ == "__main__":
+    conn.send_tick("halfwm exit")
+    conn.main()

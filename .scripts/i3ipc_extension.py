@@ -43,6 +43,11 @@ class Connection(i3.Connection):
             self.last_msg_command = msg
             self.last_msg_time = time()
             command, args = msg[1], msg[2:]
+
+            if command == "exit":
+                self.main_quit()
+                exit()
+
             reaction = self.reply[command](*args)
             if reaction:
                 self.execute(reaction)
