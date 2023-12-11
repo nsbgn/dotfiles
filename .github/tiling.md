@@ -13,9 +13,10 @@ automatically, let's go for a simpler approach:
 
 -   By default, each window opens in *floating* mode.
 -   Every desktop can have between 0 and 2 windows *tiled*. If there's 
-    only one tile, its window is maximized; if there's two, there'll be 
-    a window on the first half and one on the second half. Tiling is 
-    done horizontally if the aspect ratio exceeds 1, and vertically 
+    only one tile, its window is centered and at its preferred size, 
+    which is maximized by default; if there's two, there'll be a window 
+    on the first half and one on the second half. Tiling is done 
+    horizontally if the aspect ratio exceeds 1, and vertically 
     otherwise. They both have a dedicated shortcut. A tiled window that 
     has focus is called *active*; the other one is called the 
     *reference* or *auxiliary*.
@@ -24,6 +25,10 @@ automatically, let's go for a simpler approach:
     they obscure the active window.
 -   Opening back minimized windows should work according to a recency 
     list.
+-   Every window class has a preferred width and height. For example, if 
+    the preferred width of Firefox is 100%/200px and the preferred width 
+    of foot is 20%/1000px, then if you place them side by side, foot 
+    will be 1000px and Firefox 100%-1000px.
 -   One button for each half of the screen. Pressing them both toggles 
     maximization (ie single/dual pane view).
 -   Intuitiveness:
@@ -73,6 +78,10 @@ first and second tiled windows are the same.
     window `f`. In **floating** mode, minimize `t` and put `f` in its 
     place, which puts you in tiling mode. In **tiling** mode, swap `t` 
     and `f`.
+
+`M-S-j+k`
+:   Minimize the tiling windows and put the current floating window in 
+its place on both sides.
 
 `M-{h,l}`
 :   In **floating** mode, cycle focus forward through floating windows. 

@@ -144,10 +144,10 @@ bindsym $fn+Shift+b floating toggle
 
 # ROW 1 RIGHT ################################################################
 
-# bindsym $fn+y exec "$pwm mark_focus y"
+# bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
-# bindsym $fn+i exec "$pwm mark_focus i"
-# bindsym $fn+o exec "$pwm mark_focus o"
+bindsym $fn+i exec "$hwm swap prev"
+bindsym $fn+o exec "$hwm swap next"
 # bindsym $fn+p exec "$pwm mark_focus p"
 
 # ROW 2 RIGHT ################################################################
