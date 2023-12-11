@@ -10,6 +10,8 @@ exec dbus-update-activation-environment --verbose --systemd --all
 #exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id lxpolkit
 
+exec sway-halfwm
+
 exec foot --server
 exec gammastep -O 5500K
 # exec wvkbd-mobintl --hidden
