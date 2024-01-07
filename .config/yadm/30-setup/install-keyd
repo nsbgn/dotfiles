@@ -46,6 +46,38 @@ rightshift = layer(meta)
 # layerm(meta, menu)
 capslock = backspace
 [ = backslash
+compose = enter
+rightcontrol = enter
+
+# Shift right hand one key to the right
+
+y = noop
+h = noop
+n = noop
+
+u = y
+j = h
+m = n
+
+i = u
+k = j
+, = m
+
+o = i
+l = k
+. = ,
+
+p = o
+; = l
+/ = .
+
+[ = p
+' = ;
+rightshift = /
+
+] = backslash
+enter = '
+
 
 [colemakdh]
 q = q
@@ -87,41 +119,45 @@ w = [
 e = +
 r = #
 t = ]
-y = ^
-u = 7
-i = 8
-o = 9
-p = oneshotm(symbol2, .)
-[ = @
+
+u = ^
+i = 7
+o = 8
+p = 9
+[ = oneshotm(symbol2, .)
+] = @
 
 a = *
 s = (
 d = -
 f = =
 g = )
-h = ~
-j = 4
-k = 5
-l = 6
-; = 0
-' = grave
+
+j = ~
+k = 4
+l = 5
+; = 6
+' = 0
+enter = grave
 
 z = &
 x = {
 c = $
 v = _
 b = }
-n = %
-m = 1
-, = 2
-. = 3
-/ = /
+
+m = %
+, = 1
+. = 2
+/ = 3
+rightshift = /
 
 [symbol2]
 p = macro(backspace :)
 
 # Not using [fn:M-C] because it should be the same regardless of the currently 
 # active layout
+
 [fn]
 capslock = backspace
 tab = delete
@@ -144,24 +180,28 @@ c = M-C-c
 v = M-C-v
 b = M-C-b
 
-y = M-C-y
-u = M-C-u
-i = M-C-i
-o = M-C-o
-p = M-C-p
+# y = M-C-y
+u = M-C-y
+i = M-C-u
+o = M-C-i
+p = M-C-o
+[ = M-C-p
+] = M-C-backslash
 
-h = M-C-h
-j = M-C-j
-k = M-C-k
-l = M-C-l
-; = M-C-;
-' = M-C-'
+# h = M-C-h
+j = M-C-h
+k = M-C-j
+l = M-C-k
+; = M-C-l
+' = M-C-;
+enter = M-C-'
 
-n = M-C-n
-m = M-C-m
-, = M-C-,
-. = M-C-.
-/ = M-C-/
+# n = M-C-n
+m = M-C-n
+, = M-C-m
+. = M-C-/
+/ = M-C-.
+rightshift = M-C-/
 
 [fn+symbol]
 
