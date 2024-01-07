@@ -57,7 +57,8 @@ y = j
 u = l
 i = u
 o = y
-p = colon
+p = ;
+[ = backslash
 
 a = a
 s = r
