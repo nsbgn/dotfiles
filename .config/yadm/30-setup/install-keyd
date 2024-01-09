@@ -46,7 +46,7 @@ rightshift = layer(meta)
 # layerm(meta, menu)
 capslock = backspace
 [ = backslash
-compose = enter
+compose = overload(alt, enter)
 rightcontrol = enter
 
 # Shift right hand one key to the right
@@ -155,12 +155,17 @@ rightshift = /
 [symbol2]
 p = macro(backspace :)
 
+[alt]
+leftalt = overload(fn, leftmeta)
+
 # Not using [fn:M-C] because it should be the same regardless of the currently 
 # active layout
 
 [fn]
 capslock = backspace
 tab = delete
+compose = overload(alt, leftmeta)
+rightcontrol = overload(alt, leftmeta)
 
 q = home
 w = up
