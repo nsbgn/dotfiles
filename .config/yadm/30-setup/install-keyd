@@ -49,6 +49,9 @@ capslock = backspace
 compose = overload(alt, enter)
 rightcontrol = enter
 
+z = lettermod(control, z, 100, 200)
+x = lettermod(alt, x, 100, 200)
+
 # Shift right hand one key to the right
 
 y = noop
@@ -69,11 +72,11 @@ l = k
 
 p = o
 ; = l
-/ = .
+/ = lettermod(alt, ., 100, 200)
 
 [ = p
 ' = ;
-rightshift = /
+rightshift = lettermod(control, /, 100, 200)
 
 ] = backslash
 enter = '
