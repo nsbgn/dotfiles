@@ -160,6 +160,7 @@ p = macro(backspace :)
 
 [alt]
 leftalt = overload(fn, leftmeta)
+space = compose
 
 # Not using [fn:M-C] because it should be the same regardless of the currently 
 # active layout
@@ -169,6 +170,7 @@ capslock = backspace
 tab = delete
 compose = overload(alt, leftmeta)
 rightcontrol = overload(alt, leftmeta)
+space = swap(shift)
 
 q = home
 w = up
