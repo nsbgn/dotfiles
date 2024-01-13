@@ -88,31 +88,35 @@ w = w
 e = f
 r = p
 t = b
-y = j
-u = l
-i = u
-o = y
-p = ;
-[ = backslash
+u = j
+i = l
+o = u
+p = y
+[ = ;
+] = backslash
 
 a = a
 s = r
 d = s
 f = t
 g = g
-h = m
-j = n
-k = e
-l = i
-; = o
+j = m
+k = n
+l = e
+; = i
+' = o
+enter = '
 
 z = z
 x = x
 c = c
 v = d
 b = v
-n = k
-m = h
+m = k
+, = h
+. = ,
+/ = .
+rightshift = /
 
 [symbol]
 leftshift = swap(shift)
@@ -253,26 +257,25 @@ c = sound
 v = record
 b = noop
 
+u = scrolllock
+i = f7
+o = f8
+p = f9
+[ = f12
+] = toggle(colemakdh)
 
-y = scrolllock
-u = f7
-i = f8
-o = f9
-p = f12
-[ = toggle(colemakdh)
+j = print
+k = f4
+l = f5
+; = f6
+apostrophe = f11
+enter = insert
 
-h = print
-j = f4
-k = f5
-l = f6
-semicolon = f11
-apostrophe = insert
-
-n = pause
-m = f3
-, = f2
-. = f1
-/ = f10
+m = pause
+, = f3
+. = f2
+/ = f1
+rightshift = f10
 EOF
 
 sudo keyd reload
