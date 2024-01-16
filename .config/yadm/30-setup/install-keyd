@@ -37,23 +37,23 @@ overload_tap_timeout = 300
 oneshot_timeout = 1000
 
 [main]
-leftalt = overload(fn, escape)
+
+leftshift = oneshot(shift)
 leftcontrol = overload(control, compose)
 leftmeta = overload(alt, compose)
+
+# Thumb keys
+leftalt = overload(fnL, escape)
 rightalt = oneshot(symbol)
-leftshift = oneshot(shift)
-rightshift = layer(meta)
-# layerm(meta, menu)
-capslock = backspace
-[ = backslash
-compose = overload(alt, enter)
-rightcontrol = enter
+compose = overload(fnR, enter)
+rightcontrol = overload(fnR, enter)
 
 z = lettermod(control, z, 100, 200)
 x = lettermod(alt, x, 100, 200)
 
 # Shift right hand one key to the right
 
+capslock = backspace
 y = noop
 h = noop
 n = noop
@@ -160,28 +160,65 @@ m = %
 rightshift = /
 
 [symbol2]
-p = macro(backspace :)
+[ = macro(backspace :)
 
-[alt]
-leftalt = overload(fn, leftmeta)
-space = compose
+# Not using [fn_:M-C] because it should be the same regardless of active layout
 
-# Not using [fn:M-C] because it should be the same regardless of the currently 
-# active layout
+[fnR]
+leftalt = overload(fnL, leftmeta)
+space = togglem(fnR, compose)
 
-[fn]
-capslock = backspace
-tab = delete
-compose = overload(alt, leftmeta)
-rightcontrol = overload(alt, leftmeta)
+q = M-C-q
+w = M-C-w
+e = M-C-e
+r = M-C-r
+t = M-C-t
+
+a = M-C-a
+s = M-C-s
+d = M-C-d
+f = M-C-f
+g = M-C-g
+
+z = M-C-z
+x = M-C-x
+c = M-C-c
+v = M-C-v
+b = M-C-b
+
+u = M-C-y
+i = M-C-u
+o = M-C-i
+p = M-C-o
+[ = M-C-p
+] = M-C-backslash
+
+j = M-C-h
+k = M-C-j
+l = M-C-k
+; = M-C-l
+' = M-C-;
+enter = M-C-'
+
+m = M-C-n
+, = M-C-m
+. = M-C-/
+/ = M-C-.
+rightshift = M-C-/
+
+[fnL]
+compose = overload(fnR, leftmeta)
+rightcontrol = overload(fnR, leftmeta)
 space = swap(shift)
 
+tab = delete
 q = home
 w = up
 e = end
 r = pageup
 t = M-C-t
 
+capslock = backspace
 a = left
 s = down
 d = right
@@ -194,7 +231,6 @@ c = M-C-c
 v = M-C-v
 b = M-C-b
 
-# y = M-C-y
 u = M-C-y
 i = M-C-u
 o = M-C-i
@@ -202,7 +238,6 @@ p = M-C-o
 [ = M-C-p
 ] = M-C-backslash
 
-# h = M-C-h
 j = M-C-h
 k = M-C-j
 l = M-C-k
@@ -210,7 +245,6 @@ l = M-C-k
 ' = M-C-;
 enter = M-C-'
 
-# n = M-C-n
 m = M-C-n
 , = M-C-m
 . = M-C-/
