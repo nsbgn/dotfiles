@@ -113,6 +113,15 @@ m = k
 / = .
 rightshift = /
 
+# Bare control/alt presses are still possible
+[control]
+z = timeout(C-z, 400, leftcontrol)
+rightshift = timeout(C-/, 400, rightcontrol)
+
+[alt]
+x = timeout(A-x, 400, leftalt)
+/ = timeout(A-., 400, rightalt)
+
 [symbol]
 leftshift = swap(shift)
 rightshift = swap(shift)
@@ -157,53 +166,13 @@ rightshift = /
 [symbol2]
 [ = macro(backspace :)
 
-# Not using [fn_:M-C] because it should be the same regardless of active layout
 
-[fnR]
-leftalt = overload(fnL, leftmeta)
-space = togglem(fnR, compose)
+[fnL:M]
+# Still allow bare presses of meta key by combining them
+rightcontrol = overload(fnR, rightmeta)
+compose = overload(fnR, rightmeta)
 
-q = M-q
-w = M-w
-e = M-e
-r = M-r
-t = M-t
-
-a = M-a
-s = M-s
-d = M-d
-f = M-f
-g = M-g
-
-z = M-z
-x = M-x
-c = M-c
-v = M-v
-b = M-b
-
-u = M-y
-i = M-u
-o = M-i
-p = M-o
-[ = M-p
-] = M-backslash
-
-j = M-h
-k = M-j
-l = M-k
-; = M-l
-' = M-;
-enter = M-'
-
-m = M-n
-, = M-m
-. = M-/
-/ = M-.
-rightshift = M-/
-
-[fnL]
-compose = overload(fnR, leftmeta)
-rightcontrol = overload(fnR, leftmeta)
+# TODO
 space = swap(shift)
 
 tab = delete
@@ -211,43 +180,50 @@ q = home
 w = up
 e = end
 r = pageup
-t = M-t
 
 capslock = backspace
 a = left
 s = down
 d = right
 f = pagedown
-g = M-g
 
-z = M-z
-x = M-x
-c = M-c
-v = M-v
-b = M-b
 
-u = M-y
-i = M-u
-o = M-i
-p = M-o
-[ = M-p
-] = M-backslash
+[fnR:M]
+# Still allow bare presses of meta key by combining them
+leftalt = overload(fnL, leftmeta)
 
-j = M-h
-k = M-j
-l = M-k
-; = M-l
-' = M-;
-enter = M-'
+# TODO
+space = togglem(fnR, compose)
 
-m = M-n
-, = M-m
-. = M-/
-/ = M-.
-rightshift = M-/
+u = scrolllock
+i = f7
+o = f8
+p = f9
+[ = f12
+] = insert
 
-[fn+symbol]
+j = sysrq
+k = f4
+l = f5
+; = f6
+apostrophe = f11
+enter = print
 
+m = pause
+, = f3
+. = f2
+/ = f1
+rightshift = f10
+
+
+# Layouts are very hard to accidentally toggle this way
+[fnL+fnR]
+space = toggle(colemakdh)
+rightalt = toggle(colemakdh)
+capslock = capslock
+
+
+[extra]
 # XF86WLAN / 0xf6. See also rfkill for XF86RFKill
 tab = wlan
 # XF86AudioPrev
@@ -286,25 +262,7 @@ c = sound
 v = record
 b = noop
 
-u = scrolllock
-i = f7
-o = f8
-p = f9
-[ = f12
-] = toggle(colemakdh)
 
-j = print
-k = f4
-l = f5
-; = f6
-apostrophe = f11
-enter = insert
-
-m = pause
-, = f3
-. = f2
-/ = f1
-rightshift = f10
 EOF
 
 sudo keyd reload
