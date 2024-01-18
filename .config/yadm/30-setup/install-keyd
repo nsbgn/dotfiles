@@ -211,7 +211,7 @@ q = home
 w = up
 e = end
 r = pageup
-t = M-C-t
+t = M-t
 
 capslock = backspace
 a = left
