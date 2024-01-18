@@ -37,10 +37,9 @@ overload_tap_timeout = 300
 oneshot_timeout = 1000
 
 [main]
-
 leftshift = oneshot(shift)
-leftcontrol = overload(control, compose)
-leftmeta = overload(alt, compose)
+leftcontrol = oneshot(control)
+leftmeta = oneshot(alt)
 
 # Thumb keys
 leftalt = overload(fnL, escape)
@@ -48,39 +47,35 @@ rightalt = oneshot(symbol)
 compose = overload(fnR, enter)
 rightcontrol = overload(fnR, enter)
 
+# Overloads
 z = lettermod(control, z, 100, 200)
 x = lettermod(alt, x, 100, 200)
-
-# Shift right hand one key to the right
-
-capslock = backspace
-y = noop
-h = noop
-n = noop
-
-u = y
-j = h
-m = n
-
-i = u
-k = j
-, = m
-
-o = i
-l = k
-. = ,
-
-p = o
-; = l
 / = lettermod(alt, ., 100, 200)
-
-[ = p
-' = ;
 rightshift = lettermod(control, /, 100, 200)
 
+capslock = backspace
+
+# Shift right hand one key to the right
+y = noop
+u = y
+i = u
+o = i
+p = o
+[ = p
 ] = backslash
+
+h = noop
+j = h
+k = j
+l = k
+; = l
+' = ;
 enter = '
 
+n = noop
+m = n
+, = m
+. = ,
 
 [colemakdh]
 q = q
@@ -168,43 +163,43 @@ rightshift = /
 leftalt = overload(fnL, leftmeta)
 space = togglem(fnR, compose)
 
-q = M-C-q
-w = M-C-w
-e = M-C-e
-r = M-C-r
-t = M-C-t
+q = M-q
+w = M-w
+e = M-e
+r = M-r
+t = M-t
 
-a = M-C-a
-s = M-C-s
-d = M-C-d
-f = M-C-f
-g = M-C-g
+a = M-a
+s = M-s
+d = M-d
+f = M-f
+g = M-g
 
-z = M-C-z
-x = M-C-x
-c = M-C-c
-v = M-C-v
-b = M-C-b
+z = M-z
+x = M-x
+c = M-c
+v = M-v
+b = M-b
 
-u = M-C-y
-i = M-C-u
-o = M-C-i
-p = M-C-o
-[ = M-C-p
-] = M-C-backslash
+u = M-y
+i = M-u
+o = M-i
+p = M-o
+[ = M-p
+] = M-backslash
 
-j = M-C-h
-k = M-C-j
-l = M-C-k
-; = M-C-l
-' = M-C-;
-enter = M-C-'
+j = M-h
+k = M-j
+l = M-k
+; = M-l
+' = M-;
+enter = M-'
 
-m = M-C-n
-, = M-C-m
-. = M-C-/
-/ = M-C-.
-rightshift = M-C-/
+m = M-n
+, = M-m
+. = M-/
+/ = M-.
+rightshift = M-/
 
 [fnL]
 compose = overload(fnR, leftmeta)
@@ -223,33 +218,33 @@ a = left
 s = down
 d = right
 f = pagedown
-g = M-C-g
+g = M-g
 
-z = M-C-z
-x = M-C-x
-c = M-C-c
-v = M-C-v
-b = M-C-b
+z = M-z
+x = M-x
+c = M-c
+v = M-v
+b = M-b
 
-u = M-C-y
-i = M-C-u
-o = M-C-i
-p = M-C-o
-[ = M-C-p
-] = M-C-backslash
+u = M-y
+i = M-u
+o = M-i
+p = M-o
+[ = M-p
+] = M-backslash
 
-j = M-C-h
-k = M-C-j
-l = M-C-k
-; = M-C-l
-' = M-C-;
-enter = M-C-'
+j = M-h
+k = M-j
+l = M-k
+; = M-l
+' = M-;
+enter = M-'
 
-m = M-C-n
-, = M-C-m
-. = M-C-/
-/ = M-C-.
-rightshift = M-C-/
+m = M-n
+, = M-m
+. = M-/
+/ = M-.
+rightshift = M-/
 
 [fn+symbol]
 
