@@ -113,6 +113,8 @@ m = k
 / = .
 rightshift = /
 
+[empty]
+
 # Bare control/alt presses are still possible
 [control]
 z = timeout(C-z, 400, leftcontrol)
@@ -124,7 +126,6 @@ x = timeout(A-x, 400, leftalt)
 
 [symbol]
 leftshift = swap(shift)
-rightshift = swap(shift)
 q = !
 w = [
 e = +
@@ -172,8 +173,7 @@ rightshift = /
 rightcontrol = overload(fnR, rightmeta)
 compose = overload(fnR, rightmeta)
 
-# TODO
-space = swap(shift)
+space = swapm(empty, compose)
 
 tab = delete
 q = home
@@ -191,9 +191,6 @@ f = pagedown
 [fnR:M]
 # Still allow bare presses of meta key by combining them
 leftalt = overload(fnL, leftmeta)
-
-# TODO
-space = togglem(fnR, compose)
 
 u = scrolllock
 i = f7
