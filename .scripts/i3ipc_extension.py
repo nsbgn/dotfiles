@@ -21,6 +21,11 @@ class Connection(i3.Connection):
         self.last_msg_command: list[str] = []
         self.last_msg_time: float = time()
 
+    def main(self) -> None:
+        # Auto-exit already running script with the same prefix
+        self.send_tick(f"{self.prefix} exit")
+        super().main()
+
     def execute(self, commands: Iterable[str]) -> None:
         """Execute the commands in the given iterator by sending it to i3/sway 
         combined into one message, with any errors shown in stderr."""
