@@ -52,8 +52,8 @@ class Connection(i3.Connection):
             if reaction:
                 self.execute(reaction)
 
-    def handle_event(self, *events: i3.Event) \
-            -> Callable[[Callable[[IpcBaseEvent], Iterator[str]]], None]:
+    def handle_event(self, *events: i3.Event) -> \
+            Callable[[Callable[[IpcBaseEvent], Iterator[str] | None]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the given event occurs."""
         def dec(fn: Callable[[IpcBaseEvent], Iterator[str] | None]) -> None:
@@ -67,7 +67,7 @@ class Connection(i3.Connection):
         return dec
 
     def handle_message(self, command: str) -> \
-            Callable[[Callable[..., Iterator[str]]], None]:
+            Callable[[Callable[..., Iterator[str] | None]], None]:
         """Creates a decorator that makes i3/sway execute the messages produced 
         by the original function when the payload of the `tick` event starts 
         with the given command."""
