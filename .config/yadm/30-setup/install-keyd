@@ -35,26 +35,9 @@ sudo tee /etc/keyd/default.conf > /dev/null <<EOF
 chord_timeout = 50
 overload_tap_timeout = 300
 oneshot_timeout = 1000
+default_layout = qwerty_shifted
 
-[main]
-leftshift = oneshot(shift)
-leftcontrol = oneshot(control)
-leftmeta = oneshot(alt)
-
-# Thumb keys
-leftalt = overload(fnL, escape)
-rightalt = oneshot(symbol)
-compose = overload(fnR, enter)
-rightcontrol = overload(fnR, enter)
-
-# Overloads
-z = lettermod(control, z, 100, 200)
-x = lettermod(alt, x, 100, 200)
-/ = lettermod(alt, ., 100, 200)
-rightshift = lettermod(control, /, 100, 200)
-
-capslock = backspace
-
+[qwerty_shifted:layout]
 # Shift right hand one key to the right
 y = noop
 u = y
@@ -72,12 +55,17 @@ l = k
 ' = ;
 enter = '
 
+z = lettermod(control, z, 100, 200)
+x = lettermod(alt, x, 100, 200)
+# ...
 n = noop
 m = n
 , = m
 . = ,
+/ = lettermod(alt, ., 100, 200)
+rightshift = lettermod(control, /, 100, 200)
 
-[colemakdh]
+[colemakdh_shifted:layout]
 q = q
 w = w
 e = f
@@ -102,27 +90,44 @@ l = e
 ' = o
 enter = '
 
-z = z
-x = x
+z = lettermod(control, z, 100, 200)
+x = lettermod(alt, x, 100, 200)
 c = c
 v = d
 b = v
 m = k
 , = h
 . = ,
-/ = .
-rightshift = /
+/ = lettermod(alt, ., 100, 200)
+rightshift = lettermod(control, /, 100, 200)
+
+
+[main]
+capslock = backspace
+leftshift = oneshot(shift)
+leftcontrol = oneshot(control)
+leftmeta = oneshot(alt)
+
+# Thumb keys
+leftalt = overload(fnL, escape)
+rightalt = oneshot(symbol)
+compose = overload(fnR, enter)
+rightcontrol = overload(fnR, enter)
+
 
 [empty]
+
 
 # Bare control/alt presses are still possible
 [control]
 z = timeout(C-z, 400, leftcontrol)
 rightshift = timeout(C-/, 400, rightcontrol)
 
+
 [alt]
 x = timeout(A-x, 400, leftalt)
 / = timeout(A-., 400, rightalt)
+
 
 [symbol]
 leftshift = swap(shift)
@@ -163,6 +168,7 @@ m = %
 . = 2
 / = 3
 rightshift = /
+
 
 [symbol2]
 [ = macro(backspace :)
@@ -217,9 +223,9 @@ rightshift = f10
 
 # Layouts are very hard to accidentally toggle this way
 [fnL+fnR]
-space = toggle(colemakdh)
-rightalt = toggle(colemakdh)
-capslock = capslock
+space = setlayout(qwerty_shifted)
+rightalt = setlayout(colemakdh_shifted)
+leftshift = capslock
 
 
 [extra]
