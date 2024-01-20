@@ -172,6 +172,7 @@ rightshift = /
 # Still allow bare presses of meta key by combining them
 rightcontrol = overload(fnR, rightmeta)
 compose = overload(fnR, rightmeta)
+leftshift = overload(shift, leftshift)
 
 space = swapm(empty, compose)
 
@@ -191,6 +192,7 @@ f = pagedown
 [fnR:M]
 # Still allow bare presses of meta key by combining them
 leftalt = overload(fnL, leftmeta)
+leftshift = overload(shift, rightshift)
 
 u = scrolllock
 i = f7
