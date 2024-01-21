@@ -63,6 +63,7 @@ PACKAGES=(
     jq # Parsing JSON
     jqp # Playground for gojq
     khal # TUI calendar
+    khard # TUI vcards
     kiwix # Offline reader
     latexdiff # Annotate changes in latex files
     lf # File browser
