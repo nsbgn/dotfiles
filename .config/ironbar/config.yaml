@@ -1,0 +1,39 @@
+anchor_to_edges: true
+icon_theme: Chicago95
+position: bottom
+start:
+- type: workspaces
+  all_monitors: false
+- show_icons: false
+  show_names: true
+  type: launcher
+end:
+- bar:
+  - label: 
+    name: power-btn
+    on_click: popup:toggle
+    type: button
+  class: power-menu
+  popup:
+  - orientation: vertical
+    type: box
+    widgets:
+    - label: Power menu
+      name: header
+      type: label
+    - type: box
+      widgets:
+      - class: power-btn
+        label: <span font-size='40pt'></span>
+        on_click: '!shutdown now'
+        type: button
+      - class: power-btn
+        label: <span font-size='40pt'></span>
+        on_click: '!reboot'
+        type: button
+    - label: 'Uptime: {{30000:uptime -p | cut -d '' '' -f2-}}'
+      name: uptime
+      type: label
+  tooltip: 'Up: {{30000:uptime -p | cut -d '' '' -f2-}}'
+  type: custom
+- type: clock
