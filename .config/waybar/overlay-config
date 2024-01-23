@@ -8,7 +8,7 @@
     "spacing": 5,
     "ipc": true,
     "id": "bar1",
-    "modules-left": ["sway/workspaces", "wlr/taskbar"],
+    "modules-left": ["custom/taskbar"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     "sway/workspaces": {
@@ -55,5 +55,10 @@
             "Firefox Web Browser": "Firefox",
             "Foot Server": "Terminal"
         }
-    }
+    },
+    "custom/taskbar": {
+        "exec": "i3ipc_taskbar.py",
+        "on-scroll-up": "swaymsg workspace prev",
+        "on-scroll-down": "swaymsg workspace next"
+    } //
 }
