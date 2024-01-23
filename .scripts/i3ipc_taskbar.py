@@ -26,6 +26,7 @@ import sys
 import os.path
 sys.path.append(os.path.expanduser('~/.scripts'))
 
+import html
 import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
 from typing import Iterator
@@ -52,7 +53,7 @@ def marks(*marks: str, open: bool = False) -> str:
 
 def window(win: i3.Con) -> str:
     assert win.type.endswith("con") and not (win.nodes or win.floating_nodes)
-    label = win.name
+    label = html.escape(win.name)
     if win.focused:
         return f'{marks(*win.marks, open=False)} <span underline="low" style="italic">{label}</span>'
     else:
