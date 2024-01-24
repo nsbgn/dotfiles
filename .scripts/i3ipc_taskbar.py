@@ -13,12 +13,11 @@
 
 # Unicode stuff:
 # Powerline symbols:  
-# Legacy computing; 🭮🭋🭛🭬
-# Dingbats: ❴❵ ❨❩ ❲❳ ❬❭
-# Maths: ⦃ ⦄ ⦆⦑⦁∘⧼⧽⧸⧹∙⋯
-# Box drawing: ┋
+# Legacy computing: 🭮🭋🭛🭬
+# ❴❵ ❨❩ ❲❳ ❬❭ ⦃ ⦄ ⦆⦑⦁∘⧼⧽⧸⧹∙⋯
+# ┋│
 # ⸨⸩⫽
-# ⭘
+# ⟨⟩
 # ⬤ (2b24) or ⭕ (2b55) or ⭘ (2b58) or *️⃣ or 🔲⬛
 # 🅐 (1F150) or Ⓐ  (24B6) or 🅰 (1F170) or 🄰 (1F130)
 
@@ -44,20 +43,37 @@ class Window(object):
 def marks(*marks: str, open: bool = False) -> str:
     marks = tuple(m for m in marks if not m.startswith("_"))
     if not marks:
-        return "⭘\uFE0E" if open else "⬤\uFE0E"
+        return "\ueffd" if open else "■"
     elif "A" <= marks[0] and marks[0] <= "Z":
         return chr((0x1f150 if open else 0x1f170) + ord(marks[0]) - 0x41)
     else:
         return f"⟬{', '.join(marks)}⟭" if open else f"❨{', '.join(marks)}❩"
 
 
+def subscript(i: int) -> str:
+    # Could also use <sub> in Pango, but Unicode is more general
+    return "".join(chr(0x2080 - 0x30 + ord(d)) for d in str(i))
+
+
 def window(win: i3.Con) -> str:
     assert win.type.endswith("con") and not (win.nodes or win.floating_nodes)
-    label = html.escape(win.name)
-    if win.focused:
-        return f'{marks(*win.marks, open=False)} <span underline="low" style="italic">{label}</span>'
+    app = win.app_id or win.window_class
+    if app == "Firefox-esr":
+        label = "web"
     else:
-        return f'{marks(*win.marks, open=True)} <span>{label}</span>'
+        label = html.escape(win.name.strip())
+
+    if win.focused:
+        return (
+            f'\ue0b6<span foreground="#000000" background="#ffffff">'
+            f'{label}</span>\ue0b4')
+    else:
+        return f'\ue0b7{label}\ue0b5'
+
+    # if win.focused:
+    #     return f'{marks(*win.marks, open=False)} (<b>{label}</b>)'
+    # else:
+    #     return f'{marks(*win.marks, open=True)}  {label} '
 
 
 def workspace(ws: i3.Con) -> Iterator[str]:
@@ -66,21 +82,30 @@ def workspace(ws: i3.Con) -> Iterator[str]:
 
     focused = ws.focused or ws.find_focused()
 
-    if not scratch:
-        yield from span("⟦ ", font_size="15pt", line_height="0.5", 
-                        fgalpha="100%" if focused else "70%")
+    # if focused:
+    #     yield '<span foreground="#000000" background="#ffffff">'
 
-    if not (ws.floating_nodes or ws.nodes):
-        yield '<span underline="low">   </span>'
+    yield " ⟨ " if scratch else " ⟦ "
+    # yield from span("⟦ ", font_size="15pt", line_height="0.5", fgalpha="100%" 
+    #                 if focused else "70%")
+
+    if not scratch and not (ws.floating_nodes or ws.nodes):
+        yield '*' # ⋯
     else:
-        yield "   ".join(window(w) for w in ws.leaves())
+        yield " · ".join(window(w) for w in ws.leaves())
         if ws.floating_nodes and ws.nodes:
-            yield "   ⫽ "
+            yield " "
         yield "   ".join(window(w) for w in ws.floating_nodes)
+    yield " ⟩" if scratch else " ⟧"
+    # yield from span(" ⟧", font_size="15pt", line_height="0.5", 
+    #     fgalpha="100%" if focused else "70%")
+    # yield f'<sup><span size="larger">{ws.num}</span></sup>'
     if not scratch:
-        yield from span(" ⟧", font_size="15pt", line_height="0.5", 
-            fgalpha="100%" if focused else "70%")
-        yield f'<sup><span size="larger">{ws.num}</span></sup>'
+        yield subscript(ws.num)
+    # yield " "
+
+    # if focused:
+    #     yield "</span>"
 
 
 def span(text: str, fg: int | None = None,
@@ -108,7 +133,7 @@ def taskbar(event: i3.Event) -> None:
     leaves = ["".join(workspace(w)) for w in tree.workspaces()]
     scratchpad = tree.scratchpad()
     loofs = "".join(workspace(scratchpad))
-    print("   ".join(leaves) + " ⋯ " + loofs, flush=True)
+    print("  ".join(leaves) + "   " + loofs, flush=True)
 
 
 if __name__ == "__main__":

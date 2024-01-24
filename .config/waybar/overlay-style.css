@@ -37,3 +37,9 @@ button {
 #taskbar button.minimized {
     color: gray;
 }
+
+#custom-taskbar {
+    font-family: Cozette;
+    font-size: 9pt;
+    margin: 2px 5px;
+}
