@@ -129,6 +129,11 @@ x = timeout(A-x, 400, leftalt)
 / = timeout(A-., 400, rightalt)
 
 
+# If I could clear the shifted oneshot layer but activate it as non-oneshot, 
+# this would be the way to go, I think
+# [shift]
+# rightalt = layerm(symbol, compose)
+
 [symbol]
 leftshift = swap(shift)
 q = !
