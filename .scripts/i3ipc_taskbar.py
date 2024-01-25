@@ -12,7 +12,7 @@
 
 
 # Unicode stuff:
-# Powerline symbols:  
+# Powerline symbols:   
 # Legacy computing: 🭮🭋🭛🭬
 # ❴❵ ❨❩ ❲❳ ❬❭ ⦃ ⦄ ⦆⦑⦁∘⧼⧽⧸⧹∙⋯
 # ┋│
@@ -20,6 +20,7 @@
 # ⟨⟩
 # ⬤ (2b24) or ⭕ (2b55) or ⭘ (2b58) or *️⃣ or 🔲⬛
 # 🅐 (1F150) or Ⓐ  (24B6) or 🅰 (1F170) or 🄰 (1F130)
+# Cozette: ⟨⟦⟧⟩
 
 import sys
 import os.path
@@ -30,6 +31,9 @@ import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
 from typing import Iterator
 from itertools import chain, pairwise
+
+invert = "<span foreground='#000000' background='#ffffff'>"
+revert = "</span>"
 
 
 class Window(object):
@@ -52,7 +56,8 @@ def marks(*marks: str, open: bool = False) -> str:
 
 def subscript(i: int) -> str:
     # Could also use <sub> in Pango, but Unicode is more general
-    return "".join(chr(0x2080 - 0x30 + ord(d)) for d in str(i))
+    # 0x2050 is ord('₀') - ord('0')
+    return "".join(chr(0x2050 + ord(d)) for d in str(i))
 
 
 def window(win: i3.Con) -> str:
@@ -63,63 +68,37 @@ def window(win: i3.Con) -> str:
     else:
         label = html.escape(win.name.strip())
 
-    if win.focused:
-        return (
-            f'\ue0b6<span foreground="#000000" background="#ffffff">'
-            f'{label}</span>\ue0b4')
-    else:
-        return f'\ue0b7{label}\ue0b5'
-
-    # if win.focused:
-    #     return f'{marks(*win.marks, open=False)} (<b>{label}</b>)'
-    # else:
-    #     return f'{marks(*win.marks, open=True)}  {label} '
+    return f' {label} '
 
 
 def workspace(ws: i3.Con) -> Iterator[str]:
     assert ws.type == "workspace"
     scratch = ws.name == "__i3_scratch"
 
-    focused = ws.focused or ws.find_focused()
+    windows = list(chain(ws.leaves(), ws.floating_nodes))
 
-    # if focused:
-    #     yield '<span foreground="#000000" background="#ffffff">'
+    yield '' if (windows and windows[0].focused) or ws.focused else ''
+    if not scratch and not windows:
+        yield f'{invert} ⋯ {revert}' if ws.focused else ' ⋯ '
+    for w, cur in enumerate(windows):
+        if cur.focused:
+            yield invert
+        if w:
+            prev = windows[w - 1]
+            if prev.focused or cur.focused:
+                # Same for both since if cur.focused, the colors have inverted
+                yield "▌"
+            elif prev.type == "con" and cur.type == "floating_con":
+                yield "┃"
+            else:
+                yield "┊"
+        yield window(cur)
+        if cur.focused:
+            yield revert
+    yield '' if (windows and windows[-1].focused) or ws.focused else ''
 
-    yield " ⟨ " if scratch else " ⟦ "
-    # yield from span("⟦ ", font_size="15pt", line_height="0.5", fgalpha="100%" 
-    #                 if focused else "70%")
-
-    if not scratch and not (ws.floating_nodes or ws.nodes):
-        yield '*' # ⋯
-    else:
-        yield " · ".join(window(w) for w in ws.leaves())
-        if ws.floating_nodes and ws.nodes:
-            yield " "
-        yield "   ".join(window(w) for w in ws.floating_nodes)
-    yield " ⟩" if scratch else " ⟧"
-    # yield from span(" ⟧", font_size="15pt", line_height="0.5", 
-    #     fgalpha="100%" if focused else "70%")
-    # yield f'<sup><span size="larger">{ws.num}</span></sup>'
     if not scratch:
         yield subscript(ws.num)
-    # yield " "
-
-    # if focused:
-    #     yield "</span>"
-
-
-def span(text: str, fg: int | None = None,
-         bg: int | None = None, **kwargs) -> Iterator[str]:
-    yield "<span"
-    if fg:
-        yield f' foreground="#{fg:06x}"'
-    if bg:
-        yield f' background="#{bg:06x}"'
-    for k, v in kwargs.items():
-        yield f' {k}="{v}"'
-    yield '>'
-    yield text
-    yield "</span>"
 
 
 conn = i3e.Connection("taskbar", auto_reconnect=True)
@@ -130,10 +109,20 @@ conn = i3e.Connection("taskbar", auto_reconnect=True)
     i3.Event.WORKSPACE_FOCUS)
 def taskbar(event: i3.Event) -> None:
     tree: i3.Con = conn.get_tree()
-    leaves = ["".join(workspace(w)) for w in tree.workspaces()]
+
+    for ws in tree.workspaces():
+        for x in workspace(ws):
+            sys.stdout.write(x)
+        sys.stdout.write("  ")
+
     scratchpad = tree.scratchpad()
-    loofs = "".join(workspace(scratchpad))
-    print("  ".join(leaves) + "   " + loofs, flush=True)
+    for w in scratchpad.floating_nodes:
+        for x in window(w):
+            sys.stdout.write(x)
+        sys.stdout.write("  ")
+
+    sys.stdout.write('\n')
+    sys.stdout.flush()
 
 
 if __name__ == "__main__":
