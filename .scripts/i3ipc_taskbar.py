@@ -110,10 +110,11 @@ conn = i3e.Connection("taskbar", auto_reconnect=True)
 def taskbar(event: i3.Event) -> None:
     tree: i3.Con = conn.get_tree()
 
+    sys.stdout.write(f'<span line_height="{955/1024}">')
     for ws in tree.workspaces():
         for x in workspace(ws):
             sys.stdout.write(x)
-        sys.stdout.write("  ")
+        sys.stdout.write("   ")
 
     scratchpad = tree.scratchpad()
     for w in scratchpad.floating_nodes:
@@ -121,7 +122,7 @@ def taskbar(event: i3.Event) -> None:
             sys.stdout.write(x)
         sys.stdout.write("  ")
 
-    sys.stdout.write('\n')
+    sys.stdout.write('</span>\n')
     sys.stdout.flush()
 
 
