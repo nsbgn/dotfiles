@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+This script automatically 
+"""
+
+import sys
 from itertools import count
 from typing import Iterable, Iterator
 from time import time
@@ -7,7 +12,11 @@ import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
 
 INTERVAL = 0.2
-MARKERS = "JKLIOHNYPU"
+
+if len(sys.argv) > 1:
+    MARKERS = list(set(sys.argv[1].upper()))
+else:
+    MARKERS = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 
 def get_new_mark(exclude: Iterable[str]) -> str:
