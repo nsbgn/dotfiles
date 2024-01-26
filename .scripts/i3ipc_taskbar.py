@@ -36,7 +36,7 @@ revert = "</span>"
 def marks(*marks: str, open: bool = False) -> str:
     marks = tuple(m for m in marks if not m.startswith("_"))
     if marks:
-        return f"<span foreground=\"red\"> <b>{', '.join(marks)}</b></span>"
+        return f"<span foreground=\"red\"> <b>{', '.join(marks)}</b></span>"
     else:
         return ""
     # if "A" <= marks[0] and marks[0] <= "Z":
