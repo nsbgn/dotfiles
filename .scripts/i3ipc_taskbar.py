@@ -4,23 +4,20 @@
 # for entire modules/particles, with no way to automatically generate multiple
 # particles in a single custom script (except for making an actual module, 
 # which is too much effort for this prototype). Try also 
-# <https://github.com/JakeStanger/ironbar>
+# <https://github.com/JakeStanger/ironbar>. Ideal would be something like 
+# lemonbar for wayland, eg <https://git.sr.ht/~novakane/zelbar>, if it was 
+# widely packaged.
 
 # Perhaps I will update it at some point. This script can be used as a 
 # `status_command` for the i3bar or swaybar. Inspiration:
 # -   <https://github.com/tobi-wan-kenobi/bumblebee-status>
 
-
-# Unicode stuff:
-# Powerline symbols:   
-# Legacy computing: 🭮🭋🭛🭬
-# ❴❵ ❨❩ ❲❳ ❬❭ ⦃ ⦄ ⦆⦑⦁∘⧼⧽⧸⧹∙⋯
-# ┋│
-# ⸨⸩⫽
-# ⟨⟩
+# ❴❵ ❨❩ ❲❳ ❬❭ ⦃ ⦄ ⦆⦑⦁∘⧼⧽⧸⧹∙⋯ ┋│ ⸨⸩⫽ ⟨⟩
 # ⬤ (2b24) or ⭕ (2b55) or ⭘ (2b58) or *️⃣ or 🔲⬛
 # 🅐 (1F150) or Ⓐ  (24B6) or 🅰 (1F170) or 🄰 (1F130)
 # Cozette: ⟨⟦⟧⟩
+# Legacy computing: 🭮🭋🭛🭬
+# Powerline:  
 
 import sys
 import os.path
@@ -30,28 +27,27 @@ import html
 import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
 from typing import Iterator
-from itertools import chain, pairwise
+from itertools import chain
 
 invert = "<span foreground='#000000' background='#ffffff'>"
 revert = "</span>"
 
 
-class Window(object):
-    def __init__(self, title: str, focus: bool = False) -> None:
-        self.title: str = title
-        self.focus: bool = focus
-        self.floating: bool = False
-        self.mark: str | None = None
-
-
 def marks(*marks: str, open: bool = False) -> str:
     marks = tuple(m for m in marks if not m.startswith("_"))
-    if not marks:
-        return "\ueffd" if open else "■"
-    elif "A" <= marks[0] and marks[0] <= "Z":
-        return chr((0x1f150 if open else 0x1f170) + ord(marks[0]) - 0x41)
+    if marks:
+        return f"<span foreground=\"red\"> <b>{', '.join(marks)}</b></span>"
     else:
-        return f"⟬{', '.join(marks)}⟭" if open else f"❨{', '.join(marks)}❩"
+        return ""
+    # if "A" <= marks[0] and marks[0] <= "Z":
+    #     return chr(0x1f170 + ord(marks[0]) - 0x41)
+
+
+def truncate(s: str, n: int) -> str:
+    if len(s) > n:
+        return f'{s[0:n-1]}…'
+    else:
+        return s
 
 
 def subscript(i: int) -> str:
@@ -63,12 +59,17 @@ def subscript(i: int) -> str:
 def window(win: i3.Con) -> str:
     assert win.type.endswith("con") and not (win.nodes or win.floating_nodes)
     app = win.app_id or win.window_class
-    if app == "Firefox-esr":
-        label = "web"
-    else:
-        label = html.escape(win.name.strip())
 
-    return f' {label} '
+    if app == "Firefox-esr":
+        icon = ""
+    elif app.startswith("foot"):
+        icon = ""
+    else:
+        icon = ""  # "■"
+
+    label = html.escape(truncate(win.name.strip(), 20))
+
+    return f' {icon} {label}{marks(*win.marks)} '
 
 
 def workspace(ws: i3.Con) -> Iterator[str]:
