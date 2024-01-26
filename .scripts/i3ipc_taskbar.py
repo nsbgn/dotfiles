@@ -32,6 +32,44 @@ from itertools import chain
 invert = "<span foreground='#000000' background='#ffffff'>"
 revert = "</span>"
 
+# Associate emojis with applications
+icons = {
+    "🌐": ["Firefox-esr"],  # fa: 
+    "🗒️": ["vi", "vim", "neovim"],
+    "⚒️": ["something"],
+    "🧭": ["mepo"],
+    "🗺️": ["QGIS"],
+    "🔖": ["sqlitebrowser"],
+    "📁": ["lf"],
+    "🖥️": ["foot"],  # fa: 
+    "💬": ["telegram-desktop"],
+    "✉️": ["aerc"],
+    "📫": ["thunderbird"],
+    "📺": ["youtube"],
+    "💾": ["nicotine", "transmission"],
+    "🧮": ["Calculator"],
+    "📊": ["LibreOffice Calc"],
+    "📄": ["LibreOffice Writer"],
+    "📽": ["LibreOffice Impress"],
+    "🔬": ["RStudio"],
+    "🖼️": ["imv"],
+    "📅": ["khal"],
+    "👥": ["khard"],
+    "🎨": ["GIMP", "krita"],
+    "🖌️": ["inkscape"],
+    "🎞️": ["mpv"],
+    "🎬": ["Kdenlive"],
+    "🔑": ["gnome-keyring"],
+    "🔐": ["gnupg"],
+    "🛡": ["firewall"],
+    "📖": ["zathura", "mupdf"],
+    "📑": ["sigil"],
+    "📝": ["xournalpp"],
+    "⚙️": ["settings"],
+    "🕹️": ["dolphin-emu", "mgba", "OpenMW"],
+    "*️ ": ["default"]  # fa: 
+}
+
 
 def marks(*marks: str, open: bool = False) -> str:
     marks = tuple(m for m in marks if not m.startswith("_"))
