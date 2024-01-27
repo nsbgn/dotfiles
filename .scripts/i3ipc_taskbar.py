@@ -119,7 +119,7 @@ def workspace(ws: i3.Con) -> Iterator[str]:
     if (windows and windows[0].focused) or ws.focused:
         yield invert
     if not scratch:
-        yield '⟦'
+        yield '<span size="larger" line_height="0.8">⟦</span>'
         if not windows:
             yield ' ⋯ '
     for w, cur in enumerate(windows):
@@ -130,12 +130,12 @@ def workspace(ws: i3.Con) -> Iterator[str]:
             if prev.type == "con" and cur.type == "floating_con":
                 yield "┃"
             else:
-                yield "┊"
+                yield "┆"
             if prev.focused:
                 yield revert
         yield window(cur)
     if not scratch:
-        yield '⟧'
+        yield '<span size="larger" line_height="0.8">⟧</span>'
     if not scratch:
         yield subscript(ws.num)
     if (windows and windows[-1].focused) or ws.focused:
