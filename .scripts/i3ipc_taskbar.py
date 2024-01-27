@@ -116,28 +116,30 @@ def workspace(ws: i3.Con) -> Iterator[str]:
 
     windows = list(chain(ws.leaves(), ws.floating_nodes))
 
-    yield '' if (windows and windows[0].focused) or ws.focused else ''
-    if not scratch and not windows:
-        yield f'{invert} ⋯ {revert}' if ws.focused else ' ⋯ '
+    if (windows and windows[0].focused) or ws.focused:
+        yield invert
+    if not scratch:
+        yield '⟦'
+        if not windows:
+            yield ' ⋯ '
     for w, cur in enumerate(windows):
-        if cur.focused:
-            yield invert
         if w:
+            if cur.focused:
+                yield invert
             prev = windows[w - 1]
-            if prev.focused or cur.focused:
-                # Same for both since if cur.focused, the colors have inverted
-                yield "▌"
-            elif prev.type == "con" and cur.type == "floating_con":
+            if prev.type == "con" and cur.type == "floating_con":
                 yield "┃"
             else:
                 yield "┊"
+            if prev.focused:
+                yield revert
         yield window(cur)
-        if cur.focused:
-            yield revert
-    yield '' if (windows and windows[-1].focused) or ws.focused else ''
-
+    if not scratch:
+        yield '⟧'
     if not scratch:
         yield subscript(ws.num)
+    if (windows and windows[-1].focused) or ws.focused:
+        yield revert
 
 
 conn = i3e.Connection("taskbar", auto_reconnect=True)
