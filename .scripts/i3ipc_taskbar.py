@@ -33,15 +33,17 @@ invert = "<span foreground='#000000' background='#ffffff'>"
 revert = "</span>"
 
 # Associate emojis with applications
-icons = {
-    "🌐": ["Firefox-esr"],  # fa: 
+icons = {v: k for k, vs in {
+    "◼️": ["foot"],  # other: 🔳🖳🗔⌨️💻🖮 fa: 
+    "🌐": ["qutebrowser"],
+    "🦊": ["Firefox-esr"],  # fa: 
+    "🖨️": ["printer"],
     "🗒️": ["vi", "vim", "neovim"],
     "⚒️": ["something"],
     "🧭": ["mepo"],
     "🗺️": ["QGIS"],
     "🔖": ["sqlitebrowser"],
     "📁": ["lf"],
-    "🖥️": ["foot"],  # fa: 
     "💬": ["telegram-desktop"],
     "✉️": ["aerc"],
     "📫": ["thunderbird"],
@@ -67,8 +69,8 @@ icons = {
     "📝": ["xournalpp"],
     "⚙️": ["settings"],
     "🕹️": ["dolphin-emu", "mgba", "OpenMW"],
-    "*️ ": ["default"]  # fa: 
-}
+    "*️ ": [None]  # fa: 
+}.items() for v in vs}
 
 
 def marks(*marks: str, open: bool = False) -> str:
@@ -94,18 +96,22 @@ def subscript(i: int) -> str:
     return "".join(chr(0x2050 + ord(d)) for d in str(i))
 
 
+def iconify(app_id: str) -> str:
+    try:
+        return icons[app_id]
+    except KeyError:
+        if app_id.startswith("foot-"):
+            return icons["foot"]
+        else:
+            return icons[None]
+
+
 def window(win: i3.Con) -> str:
     assert win.type.endswith("con") and not (win.nodes or win.floating_nodes)
     app = win.app_id or win.window_class
-
-    if app == "Firefox-esr":
-        icon = ""
-    elif app.startswith("foot"):
-        icon = ""
-    else:
-        icon = ""  # "■"
-
-    label = html.escape(truncate(win.name.strip(), 20))
+    name = win.name.strip().replace('~', '〜')
+    label = html.escape(truncate(name, 20))
+    icon = iconify(app)
 
     return f' {icon} {label}{marks(*win.marks)} '
 
@@ -119,6 +125,7 @@ def workspace(ws: i3.Con) -> Iterator[str]:
     if (windows and windows[0].focused) or ws.focused:
         yield invert
     if not scratch:
+        yield ' '
         yield '<span size="larger" line_height="0.8">⟦</span>'
         if not windows:
             yield ' ⋯ '
@@ -138,9 +145,9 @@ def workspace(ws: i3.Con) -> Iterator[str]:
         yield '<span size="larger" line_height="0.8">⟧</span>'
     if not scratch:
         yield subscript(ws.num)
+    yield ' '
     if (windows and windows[-1].focused) or ws.focused:
         yield revert
-
 
 conn = i3e.Connection("taskbar", auto_reconnect=True)
 
@@ -151,7 +158,6 @@ conn = i3e.Connection("taskbar", auto_reconnect=True)
 def taskbar(event: i3.Event) -> None:
     tree: i3.Con = conn.get_tree()
 
-    sys.stdout.write(f'<span line_height="{955/1024}">')
     for ws in tree.workspaces():
         for x in workspace(ws):
             sys.stdout.write(x)
@@ -163,7 +169,7 @@ def taskbar(event: i3.Event) -> None:
             sys.stdout.write(x)
         sys.stdout.write("  ")
 
-    sys.stdout.write('</span>\n')
+    sys.stdout.write("\n")
     sys.stdout.flush()
 
 
