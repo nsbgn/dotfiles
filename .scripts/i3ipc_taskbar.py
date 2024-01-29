@@ -11,6 +11,7 @@
 # Perhaps I will update it at some point. This script can be used as a 
 # `status_command` for the i3bar or swaybar. Inspiration:
 # -   <https://github.com/tobi-wan-kenobi/bumblebee-status>
+# Cf. https://docs.gtk.org/Pango/pango_markup.html
 
 # ❴❵ ❨❩ ❲❳ ❬❭ ⦃ ⦄ ⦆⦑⦁∘⧼⧽⧸⧹∙⋯ ┋│ ⸨⸩⫽ ⟨⟩
 # ⬤ (2b24) or ⭕ (2b55) or ⭘ (2b58) or *️⃣ or 🔲⬛
@@ -109,8 +110,9 @@ def iconify(app_id: str) -> str:
 def window(win: i3.Con) -> str:
     assert win.type.endswith("con") and not (win.nodes or win.floating_nodes)
     app = win.app_id or win.window_class
-    name = win.name.strip().replace('~', '〜')
+    name = win.name.strip()
     label = html.escape(truncate(name, 20))
+    label = label.replace('~', '<span face="Inconsolata" size="larger">~</span>')
     icon = iconify(app)
 
     return f' {icon} {label}{marks(*win.marks)} '
