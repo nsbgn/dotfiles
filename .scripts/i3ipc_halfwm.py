@@ -1,5 +1,29 @@
 #!/usr/bin/env python3
 # swaymsg gaps horizontal current set 600
+"""
+This is a set of commands to reduce the mental overhead of using Sway and i3. 
+Each virtual desktop becomes a carousel that shows at most two windows.
+
+Rationale: I don't find myself ever benefiting from having more than two 
+windows open on the same screen at any one time. (Maybe three, if there's a 
+video playing and I pretend to multitask.) So, rather than manually arranging 
+windows, or implementing elaborate and abstract ways to do so automatically, I 
+think it's better to go for a more tangible metaphor: every desktop shows only 
+the active window, plus, optionally, a reference window to the side of it. It 
+is tiled horizontally if the aspect ratio exceeds 1, and vertically otherwise.
+
+What I try to make easier is not the *layout*, but leafing through the pile to 
+find the sheet you need. I try to keep the amount of keyboard shortcuts or 
+touchscreen gestures small. Every window gets automatically assigned a 
+one-letter label, so that you can instantly bring it to focus. In addition to 
+the static labels, there is one dynamic label that switches between the active 
+and reference windows, and two that cycle forward or backward through the 
+inactive windows.
+
+To stay as environment-agnostic as possible, command should make just as much 
+sense on stacking window managers (Wayfire/labwc) or terminal multiplexers 
+(tmux).
+"""
 
 import sys
 import os.path
