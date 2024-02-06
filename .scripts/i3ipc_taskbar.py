@@ -159,11 +159,11 @@ conn = i3e.Connection("taskbar", auto_reconnect=True)
     i3.Event.WORKSPACE_FOCUS)
 def taskbar(event: i3.Event) -> None:
     tree: i3.Con = conn.get_tree()
+    ws = tree.find_focused().workspace()
 
-    for ws in tree.workspaces():
-        for x in workspace(ws):
-            sys.stdout.write(x)
-        sys.stdout.write("   ")
+    for x in workspace(ws):
+        sys.stdout.write(x)
+    sys.stdout.write("   ")
 
     scratchpad = tree.scratchpad()
     for w in scratchpad.floating_nodes:

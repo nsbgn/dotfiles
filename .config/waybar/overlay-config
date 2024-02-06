@@ -2,13 +2,13 @@
     "layer": "top",
     "position": "top",
     "exclusive": false,
-    "height": 14,
+    "height": 32,
     "margin": "0 0 0 0",
     "mode": "dock", // overlay
     "spacing": 5,
     "ipc": true,
     "id": "bar1",
-    "modules-left": ["custom/taskbar"],
+    "modules-left": ["sway/workspaces", "custom/taskbar"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
     "sway/workspaces": {

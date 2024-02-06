@@ -136,12 +136,12 @@ bindsym $fn+g exec dmenu-apps
 # ROW 3 LEFT #################################################################
 
 bindsym $fn+z kill
-bindsym $fn+x move container to scratchpad
+bindsym $fn+b move container to scratchpad
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
 bindsym $fn+v fullscreen
-bindsym $fn+b focus mode_toggle
+bindsym $fn+x focus mode_toggle
 bindsym $fn+Shift+b floating toggle
 
 # ROW 1 RIGHT ################################################################
