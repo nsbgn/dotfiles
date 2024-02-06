@@ -28,7 +28,6 @@ import html
 import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
 from typing import Iterator
-from itertools import chain
 
 invert = "<span foreground='#000000' background='#ffffff'>"
 revert = "</span>"
@@ -118,38 +117,62 @@ def window(win: i3.Con) -> str:
     return f' {icon} {label}{marks(*win.marks)} '
 
 
-def workspace(ws: i3.Con) -> Iterator[str]:
-    assert ws.type == "workspace"
-    scratch = ws.name == "__i3_scratch"
+def wrap_windows(windows: list[i3.Con],
+        before: str = "", mid: str = "", after: str = "",
+        empty: str = "") -> Iterator[str]:
 
-    windows = list(chain(ws.leaves(), ws.floating_nodes))
+    # focused = any(w.focused for w in windows)
 
-    if (windows and windows[0].focused) or ws.focused:
+    if (windows and windows[0].focused):
         yield invert
-    if not scratch:
-        yield ' '
-        yield '<span size="larger" line_height="0.8">⟦</span>'
-        if not windows:
-            yield ' ⋯ '
-    for w, cur in enumerate(windows):
-        if w:
-            if cur.focused:
-                yield invert
-            prev = windows[w - 1]
-            if prev.type == "con" and cur.type == "floating_con":
-                yield "┃"
-            else:
-                yield "┆"
-            if prev.focused:
-                yield revert
-        yield window(cur)
-    if not scratch:
-        yield '<span size="larger" line_height="0.8">⟧</span>'
-    if not scratch:
-        yield subscript(ws.num)
-    yield ' '
-    if (windows and windows[-1].focused) or ws.focused:
+    if before:
+        yield before
+    if not windows:
+        yield empty
+    else:
+        for i, w in enumerate(windows):
+            if i:
+                if w.focused:
+                    yield invert
+                w_prev = windows[i - 1]
+                yield mid
+                if w_prev.focused:
+                    yield revert
+            yield from window(w)
+    if after:
+        yield after
+    if (windows and windows[-1].focused):
         yield revert
+
+
+def workspace(tree: i3.Con) -> Iterator[str]:
+
+    focused = tree.find_focused()
+    if focused:
+        ws = focused.workspace()
+    else:
+        ws = next(ws for ws in tree.workspaces() if ws.focused)
+
+    assert ws.type == "workspace"
+    tiled = ws.leaves()
+    minimized_after = tree.scratchpad().floating_nodes
+    float = ws.floating_nodes
+
+    yield from wrap_windows(tiled,
+        ' <span size="larger" line_height="0.8">⟨</span> ',
+        ' ╱ ',
+        ' <span size="larger" line_height="0.8">⟩</span> ',
+        ' ⋯ ')
+
+    yield from wrap_windows(minimized_after)
+
+    if float:
+        yield " ══ "
+        yield from wrap_windows(float,
+            ' <span size="larger" line_height="0.8">⟦</span> ',
+            ' ╱ ',
+            ' <span size="larger" line_height="0.8">⟧</span> ')
+
 
 conn = i3e.Connection("taskbar", auto_reconnect=True)
 
@@ -159,17 +182,9 @@ conn = i3e.Connection("taskbar", auto_reconnect=True)
     i3.Event.WORKSPACE_FOCUS)
 def taskbar(event: i3.Event) -> None:
     tree: i3.Con = conn.get_tree()
-    ws = tree.find_focused().workspace()
 
-    for x in workspace(ws):
+    for x in workspace(tree):
         sys.stdout.write(x)
-    sys.stdout.write("   ")
-
-    scratchpad = tree.scratchpad()
-    for w in scratchpad.floating_nodes:
-        for x in window(w):
-            sys.stdout.write(x)
-        sys.stdout.write("  ")
 
     sys.stdout.write("\n")
     sys.stdout.flush()
