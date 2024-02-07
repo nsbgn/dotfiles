@@ -27,6 +27,7 @@ sys.path.append(os.path.expanduser('~/.scripts'))
 import html
 import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
+import i3ipc_util as i3u
 from typing import Iterator
 
 invert = "<span foreground='#000000' background='#ffffff'>"
@@ -147,16 +148,14 @@ def wrap_windows(windows: list[i3.Con],
 
 def workspace(tree: i3.Con) -> Iterator[str]:
 
-    focused = tree.find_focused()
-    if focused:
-        ws = focused.workspace()
-    else:
-        ws = next(ws for ws in tree.workspaces() if ws.focused)
+    ws = i3u.current_workspace(tree)
 
     assert ws.type == "workspace"
     tiled = ws.leaves()
-    minimized_after = tree.scratchpad().floating_nodes
+    before, after = i3u.get_minimized(ws)
     float = ws.floating_nodes
+
+    yield from wrap_windows(before)
 
     yield from wrap_windows(tiled,
         ' <span size="larger" line_height="0.8">⟨</span> ',
@@ -164,7 +163,7 @@ def workspace(tree: i3.Con) -> Iterator[str]:
         ' <span size="larger" line_height="0.8">⟩</span> ',
         ' ⋯ ')
 
-    yield from wrap_windows(minimized_after)
+    yield from wrap_windows(after)
 
     if float:
         yield " ══ "
