@@ -31,132 +31,40 @@ sys.path.append(os.path.expanduser('~/.scripts'))
 
 import i3ipc as i3  # type: ignore
 import i3ipc_extension as i3e
-import i3ipc_tree as i3t
-from typing import Iterator, Literal
-from collections import deque
+import i3ipc_util as i3u
+from typing import Iterator
 
 
 # globals
-minimized: deque[i3.Con] = deque()
 preferred_size = {
     "footclient": (400, 1)
 }
 conn = i3e.Connection("halfwm", auto_reconnect=True)
 
 
-def windows_floating(tree: i3.Con) -> list[i3.Con]:
-    focus = tree.find_focused()
-    ws = focus.workspace()
-    return ws.floating_nodes
-
-
-def windows_hidden(tree: i3.Con) -> list[i3.Con]:
-    scratch = tree.find_named("__i3_scratch")[0]
-    return scratch.floating_nodes
-
-
-def windows_tiled(tree: i3.Con) -> list[i3.Con]:
-    focus = tree.find_focused()
-    ws = focus.workspace()
-    return ws.nodes
-
-
-# @conn.handle_event(i3.Event.WINDOW_FOCUS, i3.Event.WINDOW_NEW)
+@conn.handle_event(i3.Event.WINDOW_FOCUS, i3.Event.WINDOW_NEW)
 def window_focus(event: i3.Event) -> None:
     tree: i3.Con = conn.get_tree()
-    hidden = windows_hidden(tree)
-    floating = windows_floating(tree)
-    tiled = windows_tiled(tree)
-    print("***")
-    print("Hidden windows:", [c.id for c in hidden])
-    print("Tiled windows:",
-      " ".join(f"{c.id}{'*' if c.focused else ' '}" for c in tiled))
-    print("Floating windows:",
-      " ".join(f"{c.id}{'*' if c.focused else ' '}" for c in floating))
+    print(i3u.get_minimized(tree))
 
 
-@conn.handle_message("swap")
-def swap(direction: Literal['previous', 'next']) -> Iterator[str]:
-    """Swap currently focused window with one of the minimized windows."""
-    global minimized
+@conn.handle_message("minimize")
+def minimize() -> Iterator[str]:
+    """Move currently focused window to minimized."""
     tree = conn.get_tree()
-    old = tree.find_focused()
-
-    if not minimized or not (conn.last_msg_command[0] == "swap"
-            and conn.last_msg_command[1] in ("next", "prev")):
-        minimized = deque(windows_hidden(tree))
-
-    if dir == 'next':
-        new = minimized.popleft()
-        minimized.append(old)
+    win = tree.find_focused()
+    ws = i3u.current_workspace(tree)
+    before, after = i3u.get_minimized(ws)
+    if after:
+        _, pos = i3u.find_position(after[0]) or (0, 0)
     else:
-        new = minimized.pop()
-        minimized.appendleft(old)
+        pos = 0
+    newpos = pos + 1
 
-    yield f"[con_id={new.id}] focus"
-    yield f"[con_id={old.id}] swap container with con_id {new.id}"
-    yield f"[con_id={old.id}] move to scratchpad"
+    if win:
+        yield f"[con_id={win.id}] mark _ws{ws.num}_pos{newpos}"
+        yield f"[con_id={win.id}] move to scratchpad"
 
-# @conn.handle_message("focus")
-# def focus(area: Literal['tile', 'float', 'scratch'],
-#           idx: str | None = None) -> Iterator[str]:
-#     """Focus on a window on the current desktop, additionally unminimizing it 
-#     if it is currently minimized.
-
-#     Usage: focus (tile|float|scratch) [1…|prev|next]"""
-
-#     global minimized
-#     tree = conn.get_tree()
-#     focus = tree.find_focused()
-#     ws = focus.workspace()
-
-#     if not (conn.last_cmd[0] == "focus"
-#             and conn.last_cmd[1] in ("next", "prev")):
-#         minimized = windows_hidden(tree)
-
-#     n = len(ws.nodes)
-#     if area == 'tile':
-#         i = ws.nodes[int(idx) % n].id if idx else ws.focus[0]
-#         yield f'[con_id={i}] focus'
-#     elif area == 'float':
-#         pass
-
-
-# @conn.handle_message("push")
-# def push(area: Literal['tiled', 'floating'], idx: str) -> None:
-#     """Minimize the target window and put the currently focused window in its 
-#     place.
-
-#     Usage: push (tile|float) [1…] [current|auxiliary]"""
-
-#     assert area in ("first", "second")
-
-#     tree = conn.get_tree()
-#     focus = tree.find_focused()
-#     assert focus
-
-#     ws = focus.workspace()
-#     if focus.is_floating():
-
-#         tiles = ws.nodes
-#         if len(tiles) == 0:
-#             pass
-#         elif len(tiles) == 1:
-#             pass
-#         elif len(tiles) == 2:
-#             pass
-
-#     else:
-#         pass
-
-#     # children = tree.nodes
-#     # yield ''
-#     # x = args[0]
-#     # if x == 'first':
-#     #     yield ''
-#     # elif x == 'second':
-#     #     yield ''
 
 if __name__ == "__main__":
-    conn.send_tick("halfwm exit")
     conn.main()
