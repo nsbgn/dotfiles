@@ -94,7 +94,9 @@ def truncate(s: str, n: int) -> str:
 def subscript(i: int) -> str:
     # Could also use <sub> in Pango, but Unicode is more general
     # 0x2050 is ord('₀') - ord('0')
-    return "".join(chr(0x2050 + ord(d)) for d in str(i))
+    return (("₋" if i < 0 else "")
+        + "".join(chr(0x2050 + ord(d)) for d in str(abs(i))))
+
 
 
 def iconify(app_id: str) -> str:
@@ -115,7 +117,10 @@ def window(win: i3.Con) -> str:
     label = label.replace('~', '<span face="Inconsolata" size="larger">~</span>')
     icon = iconify(app)
 
-    return f' {icon} {label}{marks(*win.marks)} '
+    pos = i3u.find_position(win)
+    min = subscript(pos[1]) if pos else ""
+
+    return f' {icon}{min} {label}{marks(*win.marks)} '
 
 
 def wrap_windows(windows: list[i3.Con],
