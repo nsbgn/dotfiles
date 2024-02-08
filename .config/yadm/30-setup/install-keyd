@@ -109,10 +109,10 @@ leftcontrol = oneshot(control)
 leftmeta = oneshot(alt)
 
 # Thumb keys
-leftalt = overload(fnL, escape)
+leftalt = overloadt2(fnL, escape, 150)
 rightalt = oneshot(symbol)
-compose = overload(fnR, enter)
-rightcontrol = overload(fnR, enter)
+compose = overloadt2(fnR, enter, 150)
+rightcontrol = overloadt2(fnR, enter, 150)
 
 
 [empty]
