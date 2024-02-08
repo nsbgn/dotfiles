@@ -199,7 +199,7 @@ s = down
 d = right
 f = pagedown
 
-grave = macro(esc ;)
+' = macro(esc ;)
 
 [fnR:M]
 # Still allow bare presses of meta key by combining them
