@@ -35,17 +35,7 @@ import i3ipc_util as i3u
 from typing import Iterator
 
 
-# globals
-preferred_size = {
-    "footclient": (400, 1)
-}
 conn = i3e.Connection("halfwm", auto_reconnect=True)
-
-
-@conn.handle_event(i3.Event.WINDOW_FOCUS, i3.Event.WINDOW_NEW)
-def window_focus(event: i3.Event) -> None:
-    tree: i3.Con = conn.get_tree()
-    print(i3u.get_minimized(tree))
 
 
 @conn.handle_message("minimize")
@@ -53,17 +43,32 @@ def minimize() -> Iterator[str]:
     """Move currently focused window to minimized."""
     tree = conn.get_tree()
     win = tree.find_focused()
-    ws = i3u.current_workspace(tree)
-    before, after = i3u.get_minimized(ws)
-    if after:
-        _, pos = i3u.find_position(after[0]) or (0, 0)
-    else:
-        pos = 0
-    newpos = pos + 1
 
     if win:
-        yield f"[con_id={win.id}] mark _ws{ws.num}_pos{newpos}"
+        ws = i3u.current_workspace(tree)
+        before, after = i3u.get_minimized(ws)
+        if after:
+            _, a = i3u.find_position(after[0]) or (0, 0)
+        else:
+            a = 0
+
+        yield f"[con_id={win.id}] mark _ws{ws.num}_pos{a+1}"
         yield f"[con_id={win.id}] move to scratchpad"
+
+
+@conn.handle_message("next")
+def next() -> Iterator[str]:
+    tree = conn.get_tree()
+    ws = i3u.current_workspace(tree)
+    win = tree.find_focused()
+    before, after = i3u.get_minimized(ws)
+    if win and after:
+        if before:
+            _, b = i3u.find_position(before[-1]) or (0, 0)
+        else:
+            b = 0
+
+        yield f"[con_id={after[0].id}] swap container with con_id {win.id}"
 
 
 if __name__ == "__main__":
