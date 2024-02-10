@@ -63,12 +63,35 @@ def next() -> Iterator[str]:
     win = tree.find_focused()
     before, after = i3u.get_minimized(ws)
     if win and after:
+        _, a = i3u.find_position(after[0]) or (None, None)
         if before:
             _, b = i3u.find_position(before[-1]) or (0, 0)
         else:
             b = 0
 
         yield f"[con_id={after[0].id}] swap container with con_id {win.id}"
+        if a:
+            yield f"[con_id={after[0].id}] unmark _ws{ws.num}_pos{a}"
+        yield f"[con_id={win.id}] mark --add _ws{ws.num}_pos{b-1}"
+
+
+@conn.handle_message("prev")
+def prev() -> Iterator[str]:
+    tree = conn.get_tree()
+    ws = i3u.current_workspace(tree)
+    win = tree.find_focused()
+    before, after = i3u.get_minimized(ws)
+    if win and before:
+        _, b = i3u.find_position(before[-1]) or (None, None)
+        if after:
+            _, a = i3u.find_position(after[0]) or (0, 0)
+        else:
+            a = 0
+
+        yield f"[con_id={before[-1].id}] swap container with con_id {win.id}"
+        if b:
+            yield f"[con_id={before[-1].id}] unmark _ws{ws.num}_pos{b}"
+        yield f"[con_id={win.id}] mark --add _ws{ws.num}_pos{a+1}"
 
 
 if __name__ == "__main__":
