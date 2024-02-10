@@ -56,8 +56,20 @@ def minimize() -> Iterator[str]:
         yield f"[con_id={win.id}] move to scratchpad"
 
 
+@conn.handle_message("leaf")
+def leaf(δ: str = "1") -> Iterator[str]:
+    tree = conn.get_tree()
+    ws = i3u.current_workspace(tree)
+    leaves = ws.leaves()
+    if leaves:
+        i = next(i for i, w in enumerate(leaves) if w.focused)
+        j = i + int(δ)
+        if j > 0 and j < len(leaves):
+            yield f"[con_id={leaves[j].id}] focus"
+
+
 @conn.handle_message("next")
-def next() -> Iterator[str]:
+def next_w() -> Iterator[str]:
     tree = conn.get_tree()
     ws = i3u.current_workspace(tree)
     win = tree.find_focused()
@@ -76,7 +88,7 @@ def next() -> Iterator[str]:
 
 
 @conn.handle_message("prev")
-def prev() -> Iterator[str]:
+def prev_w() -> Iterator[str]:
     tree = conn.get_tree()
     ws = i3u.current_workspace(tree)
     win = tree.find_focused()
