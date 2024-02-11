@@ -1,20 +1,16 @@
-# Descend tree structure until finding focused workspace
-def workspace:
-    .focus[0] as $i
-    | .nodes[]
-    | select(.id == $i)
-    | if .type == "workspace" then . else workspace end;
-
 # Descend tree structure into focused node one level
 def descend:
     .focus[0] as $i
     | .nodes[], .floating_nodes[]
     | select(.id == $i);
 
-# All leaf nodes in the given container
-def leaves:
-    if .nodes != [] then .nodes[] | leaves else . end;
-    # Same as recurse/etc?
+# Descend tree structure until finding focused workspace
+def workspace:
+    until(.type == "workspace"; descend);
+
+# All tiled leaf nodes in the given container
+def tiles:
+    recurse(.nodes[]) | select(.type == "con" and .nodes == []);
 
 # Clamp a number to minimum and maximum values
 def clamp($min; $max):
@@ -28,4 +24,4 @@ def offset($d):
 # Commands ###################################################################
 
 def focus($d):
-    [workspace | leaves] | offset($d) | "[con_id=\(.id)] focus";
+    [workspace | tiles] | offset($d) | "[con_id=\(.id)] focus";
