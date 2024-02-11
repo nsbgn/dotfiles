@@ -5,6 +5,12 @@ def workspace:
     | select(.id == $i)
     | if .type == "workspace" then . else workspace end;
 
+# Descend tree structure into focused node one level
+def descend:
+    .focus[0] as $i
+    | .nodes[], .floating_nodes[]
+    | select(.id == $i);
+
 # All leaf nodes in the given container
 def leaves:
     if .nodes != [] then .nodes[] | leaves else . end;
@@ -12,7 +18,7 @@ def leaves:
 
 # Clamp a number to minimum and maximum values
 def clamp($min; $max):
-    if . < $min then $min else if . > $max then $max else . end end;
+    if . >= $min then if . <= $max then . else $max end else $min end;
 
 # Find the container a given offset away from the focused container in a list
 def offset($d):

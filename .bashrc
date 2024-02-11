@@ -46,6 +46,10 @@ source /etc/bash_completion
 #     clear #for background artifacting
 # fi
 
+function jqs {
+    swaymsg -t get_tree | jq -r "include \"i3\"; $@"
+}
+
 # Change directory after browsing with file manager `lf`
 function lf {
     $(which lf) -last-dir-path="/tmp/lfdir" "$@"
