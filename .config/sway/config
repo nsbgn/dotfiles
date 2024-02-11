@@ -158,9 +158,9 @@ bindsym $fn+o exec "$hwm swap next"
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+j focus down
+bindsym $fn+j exec "i3jq 'focus(-1)'"
 
-bindsym $fn+k focus up
+bindsym $fn+k exec "i3jq 'focus(1)'"
 
 bindsym $fn+l focus right
 #bindsym $fn+l exec "$pwm mark_focus k"
