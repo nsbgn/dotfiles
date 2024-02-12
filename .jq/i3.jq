@@ -48,17 +48,18 @@ def minimized($ws):
     | select(.workspace == $ws)]
     | sort_by(.position);
 
+def mark($ws; $pos):
+    "mark --add _ws\($ws)_pos\($pos)";
+
 # Commands ###################################################################
 
 # Send current window to scratchpad
-# def minimize:
-#     workspace
-#     | window as $w
-#     | ("[con_id=\($w.id)] mark --add _halfwm_ws\(.num)_1; "
-#         + "[con_id=\($w.id)] move to scratchpad");
+def minimize:
+    workspace
+    | window as $w
+    | ("[con_id=\($w.id)] \(mark(.num; 1)); "
+        + "[con_id=\($w.id)] move to scratchpad");
 
-def cmd_mark($id; $ws; $pos):
-    "[con_id=\($id)] mark --add _ws\($ws)_pos\($pos)";
-
-def cmd_focus($d):
+# Treat the current tiles as windows to go through in sequence
+def command_leaf($d):
     [workspace | tiles] | offset($d) | "[con_id=\(.id)] focus";

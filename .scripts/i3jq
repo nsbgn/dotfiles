@@ -1,4 +1,4 @@
 #!/usr/bin/sh
 # Simply pass a processor that turns sway/i3's tree into commands
 
-swaymsg $(swaymsg -t get_tree | jq -r "include \"i3\"; $@")
+swaymsg "$(swaymsg -t get_tree | jq -r "include \"i3\"; $@")"
