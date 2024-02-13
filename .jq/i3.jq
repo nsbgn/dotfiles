@@ -45,21 +45,24 @@ def minimized($ws):
     [scratchpad
     | .floating_nodes[]
     | . += location
-    | select(.workspace == $ws)]
-    | sort_by(.position);
+    | select(.workspace == ($ws | .num // .))]
+    | sort_by(.position)
+    | {before: [.[] | select(.position < 0)],
+        after: [.[] | select(.position >= 0)]};
 
 def mark($ws; $pos):
     "mark --add _ws\($ws)_pos\($pos)";
 
 # Commands ###################################################################
 
-# Send current window to scratchpad
+# Send current window to scratchpad but remember
 def minimize:
-    workspace
-    | window as $w
-    | ("[con_id=\($w.id)] \(mark(.num; 1)); "
+    workspace as $ws
+    | minimized($ws) as {$before, $after}
+    | ($ws | window) as $w
+    | ("[con_id=\($w.id)] \(mark($ws.num; ($after[-1].position // 0) + 1)); "
         + "[con_id=\($w.id)] move to scratchpad");
 
-# Treat the current tiles as windows to go through in sequence
-def command_leaf($d):
+# Treat the current tiles as windows to leaf through in sequence
+def step($d):
     [workspace | tiles] | offset($d) | "[con_id=\(.id)] focus";
