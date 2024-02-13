@@ -56,6 +56,17 @@ def mark($ws; $pos):
 # Commands ###################################################################
 
 # Send current window to scratchpad but remember
+def cycle_next:
+    workspace as $ws
+    | minimized($ws) as {$before, $after}
+    | ($ws | window) as $w
+    | if ($after | length > 1) then
+    ("[con_id=\($after[-1].id)] swap container with con_id \($w.id); "
+    +"[con_id=\($after[-1].id)] unmark _ws{$ws.num}_pos{$after[-1].position}; "
+    +"[con_id=\($w.id)] mark _ws{$ws.num}_pos{$before[-1].position - 1}"
+    ) else "" end;
+
+# Send current window to scratchpad but remember
 def minimize:
     workspace as $ws
     | minimized($ws) as {$before, $after}
