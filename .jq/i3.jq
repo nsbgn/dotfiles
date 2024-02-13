@@ -38,7 +38,7 @@ def location:
     .marks[]
     | match("_ws([0-9]+)_pos(-?[0-9]+)")
     | { workspace: (.captures[0].string | tonumber),
-        position: (.captures[1].string | tonumber)};
+        idx: (.captures[1].string | tonumber)};
 
 # Find all currently minimized windows associated with the given
 def minimized($ws):
@@ -46,9 +46,9 @@ def minimized($ws):
     | .floating_nodes[]
     | . += location
     | select(.workspace == ($ws | .num // .))]
-    | sort_by(.position)
-    | {before: [.[] | select(.position < 0)],
-        after: [.[] | select(.position >= 0)]};
+    | sort_by(.idx)
+    | {before: [.[] | select(.idx < 0)],
+        after: [.[] | select(.idx >= 0)]};
 
 def mark($ws; $pos):
     "mark --add _ws\($ws)_pos\($pos)";
@@ -62,8 +62,8 @@ def cycle_next:
     | ($ws | window) as $w
     | if ($after | length > 1) then
     ("[con_id=\($after[-1].id)] swap container with con_id \($w.id); "
-    +"[con_id=\($after[-1].id)] unmark _ws{$ws.num}_pos{$after[-1].position}; "
-    +"[con_id=\($w.id)] mark _ws{$ws.num}_pos{$before[-1].position - 1}"
+    +"[con_id=\($after[-1].id)] unmark _ws{$ws.num}_pos{$after[-1].idx}; "
+    +"[con_id=\($w.id)] mark --add _ws{$ws.num}_pos{$before[-1].idx - 1}"
     ) else "" end;
 
 # Send current window to scratchpad but remember
@@ -71,7 +71,7 @@ def minimize:
     workspace as $ws
     | minimized($ws) as {$before, $after}
     | ($ws | window) as $w
-    | ("[con_id=\($w.id)] \(mark($ws.num; ($after[-1].position // 0) + 1)); "
+    | ("[con_id=\($w.id)] \(mark($ws.num; ($after[-1].idx // 0) + 1)); "
         + "[con_id=\($w.id)] move to scratchpad");
 
 # Treat the current tiles as windows to leaf through in sequence
