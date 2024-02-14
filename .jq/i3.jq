@@ -40,15 +40,13 @@ def location:
     | { workspace: (.captures[0].string | tonumber),
         idx: (.captures[1].string | tonumber)};
 
-# Find all currently minimized windows associated with the given
-def minimized($ws):
+# Find all currently minimized windows associated with the given workspace
+def hidden($ws):
     [scratchpad
     | .floating_nodes[]
     | . += location
     | select(.workspace == ($ws | .num // .))]
-    | sort_by(.idx)
-    | {before: [.[] | select(.idx < 0)],
-        after: [.[] | select(.idx >= 0)]};
+    | sort_by(.idx);
 
 def mark($ws; $pos):
     "mark --add _ws\($ws)_pos\($pos)";
@@ -56,20 +54,22 @@ def mark($ws; $pos):
 # Commands ###################################################################
 
 # Send current window to scratchpad but remember
-def cycle_next:
+def cycle($d): #
     workspace as $ws
-    | minimized($ws) as {$before, $after}
+    | hidden($ws) as $hidden
+    | $hidden[-1] as $prev
+    | $hidden[0] as $next
+    | ($prev.idx - 1) as $idx
     | ($ws | window) as $w
-    | if ($after | length > 1) then
-    ("[con_id=\($after[-1].id)] swap container with con_id \($w.id); "
-    +"[con_id=\($after[-1].id)] unmark _ws{$ws.num}_pos{$after[-1].idx}; "
-    +"[con_id=\($w.id)] mark --add _ws{$ws.num}_pos{$before[-1].idx - 1}"
-    ) else "" end;
+    | ("[con_id=\($next.id)] swap container with con_id \($w.id); "
+    +"[con_id=\($next.id)] unmark _ws\($ws.num)_pos\($next.idx); "
+    +"[con_id=\($w.id)] mark --add _ws\($ws.num)_pos\($idx)"
+    );
 
 # Send current window to scratchpad but remember
 def minimize:
     workspace as $ws
-    | minimized($ws) as {$before, $after}
+    | hidden($ws) as $after
     | ($ws | window) as $w
     | ("[con_id=\($w.id)] \(mark($ws.num; ($after[-1].idx // 0) + 1)); "
         + "[con_id=\($w.id)] move to scratchpad");
