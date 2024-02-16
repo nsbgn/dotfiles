@@ -50,48 +50,26 @@ def hidden($ws):
 
 # Commands ###################################################################
 
+def unnumber:
+    if has("idx") then "[con_id=\(.id)] unmark _ws\(.workspace)_pos\(.idx)"
+    else empty end;
+
 def renumber($ws; $n):
-    [ if has("idx") then "[con_id=\(.id)] unmark _ws\(.workspace)_pos\(.idx)"
-    else empty end,
-    if $n then "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)"
-    else empty end] | join("; ");
+    [ unnumber, "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)"] | join("; ");
 
 def renumber_multi($ws):
-    foreach .[] as $con (0; . + 1; {i: ., con: $con})
-    | .i as $i | .con | renumber($ws; $i);
+    [foreach .[] as $con (0; . + 1; {i: ., con: $con})
+    | .i as $i | .con | renumber($ws; $i)] | join("; ");
 
-
-def cycle($d): # command
-    workspace as $ws
-    | window as $cur
+def cycle_hidden($d): # command
+    ($d | if . > 0 then . - 1 elif . < 0 then . else empty end) as $i # modulo?
+    | workspace as $ws
     | hidden($ws) as $hidden
-    | ($d | if . > 0 then . - 1 else . end) as $goal_i
-    | ($hidden[$goal_i]) as $goal
-    | [
-        "[con_id=\($cur.id)] swap container with con_id \($goal.id)",
-        ($goal | renumber($ws.num; null)),
-        ($hidden[:$goal_i] + [$cur] + $hidden[($goal_i + 1):] | 
-        renumber_multi($ws.num))
-        # ($cur | renumber($ws.num; $hidden[if $d > 0 then -1 else 0 end])),
-    ] | join("; ");
-
-
-
-# def cycle($d): # command
-#     workspace as $ws
-#     | window as $cur
-#     | hidden($ws) as $hidden
-#     | ($d | if . > 0 then . - 1 else . end) as $goal_i
-#     | ($hidden[$goal_i]) as $goal
-#     | [
-#         "[con_id=\($current.id)] swap container with con_id \($goal.id)",
-#         ($goal | renumber($ws.num; null)), # Drop target mark
-#         ($cur | renumber($ws.num; $hidden[if $d > 0 then -1 else 0 end].idx)),
-#         # ($cur | renumber($ws.num; $hidden[if $d > 0 then -1 else 0 end])),
-#     ] | join("; ");
-
-# Recalc current mark to last+1 or first+1
-# Recalc all $hidden[target_i+1; -1] or $hidden[0; $target_i]
+    | window as $cur
+    | ($hidden[$i] // empty) as $goal
+    | "[con_id=\($cur.id)] swap container with con_id \($goal.id); "
+    + (($goal | unnumber + "; ") // "")
+    + ($hidden[:$i] + [$cur] + $hidden[($i + 1):] | renumber_multi($ws.num));
 
 # Send current window to scratchpad but remember
 def minimize: # command
