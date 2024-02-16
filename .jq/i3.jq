@@ -48,32 +48,59 @@ def hidden($ws):
     | select(.workspace == ($ws | .num // .))]
     | sort_by(.idx);
 
-def mark($ws; $pos):
-    "mark --add _ws\($ws)_pos\($pos)";
-
 # Commands ###################################################################
 
-# Send current window to scratchpad but remember
-def cycle($d): #
+def renumber($ws; $n):
+    [ if has("idx") then "[con_id=\(.id)] unmark _ws\(.workspace)_pos\(.idx)"
+    else empty end,
+    if $n then "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)"
+    else empty end] | join("; ");
+
+def renumber_multi($ws):
+    foreach .[] as $con (0; . + 1; {i: ., con: $con})
+    | .i as $i | .con | renumber($ws; $i);
+
+
+def cycle($d): # command
     workspace as $ws
+    | window as $cur
     | hidden($ws) as $hidden
-    | $hidden[-1] as $prev
-    | $hidden[0] as $next
-    | ($prev.idx - 1) as $idx
-    | ($ws | window) as $w
-    | ("[con_id=\($next.id)] swap container with con_id \($w.id); "
-    +"[con_id=\($next.id)] unmark _ws\($ws.num)_pos\($next.idx); "
-    +"[con_id=\($w.id)] mark --add _ws\($ws.num)_pos\($idx)"
-    );
+    | ($d | if . > 0 then . - 1 else . end) as $goal_i
+    | ($hidden[$goal_i]) as $goal
+    | [
+        "[con_id=\($cur.id)] swap container with con_id \($goal.id)",
+        ($goal | renumber($ws.num; null)),
+        ($hidden[:$goal_i] + [$cur] + $hidden[($goal_i + 1):] | 
+        renumber_multi($ws.num))
+        # ($cur | renumber($ws.num; $hidden[if $d > 0 then -1 else 0 end])),
+    ] | join("; ");
+
+
+
+# def cycle($d): # command
+#     workspace as $ws
+#     | window as $cur
+#     | hidden($ws) as $hidden
+#     | ($d | if . > 0 then . - 1 else . end) as $goal_i
+#     | ($hidden[$goal_i]) as $goal
+#     | [
+#         "[con_id=\($current.id)] swap container with con_id \($goal.id)",
+#         ($goal | renumber($ws.num; null)), # Drop target mark
+#         ($cur | renumber($ws.num; $hidden[if $d > 0 then -1 else 0 end].idx)),
+#         # ($cur | renumber($ws.num; $hidden[if $d > 0 then -1 else 0 end])),
+#     ] | join("; ");
+
+# Recalc current mark to last+1 or first+1
+# Recalc all $hidden[target_i+1; -1] or $hidden[0; $target_i]
 
 # Send current window to scratchpad but remember
-def minimize:
+def minimize: # command
     workspace as $ws
     | hidden($ws) as $after
-    | ($ws | window) as $w
-    | ("[con_id=\($w.id)] \(mark($ws.num; ($after[-1].idx // 0) + 1)); "
-        + "[con_id=\($w.id)] move to scratchpad");
+    | $ws | window
+    | (renumber($ws.num; ($after[-1].idx // 0) + 1)
+    + "; [con_id=\(.id)] move to scratchpad");
 
 # Treat the current tiles as windows to leaf through in sequence
-def step($d):
+def step($d): # command
     [workspace | tiles] | offset($d) | "[con_id=\(.id)] focus";
