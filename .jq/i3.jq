@@ -48,38 +48,41 @@ def hidden($ws):
     | select(.workspace == ($ws | .num // .))]
     | sort_by(.idx);
 
+# Get current workspace, current window and hidden windows
+def state:
+    workspace as $workspace
+    | hidden($workspace) as $hidden
+    | $workspace | window as $window
+    | {$workspace, $hidden, $window};
+
 # Commands ###################################################################
 
 def unnumber:
-    if has("idx") then "[con_id=\(.id)] unmark _ws\(.workspace)_pos\(.idx)"
+    if has("idx")
+    then "[con_id=\(.id)] unmark _ws\(.workspace)_pos\(.idx)"
     else empty end;
 
 def renumber($ws; $n):
-    [ unnumber, "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)"] | join("; ");
+    "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)";
+
+# Send current window to scratchpad but remember
+def hide: # command
+    state as {$workspace, $window, $hidden}
+    | $window | renumber($workspace.num; ($hidden[-1].idx // 0) + 1)
+    + "; [con_id=\(.id)] move to scratchpad";
 
 def cycle_hidden($d): # command
-    workspace as $ws
-    | hidden($ws) as $hidden
+    state as {$workspace, $window, $hidden}
     | (if $d > 0 then {i: ($d - 1), j: $d}
         elif $d < 0 then {i: $d, j: ($hidden | length - $d)}
         else empty end) as {$i, $j}
-    | window as $cur
     | ($hidden[$i] // empty) as $goal
-    | [ "[con_id=\($cur.id)] swap container with con_id \($goal.id)"
+    | [ "[con_id=\($window.id)] swap container with con_id \($goal.id)"
       , ($goal | unnumber)
-      , (foreach (($hidden[$j:] | .[]), $cur, ($hidden[:$i] | .[])) as $con
-        (0; . + 1; {k: ., con: $con})
-        | .k as $k | .con | renumber($ws.num; $k))
+      , (foreach (($hidden[$j:] | .[]), $window, ($hidden[:$i] | .[])) as $con
+        (0; . + 1; $con + {n: .}) | renumber($workspace.num; .n))
       ] | join("; ");
 
-# Send current window to scratchpad but remember
-def minimize: # command
-    workspace as $ws
-    | hidden($ws) as $after
-    | $ws | window
-    | (renumber($ws.num; ($after[-1].idx // 0) + 1)
-    + "; [con_id=\(.id)] move to scratchpad");
-
 # Treat the current tiles as windows to leaf through in sequence
-def step($d): # command
+def cycle_window($d): # command
     [workspace | tiles] | offset($d) | "[con_id=\(.id)] focus";
