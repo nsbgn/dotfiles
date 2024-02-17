@@ -62,14 +62,16 @@ def renumber_multi($ws):
     | .i as $i | .con | renumber($ws; $i)] | join("; ");
 
 def cycle_hidden($d): # command
-    ($d | if . > 0 then . - 1 elif . < 0 then . else empty end) as $i # modulo?
-    | workspace as $ws
+    workspace as $ws
     | hidden($ws) as $hidden
+    | (if $d > 0 then {i: ($d - 1), j: $d}
+        elif $d < 0 then {i: $d, j: ($hidden | length - $d)}
+        else empty end) as {$i, $j}
     | window as $cur
     | ($hidden[$i] // empty) as $goal
     | "[con_id=\($cur.id)] swap container with con_id \($goal.id); "
     + (($goal | unnumber + "; ") // "")
-    + ($hidden[:$i] + [$cur] + $hidden[($i + 1):] | renumber_multi($ws.num));
+    + ($hidden[$j:] + [$cur] + $hidden[:$i] | renumber_multi($ws.num));
 
 # Send current window to scratchpad but remember
 def minimize: # command
