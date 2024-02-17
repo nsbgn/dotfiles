@@ -57,10 +57,6 @@ def unnumber:
 def renumber($ws; $n):
     [ unnumber, "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)"] | join("; ");
 
-def renumber_multi($ws):
-    [foreach .[] as $con (0; . + 1; {i: ., con: $con})
-    | .i as $i | .con | renumber($ws; $i)] | join("; ");
-
 def cycle_hidden($d): # command
     workspace as $ws
     | hidden($ws) as $hidden
@@ -69,9 +65,12 @@ def cycle_hidden($d): # command
         else empty end) as {$i, $j}
     | window as $cur
     | ($hidden[$i] // empty) as $goal
-    | "[con_id=\($cur.id)] swap container with con_id \($goal.id); "
-    + (($goal | unnumber + "; ") // "")
-    + ($hidden[$j:] + [$cur] + $hidden[:$i] | renumber_multi($ws.num));
+    | [ "[con_id=\($cur.id)] swap container with con_id \($goal.id)"
+      , ($goal | unnumber)
+      , (foreach (($hidden[$j:] | .[]), $cur, ($hidden[:$i] | .[])) as $con
+        (0; . + 1; {k: ., con: $con})
+        | .k as $k | .con | renumber($ws.num; $k))
+      ] | join("; ");
 
 # Send current window to scratchpad but remember
 def minimize: # command
