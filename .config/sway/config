@@ -136,7 +136,7 @@ bindsym $fn+g exec dmenu-apps
 # ROW 3 LEFT #################################################################
 
 bindsym $fn+z kill
-bindsym $fn+b move container to scratchpad
+bindsym $fn+b exec "i3jq 'hide'"
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
@@ -148,8 +148,8 @@ bindsym $fn+Shift+b floating toggle
 
 # bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
-bindsym $fn+i exec "$hwm swap prev"
-bindsym $fn+o exec "$hwm swap next"
+bindsym $fn+i exec "i3jq 'cycle_hidden(-1)'"
+bindsym $fn+o exec "i3jq 'cycle_hidden(+1)'"
 # bindsym $fn+p exec "$pwm mark_focus p"
 
 # ROW 2 RIGHT ################################################################
@@ -158,9 +158,9 @@ bindsym $fn+o exec "$hwm swap next"
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+j exec "i3jq 'focus(-1)'"
+bindsym $fn+j exec "i3jq 'cycle_window(-1)'"
 
-bindsym $fn+k exec "i3jq 'focus(1)'"
+bindsym $fn+k exec "i3jq 'cycle_window(+1)'"
 
 bindsym $fn+l focus right
 #bindsym $fn+l exec "$pwm mark_focus k"
