@@ -208,9 +208,9 @@ s = down
 d = right
 f = pagedown
 
-x = oneshot(meta)
-c = oneshot(control)
-v = oneshot(alt)
+x = oneshot(control)
+# c = oneshot(alt)
+# v = oneshot(alt)
 # TODO: c+v = oneshot(control+alt)
 # oneshot,swap
 
