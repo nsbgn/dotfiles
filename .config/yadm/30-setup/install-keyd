@@ -114,7 +114,7 @@ rightshift = /
 [main]
 capslock = backspace
 leftshift = oneshot(shift)
-leftcontrol = oneshot(control)
+leftcontrol = overload(control, compose)
 leftmeta = oneshot(alt)
 
 # Thumb keys
@@ -194,7 +194,7 @@ rightcontrol = overload(fnR, rightmeta)
 compose = overload(fnR, rightmeta)
 leftshift = overload(shift, leftshift)
 
-space = swapm(empty, compose)
+# space = swapm(empty, compose)
 
 tab = delete
 q = home

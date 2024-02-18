@@ -140,7 +140,7 @@ bindsym $fn+b exec "i3jq 'hide'"
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
-bindsym $fn+v fullscreen
+bindsym $fn+space fullscreen
 bindsym $fn+x focus mode_toggle
 bindsym $fn+Shift+b floating toggle
 
@@ -186,7 +186,7 @@ bindsym $fn+Shift+period move container to workspace next_on_output
 
 # bindsym $fn+backslash exec "$pwm new_workspace"
 
-bindsym $fn+space floating toggle
+# bindsym $fn+space floating toggle
 
 ##############################################################################
 # $fn: Function keys
