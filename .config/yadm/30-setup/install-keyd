@@ -199,7 +199,54 @@ s = down
 d = right
 f = pagedown
 
+x = oneshot(meta)
+c = oneshot(control)
+v = oneshot(alt)
+# TODO: c+v = oneshot(control+alt)
+# oneshot,swap
+
 ' = macro(esc ;)
+
+[control+fnL]
+tab = delete
+q = C-q
+w = C-w
+e = C-e
+r = C-r
+t = C-t
+
+a = C-a
+s = C-s
+d = C-d
+f = C-f
+g = C-g
+
+z = C-z
+x = C-x
+c = C-c
+v = C-v
+b = C-b
+
+# TODO: fallthrough. instead of q, fall through to current layout
+[alt+fnL]
+tab = delete
+q = A-q
+w = A-w
+e = A-e
+r = A-r
+t = A-t
+
+a = A-a
+s = A-s
+d = A-d
+f = A-f
+g = A-g
+
+z = A-z
+x = A-x
+c = A-c
+v = A-v
+b = A-b
 
 [fnR:M]
 # Still allow bare presses of meta key by combining them
