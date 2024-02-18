@@ -55,15 +55,20 @@ l = k
 ' = ;
 enter = '
 
-z = lettermod(control, z, 100, 200)
-x = lettermod(alt, x, 100, 200)
+# z = lettermod(control, z, 100, 200)
+# x = lettermod(alt, x, 100, 200)
+z = z
+x = x
+
 # ...
 n = noop
 m = n
 , = m
 . = ,
-/ = lettermod(alt, ., 100, 200)
-rightshift = lettermod(control, /, 100, 200)
+/ = .
+rightshift = /
+# / = lettermod(alt, ., 100, 200)
+# rightshift = lettermod(control, /, 100, 200)
 
 [colemakdh_shifted:layout]
 q = q
@@ -90,16 +95,20 @@ l = e
 ' = o
 enter = '
 
-z = lettermod(control, z, 100, 200)
-x = lettermod(alt, x, 100, 200)
+# z = lettermod(control, z, 100, 200)
+# x = lettermod(alt, x, 100, 200)
+z = z
+x = x
 c = c
 v = d
 b = v
 m = k
 , = h
 . = ,
-/ = lettermod(alt, ., 100, 200)
-rightshift = lettermod(control, /, 100, 200)
+/ = .
+rightshift = /
+# / = lettermod(alt, ., 100, 200)
+# rightshift = lettermod(control, /, 100, 200)
 
 
 [main]
