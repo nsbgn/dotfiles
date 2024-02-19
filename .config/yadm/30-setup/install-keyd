@@ -127,16 +127,29 @@ rightcontrol = overloadt2(fnR, enter, 150)
 [empty]
 
 
-# Bare control/alt presses are still possible
-[control]
-z = timeout(C-z, 400, leftcontrol)
-rightshift = timeout(C-/, 400, rightcontrol)
+# TODO mirroring
+[control:C]
+x = timeout(overload(alt, C-A-x), 500, oneshot(control_alt))
+v = timeout(overload(meta, M-C-v), 500, oneshot(meta_control))
 
+[meta:M]
+x = timeout(overload(alt, M-A-x), 500, oneshot(meta_alt))
+c = timeout(overload(control, M-C-c), 500, oneshot(meta_control))
 
-[alt]
-x = timeout(A-x, 400, leftalt)
-/ = timeout(A-., 400, rightalt)
+[alt:A]
+c = timeout(overload(control, C-A-c), 500, oneshot(control_alt))
+v = timeout(overload(meta, M-A-v), 500, oneshot(meta_alt))
 
+[control_alt:C-A]
+v = timeout(overload(meta, M-C-A-v), 500, oneshot(meta_control_alt))
+
+[meta_alt:M-A]
+c = timeout(overload(control, M-C-A-c), 500, oneshot(meta_control_alt))
+
+[meta_control:M-C]
+x = timeout(overload(alt, M-C-A-x), 500, oneshot(meta_control_alt))
+
+[meta_control_alt:M-C-A]
 
 # If I could clear the shifted oneshot layer but activate it as non-oneshot, 
 # this would be the way to go, I think
@@ -208,11 +221,9 @@ s = down
 d = right
 f = pagedown
 
-x = oneshot(control)
-# c = oneshot(alt)
-# v = oneshot(alt)
-# TODO: c+v = oneshot(control+alt)
-# oneshot,swap
+x = oneshot(alt)
+c = oneshot(control)
+v = oneshot(meta)
 
 ' = macro(esc ;)
 
