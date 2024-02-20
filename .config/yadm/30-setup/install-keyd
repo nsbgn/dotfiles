@@ -221,9 +221,15 @@ s = down
 d = right
 f = pagedown
 
+z = oneshot(shift)
 x = oneshot(alt)
 c = oneshot(control)
 v = oneshot(meta)
+
+, = oneshot(meta)
+. = oneshot(control)
+/ = oneshot(alt)
+rightshift = oneshot(shift)
 
 ' = macro(esc ;)
 
@@ -273,25 +279,27 @@ b = A-b
 leftalt = overload(fnL, leftmeta)
 leftshift = overload(shift, rightshift)
 
-u = scrolllock
-i = f7
-o = f8
-p = f9
-[ = f12
-] = insert
+# scrolllock, capslock, insert, sysrq, pause
 
-j = sysrq
-k = f4
-l = f5
-; = f6
-apostrophe = f11
-enter = print
+u = f7
+i = f8
+o = f9
+p = f10
+[ = f11
+] = f12
 
-m = pause
-, = f3
-. = f2
-/ = f1
-rightshift = f10
+j = f1
+k = f2
+l = f3
+; = f4
+apostrophe = f5
+enter = f6
+
+m = sysrq
+, = oneshot(meta)
+. = oneshot(control)
+/ = oneshot(alt)
+rightshift = oneshot(shift)
 
 
 # Layouts are very hard to accidentally toggle this way
@@ -299,6 +307,16 @@ rightshift = f10
 space = setlayout(qwerty_shifted)
 rightalt = setlayout(colemakdh_shifted)
 leftshift = capslock
+
+z = overload(shift, leftshift)
+x = overload(alt, leftalt)
+c = overload(control, leftcontrol)
+v = overload(meta, leftmeta)
+
+, = overload(meta, rightmeta)
+. = overload(control, rightcontrol)
+/ = overload(alt, rightalt)
+rightshift = overload(shift, rightshift)
 
 
 [extra]
