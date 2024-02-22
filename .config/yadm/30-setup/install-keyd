@@ -55,8 +55,6 @@ l = k
 ' = ;
 enter = '
 
-# z = lettermod(control, z, 100, 200)
-# x = lettermod(alt, x, 100, 200)
 z = z
 x = x
 
@@ -67,8 +65,6 @@ m = n
 . = ,
 / = .
 rightshift = /
-# / = lettermod(alt, ., 100, 200)
-# rightshift = lettermod(control, /, 100, 200)
 
 [colemakdh_shifted:layout]
 q = q
@@ -95,8 +91,6 @@ l = e
 ' = o
 enter = '
 
-# z = lettermod(control, z, 100, 200)
-# x = lettermod(alt, x, 100, 200)
 z = z
 x = x
 c = c
@@ -107,8 +101,6 @@ m = k
 . = ,
 / = .
 rightshift = /
-# / = lettermod(alt, ., 100, 200)
-# rightshift = lettermod(control, /, 100, 200)
 
 
 [main]
@@ -129,32 +121,31 @@ rightcontrol = overloadt2(fnR, enter, 150)
 
 # TODO mirroring
 [control:C]
-x = timeout(overload(alt, C-A-x), 500, oneshot(control_alt))
-v = timeout(overload(meta, M-C-v), 500, oneshot(meta_control))
+z = overload(meta_control, M-C-v)
+x = overload(control_alt, C-A-x)
+v = overload(control_shift2, C-S-v)
 
 [meta:M]
-x = timeout(overload(alt, M-A-x), 500, oneshot(meta_alt))
-c = timeout(overload(control, M-C-c), 500, oneshot(meta_control))
+x = overload(meta_alt, M-A-x)
+c = overload(meta_control, M-C-c)
 
 [alt:A]
-c = timeout(overload(control, C-A-c), 500, oneshot(control_alt))
-v = timeout(overload(meta, M-A-v), 500, oneshot(meta_alt))
+c = overload(control_alt, C-A-c)
+v = overload(meta_alt, M-A-v)
+
+[shift2:S]
 
 [control_alt:C-A]
-v = timeout(overload(meta, M-C-A-v), 500, oneshot(meta_control_alt))
+v = overload(meta_control_alt, M-C-A-v)
 
 [meta_alt:M-A]
-c = timeout(overload(control, M-C-A-c), 500, oneshot(meta_control_alt))
+c = overload(meta_control_alt, M-C-A-c)
 
 [meta_control:M-C]
-x = timeout(overload(alt, M-C-A-x), 500, oneshot(meta_control_alt))
+x = overload(meta_control_alt, M-C-A-x)
 
 [meta_control_alt:M-C-A]
 
-# If I could clear the shifted oneshot layer but activate it as non-oneshot, 
-# this would be the way to go, I think
-# [shift]
-# rightalt = layerm(symbol, compose)
 
 [symbol]
 leftshift = swap(shift)
@@ -197,7 +188,7 @@ m = %
 rightshift = /
 
 
-[symbol2]
+[symbol2
 [ = macro(backspace :)
 
 
@@ -221,58 +212,17 @@ s = down
 d = right
 f = pagedown
 
-z = oneshot(shift)
+z = oneshot(meta)
 x = oneshot(alt)
 c = oneshot(control)
-v = oneshot(meta)
+v = oneshot(shift2)
 
-, = oneshot(meta)
+, = oneshot(shift2)
 . = oneshot(control)
 / = oneshot(alt)
-rightshift = oneshot(shift)
+rightshift = oneshot(meta)
 
 ' = macro(esc ;)
-
-[control+fnL]
-tab = delete
-q = C-q
-w = C-w
-e = C-e
-r = C-r
-t = C-t
-
-a = C-a
-s = C-s
-d = C-d
-f = C-f
-g = C-g
-
-z = C-z
-x = C-x
-c = C-c
-v = C-v
-b = C-b
-
-# TODO: fallthrough. instead of q, fall through to current layout
-[alt+fnL]
-tab = delete
-q = A-q
-w = A-w
-e = A-e
-r = A-r
-t = A-t
-
-a = A-a
-s = A-s
-d = A-d
-f = A-f
-g = A-g
-
-z = A-z
-x = A-x
-c = A-c
-v = A-v
-b = A-b
 
 [fnR:M]
 # Still allow bare presses of meta key by combining them
@@ -296,10 +246,120 @@ apostrophe = f5
 enter = f6
 
 m = sysrq
-, = oneshot(meta)
+, = oneshot(shift)
 . = oneshot(control)
 / = oneshot(alt)
-rightshift = oneshot(shift)
+rightshift = oneshot(meta)
+
+[control+fnL]
+tab = C-tab
+q   = C-q
+w   = C-w
+e   = C-e
+r   = C-r
+t   = C-t
+a   = C-a
+s   = C-s
+d   = C-d
+f   = C-f
+g   = C-g
+z   = C-z
+x   = C-x
+c   = C-c
+v   = C-v
+b   = C-b
+
+u   = C-y
+i   = C-u
+o   = C-i
+p   = C-o
+[   = C-p
+]   = C-\
+j   = C-h
+k   = C-j
+l   = C-k
+;   = C-l
+apostrophe = C-;
+enter = C-apostrophe
+
+m = C-n
+# , = overload(control)
+# . = overload(control)
+# / = oneshot(alt)
+# rightshift = oneshot(shift)
+
+
+[alt+fnL]
+tab = A-tab
+q   = A-q
+w   = A-w
+e   = A-e
+r   = A-r
+t   = A-t
+a   = A-a
+s   = A-s
+d   = A-d
+f   = A-f
+g   = A-g
+z   = A-z
+x   = A-x
+c   = A-c
+v   = A-v
+b   = A-b
+u   = A-y
+i   = A-u
+o   = A-i
+p   = A-o
+[   = A-p
+]   = A-\
+j   = A-h
+k   = A-j
+l   = A-k
+;   = A-l
+apostrophe = A-;
+enter = A-apostrophe
+
+m = A-n
+# , = overload(control)
+# . = overload(control)
+# / = oneshot(alt)
+# rightshift = oneshot(shift)
+
+[meta+fnL]
+tab = M-tab
+q   = M-q
+w   = M-w
+e   = M-e
+r   = M-r
+t   = M-t
+a   = M-a
+s   = M-s
+d   = M-d
+f   = M-f
+g   = M-g
+z   = M-z
+x   = M-x
+c   = M-c
+v   = M-v
+b   = M-b
+u   = M-y
+i   = M-u
+o   = M-i
+p   = M-o
+[   = M-p
+]   = M-\
+j   = M-h
+k   = M-j
+l   = M-k
+;   = M-l
+apostrophe = M-;
+enter = M-apostrophe
+
+m = M-n
+# , = overload(control)
+# . = overload(control)
+# / = oneshot(alt)
+# rightshift = oneshot(shift)
 
 
 # Layouts are very hard to accidentally toggle this way
@@ -308,15 +368,15 @@ space = setlayout(qwerty_shifted)
 rightalt = setlayout(colemakdh_shifted)
 leftshift = capslock
 
-z = overload(shift, leftshift)
+z = overload(meta, leftmeta)
 x = overload(alt, leftalt)
 c = overload(control, leftcontrol)
-v = overload(meta, leftmeta)
+v = overload(shift2, leftshift)
 
-, = overload(meta, rightmeta)
+, = overload(shift2, rightshift)
 . = overload(control, rightcontrol)
 / = overload(alt, rightalt)
-rightshift = overload(shift, rightshift)
+rightshift = overload(meta, rightmeta)
 
 
 [extra]
