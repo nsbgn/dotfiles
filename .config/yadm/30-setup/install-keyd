@@ -215,7 +215,7 @@ f = pagedown
 z = oneshot(meta)
 x = oneshot(alt)
 c = oneshot(control)
-v = oneshot(shift2)
+v = swapm(empty, compose)
 
 , = oneshot(shift2)
 . = oneshot(control)
@@ -371,7 +371,7 @@ leftshift = capslock
 z = overload(meta, leftmeta)
 x = overload(alt, leftalt)
 c = overload(control, leftcontrol)
-v = overload(shift2, leftshift)
+# v = overload(shift2, leftshift)
 
 , = overload(shift2, rightshift)
 . = overload(control, rightcontrol)
