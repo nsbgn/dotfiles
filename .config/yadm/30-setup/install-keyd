@@ -171,57 +171,27 @@ x = overload(alt_shift, S-x)
 c = overload(control_shift, S-c)
 
 [meta2:M]
-leftshift = overload(meta_shift, M-leftshift)
 x = overload(meta_alt, M-x)
 c = overload(meta_control, M-c)
 
 [alt2:A]
-leftshift = overload(alt_shift, A-leftshift)
 z = overload(meta_alt, A-z)
 c = overload(control_alt, A-c)
 
 [control2:C]
-leftshift = overload(control_shift, C-leftshift)
 z = overload(meta_control, C-z)
 x = overload(control_alt, C-x)
 
-[control_shift:C-S]
-z = overload(meta_control_shift, C-S-z)
-x = overload(control_shift_alt, C-S-x)
-
 [control_alt:C-A]
-leftshift = overload(control_alt_shift, C-A-leftshift)
 z = overload(meta_control_alt, C-A-z)
 
 [meta_control:M-C]
-leftshift = overload(meta_control_shift, M-C-leftshift)
 x = overload(meta_control_alt, M-C-x)
 
 [meta_alt:M-A]
-leftshift = overload(meta_alt_shift, M-A-leftshift)
 c = overload(meta_control_alt, M-A-c)
 
-[alt_shift:A-S]
-z = overload(meta_alt_shift, A-S-z)
-c = overload(control_alt_shift, C-S-c)
-
-[meta_shift:M-S]
-x = overload(meta_alt_shift, M-S-x)
-c = overload(meta_control_shift, M-S-c)
-
 [meta_control_alt:M-C-A]
-leftshift = overload(meta_control_alt_shift, M-C-A-leftshift)
-
-[control_alt_shift:C-A-S]
-z = overload(meta_control_alt_shift, M-A-S-z)
-
-[meta_control_shift:M-C-S]
-x = overload(meta_control_alt_shift, M-C-S-x)
-
-[meta_alt_shift:M-A-S]
-c = overload(meta_control_alt_shift, M-A-S-c)
-
-[meta_control_alt_shift:M-C-A-S]
 
 [fnL:M]
 rightcontrol = overload(fnR, rightmeta)
