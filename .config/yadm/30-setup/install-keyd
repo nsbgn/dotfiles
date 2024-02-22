@@ -3,7 +3,7 @@
 
 # SOURCE: https://github.com/rvaiya/keyd
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/keyd
-# DEBIAN: -
+# DEBIAN: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1060023
 set -eu
 
 if ! which keyd > /dev/null; then
@@ -224,12 +224,8 @@ c = overload(meta_control_alt_shift, M-A-S-c)
 [meta_control_alt_shift:M-C-A-S]
 
 [fnL:M]
-# Still allow bare presses of meta key by combining them
 rightcontrol = overload(fnR, rightmeta)
 compose = overload(fnR, rightmeta)
-leftshift = overload(shift, leftshift)
-
-# space = swapm(empty, compose)
 
 tab = delete
 q = home
@@ -257,9 +253,7 @@ rightshift = oneshot(meta2)
 ' = macro(esc ;)
 
 [fnR:M]
-# Still allow bare presses of meta key by combining them
 leftalt = overload(fnL, leftmeta)
-leftshift = overload(shift, rightshift)
 
 # scrolllock, capslock, insert, sysrq, pause
 
@@ -278,7 +272,7 @@ apostrophe = f5
 enter = f6
 
 m = sysrq
-# , = oneshot(shift)
+, = pause
 . = swap(control2)
 / = swap(alt2)
 rightshift = swap(meta2)
@@ -288,9 +282,8 @@ rightshift = swap(meta2)
 [fnL+fnR]
 space = setlayout(qwerty_shifted)
 rightalt = setlayout(colemakdh_shifted)
-leftshift = capslock
 
-leftshift = overload(shift2, leftshift)
+leftshift = overload(shift2, rightshift)
 z = overload(meta2, leftmeta)
 x = overload(alt2, leftalt)
 c = overload(control2, leftcontrol)
