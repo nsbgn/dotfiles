@@ -26,9 +26,9 @@ def tiles:
 def clamp($min; $max):
     if . >= $min then if . <= $max then . else $max end else $min end;
 
-# Find the container a given offset away from the focused container in a list
-def offset($d):
-    (map(.focused) | index(true)) as $i | .[($i + $d) | clamp(0; length)] ;
+# Find the index of the first item satisfying the condition in an array
+def position(condition):
+    (map(condition) | index(true));
 
 
 # Halfwm #####################################################################
@@ -85,4 +85,6 @@ def cycle_hidden($d): # command
 
 # Treat the current tiles as windows to leaf through in sequence
 def cycle_window($d): # command
-    [workspace | tiles] | offset($d) | "[con_id=\(.id)] focus";
+    [workspace | tiles]
+    | .[position(.focused) + $d | clamp(0; length)]
+    | "[con_id=\(.id)] focus";
