@@ -30,6 +30,9 @@ def clamp($min; $max):
 def position(condition):
     (map(condition) | index(true));
 
+def partition(condition):
+    position(condition) as $i
+    | {before: .[:$i], current: .[$i], after: .[($i + 1):]};
 
 # Halfwm #####################################################################
 
@@ -70,6 +73,19 @@ def hide: # command
     state as {$workspace, $window, $hidden}
     | $window | renumber($workspace.num; ($hidden[-1].idx // 0) + 1)
     + "; [con_id=\(.id)] move to scratchpad";
+
+# Hide all windows except the focused window. The windows occurring before the 
+# focused window are hidden 'before' (ie at the end), the windows occurring 
+# after are hidden 'after' (ie at the beginning).
+def hide_other:
+    state as {$workspace, $window, $hidden}
+    | [$workspace | tiles]
+    | partition(.focused) as {$before, $after}
+    | $after + $hidden + $before
+    | [
+        to_entries[] | .key as $i | .value
+        | renumber($workspace.num; $i), "[con_id=\(.id)] move to scratchpad"]
+    | join("; ");
 
 def cycle_hidden($d): # command
     state as {$workspace, $window, $hidden}
