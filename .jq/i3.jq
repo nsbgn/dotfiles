@@ -44,12 +44,22 @@ def location:
         idx: (.captures[1].string | tonumber)};
 
 # Find all currently minimized windows associated with the given workspace
-def hidden($ws):
+def hidden_unsorted($ws):
     [scratchpad
     | .floating_nodes[]
     | . += location
-    | select(.workspace == ($ws | .num // .))]
+    | select(.workspace == ($ws | .num // .))];
+
+def hidden($ws):
+    hidden_unsorted($ws)
     | sort_by(.idx);
+
+# Is the most recently minimized window at the end or at the beginning of the 
+# hidden windows?
+def mru($ws):
+    hidden_unsorted($ws)
+    | length as $n
+    | first(.[] | select(.idx == 0 or .idx == $n));
 
 # Get current workspace, current window and hidden windows
 def state:
@@ -82,10 +92,25 @@ def hide_other:
     | [$workspace | tiles]
     | partition(.focused) as {$before, $after}
     | $after + $hidden + $before
-    | [
-        to_entries[] | .key as $i | .value
+    | [ to_entries[] | .key as $i | .value
         | renumber($workspace.num; $i), "[con_id=\(.id)] move to scratchpad"]
     | join("; ");
+
+# Put the most recently hidden window of this workspace back in the tiling 
+# tree. Put it back where it came from: 
+def unhide:
+    state as {$workspace, $window, $hidden}
+    | mru($workspace) as $mru
+    | [ "[con_id=\($window.id)] mark _tmp",
+        "[con_id=\($mru.id)] move to mark _tmp",
+        "[con_id=\($window.id)] unmark _tmp",
+        if $mru.idx > 0 then empty else
+        "[con_id=\($mru.id)] swap container with con_id \($window.id)" end]
+    | join("; ");
+
+def toggle_tiling_mode:
+    ([workspace | tiles] | length) as $n
+    | if $n > 1 then hide_other else unhide end;
 
 def cycle_hidden($d): # command
     state as {$workspace, $window, $hidden}
@@ -100,7 +125,7 @@ def cycle_hidden($d): # command
       ] | join("; ");
 
 # Treat the current tiles as windows to leaf through in sequence
-def cycle_window($d): # command
+def cycle_window($offset): # command
     [workspace | tiles]
-    | .[position(.focused) + $d | clamp(0; length)]
+    | .[position(.focused) + $offset | clamp(0; length)]
     | "[con_id=\(.id)] focus";
