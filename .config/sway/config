@@ -133,6 +133,8 @@ bindsym $fn+t exec foot-cwd
 # bindsym $fn+f key pgdn
 bindsym $fn+g exec dmenu-apps
 
+bindsym $fn+f exec sed -n 's/^def \(.\+\):.*$/\1/p' .jq/i3.jq | dmenu | xargs i3jq
+
 # ROW 3 LEFT #################################################################
 bindsym $fn+z nop "Too easy to accidentally trigger w/ my keymap"
 bindsym $fn+q kill
