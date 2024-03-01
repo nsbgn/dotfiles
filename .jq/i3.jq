@@ -108,6 +108,28 @@ def unhide:
         "[con_id=\($mru.id)] swap container with con_id \($window.id)" end]
     | join("; ");
 
+
+# Push the currently focused floating container into the tiling tree after the 
+# given index
+def push($i):
+    state as {$workspace, $window, $hidden}
+    | if ($window.type != "floating_con") then error("not floating") else . end
+    | [$workspace | tiles] as $tiles
+    | (tiles | length) as $n
+    | if $n == 0 then
+        [ "[con_id=\($window.id)] floating disable" ]
+      elif $n == 1 then
+        [ "[con_id=\($tiles[0].id)] mark _tmp"
+        , "[con_id=\($window.id)] move to mark _tmp"
+        , "[con_id=\($tiles[0].id)] unmark _tmp"
+        , if $i < 0 then
+            "[con_id=\($window.id)] swap container with con_id \($tiles[0].id)"
+          else empty end
+        ] else [
+        ] end
+    | join("; ")
+;
+
 def toggle_tiling_mode:
     ([workspace | tiles] | length) as $n
     | if $n > 1 then hide_other else unhide end;
