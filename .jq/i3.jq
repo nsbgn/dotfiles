@@ -73,19 +73,13 @@ def state:
 
 # Commands ###################################################################
 
-def unnumber:
+def unmark_position:
   if has("idx")
   then "[con_id=\(.id)] unmark _ws\(.workspace)_pos\(.idx)"
   else empty end;
 
-def renumber($ws; $n):
+def mark_position($ws; $n):
   "[con_id=\(.id)] mark --add _ws\($ws)_pos\($n)";
-
-# Send current window to scratchpad but remember
-def hide: # command
-  state as {$workspace, $window, $hidden}
-  | $window | renumber($workspace.num; ($hidden[-1].idx // 0) + 1)
-  + "; [con_id=\(.id)] move to scratchpad";
 
 # Hide the input container
 def hide($after; $ws; $hidden):
@@ -96,7 +90,7 @@ def hide($after; $ws; $hidden):
   | (if $after
       then ($hidden[-1].idx // 0) + 1
       else ($hidden[0].idx // 0) - 1 end) as $i
-  | "[con_id=\(.id)] mark --add _ws\($ws)_pos\($i); " + "[con_id=\(.id)] move to scratchpad";
+  | "[con_id=\(.id)] mark --add _ws\($ws)_pos\($i); [con_id=\(.id)] move to scratchpad";
 
 # Move the input container to the given container
 def move_to($anchor):
@@ -118,7 +112,7 @@ def hide_other:
   | partition(.focused) as {$before, $after}
   | $after + $hidden + $before
   | [ to_entries[] | .key as $i | .value
-    | renumber($workspace.num; $i), "[con_id=\(.id)] move to scratchpad"]
+    | mark_position($workspace.num; $i), "[con_id=\(.id)] move to scratchpad"]
   | join("; ");
 
 # Put the most recently hidden window of this workspace back in the tiling 
@@ -181,10 +175,10 @@ def cycle_hidden($d): # command
     else empty end) as {$i, $j}
   | ($hidden[$i] // empty) as $goal
   | [ ($goal | swap($window))
-    , ($goal | unnumber)
+    , ($goal | unmark_container)
     , (foreach (($hidden[$j:] | .[]), $window, ($hidden[:$i] | .[])) as $con
       (0; . + 1; $con + {n: .})
-      | renumber($workspace.num; .n))
+      | mark_position($workspace.num; .n))
     ] | join("; ");
 
 # Treat the current tiles as windows to leaf through in sequence
