@@ -93,10 +93,21 @@ def hide($after; $ws; $hidden):
     and ($after | type) == "boolean"
     and ($ws | type) == "number"
     and ($hidden | type) == "list")
-  | ( if ($after | not)
-      then ($hidden[0].idx // 0) - 1
-      else ($hidden[-1].idx // 0) + 1 end ) as $i
+  | (if $after
+      then ($hidden[-1].idx // 0) + 1
+      else ($hidden[0].idx // 0) - 1 end) as $i
   | "[con_id=\(.id)] mark --add _ws\($ws)_pos\($i); " + "[con_id=\(.id)] move to scratchpad";
+
+# Move the input container to the given container
+def move_to($anchor):
+  "_tmp\($anchor.id)" as $m
+  | "[con_id=\($anchor.id)] mark \($m)"
+  + "[con_id=\(.id)] move to mark \($m)"
+  + "[con_id=\($anchor.id)] unmark \($m)";
+
+# Swap the input container with the given one
+def swap($anchor):
+  "[con_id=\(.id)] swap container with con_id \($anchor.id)";
 
 # Hide all windows except the focused window. The windows occurring before the 
 # focused window are hidden 'before' (ie at the end), the windows occurring 
@@ -115,12 +126,10 @@ def hide_other:
 def unhide:
   state as {$workspace, $window, $hidden}
   | mru($workspace) as $mru
-  | [ "[con_id=\($window.id)] mark _tmp"
-    , "[con_id=\($mru.id)] move to mark _tmp"
-    , "[con_id=\($window.id)] unmark _tmp"
+  | [ ($mru | move_to($window))
     , if $mru.idx > 0
       then empty
-      else "[con_id=\($mru.id)] swap container with con_id \($window.id)"
+      else ($mru | swap($window))
       end
     ]
   | join("; ");
@@ -142,21 +151,19 @@ def move_to_tile($i):
     then (if $n == 0 then
       [ "[con_id=\($w.id)] floating disable" ]
       elif $n == 1 then
-      [ "[con_id=\($t.id)] mark _tmp"
-      , "[con_id=\($w.id)] move to mark _tmp"
-      , "[con_id=\($t.id)] unmark _tmp"
+      [ ($w | move_to($t)
       , if $i != 0 then
-        "[con_id=\($w.id)] swap container with con_id \($t.id)"
+        ($t | swap($w))
         else empty end
       ] else
-      [   "[con_id=\($w.id)] swap container with con_id \($t.id)"
-      ,   ($t | hide($i != 0; $workspace.num; $hidden))
+      [ ($t | swap($w.id))
+      , ($t | hide($i != 0; $workspace.num; $hidden))
       ]
     end)
     | join("; ")
   else
-    (if $n > 1 and $tiles[$i].id != $w.id
-    then "[con_id=\($w.id)] swap container with con_id \($tiles[$i].id)"
+    (if $n > 1
+    then ($tiles[$i] | swap($w))
     else empty
     end)
   end);
@@ -173,7 +180,7 @@ def cycle_hidden($d): # command
     elif $d < 0 then {i: $d, j: ($hidden | length - $d)}
     else empty end) as {$i, $j}
   | ($hidden[$i] // empty) as $goal
-  | [ "[con_id=\($window.id)] swap container with con_id \($goal.id)"
+  | [ ($goal | swap($window))
     , ($goal | unnumber)
     , (foreach (($hidden[$j:] | .[]), $window, ($hidden[:$i] | .[])) as $con
       (0; . + 1; $con + {n: .})
