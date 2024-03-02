@@ -1,5 +1,8 @@
 # Prelude
 
+def assert($condition):
+    if $condition then . else error("an assertion failed") end;
+
 # Descend tree structure into focused node one level
 def descend:
     .focus[0] as $i
@@ -84,6 +87,19 @@ def hide: # command
     | $window | renumber($workspace.num; ($hidden[-1].idx // 0) + 1)
     + "; [con_id=\(.id)] move to scratchpad";
 
+# Hide the input container
+def hide($after; $ws; $hidden):
+    assert(.type == "con"
+        and ($after | type) == "boolean"
+        and ($ws | type) == "number"
+        and ($hidden | type) == "list")
+    | if not $after
+      then ($hidden[0].idx // 0) - 1
+      else ($hidden[-1].idx // 0) + 1 end as $i
+    | "[con_id=\(.id)] mark --add _ws\($ws)_pos\($i); "
+    + "[con_id=\(.id)] move to scratchpad"";
+;
+
 # Hide all windows except the focused window. The windows occurring before the 
 # focused window are hidden 'before' (ie at the end), the windows occurring 
 # after are hidden 'after' (ie at the beginning).
@@ -109,26 +125,42 @@ def unhide:
     | join("; ");
 
 
-# Push the currently focused floating container into the tiling tree after the 
-# given index
-def push($i):
-    state as {$workspace, $window, $hidden}
-    | if ($window.type != "floating_con") then error("not floating") else . end
+# Push the currently focused floating container into the tiling tree at the 
+# given index, such that the tile currently at that position is displaced. That 
+# is, if it is sent to $i=0 and there is only one tile, that tile other tile 
+# moves to $i=1 and if it is sent to $i=1, the incumbent tile stays at $i=0. If 
+# there are already two tiles, however, it is hidden before if $i=0 or after if 
+# $i=1
+def move_to_tile($i):
+    state as {$workspace, window: $w, $hidden}
+    | assert($w.type == "floating_con" and $i in [0, 1])
     | [$workspace | tiles] as $tiles
+    | $tiles[0] as $t
     | (tiles | length) as $n
     | if $n == 0 then
-        [ "[con_id=\($window.id)] floating disable" ]
+        [ "[con_id=\($w.id)] floating disable" ]
       elif $n == 1 then
-        [ "[con_id=\($tiles[0].id)] mark _tmp"
-        , "[con_id=\($window.id)] move to mark _tmp"
-        , "[con_id=\($tiles[0].id)] unmark _tmp"
-        , if $i < 0 then
-            "[con_id=\($window.id)] swap container with con_id \($tiles[0].id)"
+        [ "[con_id=\($t.id)] mark _tmp"
+        , "[con_id=\($w.id)] move to mark _tmp"
+        , "[con_id=\($t.id)] unmark _tmp"
+        , if $i != 0 then
+            "[con_id=\($w.id)] swap container with con_id \($t.id)"
           else empty end
-        ] else [
+        ] else
+        [   "[con_id=\($w.id)] swap container with con_id \($t.id)"
+        ,   ($t | hide($i != 0; $workspace.num; $hidden))
         ] end
     | join("; ")
 ;
+
+def move_to_tile2($i):
+    state as {$workspace, window: $w, $hidden}
+    | assert($w.type == "con" and $i in [0, 1])
+    | [$workspace | tiles] as $tiles
+    | (tiles | length) as $n
+    | if $n > 1 and $tiles[$i].id != $w.id then
+        "[con_id=\($w.id)] swap container with con_id \($tiles[$i].id)"
+      else empty end;
 
 def toggle_tiling_mode:
     ([workspace | tiles] | length) as $n
