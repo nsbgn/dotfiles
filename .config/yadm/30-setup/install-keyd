@@ -262,6 +262,20 @@ c = overload(control2, leftcontrol)
 / = overload(alt2, rightalt)
 rightshift = overload(meta, rightmeta)
 
+# Explicitly override the combination so that you can for example do C-+ 
+# intuitively
+[fnL+symbol]
+leftshift = swap(shift2)
+z = swap(meta2)
+x = swap(alt2)
+c = swap(control2)
+v = swapm(empty, compose)
+
+# , = swap(shift2)
+. = swap(control2)
+/ = swap(alt2)
+rightshift = oneshot(meta2)
+
 [extra]
 # XF86WLAN / 0xf6. See also rfkill for XF86RFKill
 tab = wlan
