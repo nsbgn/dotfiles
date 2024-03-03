@@ -186,14 +186,26 @@ def cycle_hidden($d):
       | mark_position($workspace.num; .n))
     ] | join("; ");
 
-# Treat the current tiles as windows to leaf through in sequence
-def focus_tile($offset):
+# Shift focus on containers, leafing through them in sequence
+def shift_focus($offset; aim; containers):
   workspace
-  | until(.nodes == []; descend(.nodes[])) as $focus # might be in actual focus
-  | [tiles]
-  | .[position(.id == $focus.id) + $offset | clamp(0; length)]
+  | aim as $aim
+  | containers
+  | .[position(.id == $aim.id) + (if $aim.focused then $offset else 0 end)
+    | clamp(0; length)]
   | "[con_id=\(.id)] focus";
 
+def focus_tile($offset):
+  shift_focus($offset;
+    until(.nodes == []; descend(.nodes[]));
+    [tiles]);
+
+def focus_float($offset):
+  shift_focus($offset;
+    descend(.floating_nodes[]);
+    .floating_nodes);
+
 # Allows you to run commands via jq "$1" --args "$@"
+def focus_float: focus_float($ARGS.positional[1] | numeric);
 def focus_tile: focus_tile($ARGS.positional[1] | numeric);
 def cycle_hidden: cycle_hidden($ARGS.positional[1] | numeric);
