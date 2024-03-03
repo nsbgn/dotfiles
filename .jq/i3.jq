@@ -29,6 +29,10 @@ def tiles:
 def clamp($min; $max):
   if . >= $min then if . <= $max then . else $max end else $min end;
 
+# Convenience function to exectue a command only when a condition passes
+def when(condition; filter):
+  if condition then filter else "nop" end;
+
 # Find the index of the first item satisfying the condition in an array
 def position(condition):
   (map(condition) | index(true));
@@ -141,26 +145,21 @@ def move_to_tile($i):
   | [$workspace | tiles] as $tiles
   | $tiles[0] as $t
   | ($tiles | length) as $n
-  | (if $w.type == "floating_con"
-    then (if $n == 0 then
-      [ "[con_id=\($w.id)] floating disable" ]
+  | (if $w.type == "floating_con" then
+      (if $n == 0 then
+        "[con_id=\($w.id)] floating disable"
       elif $n == 1 then
-      [ ($w | move_to($t)
-      , if $i != 0 then
-        ($t | swap($w))
-        else empty end
-      ] else
-      [ ($t | swap($w.id))
-      , ($t | hide($i != 0; $workspace.num; $hidden))
-      ]
-    end)
-    | join("; ")
-  else
-    (if $n > 1
-    then ($tiles[$i] | swap($w))
-    else empty
-    end)
-  end);
+        ($w | move_to($t) + "; " + when($i != 0; swap($t)))
+      else
+        ($t | swap($w) + "; " + hide($i != 0; $workspace.num; $hidden))
+      end)
+    else
+      (if $n > 1 then
+        ($tiles[$i] | swap($w))
+      else
+        empty
+      end)
+    end);
 
 def toggle_tiling_mode:
   ([workspace | tiles] | length) as $n
@@ -175,7 +174,7 @@ def cycle_hidden($d): # command
     else empty end) as {$i, $j}
   | ($hidden[$i] // empty) as $goal
   | [ ($goal | swap($window))
-    , ($goal | unmark_container)
+    , ($goal | unmark_position)
     , (foreach (($hidden[$j:] | .[]), $window, ($hidden[:$i] | .[])) as $con
       (0; . + 1; $con + {n: .})
       | mark_position($workspace.num; .n))
