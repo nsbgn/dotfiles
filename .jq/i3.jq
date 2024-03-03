@@ -184,11 +184,11 @@ def cycle_hidden($d):
     ] | join("; ");
 
 # Treat the current tiles as windows to leaf through in sequence
-def focus_window($offset):
+def focus_tile($offset):
   [workspace | tiles]
   | .[position(.focused) + $offset | clamp(0; length)]
   | "[con_id=\(.id)] focus";
 
 # Allows you to run commands via jq "$1" --args "$@"
-def focus_window: focus_window($ARGS.positional[1] | numeric);
+def focus_tile: focus_tile($ARGS.positional[1] | numeric);
 def cycle_hidden: cycle_hidden($ARGS.positional[1] | numeric);
