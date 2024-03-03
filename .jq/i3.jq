@@ -3,11 +3,14 @@
 def assert($condition):
   if $condition then . else error("an assertion failed") end;
 
+# Descend tree structure one level, into the "most" focused node from the given 
+# nodes (typically .nodes[] and/or .floating_nodes[])
+def descend(nodes):
+  first((.focus | .[]) as $i | nodes | select(.id == $i));
+
 # Descend tree structure into focused node one level
 def descend:
-  .focus[0] as $i
-  | .nodes[], .floating_nodes[]
-  | select(.id == $i);
+  descend(.nodes[], .floating_nodes[]);
 
 # Descend tree structure until finding focused workspace
 def workspace:
@@ -68,7 +71,7 @@ def hidden($ws):
   hidden_unsorted($ws)
   | sort_by(.idx);
 
-# Is the most recently minimized window at the end or at the beginning of the 
+# Is the most recently minimized window at the end or at the beginning of the
 # hidden windows?
 def mru($ws):
   hidden_unsorted($ws)
@@ -114,8 +117,8 @@ def move_to($anchor):
 def swap($anchor):
   "[con_id=\(.id)] swap container with con_id \($anchor.id)";
 
-# Hide all windows except the focused window. The windows occurring before the 
-# focused window are hidden 'before' (ie at the end), the windows occurring 
+# Hide all windows except the focused window. The windows occurring before the
+# focused window are hidden 'before' (ie at the end), the windows occurring
 # after are hidden 'after' (ie at the beginning).
 def hide_other:
   state as {$workspace, $window, $hidden}
@@ -126,8 +129,8 @@ def hide_other:
     | mark_position($workspace.num; $i), "[con_id=\(.id)] move to scratchpad"]
   | join("; ");
 
-# Put the most recently hidden window of this workspace back in the tiling 
-# tree. Put it back where it came from: 
+# Put the most recently hidden window of this workspace back in the tiling
+# tree. Put it back where it came from:
 def unhide:
   state as {$workspace, $window, $hidden}
   | mru($workspace) as $mru
@@ -140,11 +143,11 @@ def unhide:
   | join("; ");
 
 
-# Push the currently focused floating container into the tiling tree at the 
-# given index, such that the tile currently at that position is displaced. That 
-# is, if it is sent to $i=0 and there is only one tile, that tile other tile 
-# moves to $i=1 and if it is sent to $i=1, the incumbent tile stays at $i=0. If 
-# there are already two tiles, however, it is hidden before if $i=0 or after if 
+# Push the currently focused floating container into the tiling tree at the
+# given index, such that the tile currently at that position is displaced. That
+# is, if it is sent to $i=0 and there is only one tile, that tile other tile
+# moves to $i=1 and if it is sent to $i=1, the incumbent tile stays at $i=0. If
+# there are already two tiles, however, it is hidden before if $i=0 or after if
 # $i=1
 def move_to_tile($i):
   state as {$workspace, window: $w, $hidden}
