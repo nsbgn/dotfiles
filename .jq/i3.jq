@@ -34,10 +34,10 @@ def when(condition; filter):
   if condition then filter else "nop" end;
 
 # Convenience function to turn a word into a corresponding number
-def numeric(f):
-  if f == "next" or f == "second" then 1
-  elif f == "first" then 0
-  elif f == "prev" or f == "previous" then -1
+def numeric:
+  if . == "next" or . == "second" then 1
+  elif . == "first" then 0
+  elif . == "prev" or . == "previous" then -1
   else tonumber end;
 
 # Find the index of the first item satisfying the condition in an array
@@ -188,3 +188,7 @@ def focus_window($offset):
   [workspace | tiles]
   | .[position(.focused) + $offset | clamp(0; length)]
   | "[con_id=\(.id)] focus";
+
+# Allows you to run commands via jq "$1" --args "$@"
+def focus_window: focus_window($ARGS.positional[1] | numeric);
+def cycle_hidden: cycle_hidden($ARGS.positional[1] | numeric);
