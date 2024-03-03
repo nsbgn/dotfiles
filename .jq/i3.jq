@@ -33,6 +33,13 @@ def clamp($min; $max):
 def when(condition; filter):
   if condition then filter else "nop" end;
 
+# Convenience function to turn a word into a corresponding number
+def numeric(f):
+  if f == "next" or f == "second" then 1
+  elif f == "first" then 0
+  elif f == "prev" or f == "previous" then -1
+  else tonumber end;
+
 # Find the index of the first item satisfying the condition in an array
 def position(condition):
   (map(condition) | index(true));
@@ -149,16 +156,12 @@ def move_to_tile($i):
       (if $n == 0 then
         "[con_id=\($w.id)] floating disable"
       elif $n == 1 then
-        ($w | move_to($t) + "; " + when($i != 0; swap($t)))
+        $w | move_to($t) + "; " + when($i != 0; swap($t))
       else
-        ($t | swap($w) + "; " + hide($i != 0; $workspace.num; $hidden))
+        $t | swap($w) + "; " + hide($i != 0; $workspace.num; $hidden)
       end)
     else
-      (if $n > 1 then
-        ($tiles[$i] | swap($w))
-      else
-        empty
-      end)
+      when($n > 1; $tiles[$i] | swap($w))
     end);
 
 def toggle_tiling_mode:
@@ -167,7 +170,7 @@ def toggle_tiling_mode:
     then hide_other
     else unhide end;
 
-def cycle_hidden($d): # command
+def cycle_hidden($d):
   state as {$workspace, $window, $hidden}
   | (if $d > 0 then {i: ($d - 1), j: $d}
     elif $d < 0 then {i: $d, j: ($hidden | length - $d)}
@@ -181,7 +184,7 @@ def cycle_hidden($d): # command
     ] | join("; ");
 
 # Treat the current tiles as windows to leaf through in sequence
-def cycle_window($offset): # command
+def focus_window($offset):
   [workspace | tiles]
   | .[position(.focused) + $offset | clamp(0; length)]
   | "[con_id=\(.id)] focus";
