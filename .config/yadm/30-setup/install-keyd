@@ -269,12 +269,41 @@ leftshift = swap(shift2)
 z = swap(meta2)
 x = swap(alt2)
 c = swap(control2)
-v = swapm(empty, compose)
+v = M-compose
 
-# , = swap(shift2)
-. = swap(control2)
-/ = swap(alt2)
-rightshift = oneshot(meta2)
+q = M-!
+w = M-[
+e = M-+
+r = M-#
+t = M-]
+
+u = M-^
+i = M-7
+o = M-8
+p = M-9
+[ = M-.
+] = M-@
+
+a = M-*
+s = M-(
+d = M--
+f = M-=
+g = M-)
+
+j = M-~
+k = M-4
+l = M-5
+; = M-6
+' = M-0
+enter = M-grave
+
+b = M-}
+
+m = M-%
+, = M-1
+. = M-2
+/ = M-3
+rightshift = M-/
 
 [extra]
 # XF86WLAN / 0xf6. See also rfkill for XF86RFKill
