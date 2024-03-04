@@ -209,7 +209,7 @@ s = down
 d = right
 f = pagedown
 
-leftshift = swap(shift2)
+leftshift = oneshot(shift2)
 z = swap(meta2)
 x = swap(alt2)
 c = swap(control2)

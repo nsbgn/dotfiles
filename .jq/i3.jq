@@ -149,7 +149,7 @@ def unhide:
 # moves to $i=1 and if it is sent to $i=1, the incumbent tile stays at $i=0. If
 # there are already two tiles, however, it is hidden before if $i=0 or after if
 # $i=1
-def move_to_tile($i):
+def move_to_tiled($i):
   state as {$workspace, window: $w, $hidden}
   | assert($i == 0 or $i == 1)
   | [$workspace | tiles] as $tiles
@@ -166,6 +166,13 @@ def move_to_tile($i):
     else
       when($n > 1; $tiles[$i] | swap($w))
     end);
+
+# Push the currently focused container into the floating layer, or if it's 
+# already floating, swap with the (visually) next or previous container
+# TODO
+def move_to_float($i):
+  window
+  | when(.type != "floating_con"; "[con_id=\(.id)] floating enable");
 
 def toggle_tiling_mode:
   ([workspace | tiles] | length) as $n
@@ -209,3 +216,5 @@ def focus_float($offset):
 def focus_float: focus_float($ARGS.positional[1] | numeric);
 def focus_tile: focus_tile($ARGS.positional[1] | numeric);
 def cycle_hidden: cycle_hidden($ARGS.positional[1] | numeric);
+def move_to_float: move_to_float($ARGS.positional[1] | numeric);
+def move_to_tiled: move_to_tiled($ARGS.positional[1] | numeric);

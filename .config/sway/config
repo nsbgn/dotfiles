@@ -150,8 +150,8 @@ bindsym $fn+Shift+b floating toggle
 
 # bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
-bindsym $fn+i exec "i3jq cycle_hidden prev"
-bindsym $fn+o exec "i3jq cycle_hidden next"
+# bindsym $fn+i exec "i3jq cycle_hidden prev"
+# bindsym $fn+o exec "i3jq cycle_hidden next"
 # bindsym $fn+p exec "$pwm mark_focus p"
 
 # ROW 2 RIGHT ################################################################
@@ -160,11 +160,16 @@ bindsym $fn+o exec "i3jq cycle_hidden next"
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
+bindsym $fn+u exec "i3jq focus_float prev"
+bindsym $fn+Shift+u exec "i3jq move_to_float prev"
+bindsym $fn+i exec "i3jq focus_float next"
+bindsym $fn+Shift+i exec "i3jq move_to_float next"
+
 bindsym $fn+j exec "i3jq focus_tile prev"
-bindsym $fn+Shift+j exec "i3jq move_to_tile first"
+bindsym $fn+Shift+j exec "i3jq move_to_tiled first"
 
 bindsym $fn+k exec "i3jq focus_tile next"
-bindsym $fn+Shift+k exec "i3jq move_to_tile second"
+bindsym $fn+Shift+k exec "i3jq move_to_tiled second"
 
 bindsym $fn+l focus right
 #bindsym $fn+l exec "$pwm mark_focus k"
