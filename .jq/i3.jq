@@ -32,6 +32,10 @@ def tiles:
 def clamp($min; $max):
   if . >= $min then if . <= $max then . else $max end else $min end;
 
+# Snap a number to the last value if greater than 0
+def snap:
+  if . > 0 then -1 else 0 end;
+
 # Convenience function to exectue a command only when a condition passes
 def when(condition; filter):
   if condition then filter else "nop" end;
@@ -50,6 +54,14 @@ def position(condition):
 def partition(condition):
   position(condition) as $i
   | {before: .[:$i], current: .[$i], after: .[($i + 1):]};
+
+# Select the given index from an array, shifted by the given offset
+def shift($target; $offset):
+  if $target then
+    length as $n | .[$target + $offset | clamp(0; $n - 1)]
+  else
+    .[$offset | snap] end;
+
 
 # Halfwm #####################################################################
 
@@ -106,16 +118,19 @@ def hide($after; $ws; $hidden):
       else ($hidden[0].idx // 0) - 1 end) as $i
   | "[con_id=\(.id)] mark --add _ws\($ws)_pos\($i); [con_id=\(.id)] move to scratchpad";
 
-# Move the input container to the given container
-def move_to($anchor):
-  "_tmp\($anchor.id)" as $m
-  | "[con_id=\($anchor.id)] mark \($m)"
-  + "[con_id=\(.id)] move to mark \($m)"
-  + "[con_id=\($anchor.id)] unmark \($m)";
-
 # Swap the input container with the given one
 def swap($anchor):
   "[con_id=\(.id)] swap container with con_id \($anchor.id)";
+
+# Move the input container to the given container
+def move_after($anchor):
+  "_tmp\($anchor.id)" as $m
+  | "[con_id=\($anchor.id)] mark \($m); "
+  + "[con_id=\(.id)] move to mark \($m); "
+  + "[con_id=\($anchor.id)] unmark \($m)";
+
+def move_before($anchor):
+  move_after($anchor) + "; " + swap($anchor);
 
 # Hide all windows except the focused window. The windows occurring before the
 # focused window are hidden 'before' (ie at the end), the windows occurring
@@ -134,7 +149,7 @@ def hide_other:
 def unhide:
   state as {$workspace, $window, $hidden}
   | mru($workspace) as $mru
-  | [ ($mru | move_to($window))
+  | [ ($mru | move_after($window))
     , if $mru.idx > 0
       then empty
       else ($mru | swap($window))
@@ -149,23 +164,27 @@ def unhide:
 # moves to $i=1 and if it is sent to $i=1, the incumbent tile stays at $i=0. If
 # there are already two tiles, however, it is hidden before if $i=0 or after if
 # $i=1
-def move_to_tiled($i):
-  state as {$workspace, window: $w, $hidden}
-  | assert($i == 0 or $i == 1)
+def move_to_tiled($d): # $i in -1, 1
+  . as $root
+  | state as {$workspace, window: $w, $hidden}
+  | assert($d == 0 or $d == -1)
   | [$workspace | tiles] as $tiles
-  | $tiles[0] as $t
-  | ($tiles | length) as $n
-  | (if $w.type == "floating_con" then
-      (if $n == 0 then
-        "[con_id=\($w.id)] floating disable"
-      elif $n == 1 then
-        $w | move_to($t) + "; " + when($i != 0; swap($t))
-      else
-        $t | swap($w) + "; " + hide($i != 0; $workspace.num; $hidden)
-      end)
-    else
-      when($n > 1; $tiles[$i] | swap($w))
-    end);
+  | ($tiles | position(.focused)) as $i
+  | $w
+  | if $i then # already tiled
+      swap($tiles | shift($i; $d))
+    else # still floating
+      ($tiles | length) as $n
+      | $tiles[$d] as $t
+      | if $n == 0 then
+          "[con_id=\(.id)] floating disable"
+        elif $n == 1 then
+          (if $d == -1 then move_after($t) else move_before($t) end)
+        else
+          $tiles[$d | snap]
+          | swap($w) + "; " + hide($d != 0; $workspace.num; $hidden)
+      end
+    end;
 
 # Push the currently focused container into the floating layer, or if it's 
 # already floating, swap with the (visually) next or previous container
@@ -193,21 +212,18 @@ def cycle_hidden($d):
       | mark_position($workspace.num; .n))
     ] | join("; ");
 
-# Shift focus on containers, leafing through them in sequence
-def shift_focus($offset; containers):
-  workspace
-  | containers
-  | position(.focused) as $i
-  | if $i
-    then .[$i + $offset | clamp(0; length)]
-    else .[if $offset == -1 then 0 else -1 end] end
-  | "[con_id=\(.id // empty)] focus";
 
 def focus_tile($offset):
-  shift_focus($offset; [tiles]);
+  workspace
+  | [tiles]
+  | shift(position(.focused); $offset) // empty
+  | "[con_id=\(.id)] focus";
 
 def focus_float($offset):
-  shift_focus($offset; .floating_nodes);
+  workspace
+  | .floating_nodes
+  | shift(position(.focused); $offset) // empty
+  | "[con_id=\(.id)] focus";
 
 # Allows you to run commands via jq "$1" --args "$@"
 def focus_float: focus_float($ARGS.positional[1] | numeric);
