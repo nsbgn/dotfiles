@@ -164,10 +164,10 @@ def unhide:
 # moves to $i=1 and if it is sent to $i=1, the incumbent tile stays at $i=0. If
 # there are already two tiles, however, it is hidden before if $i=0 or after if
 # $i=1
-def move_to_tiled($d): # $i in -1, 1
+def move_to_tiled($d): # $d in -1, 1
   . as $root
   | state as {$workspace, window: $w, $hidden}
-  | assert($d == 0 or $d == -1)
+  | assert($d == 1 or $d == -1)
   | [$workspace | tiles] as $tiles
   | ($tiles | position(.focused)) as $i
   | $w
