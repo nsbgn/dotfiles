@@ -8,7 +8,7 @@ fi
 
 # Show directory in title bar
 if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
-    PROMPT_COMMAND="$PROMPT_COMMAND; "'echo -ne "\033]0;$(dirs -0)\007"'
+    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
 fi
 
 # Hook direnv; see <https://direnv.net/>
@@ -18,7 +18,8 @@ eval "$(direnv hook bash)"
 # 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
-export PS1="\[\033[01;32m\]\w\$(__git_ps1) \$\[\033[0m\] \[$(tput sgr0)\]" # [\u@\h]
+# \D{%H:%M:%S}
+export PS1="\[\033[1;34m\]\w\[\033[0;34m\]\$(__git_ps1) \[\033[1;32m\]\$\[\033[0m\] \[$(tput sgr0)\]" # [\u@\h]
 
 source "$HOME/.bash_aliases"
 source /etc/bash_completion
