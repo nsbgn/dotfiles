@@ -40,7 +40,7 @@ def when(condition; filter):
 def numeric:
   if . == "next" or . == "second" then 1
   elif . == "first" then 0
-  elif . == "prev" or . == "previous" then -1
+  elif . == "last" or . == "prev" or . == "previous" then -1
   else tonumber end;
 
 # Find the index of the first item satisfying the condition in an array
@@ -194,23 +194,20 @@ def cycle_hidden($d):
     ] | join("; ");
 
 # Shift focus on containers, leafing through them in sequence
-def shift_focus($offset; aim; containers):
+def shift_focus($offset; containers):
   workspace
-  | aim as $aim
   | containers
-  | .[position(.id == $aim.id) + (if $aim.focused then $offset else 0 end)
-    | clamp(0; length)]
-  | "[con_id=\(.id)] focus";
+  | position(.focused) as $i
+  | if $i
+    then .[$i + $offset | clamp(0; length)]
+    else .[if $offset == -1 then 0 else -1 end] end
+  | "[con_id=\(.id // empty)] focus";
 
 def focus_tile($offset):
-  shift_focus($offset;
-    until(.nodes == []; descend(.nodes[]));
-    [tiles]);
+  shift_focus($offset; [tiles]);
 
 def focus_float($offset):
-  shift_focus($offset;
-    descend(.floating_nodes[]);
-    .floating_nodes);
+  shift_focus($offset; .floating_nodes);
 
 # Allows you to run commands via jq "$1" --args "$@"
 def focus_float: focus_float($ARGS.positional[1] | numeric);
