@@ -2,9 +2,13 @@ export HISTCONTROL=ignoreboth # ignore duplicates & spaces
 shopt -s histappend # append to the history file, don't overwrite it
 shopt -s checkwinsize # update values of LINES and COLUMNS if winsize changes
 
+if [ -f ~/.sensible.bash ]; then
+   source ~/.sensible.bash
+fi
+
 # Show directory in title bar
 if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
-    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
+    PROMPT_COMMAND="$PROMPT_COMMAND; "'echo -ne "\033]0;$(dirs -0)\007"'
 fi
 
 # Hook direnv; see <https://direnv.net/>
@@ -14,8 +18,7 @@ eval "$(direnv hook bash)"
 # 
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
-# export PS1="\W\$(__git_ps1) ❯ \[$(tput sgr0)\]" # [\u@\h]
-export PS1="\W\$(__git_ps1) » \[$(tput sgr0)\]" # [\u@\h]
+export PS1="\[\033[01;32m\]\w\$(__git_ps1) \$\[\033[0m\] \[$(tput sgr0)\]" # [\u@\h]
 
 source "$HOME/.bash_aliases"
 source /etc/bash_completion
@@ -94,3 +97,5 @@ venv() {
     fi
     source $VENV/bin/activate
 }
+. "$HOME/.cargo/env"
+
