@@ -29,15 +29,14 @@ def get_minimized(tree: i3.Con) -> tuple[list[i3.Con], list[i3.Con]]:
     ws = tree if tree.type == "workspace" else current_workspace(tree)
     scratchpad = tree.scratchpad().floating_nodes
 
-    before: list[tuple[int, i3.Con]] = []
-    after: list[tuple[int, i3.Con]] = []
+    windows: list[tuple[int, i3.Con]] = []
     for win in scratchpad:
         assoc = find_position(win)
         w, pos = assoc or (ws.num, 0)
         if w == ws.num:
-            if pos < 0:
-                before.append((pos, win))
-            else:
-                after.append((pos, win))
-    return [x[1] for x in reversed(sorted(before))], [
-        x[1] for x in reversed(sorted(after))]
+            windows.append((pos, win))
+    windows.sort()
+
+    n = len(windows) // 2
+    return [x[1] for x in windows[:n]], [
+        x[1] for x in windows[n:]]

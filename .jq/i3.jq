@@ -178,9 +178,9 @@ def unhide:
 # there are already two tiles, however, it is hidden before if $i=0 or after if
 # $i=1
 def move_to_tiled($d): # $d in -1, 1
+  assert($d == 1 or $d == -1) |
   . as $root
   | state as {$workspace, window: $w, $hidden}
-  | assert($d == 1 or $d == -1)
   | [$workspace | tiles] as $tiles
   | ($tiles | position(.focused)) as $i
   | $w
@@ -217,9 +217,11 @@ def move_to_float($i):
 
 def toggle_tiling_mode:
   ([workspace | tiles] | length) as $n
-  | if $n > 1
-    then hide_other
-    else unhide end;
+  | if $n < MAX_TILES then
+      unhide
+    else
+      hide_other
+    end;
 
 def cycle_hidden($d):
   state as {$workspace, $window, $hidden}
@@ -234,6 +236,8 @@ def cycle_hidden($d):
       | mark_position($workspace.num; .n))
     ] | join("; ");
 
+def alt_cycle_hidden($d):
+  null;
 
 def focus_tile($offset):
   workspace
