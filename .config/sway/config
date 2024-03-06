@@ -2,6 +2,8 @@
 set $fn Mod4
 set $fn Mod4
 set $hwm swaymsg -t send_tick halfwm
+# You can also do nop halfwm and have it listen for binding events; probably 
+# better.
 
 exec dbus-update-activation-environment --verbose --systemd --all
 # exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -98,7 +100,7 @@ hide_edge_borders none
 default_border normal 2
 default_floating_border normal 2
 for_window [title="."] title_format "  %title"
-# for_window [title="."] floating enable
+for_window [title="."] floating enable
 titlebar_border_thickness 1
 titlebar_padding 10 2
 font pango:Karla 11
