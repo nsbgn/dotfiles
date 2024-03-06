@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+
+swaymsg -t subscribe -m -r '["window", "workspace"]' | while read EVENT; do
+    swaymsg -t get_tree \
+        | gojq -r "include \"i3\"; {event: $EVENT, tree: .} | handle_event" --argjson event "$EVENT" \
+        | xargs -L1 swaymsg
+done
