@@ -65,6 +65,8 @@ def shift($target; $offset):
 
 # Halfwm #####################################################################
 
+def MAX_TILES: 2;
+
 # Add the position of a minimized window according to its marks
 def location:
   .marks[]
@@ -125,7 +127,12 @@ def swap($anchor):
 # Move the input container to the given container
 def move_after($anchor):
   "_tmp\($anchor.id)" as $m
-  | "[con_id=\($anchor.id)] mark \($m); "
+  | (if .type == "floating_con" then
+      "[con_id=\(.id)] floating disable; "
+    else
+      ""
+    end)
+  + "[con_id=\($anchor.id)] mark \($m); "
   + "[con_id=\(.id)] move to mark \($m); "
   + "[con_id=\($anchor.id)] unmark \($m)";
 
@@ -175,14 +182,20 @@ def move_to_tiled($d): # $d in -1, 1
       swap($tiles | shift($i; $d))
     else # still floating
       ($tiles | length) as $n
-      | $tiles[$d] as $t
+      | $tiles[$d | snap] as $t
       | if $n == 0 then
           "[con_id=\(.id)] floating disable"
-        elif $n == 1 then
-          (if $d == -1 then move_after($t) else move_before($t) end)
         else
-          $tiles[$d | snap]
-          | swap($w) + "; " + hide($d != 0; $workspace.num; $hidden)
+          # if $n < MAX_TILES then
+            if $d == -1 then
+              move_before($t)
+            else
+              move_after($t)
+            end
+          # else
+          #   $tiles[$d | snap]
+          #   | swap($w)# + "; " + hide($d != 0; $workspace.num; $hidden)
+          # end
       end
     end;
 
