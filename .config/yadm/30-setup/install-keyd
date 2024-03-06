@@ -209,16 +209,16 @@ s = down
 d = right
 f = pagedown
 
-leftshift = oneshot(shift2)
+leftshift = oneshot(shift)
 z = swap(meta2)
 x = swap(alt2)
 c = swap(control2)
 v = swapm(empty, compose)
 
 # , = swap(shift2)
-. = swap(control2)
-/ = swap(alt2)
-rightshift = oneshot(meta2)
+# . = swap(control2)
+# / = swap(alt2)
+# rightshift = oneshot(meta2)
 
 ' = macro(esc ;)
 

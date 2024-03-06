@@ -138,7 +138,6 @@ bindsym $fn+f exec sed -n 's/^def \(.\+\):.*$/\1/p' .jq/i3.jq | dmenu | xargs i3
 # ROW 3 LEFT #################################################################
 bindsym $fn+z nop "Too easy to accidentally trigger w/ my keymap"
 bindsym $fn+q kill
-bindsym $fn+b exec "i3jq toggle_tiling_mode"
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
@@ -148,10 +147,15 @@ bindsym $fn+Shift+b floating toggle
 
 # ROW 1 RIGHT ################################################################
 
+
+bindsym $fn+b exec "i3jq toggle_tiling_mode"
+
 # bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
-# bindsym $fn+i exec "i3jq cycle_hidden prev"
-# bindsym $fn+o exec "i3jq cycle_hidden next"
+bindsym $fn+i exec "i3jq cycle_hidden prev"
+bindsym $fn+Shift+i exec "i3jq alt_cycle_hidden prev"
+bindsym $fn+o exec "i3jq cycle_hidden next"
+bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
 # bindsym $fn+p exec "$pwm mark_focus p"
 
 # ROW 2 RIGHT ################################################################
@@ -160,10 +164,10 @@ bindsym $fn+Shift+b floating toggle
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+u exec "i3jq focus_float prev"
-bindsym $fn+Shift+u exec "i3jq move_to_float prev"
-bindsym $fn+i exec "i3jq focus_float next"
-bindsym $fn+Shift+i exec "i3jq move_to_float next"
+bindsym $fn+comma exec "i3jq focus_float prev"
+bindsym $fn+Shift+comma exec "i3jq move_to_float prev"
+bindsym $fn+period exec "i3jq focus_float next"
+bindsym $fn+Shift+period exec "i3jq move_to_float next"
 
 bindsym $fn+j exec "i3jq focus_tile prev"
 bindsym $fn+Shift+j exec "i3jq move_to_tiled prev"
@@ -186,12 +190,12 @@ bindsym $fn+l focus right
 # bindsym $fn+m exec "$pwm pile_focus_shift"
 # bindsym $fn+Shift+m exec "$pwm toggle_aux"
 
-bindsym $fn+comma workspace prev_on_output
-# bindsym $fn+comma exec "$pwm win_focus_prev"
-bindsym $fn+Shift+comma move container to workspace prev_on_output
+# bindsym $fn+comma workspace prev_on_output
+# # bindsym $fn+comma exec "$pwm win_focus_prev"
+# bindsym $fn+Shift+comma move container to workspace prev_on_output
 
-bindsym $fn+period workspace next_on_output
-bindsym $fn+Shift+period move container to workspace next_on_output
+# bindsym $fn+period workspace next_on_output
+# bindsym $fn+Shift+period move container to workspace next_on_output
 
 # bindsym $fn+backslash exec "$pwm new_workspace"
 
