@@ -114,11 +114,17 @@ def hide($after; $ws; $hidden):
   assert(.type == "con"
     and ($after | type) == "boolean"
     and ($ws | type) == "number"
-    and ($hidden | type) == "list")
+    and ($hidden | type) == "array")
   | (if $after
       then ($hidden[-1].idx // 0) + 1
       else ($hidden[0].idx // 0) - 1 end) as $i
   | "[con_id=\(.id)] mark --add _ws\($ws)_pos\($i); [con_id=\(.id)] move to scratchpad";
+
+def hide_before($ws; $hidden):
+  hide(false; $ws; $hidden);
+
+def hide_after($ws; $hidden):
+  hide(true; $ws; $hidden);
 
 # Swap the input container with the given one
 def swap($anchor):
@@ -185,18 +191,21 @@ def move_to_tiled($d): # $d in -1, 1
       | $tiles[$d | snap] as $t
       | if $n == 0 then
           "[con_id=\(.id)] floating disable"
+        elif $n < MAX_TILES then
+          if $d == -1 then
+            move_before($t)
+          else
+            move_after($t)
+          end
         else
-          # if $n < MAX_TILES then
-            if $d == -1 then
-              move_before($t)
+          $t
+          | swap($w) + "; "
+          + (if $d == -1 then
+              hide_before($workspace.num; $hidden)
             else
-              move_after($t)
-            end
-          # else
-          #   $tiles[$d | snap]
-          #   | swap($w)# + "; " + hide($d != 0; $workspace.num; $hidden)
-          # end
-      end
+              hide_after($workspace.num; $hidden)
+            end)
+        end
     end;
 
 # Push the currently focused container into the floating layer, or if it's 
