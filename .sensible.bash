@@ -59,8 +59,8 @@ shopt -s cmdhist
 # PROMPT_COMMAND='history -a'
 
 # Huge history. Doesn't appear to slow things down, so why not?
-HISTSIZE=500000
-HISTFILESIZE=100000
+# HISTSIZE=500000
+# HISTFILESIZE=100000
 
 # Avoid duplicate entries
 HISTCONTROL="erasedups:ignoreboth"
@@ -75,10 +75,10 @@ HISTTIMEFORMAT='%F %T '
 
 # Enable incremental history search with up/down arrows (also Readline goodness)
 # Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
-bind '"\e[C": forward-char'
-bind '"\e[D": backward-char'
+# bind '"\e[A": history-search-backward'
+# bind '"\e[B": history-search-forward'
+# bind '"\e[C": forward-char'
+# bind '"\e[D": backward-char'
 
 ## BETTER DIRECTORY NAVIGATION ##
 
