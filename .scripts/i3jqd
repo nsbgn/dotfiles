@@ -1,7 +1,17 @@
 #!/usr/bin/sh
 
-swaymsg -t subscribe -m -r '["window", "workspace"]' | while read EVENT; do
-    swaymsg -t get_tree \
-        | gojq -r "include \"i3\"; {event: $EVENT, tree: .} | handle_event" --argjson event "$EVENT" \
-        | xargs -L1 swaymsg
-done
+i3="$(which swaymsg)"
+jq="$(which gojq)"
+settings="$(sed -n 's/^def ev_\([a-Z]\+\)_\(.\+\)(\$\(.*\)):$/{"type": "\1", "change": "\2", "msg_type": "\1_\2", "param": "\3"}/p' ~/.jq/i3.jq | gojq -cs)"
+subscriptions="$("$jq" -rcn --argjson s "$settings" '$s | [.[].type]')"
+
+"$i3" -t subscribe -m -r "$subscriptions" \
+    | while read event; do
+    msg_type="$(echo "$event" | "$jq"  --argjson s "$settings" -r '(if has("binding") then "binding_\(.change)" elif has("old") then "workspace_\(.change)" else "window_\(.change)" end) as $f | if any($s.[].msg_type; . == $f) then $f else empty end')"
+#if in([$s.[].msg_type]) then . else empty end')
+        if [ ! -z "$msg_type" ]; then
+        echo "$event" \
+            | $jq -r "include \"i3\"; ev_${msg_type}(\$tree) // empty" --argjson tree "$("$i3" -t get_tree)" \
+            | xargs -L1 "$i3"
+        fi
+    done

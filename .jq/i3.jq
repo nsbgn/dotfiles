@@ -257,3 +257,12 @@ def focus_tile: focus_tile($ARGS.positional[1] | numeric);
 def cycle_hidden: cycle_hidden($ARGS.positional[1] | numeric);
 def move_to_float: move_to_float($ARGS.positional[1] | numeric);
 def move_to_tiled: move_to_tiled($ARGS.positional[1] | numeric);
+
+
+def ev_binding_run($tree):
+  null
+;
+
+def ev_window_new($tree):
+  null
+;
