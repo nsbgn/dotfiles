@@ -1,8 +1,9 @@
 #!/usr/bin/sh
 
+name="i3-masterstack"
 i3="$(which swaymsg)"
 jq="$(which gojq)"
-settings="$(sed -n 's/^def ev_\([a-Z]\+\)_\(.\+\)(\$\(.*\)):$/{"type": "\1", "change": "\2", "msg_type": "\1_\2", "param": "\3"}/p' ~/.jq/i3.jq | gojq -cs)"
+settings="$(sed -n 's/^def event_\([a-Z]\+\)_\(.\+\)(\$\(.*\)):$/{"type": "\1", "change": "\2", "msg_type": "\1_\2", "param": "\3"}/p' ~/.jq/${name}.jq | gojq -cs)"
 subscriptions="$("$jq" -rcn --argjson s "$settings" '$s | [.[].type]')"
 
 "$i3" -t subscribe -m -r "$subscriptions" \
@@ -11,7 +12,7 @@ subscriptions="$("$jq" -rcn --argjson s "$settings" '$s | [.[].type]')"
 #if in([$s.[].msg_type]) then . else empty end')
         if [ ! -z "$msg_type" ]; then
         echo "$event" \
-            | $jq -r "include \"i3\"; ev_${msg_type}(\$tree) // empty" --argjson tree "$("$i3" -t get_tree)" \
+            | $jq -r "include \"${name}\"; event_${msg_type}(\$tree) // empty" --argjson tree "$("$i3" -t get_tree)" \
             | xargs -L1 "$i3"
         fi
     done
