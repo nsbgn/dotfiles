@@ -251,6 +251,37 @@ def focus_float($offset):
   | shift(position(.focused); $offset) // empty
   | "[con_id=\(.id)] focus";
 
+
+def among(f):
+  first(. == f // empty) // false;
+
+def direction:
+  if among("leftup", "northeast", "ne") then
+    {h: -1, v: -1}
+  elif among("rightup", "northwest", "nw") then
+    {h: -1, v: 1}
+  elif among("leftdown", "southeast", "se") then
+    {h: 1, v: -1}
+  elif among("rightdown", "southwest", "sw")
+    {h: 1, v: 1}
+  else
+    error("Direction \(.) is not recognized.")
+  end;
+
+# Usually, there should be only two or three windows on the screen, so it makes 
+# sense to engineer the selection mechanism such that you can usually shift 
+# focus to any one of them within a single keypress. Therefore, instead of the 
+# four cardinal directions (i3's usual left/right/up/down), we use the ordinal 
+# directions (but only actually travel along the axis of the current split 
+# unless you've reached the end of said split or if you're at the edge of the 
+# screen). Granted, this is slightly less intuitive in complicated layouts, but 
+# allows you to immediately travel to windows in the 'corner', which is an 
+# efficient and visually intuitive way to get around in master-stack layouts.
+def focus($dir):
+  ($dir | direction) as $dir
+  | null # TODO
+;
+
 # Allows you to run commands via jq "$1" --args "$@"
 def focus_float: focus_float($ARGS.positional[1] | numeric);
 def focus_tile: focus_tile($ARGS.positional[1] | numeric);
