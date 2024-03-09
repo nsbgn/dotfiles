@@ -104,6 +104,7 @@ PACKAGES=(
     xq # XML processor, like jq or htmlq
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
     zim-tools
+    k2pdfopt # PDF reflow
 
     # Bluetooth
     bluez bluez-alsa-utils pulseaudio-module-bluetooth
