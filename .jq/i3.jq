@@ -9,8 +9,11 @@ def descend(nodes):
   first((.focus | .[]) as $i | nodes | select(.id == $i));
 
 # Descend tree structure into focused node one level
-def descend:
+def descend_any:
   descend(.nodes[], .floating_nodes[]);
+
+def descend:
+  descend(.nodes[]);
 
 # Descend tree structure until finding focused workspace
 def workspace:
@@ -18,7 +21,7 @@ def workspace:
 
 # Find focused window
 def window:
-  until(.focused; descend);
+  until(.focused; descend_any);
 
 # Find scratchpad workspace from root node
 def scratchpad:
@@ -262,25 +265,27 @@ def direction:
     {h: -1, v: 1}
   elif among("leftdown", "southeast", "se") then
     {h: 1, v: -1}
-  elif among("rightdown", "southwest", "sw")
+  elif among("rightdown", "southwest", "sw") then
     {h: 1, v: 1}
   else
     error("Direction \(.) is not recognized.")
   end;
 
+# Shift focus in the given ordinal direction.
 # Usually, there should be only two or three windows on the screen, so it makes 
 # sense to engineer the selection mechanism such that you can usually shift 
 # focus to any one of them within a single keypress. Therefore, instead of the 
-# four cardinal directions (i3's usual left/right/up/down), we use the ordinal 
-# directions (but only actually travel along the axis of the current split 
-# unless you've reached the end of said split or if you're at the edge of the 
-# screen). Granted, this is slightly less intuitive in complicated layouts, but 
-# allows you to immediately travel to windows in the 'corner', which is an 
+# four cardinal directions (that is, i3's usual left/right/up/down), we use the 
+# ordinal directions (but only actually travel along the axis of the current 
+# split unless you've reached the end of said split or if you're at the edge of 
+# the screen). Granted, this is slightly less intuitive in complicated layouts, 
+# but allows you to immediately travel to windows in the 'corner', which is an 
 # efficient and visually intuitive way to get around in master-stack layouts.
 def focus($dir):
   ($dir | direction) as $dir
-  | null # TODO
-;
+  | workspace
+  | descend
+  | window;
 
 # Allows you to run commands via jq "$1" --args "$@"
 def focus_float: focus_float($ARGS.positional[1] | numeric);
