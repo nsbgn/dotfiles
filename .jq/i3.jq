@@ -20,10 +20,16 @@ def descend:
   descend(.nodes[]);
 
 # Find out what the position of the focused container is in its node list. This 
-# is related to descend/1. It is also useful to know the reverse index, which 
-# tells you how many nodes come *after* the focused node in its container.
-def focus_index: .focus[0] as $i | .nodes | position(.id == $i);
-def focus_index_reverse: (.nodes | length) as $n | $n - 1 - focus_index;
+# is related to descend/1.
+def focus_index:
+  .focus[0] as $i
+  | .nodes
+  | position(.id == $i);
+
+# Same as focus_index, but in reverse. which tells you how many nodes come 
+# *after* the focused node in its container.
+def focus_index_reverse:
+  focus_index - (.nodes | length);
 
 # Descend tree structure until finding focused workspace
 def workspace:
@@ -290,7 +296,7 @@ def look_inside($dir):
   if .nodes == [] then
       empty
     elif is_horizontal then
-      if $dir.x > 0 and focus_index_reverse > 0 then
+      if $dir.x > 0 and focus_index_reverse < -1 then
         "focus right"
       elif $dir.x < 0 and focus_index > 0 then
         "focus left"
@@ -298,7 +304,7 @@ def look_inside($dir):
         empty
       end
     elif is_vertical then
-      if $dir.y > 0 and focus_index_reverse > 0 then
+      if $dir.y > 0 and focus_index_reverse < -1 then
         "focus down"
       elif $dir.y < 0 and focus_index > 0 then
         "focus up"
@@ -323,9 +329,11 @@ def look($dir):
 # four cardinal directions (that is, i3's usual left/right/up/down), we use the 
 # ordinal directions (but only actually travel along the axis of the current 
 # split unless you've reached the end of said split or if you're at the edge of 
-# the screen). Granted, this is slightly less intuitive in complicated layouts, 
-# but allows you to immediately travel to windows in the 'corner', which is an 
-# efficient and visually intuitive way to get around in master-stack layouts.
+# the screen and you're travelling away from it). Granted, this is slightly 
+# less intuitive in complicated layouts --- but complicated layouts should 
+# hardly ever occur, while this allows you to immediately travel to windows in 
+# the 'corner', which is an efficient and visually intuitive way to get around 
+# in master-stack layouts.
 def focus($dir):
   look($dir);
 
