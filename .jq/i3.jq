@@ -315,6 +315,20 @@ def look_inside($dir):
 def look($dir):
   (descend | look($dir)) // look_inside($dir);
 
+# Select the leaf container occupying the given corner of the current 
+# container.
+def corner($dir):
+  if .nodes == [] then
+    .
+  else
+    .nodes[
+      if (is_vertical and $dir.y < 0) or (is_horizontal and $dir.x < 0) then
+        0
+      else
+        -1
+      end] | point($dir)
+  end;
+
 # Shift focus in the given ordinal direction.
 # Usually, there should be only two or three windows on the screen, so it makes 
 # sense to engineer the selection mechanism such that you can usually shift 
