@@ -289,25 +289,11 @@ def is_vertical:
 # current container. If it fails we can try in the enclosing container.
 def look_inside($dir):
   focus_index as $i
-  | (.nodes | length) as $n
-  | if .nodes == [] then
-      empty
-    elif is_horizontal then
-      if $dir.x < 0 and $i > 0 then
-        .nodes[$i - 1]
-      elif $dir.x > 0 and $i < $n - 1 then
-        .nodes[$i + 1]
-      else
-        empty
-      end
-    elif is_vertical then
-      if $dir.y < 0 and $i > 0 then
-        .nodes[$i - 1]
-      elif $dir.y > 0 and $i < $n - 1 then
-        .nodes[$i + 1]
-      else
-        empty
-      end
+  | (.nodes | length) as $n # existence of $i implies that $n>0
+  | (if is_horizontal then $dir.x
+     elif is_vertical then $dir.y else empty end) as $d
+  | if ($d < 0 and $i > 0) or ($d > 0 and $i < $n - 1) then
+        .nodes[$i + $d]
     else
       empty
     end;
@@ -342,7 +328,9 @@ def corner($dir):
 # the 'corner', which is an efficient and visually intuitive way to get around 
 # in master-stack layouts.
 def focus_ordinal($dir):
-  look($dir | ordinal_direction)
+  ($dir | ordinal_direction) as $dir
+  | look($dir)
+  # | corner($dir) # TODO but opposite.
   | "[con_id=\(.id)] focus";
 
 # Allows you to run commands via jq "$1" --args "$@"
