@@ -3,6 +3,10 @@
 def assert($condition):
   if $condition then . else error("an assertion failed") end;
 
+# Find the index of the first item satisfying the condition in an array
+def position(condition):
+  (map(condition) | index(true));
+
 # Descend tree structure one level, into the "most" focused node from the given 
 # nodes (typically .nodes[] and/or .floating_nodes[])
 def descend(nodes):
@@ -14,6 +18,12 @@ def descend_any:
 
 def descend:
   descend(.nodes[]);
+
+# Find out what the position of the focused container is in its node list. This 
+# is related to descend/1. It is also useful to know the reverse index, which 
+# tells you how many nodes come *after* the focused node in its container.
+def focus_index: .focus[0] as $i | .nodes | position(.id == $i);
+def focus_index_reverse: (.nodes | length) as $n | $n - 1 - focus_index;
 
 # Descend tree structure until finding focused workspace
 def workspace:
@@ -50,9 +60,6 @@ def numeric:
   elif . == "last" or . == "prev" or . == "previous" then -1
   else tonumber end;
 
-# Find the index of the first item satisfying the condition in an array
-def position(condition):
-  (map(condition) | index(true));
 
 def partition(condition):
   position(condition) as $i
@@ -258,18 +265,56 @@ def focus_float($offset):
 def among(f):
   first(. == f // empty) // false;
 
-def direction:
-  if among("leftup", "northeast", "ne") then
-    {h: -1, v: -1}
-  elif among("rightup", "northwest", "nw") then
-    {h: -1, v: 1}
-  elif among("leftdown", "southeast", "se") then
-    {h: 1, v: -1}
-  elif among("rightdown", "southwest", "sw") then
-    {h: 1, v: 1}
+def ordinal_direction:
+  if among("leftup", "northwest", "nw") then
+    {y: -1, x: -1}
+  elif among("rightup", "northeast", "ne") then
+    {y: -1, x: 1}
+  elif among("leftdown", "southwest", "sw") then
+    {y: 1, x: -1}
+  elif among("rightdown", "southeast", "se") then
+    {y: 1, x: 1}
   else
-    error("Direction \(.) is not recognized.")
+    error("\(.) is not recognized as an ordinal direction.")
   end;
+
+def is_horizontal:
+  .layout | among("splith", "tabbed");
+
+def is_vertical:
+  .layout | among("splitv", "stacked");
+
+# Try to travel along the given ordinal dimension while staying inside the 
+# current container. If it fails we can try in the enclosing container.
+def look_inside($dir):
+  if .nodes == [] then
+      empty
+    elif is_horizontal then
+      if $dir.x > 0 and focus_index_reverse > 0 then
+        "focus right"
+      elif $dir.x < 0 and focus_index > 0 then
+        "focus left"
+      else
+        empty
+      end
+    elif is_vertical then
+      if $dir.y > 0 and focus_index_reverse > 0 then
+        "focus down"
+      elif $dir.y < 0 and focus_index > 0 then
+        "focus up"
+      else
+        empty
+      end
+    else
+      empty
+    end;
+
+def look_recurse($dir):
+  (descend | look_recurse($dir)) // look_inside($dir);
+
+def look($dir):
+  ($dir | ordinal_direction) as $dir
+  | look_recurse($dir) // "nop";
 
 # Shift focus in the given ordinal direction.
 # Usually, there should be only two or three windows on the screen, so it makes 
@@ -282,10 +327,8 @@ def direction:
 # but allows you to immediately travel to windows in the 'corner', which is an 
 # efficient and visually intuitive way to get around in master-stack layouts.
 def focus($dir):
-  ($dir | direction) as $dir
-  | workspace
-  | descend
-  | window;
+  look($dir);
+
 
 # Allows you to run commands via jq "$1" --args "$@"
 def focus_float: focus_float($ARGS.positional[1] | numeric);
