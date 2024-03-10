@@ -104,11 +104,12 @@ smart_borders off
 hide_edge_borders none
 default_border normal 2
 default_floating_border normal 2
-for_window [title="."] title_format "  %title"
+# for_window [title="."] title_format "  %title"
 # for_window [title="."] floating enable
 titlebar_border_thickness 1
 titlebar_padding 10 2
-font pango:Karla 11
+# font pango:Karla 11
+font Cozette 9
 gaps inner 5
 # focus_wrapping workspace
 # workspace_layout tabbed
@@ -159,8 +160,8 @@ bindsym $fn+b exec "i3jq toggle_tiling_mode"
 
 # bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
-bindsym $fn+i exec "i3jq cycle_hidden prev"
-bindsym $fn+Shift+i exec "i3jq alt_cycle_hidden prev"
+# bindsym $fn+i exec "i3jq cycle_hidden prev"
+# bindsym $fn+Shift+i exec "i3jq alt_cycle_hidden prev"
 bindsym $fn+o exec "i3jq cycle_hidden next"
 bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
 # bindsym $fn+p exec "$pwm mark_focus p"
@@ -176,10 +177,13 @@ bindsym $fn+Shift+comma exec "i3jq move_to_float prev"
 bindsym $fn+period exec "i3jq focus_float next"
 bindsym $fn+Shift+period exec "i3jq move_to_float next"
 
-bindsym $fn+j exec "i3jq focus_tile prev"
+bindsym $fn+u exec "i3jq focus_ordinal nw"
+bindsym $fn+i exec "i3jq focus_ordinal ne"
+bindsym $fn+j exec "i3jq focus_ordinal sw"
+bindsym $fn+k exec "i3jq focus_ordinal se"
+
 bindsym $fn+Shift+j exec "i3jq move_to_tiled prev"
 
-bindsym $fn+k exec "i3jq focus_tile next"
 bindsym $fn+Shift+k exec "i3jq move_to_tiled next"
 
 bindsym $fn+l focus right

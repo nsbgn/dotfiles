@@ -327,7 +327,7 @@ def look($dir):
 # hardly ever occur, while this allows you to immediately travel to windows in 
 # the 'corner', which is an efficient and visually intuitive way to get around 
 # in master-stack layouts.
-def focus($dir):
+def focus_ordinal($dir):
   look($dir | ordinal_direction)
   | "[con_id=\(.id)] focus";
 
@@ -337,3 +337,5 @@ def focus_tile: focus_tile($ARGS.positional[1] | numeric);
 def cycle_hidden: cycle_hidden($ARGS.positional[1] | numeric);
 def move_to_float: move_to_float($ARGS.positional[1] | numeric);
 def move_to_tiled: move_to_tiled($ARGS.positional[1] | numeric);
+
+def focus_ordinal: focus_ordinal($ARGS.positional[1]);
