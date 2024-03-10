@@ -26,11 +26,6 @@ def focus_index:
   | .nodes
   | position(.id == $i);
 
-# Same as focus_index, but in reverse. which tells you how many nodes come 
-# *after* the focused node in its container.
-def focus_index_reverse:
-  focus_index - (.nodes | length);
-
 # Descend tree structure until finding focused workspace
 def workspace:
   until(.type == "workspace"; descend);
@@ -293,21 +288,23 @@ def is_vertical:
 # Try to travel along the given ordinal dimension while staying inside the 
 # current container. If it fails we can try in the enclosing container.
 def look_inside($dir):
-  if .nodes == [] then
+  focus_index as $i
+  | (.nodes | length) as $n
+  | if .nodes == [] then
       empty
     elif is_horizontal then
-      if $dir.x > 0 and focus_index_reverse < -1 then
-        "focus right"
-      elif $dir.x < 0 and focus_index > 0 then
-        "focus left"
+      if $dir.x < 0 and $i > 0 then
+        .nodes[$i - 1]
+      elif $dir.x > 0 and $i < $n - 1 then
+        .nodes[$i + 1]
       else
         empty
       end
     elif is_vertical then
-      if $dir.y > 0 and focus_index_reverse < -1 then
-        "focus down"
-      elif $dir.y < 0 and focus_index > 0 then
-        "focus up"
+      if $dir.y < 0 and $i > 0 then
+        .nodes[$i - 1]
+      elif $dir.y > 0 and $i < $n - 1 then
+        .nodes[$i + 1]
       else
         empty
       end
@@ -315,12 +312,8 @@ def look_inside($dir):
       empty
     end;
 
-def look_recurse($dir):
-  (descend | look_recurse($dir)) // look_inside($dir);
-
 def look($dir):
-  ($dir | ordinal_direction) as $dir
-  | look_recurse($dir) // "nop";
+  (descend | look($dir)) // look_inside($dir);
 
 # Shift focus in the given ordinal direction.
 # Usually, there should be only two or three windows on the screen, so it makes 
@@ -335,8 +328,8 @@ def look($dir):
 # the 'corner', which is an efficient and visually intuitive way to get around 
 # in master-stack layouts.
 def focus($dir):
-  look($dir);
-
+  look($dir | ordinal_direction)
+  | "[con_id=\(.id)] focus";
 
 # Allows you to run commands via jq "$1" --args "$@"
 def focus_float: focus_float($ARGS.positional[1] | numeric);
