@@ -285,22 +285,6 @@ def is_horizontal:
 def is_vertical:
   .layout | among("splitv", "stacked");
 
-# Try to travel along the given ordinal dimension while staying inside the 
-# current container. If it fails we can try in the enclosing container.
-def look_inside($dir):
-  focus_index as $i
-  | (.nodes | length) as $n # existence of $i implies that $n>0
-  | (if is_horizontal then $dir.x
-     elif is_vertical then $dir.y else empty end) as $d
-  | if ($d < 0 and $i > 0) or ($d > 0 and $i < $n - 1) then
-        .nodes[$i + $d]
-    else
-      empty
-    end;
-
-def look($dir):
-  (descend | look($dir)) // look_inside($dir);
-
 # Select the leaf container occupying the given corner of the current 
 # container.
 def corner($dir):
@@ -312,8 +296,26 @@ def corner($dir):
         0
       else
         -1
-      end] | point($dir)
+      end] | corner($dir)
   end;
+
+# Try to travel along the given ordinal dimension while staying inside the 
+# current container. If it fails we can try in the enclosing container.
+def look_inside($dir):
+  focus_index as $i
+  | (.nodes | length) as $n # existence of $i implies that $n>0
+  | is_horizontal as $h
+  | is_vertical as $v
+  | (if $h then $dir.x elif $v then $dir.y else empty end) as $d
+  | if ($d < 0 and $i > 0) or ($d > 0 and $i < $n - 1) then
+      .nodes[$i + $d]
+      | corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
+    else
+      empty
+    end;
+
+def look($dir):
+  (descend | look($dir)) // look_inside($dir);
 
 # Shift focus in the given ordinal direction.
 # Usually, there should be only two or three windows on the screen, so it makes 
@@ -330,7 +332,6 @@ def corner($dir):
 def focus_ordinal($dir):
   ($dir | ordinal_direction) as $dir
   | look($dir)
-  # | corner($dir) # TODO but opposite.
   | "[con_id=\(.id)] focus";
 
 # Allows you to run commands via jq "$1" --args "$@"
