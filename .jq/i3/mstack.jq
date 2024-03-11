@@ -1,4 +1,4 @@
-include "i3";
+include "i3/prelude";
 
 def event_init:
   "for_window [title=\".\"] move container to mark insert";

@@ -328,8 +328,7 @@ def look_blackbox($dir; $parent):
         empty
       else
         .nodes[$i + $d]
-        | window
-        #| corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
+        | corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
       end
     else
       empty
