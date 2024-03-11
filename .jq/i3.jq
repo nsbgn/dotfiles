@@ -26,6 +26,9 @@ def focus_index:
   | .nodes
   | position(.id == $i);
 
+def focus_indexr:
+  focus_index - (.nodes | length);
+
 # Descend tree structure until finding focused workspace
 def workspace:
   until(.type == "workspace"; descend);
@@ -299,23 +302,47 @@ def corner($dir):
       end] | corner($dir)
   end;
 
-# Try to travel along the given ordinal dimension while staying inside the 
-# current container. If it fails we can try in the enclosing container.
-def look_inside($dir):
+# Pull an ordinal direction in the given cardinal direction, such that ↗ and ↑ 
+# become ↑; ↘ and ↑ become ↗; etcetera.
+def pull($dir):
+  .
+  ;
+
+# Treat the focused child as a black box and look from it into the given 
+# direction, while staying inside the current container. If this fails, we can 
+# treat this container as a black box and try again in the enclosing container.
+def look_blackbox($dir; $parent):
   focus_index as $i
   | (.nodes | length) as $n # existence of $i implies that $n>0
   | is_horizontal as $h
   | is_vertical as $v
   | (if $h then $dir.x elif $v then $dir.y else empty end) as $d
   | if ($d < 0 and $i > 0) or ($d > 0 and $i < $n - 1) then
-      .nodes[$i + $d]
-      | corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
+
+      # If you're at the edge of your enclosing container and looking slightly 
+      # away from that edge, you should always see beyond your container even 
+      # if you would normally first see a node in the same container. This is 
+      # because, if you wanted to travel in the direction of the current 
+      # container, you could also 'hug' the edge --- and we want to get where 
+      # we're going in as few keystrokes as possible.
+      if $parent |
+        ($dir.x < 0 and is_horizontal and focus_indexr == -1)
+        or ($dir.x > 0 and is_horizontal and focus_index == 0)
+        or ($dir.y < 0 and is_vertical and focus_indexr == -1)
+        or ($dir.y > 0 and is_vertical and focus_index == 0)
+      then
+        empty
+      else
+        .nodes[$i + $d]
+        | corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
+      end
     else
       empty
     end;
 
-def look($dir):
-  (descend | look($dir)) // look_inside($dir);
+def look($dir; $parent):
+  (. as $parent | descend | look($dir; $parent))
+  // look_blackbox($dir; $parent);
 
 # Shift focus in the given ordinal direction.
 # Usually, there should be only two or three windows on the screen, so it makes 
@@ -331,7 +358,7 @@ def look($dir):
 # in master-stack layouts.
 def focus_ordinal($dir):
   ($dir | ordinal_direction) as $dir
-  | look($dir)
+  | look($dir; null)
   | "[con_id=\(.id)] focus";
 
 # Allows you to run commands via jq "$1" --args "$@"
