@@ -51,7 +51,7 @@ source /etc/bash_completion
 # fi
 
 function jqs {
-    swaymsg -t get_tree | jq -r "include \"i3\"; $@"
+    swaymsg -t get_tree | jq -r "include \"i3/movement_ordinal\"; $@"
 }
 
 # Change directory after browsing with file manager `lf`
