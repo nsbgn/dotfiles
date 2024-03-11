@@ -3,23 +3,24 @@ include "i3";
 def event_init:
   "for_window [title=\".\"] move container to mark insert";
 
-# TODO descend down singleton nodes
-def something:
-  if (.nodes | length) == 1 then
-    .nodes[0] | something
-  else
-    .
-  end;
-
 def normalize:
   workspace
-  | something
-  | if (.nodes | length) > 1 then
+  | until(.nodes | length != 1; .nodes[0])
+  | (if .nodes | length > 2 then
+      [.nodes[2:]
+        | .[]
+        | tiles
+        | "[con_id=\(.id)] move container to mark insert"]
+      | join("; ")
+    else
+      "nop"
+    end) as $overflow
+  | (if .nodes | length > 1 then
       .nodes[1]
       | when(.layout == "none"; "[con_id=\(.id)] split toggle")
     else
       "nop"
-    end;
+    end) + "; " + $overflow;
 
 def event_workspace_focus($tree):
   $tree
