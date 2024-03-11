@@ -33,9 +33,9 @@ def focus_indexr:
 def workspace:
   until(.type == "workspace"; descend);
 
-# Find focused window
+# Find window that would be focused if this container receives focus
 def window:
-  until(.focused; descend_any);
+  until(.nodes == []; descend_any);
 
 # Find scratchpad workspace from root node
 def scratchpad:
@@ -334,7 +334,8 @@ def look_blackbox($dir; $parent):
         empty
       else
         .nodes[$i + $d]
-        | corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
+        | window
+        #| corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
       end
     else
       empty
