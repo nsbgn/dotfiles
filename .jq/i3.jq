@@ -302,12 +302,6 @@ def corner($dir):
       end] | corner($dir)
   end;
 
-# Pull an ordinal direction in the given cardinal direction, such that ↗ and ↑ 
-# become ↑; ↘ and ↑ become ↗; etcetera.
-def pull($dir):
-  .
-  ;
-
 # Treat the focused child as a black box and look from it into the given 
 # direction, while staying inside the current container. If this fails, we can 
 # treat this container as a black box and try again in the enclosing container.
@@ -325,11 +319,11 @@ def look_blackbox($dir; $parent):
       # because, if you wanted to travel in the direction of the current 
       # container, you could also 'hug' the edge --- and we want to get where 
       # we're going in as few keystrokes as possible.
-      if $parent |
-        ($dir.x < 0 and is_horizontal and focus_indexr == -1)
-        or ($dir.x > 0 and is_horizontal and focus_index == 0)
-        or ($dir.y < 0 and is_vertical and focus_indexr == -1)
-        or ($dir.y > 0 and is_vertical and focus_index == 0)
+      if $parent
+        | (focus_index == 0) as $fst
+        | (focus_indexr == -1) as $lst
+        | (is_horizontal and (($dir.x < 0 and $lst) or ($dir.x > 0 and $fst)))
+          or (is_vertical and (($dir.y < 0 and $lst) or ($dir.y > 0 and $fst)))
       then
         empty
       else
