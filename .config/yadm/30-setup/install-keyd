@@ -105,7 +105,7 @@ rightshift = /
 
 [main]
 capslock = backspace
-leftshift = oneshot(shift)
+leftshift = overload(shift, oneshot(shifto))
 leftcontrol = overload(control, compose)
 leftmeta = oneshot(alt)
 
@@ -115,6 +115,13 @@ rightalt = oneshot(symbol)
 compose = overloadt2(fnR, enter, 150)
 rightcontrol = overloadt2(fnR, enter, 150)
 
+# Oneshot shouldn't apply to mouse clicks except when you're still actually 
+# holding the activating key
+# TODO: Doesn't work?
+[shifto:S]
+leftmouse = leftmouse
+middlemouse = middlemouse
+rightmouse = rightmouse
 
 [empty]
 
@@ -209,7 +216,7 @@ s = down
 d = right
 f = pagedown
 
-leftshift = oneshot(shift)
+leftshift = overload(shift, oneshot(shifto))
 z = swap(meta2)
 x = swap(alt2)
 c = swap(control2)
