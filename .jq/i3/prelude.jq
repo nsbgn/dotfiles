@@ -65,6 +65,9 @@ def scratchpad:
 def tiles:
   recurse(.nodes[]) | select(.type == "con" and .nodes == []);
 
+def is_marked($mark):
+  .marks as $marks | $mark | among($marks[]);
+
 # Convenience function to turn a word into a corresponding number
 def numeric:
   if . == "next" or . == "second" then 1
