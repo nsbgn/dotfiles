@@ -48,7 +48,8 @@ hi pythonFunction gui=bold guifg=darkred
 
 " Show file in window title
 set title
-set titlestring=%f\ %m
+set titlestring=🗒️\ %f\ %m
+" 
 "%{len(getbufinfo({'buflisted':1}))}
 
 " Stop annoying window from popping up
