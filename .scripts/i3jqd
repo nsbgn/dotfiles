@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-name="i3/mstack"
+name="i3/$1"
 i3="$(which swaymsg)"
 jq="$(which gojq)"
 settings="$(sed -n 's/^def event_\([a-Z]\+\)_\(.\+\)(\$\(.*\)):$/{"type": "\1", "change": "\2", "msg_type": "\1_\2", "param": "\3"}/p' ~/.jq/${name}.jq | gojq -cs)"

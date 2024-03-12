@@ -51,7 +51,11 @@ source /etc/bash_completion
 # fi
 
 function jqs {
-    swaymsg -t get_tree | jq -r "include \"i3/movement_ordinal\"; $@"
+    MODULE="$1"
+    FILTER="$2"
+    shift
+    shift
+    swaymsg -t get_tree | jq -r "include \"i3/${MODULE}\"; ${FILTER}" --args "$@"
 }
 
 # Change directory after browsing with file manager `lf`

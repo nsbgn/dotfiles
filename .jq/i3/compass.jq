@@ -44,18 +44,18 @@ def look_blackbox($dir; $parent):
       # because, if you wanted to travel in the direction of the current 
       # container, you could also 'hug' the edge --- and we want to get where 
       # we're going in as few keystrokes as possible.
-      # if try ($parent
-      #   | (focus_index == 0) as $fst
-      #   | (focus_indexr == -1) as $lst
-      #   | (is_horizontal and (($dir.x < 0 and $lst) or ($dir.x > 0 and $fst)))
-      #     or (is_vertical and (($dir.y < 0 and $lst) or ($dir.y > 0 and $fst)))
-      #   ) catch false
-      # then
-      #   empty
-      # else
+      if try ($parent
+        | (focus_index == 0) as $fst
+        | (focus_indexr == -1) as $lst
+        | (is_horizontal and (($dir.x < 0 and $lst) or ($dir.x > 0 and $fst)))
+          or (is_vertical and (($dir.y < 0 and $lst) or ($dir.y > 0 and $fst)))
+        ) catch false
+      then
+        empty
+      else
         .nodes[$i + $d]
         | corner(if $h then {x: -$d, y: $dir.y} else {x: $dir.x, y: -$d} end)
-      # end
+      end
     else
       empty
     end;
@@ -82,4 +82,4 @@ def focus_ordinal($dir):
   | look($dir; null)
   | "[con_id=\(.id)] focus";
 
-def focus_ordinal: focus_ordinal($ARGS.positional[1]);
+def focus_ordinal: focus_ordinal($ARGS.positional[0]);

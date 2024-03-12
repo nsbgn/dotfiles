@@ -1,4 +1,9 @@
 #!/usr/bin/sh
 # Simply pass a processor that turns sway/i3's tree into commands
 
-swaymsg "$(swaymsg -t get_tree | gojq -r "include \"i3/movement_ordinal\"; $1" --args "$@")"
+MODULE="$1"
+FILTER="$2"
+shift
+shift
+
+swaymsg "$(swaymsg -t get_tree | gojq -r "include \"i3/${MODULE}\"; ${FILTER}" --args "$@")"
