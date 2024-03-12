@@ -16,7 +16,7 @@ def normalize:
       "nop"
     end) as $overflow
   | (if .nodes | length > 1 then
-      .nodes[1]
+      .nodes[0]
       | when(.layout == "none"; "[con_id=\(.id)] split toggle")
     else
       "nop"

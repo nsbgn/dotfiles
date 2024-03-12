@@ -1,8 +1,13 @@
 include "i3/prelude";
 
-# Focus on the i'th child
-def focus_tile($i):
+
+def tiles(exclusion):
+  if any(.marks | among($exclude_marks);
+
+# Focus on the i'th child, excluding anything marked "stack"
+def focus_tile($i; $exclude_marks):
   workspace
+  | recurse(.nodes[]) | select(.type == "con" and .nodes == []);
   | .nodes
   | length as $n
   | .[$i | clamp(-$n; $n)];

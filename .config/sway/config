@@ -104,7 +104,6 @@ smart_borders off
 hide_edge_borders none
 default_border normal 2
 default_floating_border normal 2
-for_window [title="."] title_format "%title"
 titlebar_border_thickness 1
 titlebar_padding 10 2
 font pango:Inconsolata 10
@@ -113,6 +112,7 @@ gaps inner 3
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0
+for_window [app_id=^Firefox-esr$] title_format "🌐 %title"
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
