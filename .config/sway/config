@@ -104,13 +104,12 @@ smart_borders off
 hide_edge_borders none
 default_border normal 2
 default_floating_border normal 2
-# for_window [title="."] title_format "  %title"
-# for_window [title="."] floating enable
+for_window [title="."] title_format "%title"
 titlebar_border_thickness 1
 titlebar_padding 10 2
-# font pango:Karla 11
-font Cozette 9
-gaps inner 5
+font pango:Inconsolata 10
+# font Cozette 9
+gaps inner 3
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0
