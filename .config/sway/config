@@ -23,7 +23,7 @@ exec sway-autoexit-fullscreen
 
 # If there is an insertion mark, put any new window there
 for_window [title="."] move container to mark insert
-#; mark _insertion
+for_window [title="."] swap container with mark insert
 
 bar {
    id bar0
