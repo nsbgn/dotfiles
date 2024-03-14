@@ -21,9 +21,10 @@ exec gammastep -O 5500K
 exec sway-autoexit-fullscreen
 # exec wl-paste -t text --watch clipman store --no-persist
 
-# If there is an insertion mark, put any new window there
+# If there is an insertion mark, put any new window *before* there
 for_window [title="."] move container to mark insert
-for_window [title="."] swap container with mark insert
+for_window [title="."] move container to mark insert_before
+for_window [title="."] swap container with mark insert_before
 
 bar {
    id bar0
