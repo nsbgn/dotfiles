@@ -61,6 +61,13 @@ def window:
 def scratchpad:
   .nodes[] | select(.name == "__i3") | .nodes[0];
 
+# Find a unique node
+def find(condition):
+  first(recurse(.nodes[], .floating_nodes[]) | select(condition)) // null;
+
+def find_all(condition):
+  recurse(.nodes[], .floating_nodes[]) | select(condition);
+
 # All tiled leaf nodes in the given container
 def tiles:
   recurse(.nodes[]) | select(.type == "con" and .nodes == []);
