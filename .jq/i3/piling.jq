@@ -1,5 +1,8 @@
 include "i3/prelude";
 
+# Enforce a layout that puts a stack of windows on the first container and a 
+# single (main?) window on the second
+
 def enter:
   workspace
   | if (.nodes | length) == 1 then
@@ -15,7 +18,7 @@ def enter:
       "nop"
     end;
 
-def closure:
+def close:
   workspace
   | if (.nodes | length) == 1 then
       if .nodes[0].layout == "none" then
@@ -25,11 +28,16 @@ def closure:
         | if (.nodes | length) == 1 then
             "[con_id=\(.nodes[0].id)] split none"
           else
-            "[con_id=\(.nodes[-1].id)] move right" # TODO
+            "[con_id=\(.nodes[-1].id)] move right; [con_id=\(.nodes[-2].id)] mark insert"
           end
       end
     else
-      "nop"
+      .nodes[0]
+      | if .layout == "none" then
+          "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv; [con_id=\(.id)] layout stacking"
+        else
+          "[con_id=\(.nodes[-1].id)] mark insert"
+        end
     end;
 
 def normalize(f):
@@ -45,4 +53,4 @@ def event_window_move($tree):
   $tree | normalize(enter);
 
 def event_window_close($tree):
-  $tree | normalize(closure);
+  $tree | normalize(close);
