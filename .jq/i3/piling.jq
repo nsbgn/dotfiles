@@ -1,55 +1,37 @@
 include "i3/prelude";
 
-def singleton:
-  until(.nodes | length != 1; .nodes[0]);
-
-
-def pile:
-  find(is_marked("pile"));
-
-
-# Ensure that there is a top level container
-def ensure_top_level:
+def ensure_layout:
   assert(.type == "workspace")
-  | if (.nodes | length) > 1 and .nodes[0].layout == "none" then
-    "[con_id=\(.nodes[0].id)] splith"
-  else
-    "nop"
-  end;
-  # TODO move rest 
-
-
-def event_workspace_focus($tree):
-  $tree
-  | workspace
-  | [tiles]
-  | if . == [] then
-      "unmark insert"
+  | if (.nodes | length) == 1 then
+      "[con_id=\(.nodes[0].id)] mark insert_before"
+    elif (.nodes | length) >= 2 then
+      .nodes[0] # enter into stack
+      | if .layout == "none" then
+          "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv"
+        else
+          if (.nodes | length) >= 2 then
+            .nodes[1] # enter into pile
+            | if .layout == "none" then
+                "[con_id=\(.id)] split toggle; [con_id=\(.id)] layout stacking; [con_id=\(.id)] mark insert"
+              else
+                last(tiles) | "[con_id=\(.id)] mark insert"
+              end
+          else
+            "nop"
+          end
+        end
     else
-      "[con_id=\(.[-1].id)] mark insert"
+      "nop"
     end;
 
+def normalize:
+  workspace | "unmark insert; unmark insert_before; \(ensure_layout // "nop")";
+
+def event_workspace_focus($tree):
+  $tree | normalize;
+
 def event_window_new($tree):
-  workspace
-  | singleton
-  | (.nodes | length) as $n
-  | (if $n > 2 then
-      [.nodes[2:]
-        | .[]
-        | tiles
-        | "[con_id=\(.id)] move container to mark insert"]
-      | join("; ")
-    else
-      "nop"
-    end) as $overflow
-  | (if .nodes | length > 1 then
-      .nodes[0]
-      | when(.layout == "none"; "[con_id=\(.id)] split toggle")
-    else
-      "nop"
-    end) + "; " + $overflow;
+  $tree | workspace | normalize;
 
-
-
-def event_window_focus($tree):
-  "nop";
+# def event_window_move($tree):
+#   "[con_id=\(.id)] move container to mark insert_before; [con_id=\(.id)] move container to mark insert";
