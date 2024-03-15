@@ -1,37 +1,48 @@
 include "i3/prelude";
 
-def ensure_layout:
-  assert(.type == "workspace")
+def enter:
+  workspace
   | if (.nodes | length) == 1 then
       "[con_id=\(.nodes[0].id)] mark insert_before"
     elif (.nodes | length) >= 2 then
       .nodes[0] # enter into stack
       | if .layout == "none" then
-          "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv"
+          "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv; [con_id=\(.id)] layout stacking"
         else
-          if (.nodes | length) >= 2 then
-            .nodes[1] # enter into pile
-            | if .layout == "none" then
-                "[con_id=\(.id)] split toggle; [con_id=\(.id)] layout stacking; [con_id=\(.id)] mark insert"
-              else
-                last(tiles) | "[con_id=\(.id)] mark insert"
-              end
-          else
-            "nop"
-          end
+          last(tiles) | "[con_id=\(.id)] mark insert"
         end
     else
       "nop"
     end;
 
-def normalize:
-  workspace | "unmark insert; unmark insert_before; \(ensure_layout // "nop")";
+def closure:
+  workspace
+  | if (.nodes | length) == 1 then
+      if .nodes[0].layout == "none" then
+        "[con_id=\(.nodes[0].id)] mark insert_before"
+      else
+        .nodes[0] # enter the stack
+        | if (.nodes | length) == 1 then
+            "[con_id=\(.nodes[0].id)] split none"
+          else
+            "[con_id=\(.nodes[-1].id)] move right" # TODO
+          end
+      end
+    else
+      "nop"
+    end;
+
+def normalize(f):
+  "unmark insert; unmark insert_before; \(f)";
 
 def event_workspace_focus($tree):
-  $tree | normalize;
+  $tree | normalize(enter);
 
 def event_window_new($tree):
-  $tree | workspace | normalize;
+  $tree | normalize(enter);
 
-# def event_window_move($tree):
-#   "[con_id=\(.id)] move container to mark insert_before; [con_id=\(.id)] move container to mark insert";
+def event_window_move($tree):
+  $tree | normalize(enter);
+
+def event_window_close($tree):
+  $tree | normalize(closure);
