@@ -179,8 +179,8 @@ bindsym $fn+Shift+period exec "i3jq move_to_float next"
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"
-bindsym $fn+j exec "i3jq focus_tile focus_tile -1"
-bindsym $fn+k exec "i3jq focus_tile focus_tile 1"
+bindsym $fn+j exec "i3jq tiles focus_external -1"
+bindsym $fn+k exec "i3jq tiles focus_external 1"
 
 bindsym $fn+Shift+j exec "i3jq move_to_tiled prev"
 

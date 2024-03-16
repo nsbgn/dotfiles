@@ -35,4 +35,5 @@ def focus_internal_tile($offset):
   tile(externals; $offset)
   | "[con_id=\(.id)] focus";
 
-def focus_tile: focus_external_tile(($ARGS.positional[0] // 0) | numeric);
+def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric);
+def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric);
