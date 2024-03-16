@@ -38,7 +38,7 @@ bar {
 #                       tBorder      bg    text indic8r wBorder
 client.focused          #000000 #000000 #ffffff #ff0000 #000000
 client.unfocused        #cccccc #aaaaaa #000000 #ff0000 #cccccc
-client.focused_inactive #cccccc #aaaaaa #000000 #ff0000 #cccccc
+client.focused_inactive #666666 #666666 #ffffff #ff0000 #666666
 # client.focused_inactive #444444 #000000 #ffffff #ff0000 #cccccc
 
 output * bg #fffaf0 solid_color
