@@ -6,8 +6,11 @@ def assert($condition):
   if $condition then . else error("an assertion failed") end;
 
 # Find the index of the first item satisfying the condition in an array
-def position(condition):
+def indexl(condition):
   (map(condition) | index(true));
+def indexr(condition): # TODO
+  length - indexl(condition);
+def position(condition): indexl(condition);
 
 # Is a value among the given values? 2 | among(1, 2, 3) == true
 def among(f):
@@ -20,6 +23,10 @@ def clamp($min; $max):
 # Snap a number to the last value if greater than 0
 def snap:
   if . > 0 then -1 else 0 end;
+
+# Index an array, clamping to the beginning or end if outside the range
+def at($i):
+  length as $n | .[$i | clamp(0; $n)];
 
 # Convenience function to exectue a command only when a condition passes
 def when(condition; filter):
