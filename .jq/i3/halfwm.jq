@@ -74,24 +74,7 @@ def hide_before($ws; $hidden):
 def hide_after($ws; $hidden):
   hide(true; $ws; $hidden);
 
-# Swap the input container with the given one
-def swap($anchor):
-  "[con_id=\(.id)] swap container with con_id \($anchor.id)";
 
-# Move the input container to the given container
-def move_after($anchor):
-  "_tmp\($anchor.id)" as $m
-  | (if .type == "floating_con" then
-      "[con_id=\(.id)] floating disable; "
-    else
-      ""
-    end)
-  + "[con_id=\($anchor.id)] mark \($m); "
-  + "[con_id=\(.id)] move to mark \($m); "
-  + "[con_id=\($anchor.id)] unmark \($m)";
-
-def move_before($anchor):
-  move_after($anchor) + "; " + swap($anchor);
 
 # Hide all windows except the focused window. The windows occurring before the
 # focused window are hidden 'before' (ie at the end), the windows occurring

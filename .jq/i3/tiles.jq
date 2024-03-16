@@ -16,9 +16,7 @@ def externals:
 
 # Get all leaf windows in the same tabbed/stacking container as the focused one
 def internals:
-  until(.layout | among("none", "stacked", "tabbed"); descend)
-  | tiles;
-
+  (tab // window) | tiles;
 
 # Get all leaf windows in all the tabbed/stacked containers, except those that 
 # would receive focus wrt their respective tabbed/stacked containers
@@ -51,3 +49,9 @@ def focus_internal_tile($offset):
 
 def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric);
 def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric);
+
+def cycle_next:
+  workspace
+  | window as $w
+  | [internals] as $x
+  | $x[0] | move_after($x[-1]) + "; " + swap($w);

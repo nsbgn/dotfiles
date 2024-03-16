@@ -60,6 +60,10 @@ def focus_indexr:
 def workspace:
   until(.type == "workspace"; descend);
 
+# Follow focus until arriving at a tabbed/stacked container
+def tab:
+  until(.layout | among("stacked", "tabbed"); descend);
+
 # Find window that would be focused if this container receives focus
 def window:
   until(.nodes == []; descend_any);
@@ -94,3 +98,22 @@ def is_horizontal:
 
 def is_vertical:
   .layout | among("splitv", "stacked");
+
+# Swap the input container with the given one
+def swap($anchor):
+  "[con_id=\(.id)] swap container with con_id \($anchor.id)";
+
+# Move the input container to the given container
+def move_after($anchor):
+  "_tmp\($anchor.id)" as $m
+  | (if .type == "floating_con" then
+      "[con_id=\(.id)] floating disable; "
+    else
+      ""
+    end)
+  + "[con_id=\($anchor.id)] mark \($m); "
+  + "[con_id=\(.id)] move to mark \($m); "
+  + "[con_id=\($anchor.id)] unmark \($m)";
+
+def move_before($anchor):
+  move_after($anchor) + "; " + swap($anchor);
