@@ -26,7 +26,7 @@ def close:
       else
         .nodes[0] # enter the stack
         | if (.nodes | length) == 1 then
-            "[con_id=\(.nodes[0].id)] split none"
+            "[con_id=\(.nodes[0].id)] split none; [con_id=\(.nodes[0].id)] mark insert_before"
           else
             "[con_id=\(.nodes[-1].id)] move right; [con_id=\(.nodes[-2].id)] mark insert"
           end
