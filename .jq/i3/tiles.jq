@@ -70,19 +70,17 @@ def cycle_prev1:
   | $pile[-1]
   | move_before($pile[0]) + "; " + swap($main);
 
-
 def cycle($offset):
   workspace
-  | main as $main
+  | window.id as $focus_id
   | find(is_pile)
-  | .focus[0] as $w
+  | .focus[0] as $focus_id_in_pile
   | .nodes
-  | at(indexl(.id == $w) + $offset)
-  | if $main.focused then
-      "[con_id=\(.id)] focus; [con_id=\($main.id)] focus"
-    else
-      "[con_id=\(.id)] focus"
-    end;
+  | at(indexl(.id == $focus_id_in_pile) + $offset)
+  | "[con_id=\(.id)] focus"
+  | if $focus_id != $focus_id_in_pile then
+      . + "; [con_id=\($focus_id)] focus"
+    else . end;
 
 def cycle_prev: cycle(-1);
 def cycle_next: cycle(1);
