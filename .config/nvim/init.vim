@@ -46,9 +46,26 @@ hi pythonFunction gui=bold guifg=darkred
 " set fillchars+=vert:*
 " set fillchars+=eob:\  " turn off tildes at the end of buffers
 
+" cf. https://www.jamescherti.com/vim-script-replace-the-home-directory-with-a-tilde/
+function! ReplaceHomeWithTilde(path) abort
+  let l:path = fnamemodify(a:path, ':p')
+  let l:path_sep = (!exists('+shellslash') || &shellslash) ? '/' : '\'
+  let l:home = fnamemodify('~', ':p')
+
+  if l:path[0:len(l:home)-1] ==# l:home
+    return '~' . l:path_sep . l:path[len(l:home):]
+  elseif l:path == l:home
+    return '~' . l:path_sep
+  endif
+
+  return l:path
+endfunction
+
+
 " Show file in window title
 set title
-set titlestring=🗒️\ %f\ %m
+set titlestring=🗒️\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
+
 " 
 "%{len(getbufinfo({'buflisted':1}))}
 
