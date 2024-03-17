@@ -76,6 +76,7 @@ def scratchpad:
 def find(condition):
   first(recurse(.nodes[], .floating_nodes[]) | select(condition)) // null;
 
+# Find all nodes that satisfy a condition
 def find_all(condition):
   recurse(.nodes[], .floating_nodes[]) | select(condition);
 
@@ -98,6 +99,12 @@ def is_horizontal:
 
 def is_vertical:
   .layout | among("splitv", "stacked");
+
+def is_pile:
+  .layout | among("tabbed", "stacked");
+
+def is_leaf:
+  .layout == "none";
 
 # Swap the input container with the given one
 def swap($anchor):
