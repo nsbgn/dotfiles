@@ -1,19 +1,16 @@
 {
     "layer": "top",
-    "position": "top",
+    "position": "left",
     "exclusive": false,
-    "height": 32,
+    //"height": 32,
     "margin": "0 0 0 0",
     "mode": "dock", // overlay
     "spacing": 5,
     "ipc": true,
     "id": "bar1",
-    "modules-left": ["sway/workspaces", "custom/taskbar"],
+    "modules-left": ["sway/workspaces"],
     "modules-center": [],
     "modules-right": ["pulseaudio", "battery", "clock", "tray"],
-    "sway/workspaces": {
-        "current-only": true
-    },
     "pulseaudio": {
         "format": "{icon} {volume}",
         "format-bluetooth": "{icon} {volume}",
@@ -29,36 +26,19 @@
         },
         "scroll-step": 1,
         "on-click": "pactl set-sink-mute 0 false",
-        "on-right-click": "pavucontrol"
+        "on-right-click": "pavucontrol",
+        "rotate": 90
     },
     "battery": {
         "format": "{icon} {capacity}",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "rotate": 90
     },
     "clock": {
-        "format": " {:%H:%M %a %d}"
+        "format": " {:%H:%M %a %d}",
+        "rotate": 90
     },
     "sway/workspaces": {
         "disable-auto-back-and-forth": true
-    },
-    "wlr/taskbar": {
-        "format": "{icon} {title:.30}",
-        "icon-size": 14,
-        "icon-theme": "Numix-Circle",
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-middle": "close",
-        "app_ids-mapping": {
-          "firefoxdeveloperedition": "firefox-developer-edition"
-        },
-        "rewrite": {
-            "Firefox Web Browser": "Firefox",
-            "Foot Server": "Terminal"
-        }
-    },
-    "custom/taskbar": {
-        "exec": "i3ipc_taskbar.py",
-        "on-scroll-up": "swaymsg workspace prev",
-        "on-scroll-down": "swaymsg workspace next"
-    } //
+    }
 }
