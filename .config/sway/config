@@ -41,7 +41,8 @@ client.unfocused        #cccccc #aaaaaa #000000 #ff0000 #cccccc
 client.focused_inactive #666666 #666666 #ffffff #ff0000 #666666
 # client.focused_inactive #444444 #000000 #ffffff #ff0000 #cccccc
 
-output * bg #fffaf0 solid_color
+output * bg #000000 solid_color
+# output * bg #fffaf0 solid_color
 # output * bg #ffffff solid_color
 output HDMI-A-1 {
    mode 1920x1080@60.000Hz
@@ -103,13 +104,13 @@ input type:touchpad {
 smart_gaps off
 smart_borders off
 hide_edge_borders none
-default_border normal 2
+default_border normal 0
 default_floating_border normal 2
 titlebar_border_thickness 1
-titlebar_padding 10 2
-# font pango:Inconsolata 10
-font Cozette 9
-gaps inner 3
+titlebar_padding 8 1
+font pango:Inconsolata 13
+# font Cozette 9
+gaps inner 1
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0
