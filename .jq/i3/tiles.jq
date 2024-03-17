@@ -56,16 +56,33 @@ def focus_internal_tile($offset):
 def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric);
 def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric);
 
-def cycle_next:
+def cycle_next1:
   workspace
   | main as $main
   | [find(is_pile) | internals] as $pile
   | $pile[0]
   | move_after($pile[-1]) + "; " + swap($main);
 
-def cycle_prev:
+def cycle_prev1:
   workspace
   | main as $main
   | [find(is_pile) | internals] as $pile
   | $pile[-1]
   | move_before($pile[0]) + "; " + swap($main);
+
+
+def cycle($offset):
+  workspace
+  | main as $main
+  | find(is_pile)
+  | .focus[0] as $w
+  | .nodes
+  | at(indexl(.id == $w) + $offset)
+  | if $main.focused then
+      "[con_id=\(.id)] focus; [con_id=\($main.id)] focus"
+    else
+      "[con_id=\(.id)] focus"
+    end;
+
+def cycle_prev: cycle(-1);
+def cycle_next: cycle(1);
