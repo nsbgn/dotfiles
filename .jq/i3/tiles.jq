@@ -44,8 +44,8 @@ def focus_internal_tile($offset; $wrap):
   tile(internals; $offset; $wrap)
   | "[con_id=\(.id)] focus";
 
-def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric; true);
-def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric; true);
+def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric; false);
+def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric; false);
 
 
 # Cycle focus through the first stacked/tabbed container on the current 
