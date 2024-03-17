@@ -107,8 +107,8 @@ default_border normal 2
 default_floating_border normal 2
 titlebar_border_thickness 1
 titlebar_padding 10 2
-font pango:Inconsolata 10
-# font Cozette 9
+# font pango:Inconsolata 10
+font Cozette 9
 gaps inner 3
 # focus_wrapping workspace
 # workspace_layout tabbed
@@ -172,10 +172,10 @@ bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+comma exec "i3jq focus_float prev"
-bindsym $fn+Shift+comma exec "i3jq move_to_float prev"
-bindsym $fn+period exec "i3jq focus_float next"
-bindsym $fn+Shift+period exec "i3jq move_to_float next"
+bindsym $fn+comma exec "i3jq tiles cycle_prev"
+bindsym $fn+period exec "i3jq tiles cycle_next"
+# bindsym $fn+Shift+comma exec "i3jq move_to_float prev"
+# bindsym $fn+Shift+period exec "i3jq move_to_float next"
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"
