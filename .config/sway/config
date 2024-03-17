@@ -162,8 +162,8 @@ bindsym $fn+b exec "i3jq toggle_tiling_mode"
 # bindsym $fn+u exec "$pwm mark_focus u"
 # bindsym $fn+i exec "i3jq cycle_hidden prev"
 # bindsym $fn+Shift+i exec "i3jq alt_cycle_hidden prev"
-bindsym $fn+o exec "i3jq cycle_hidden next"
-bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
+# bindsym $fn+o exec "i3jq cycle_hidden next"
+# bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
 # bindsym $fn+p exec "$pwm mark_focus p"
 
 # ROW 2 RIGHT ################################################################
@@ -172,10 +172,10 @@ bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+comma exec "i3jq tiles cycle_prev"
-bindsym $fn+period exec "i3jq tiles cycle_next"
-bindsym $fn+Shift+comma exec "i3jq tiles cycle_hold_prev"
-bindsym $fn+Shift+period exec "i3jq tiles cycle_hold_next"
+bindsym $fn+i exec "i3jq tiles cycle_prev"
+bindsym $fn+o exec "i3jq tiles cycle_next"
+bindsym $fn+Shift+i exec "i3jq tiles cycle_hold_prev"
+bindsym $fn+Shift+o exec "i3jq tiles cycle_hold_next"
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"
@@ -184,6 +184,9 @@ bindsym $fn+k exec "i3jq tiles focus_external 1"
 
 bindsym $fn+Shift+j exec "i3jq tiles swap_main"
 bindsym $fn+Shift+k exec "i3jq tiles swap_main"
+
+bindsym $fn+comma workspace prev
+bindsym $fn+period workspace next
 
 bindsym $fn+l focus right
 #bindsym $fn+l exec "$pwm mark_focus k"
