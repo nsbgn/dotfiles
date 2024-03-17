@@ -174,8 +174,8 @@ bindsym $fn+Shift+h swap prev
 
 bindsym $fn+comma exec "i3jq tiles cycle_prev"
 bindsym $fn+period exec "i3jq tiles cycle_next"
-# bindsym $fn+Shift+comma exec "i3jq move_to_float prev"
-# bindsym $fn+Shift+period exec "i3jq move_to_float next"
+bindsym $fn+Shift+comma exec "i3jq tiles cycle_hold_prev"
+bindsym $fn+Shift+period exec "i3jq tiles cycle_hold_next"
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"

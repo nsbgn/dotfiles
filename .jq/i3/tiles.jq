@@ -70,6 +70,9 @@ def cycle_prev1:
   | $pile[-1]
   | move_before($pile[0]) + "; " + swap($main);
 
+# Cycle focus through the first stacked/tabbed container on the current 
+# workspace, but don't shift focus to it unless you're actually in said 
+# container
 def cycle($offset):
   workspace
   | window.id as $focus_id
@@ -82,5 +85,20 @@ def cycle($offset):
       . + "; [con_id=\($focus_id)] focus"
     else . end;
 
+# Same as cycle, but move the focused window along with it
+def cycle_hold($offset):
+  workspace
+  | window.id as $focus_id
+  | find(is_pile)
+  | .focus[0] as $focus_id_in_pile
+  | .nodes as $nodes
+  | $nodes
+  | indexl(.id == $focus_id_in_pile) as $i
+  | at($i + $offset)
+  | swap($nodes[$i]);
+
 def cycle_prev: cycle(-1);
 def cycle_next: cycle(1);
+
+def cycle_hold_prev: cycle_hold(-1);
+def cycle_hold_next: cycle_hold(1);

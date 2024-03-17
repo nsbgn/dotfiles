@@ -24,9 +24,11 @@ def clamp($min; $max):
 def snap:
   if . > 0 then -1 else 0 end;
 
-# Index an array, clamping to the beginning or end if outside the range
-def at($i):
-  length as $n | .[$i | clamp(0; $n)];
+# Index an array, clipping to the beginning or end if outside the range
+def at($i; $wrap):
+  length as $n | .[$i | if $wrap then . % $n else clamp(0; $n) end];
+
+def at($i): at($i; false);
 
 # Convenience function to exectue a command only when a condition passes
 def when(condition; filter):
