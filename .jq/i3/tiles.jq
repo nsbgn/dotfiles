@@ -39,16 +39,24 @@ def tile(generator; $offset; $wrap):
   | (indexl(.id == $w.id) + $offset) as $i
   | if $wrap then .[wrap($i)] else .[clip($i)] end;
 
-def focus_external_tile($offset; $wrap):
-  tile(externals; $offset; $wrap)
-  | "[con_id=\(.id)] focus";
+def focus_outer_tile($offset):
+  tile(outer; $offset; false) | focus;
 
-def focus_internal_tile($offset; $wrap):
-  tile(internals; $offset; $wrap)
-  | "[con_id=\(.id)] focus";
+def swap_outer_tile($offset):
+  window as $w | tile(outer; $offset; false) | swap($w);
 
-def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric; false);
-def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric; false);
+def focus_inner_tile($offset):
+  tile(inner; $offset; true) | focus;
+
+def swap_inner_tile($offset):
+  window as $w | tile(outer; $offset; true) | swap($w);
+
+def focus_outer_tile: focus_outer_tile(($ARGS.positional[0] // 0) | numeric);
+def focus_inner_tile: focus_inner_tile(($ARGS.positional[0] // 0) | numeric);
+
+def swap_outer_tile: swap_outer_tile(($ARGS.positional[0] // 0) | numeric);
+def swap_inner_tile: swap_inner_tile(($ARGS.positional[0] // 0) | numeric);
+
 
 # Find the outer tile at the given offset from the current one. If there is no 
 # such tile, find the inner tile. TODO better explanation

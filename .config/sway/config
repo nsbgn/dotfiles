@@ -184,13 +184,15 @@ bindsym $fn+Shift+h swap prev
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"
-bindsym $fn+j exec "i3jq tiles focus_prev_prev"
-bindsym $fn+m exec "i3jq tiles focus_prev_next"
-bindsym $fn+k exec "i3jq tiles focus_next_next"
+bindsym $fn+u exec "i3jq tiles focus_inner_tile prev"
+bindsym $fn+j exec "i3jq tiles focus_outer_tile prev"
+bindsym $fn+m exec "i3jq tiles focus_inner_tile next"
+bindsym $fn+k exec "i3jq tiles focus_outer_tile next"
 
-bindsym $fn+Shift+j exec "i3jq tiles swap_prev_prev"
-bindsym $fn+Shift+m exec "i3jq tiles swap_prev_next"
-bindsym $fn+Shift+k exec "i3jq tiles swap_next_next"
+bindsym $fn+Shift+u exec "i3jq tiles swap_inner_tile prev"
+bindsym $fn+Shift+j exec "i3jq tiles swap_outer_tile prev"
+bindsym $fn+Shift+m exec "i3jq tiles swap_inner_tile next"
+bindsym $fn+Shift+k exec "i3jq tiles swap_outer_tile next"
 
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
