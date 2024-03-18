@@ -119,7 +119,7 @@ def swap($anchor):
   "[con_id=\(.id)] swap container with con_id \($anchor.id)";
 
 def focus:
-  "[con_id=\(.id)] focus";
+  window | "[con_id=\(.id)] focus";
 
 # Move the input container to the given container
 def move_after($anchor):

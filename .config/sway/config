@@ -174,8 +174,8 @@ bindsym $fn+b exec "i3jq toggle_tiling_mode"
 # ROW 2 RIGHT ################################################################
 
 # bindsym $fn+h exec "$pwm mark_focus h"
-bindsym $fn+h focus left
-bindsym $fn+Shift+h swap prev
+# bindsym $fn+h focus left
+# bindsym $fn+Shift+h swap prev
 
 # bindsym $fn+i exec "i3jq tiles cycle_prev"
 # bindsym $fn+o exec "i3jq tiles cycle_next"
@@ -184,20 +184,20 @@ bindsym $fn+Shift+h swap prev
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"
-bindsym $fn+u exec "i3jq tiles focus_inner_tile prev"
-bindsym $fn+j exec "i3jq tiles focus_outer_tile prev"
-bindsym $fn+m exec "i3jq tiles focus_inner_tile next"
-bindsym $fn+k exec "i3jq tiles focus_outer_tile next"
+bindsym $fn+j exec "i3jq tiles 'cycle_inner_focus(1)'"
+bindsym $fn+Shift+j exec "i3jq tiles 'cycle_inner_swap(1)"
+bindsym $fn+k exec "i3jq tiles 'cycle_inner_focus(-1)'"
+bindsym $fn+Shift+k exec "i3jq tiles 'cycle_inner_swap(-1)'"
 
-bindsym $fn+Shift+u exec "i3jq tiles swap_inner_tile prev"
-bindsym $fn+Shift+j exec "i3jq tiles swap_outer_tile prev"
-bindsym $fn+Shift+m exec "i3jq tiles swap_inner_tile next"
-bindsym $fn+Shift+k exec "i3jq tiles swap_outer_tile next"
+bindsym $fn+h exec "i3jq tiles focus_outer_tile prev"
+bindsym $fn+l exec "i3jq tiles focus_outer_tile next"
+bindsym $fn+Shift+h exec "i3jq tiles swap_outer_tile prev"
+bindsym $fn+Shift+l exec "i3jq tiles swap_outer_tile next"
 
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
 
-bindsym $fn+l focus right
+# bindsym $fn+l focus right
 #bindsym $fn+l exec "$pwm mark_focus k"
 #bindsym $fn+Shift+l swap next
 #bindsym $fn+l exec "$pwm mark_focus l"
