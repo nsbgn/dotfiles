@@ -37,7 +37,7 @@ def tile(generator; $offset; $wrap):
   | window as $w
   | [generator | window]
   | (indexl(.id == $w.id) + $offset) as $i
-  | if $wrap then at($i; true) else .[if $i < 0 then empty else $i end] end;
+  | if $wrap then .[wrap($i)] else .[clip($i)] end;
 
 def focus_external_tile($offset; $wrap):
   tile(externals; $offset; $wrap)

@@ -20,15 +20,21 @@ def among(f):
 def clamp($min; $max):
   if . >= $min then if . <= $max then . else $max end else $min end;
 
+# Clip a number to minimum and maximum values; empty if outside the values
+def clip($min; $max):
+  if . >= $min and . <= $max then . else empty end;
+
 # Snap a number to the last value if greater than 0
 def snap:
   if . > 0 then -1 else 0 end;
 
-# Index an array, clipping to the beginning or end if outside the range
-def at($i; $wrap):
-  length as $n | .[$i | if $wrap then . % $n else clamp(0; $n) end];
+# Transform array indexes
+def wrap($i): $i % length;
+def clamp($i): length as $n | $i | clamp(0; $n - 1);
+def clip($i): length as $n | $i | clip(0; $n - 1);
 
-def at($i): at($i; false);
+# Index an array, clamping to the beginning or end if outside the range
+def at($i): .[clamp($i)];
 
 # Convenience function to exectue a command only when a condition passes
 def when(condition; filter):
