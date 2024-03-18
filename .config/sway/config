@@ -108,7 +108,7 @@ default_border normal 0
 default_floating_border normal 2
 titlebar_border_thickness 1
 titlebar_padding 8 1
-font pango:Inconsolata 13
+font pango:Inconsolata, FontAwesome 13
 # font Cozette 9
 gaps inner 1
 # focus_wrapping workspace
@@ -116,6 +116,7 @@ gaps inner 1
 # gaps horizontal 0
 for_window [app_id=^Firefox-esr$] title_format " %title"
 for_window [app_id=^mpv$] title_format " %title"
+for_window [app_id=^imv$] title_format " %title"
 for_window [app_id=^org.telegram.desktop$] title_format " %title"
 for_window [app_id=^org.qutebrowser.qutebrowser$] title_format " %title"
 for_window [app_id=^org.pwmt.zathura$] title_format " %title"

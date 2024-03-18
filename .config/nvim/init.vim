@@ -64,10 +64,10 @@ endfunction
 
 " Show file in window title
 set title
-set titlestring=\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
+set titlestring=\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
 " Emoji 🗒️
-
-" 
+" FA  
+"
 "%{len(getbufinfo({'buflisted':1}))}
 
 " Stop annoying window from popping up
