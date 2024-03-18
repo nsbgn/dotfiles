@@ -114,7 +114,11 @@ gaps inner 1
 # focus_wrapping workspace
 # workspace_layout tabbed
 # gaps horizontal 0
-for_window [app_id=^Firefox-esr$] title_format "🌐 %title"
+for_window [app_id=^Firefox-esr$] title_format " %title"
+for_window [app_id=^mpv$] title_format " %title"
+for_window [app_id=^org.telegram.desktop$] title_format " %title"
+for_window [app_id=^org.qutebrowser.qutebrowser$] title_format " %title"
+for_window [app_id=^org.pwmt.zathura$] title_format " %title"
 
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.

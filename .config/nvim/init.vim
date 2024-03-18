@@ -64,7 +64,8 @@ endfunction
 
 " Show file in window title
 set title
-set titlestring=🗒️\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
+set titlestring=\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
+" Emoji 🗒️
 
 " 
 "%{len(getbufinfo({'buflisted':1}))}

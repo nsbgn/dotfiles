@@ -15,6 +15,7 @@ def print_con(con: i3.Con, prefix: str = "") -> None:
         print("\033[1m", end="")
     print(f"{prefix}"
         f"#{con.id} "
+        f"({con.app_id}) "
         f"{con.type}/{con.layout}", end="")
     if con.type == "workspace":
         print("\033[24m", end="")

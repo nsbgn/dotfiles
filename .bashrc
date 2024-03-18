@@ -8,7 +8,9 @@ fi
 
 # Show directory in title bar
 if [ ! -z ${TERM} ]; then # -a $TERM == 'rxvt-unicode-256color'
-    PROMPT_COMMAND='echo -ne "\033]0;💲 $(dirs -0)\007"'
+    PROMPT_COMMAND='echo -ne "\033]0; $(dirs -0)\007"'
+    # Emoji: 💲
+    # FA:   
 fi
 
 # Hook direnv; see <https://direnv.net/>
