@@ -112,6 +112,9 @@ def is_leaf:
 def swap($anchor):
   "[con_id=\(.id)] swap container with con_id \($anchor.id)";
 
+def focus:
+  "[con_id=\(.id)] focus";
+
 # Move the input container to the given container
 def move_after($anchor):
   "_tmp\($anchor.id)" as $m

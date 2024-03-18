@@ -15,6 +15,9 @@ def externals:
 def internals:
   (tab // window) | tiles;
 
+def outer: externals;
+def inner: internals;
+
 # Get all leaf windows in all the tabbed/stacked containers, except those that 
 # would receive focus wrt their respective tabbed/stacked containers
 def unfocused:
@@ -33,8 +36,8 @@ def tile(generator; $offset; $wrap):
   workspace
   | window as $w
   | [generator | window]
-  | at(indexl(.id == $w.id) + $offset; $wrap) // empty;
-
+  | (indexl(.id == $w.id) + $offset) as $i
+  | if $wrap then at($i; true) else .[if $i < 0 then empty else $i end] end;
 
 def focus_external_tile($offset; $wrap):
   tile(externals; $offset; $wrap)
@@ -47,10 +50,24 @@ def focus_internal_tile($offset; $wrap):
 def focus_external: focus_external_tile(($ARGS.positional[0] // 0) | numeric; false);
 def focus_internal: focus_internal_tile(($ARGS.positional[0] // 0) | numeric; false);
 
+# Find the outer tile at the given offset from the current one. If there is no 
+# such tile, find the inner tile. TODO better explanation
+def tile_multi($offset_outer; $offset_inner):
+  tile(outer; $offset_outer; false) // tile(inner; $offset_inner; true);
+
+def focus_prev_prev: tile_multi(-1; -1) | focus;
+def swap_prev_prev: window as $w | tile_multi(-1; -1) | swap($w);
+
+def focus_prev_next: tile_multi(-1; 1) | focus;
+def swap_prev_next: window as $w | tile_multi(-1; 1) | focus;
+
+def focus_next_next: tile(outer; 1; false) | focus;
+def swap_next_next: window as $w | tile(outer; 1; false) | swap($w);
+
+
 
 # Cycle focus through the first stacked/tabbed container on the current 
-# workspace, but don't shift focus to it unless you're actually in said 
-# container
+# workspace, then return focus to whatever you were focused on before
 def cycle($offset):
   workspace
   | window.id as $focus_id

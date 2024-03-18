@@ -177,18 +177,20 @@ bindsym $fn+b exec "i3jq toggle_tiling_mode"
 bindsym $fn+h focus left
 bindsym $fn+Shift+h swap prev
 
-bindsym $fn+i exec "i3jq tiles cycle_prev"
-bindsym $fn+o exec "i3jq tiles cycle_next"
-bindsym $fn+Shift+i exec "i3jq tiles cycle_hold_prev"
-bindsym $fn+Shift+o exec "i3jq tiles cycle_hold_next"
+# bindsym $fn+i exec "i3jq tiles cycle_prev"
+# bindsym $fn+o exec "i3jq tiles cycle_next"
+# bindsym $fn+Shift+i exec "i3jq tiles cycle_hold_prev"
+# bindsym $fn+Shift+o exec "i3jq tiles cycle_hold_next"
 
 # bindsym $fn+u exec "i3jq compass focus_ordinal nw"
 # bindsym $fn+i exec "i3jq compass focus_ordinal ne"
-bindsym $fn+j exec "i3jq tiles focus_external -1"
-bindsym $fn+k exec "i3jq tiles focus_external 1"
+bindsym $fn+j exec "i3jq tiles focus_prev_prev"
+bindsym $fn+m exec "i3jq tiles focus_prev_next"
+bindsym $fn+k exec "i3jq tiles focus_next_next"
 
-bindsym $fn+Shift+j exec "i3jq tiles swap_main"
-bindsym $fn+Shift+k exec "i3jq tiles swap_main"
+bindsym $fn+Shift+j exec "i3jq tiles swap_prev_prev"
+bindsym $fn+Shift+m exec "i3jq tiles swap_prev_next"
+bindsym $fn+Shift+k exec "i3jq tiles swap_next_next"
 
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
