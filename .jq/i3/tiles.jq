@@ -47,19 +47,14 @@ def focus_inactive(extra):
   | extra + "; [con_id=\($focus)]";
 
 # Cycle focus through the first stacked/tabbed container on the current 
-# workspace, then return focus to whatever you were focused on before
+# workspace
 def cycle_inner_focus($offset):
   workspace
-  | window.id as $focus_id
   | find(is_pile)
   | .focus[0] as $focus_id_in_pile
   | .nodes
-  | .[wrap(indexl(.id == $focus_id_in_pile) + $offset)]
-  | focus
-  | if $focus_id != $focus_id_in_pile then
-      . + "; [con_id=\($focus_id)] focus"
-    else . end;
-
+  | .[clamp(indexl(.id == $focus_id_in_pile) + $offset)]
+  | focus;
 
 def cycle_inner_focus_prev: cycle_inner_focus(-1);
 def cycle_inner_focus_next: cycle_inner_focus(1);
@@ -67,14 +62,11 @@ def cycle_inner_focus_next: cycle_inner_focus(1);
 # Same as cycle, but move the focused window along with it
 def cycle_inner_swap($offset):
   workspace
-  | window.id as $focus_id
   | find(is_pile)
   | .focus[0] as $focus_id_in_pile
-  | .nodes as $nodes
-  | $nodes
-  | indexl(.id == $focus_id_in_pile) as $i
-  | .[wrap($i + $offset)]
-  | swap($nodes[$i]);
+  | .nodes
+  | .[clamp(indexl(.id == $focus_id_in_pile) + $offset)]
+  | "[con_id=\($focus_id_in_pile)] swap container with con_id \(.id)";
 def cycle_inner_swap_prev: cycle_inner_swap(-1);
 def cycle_inner_swap_next: cycle_inner_swap(1);
 
