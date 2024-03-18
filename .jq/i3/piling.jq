@@ -3,10 +3,13 @@ include "i3/prelude";
 # Enforce a layout that puts a stack of windows on the first container and a 
 # single (main?) window on the second
 
+def mark_before:
+  "[con_id=\(.id)] mark insert; [con_id=\(.id)] mark --add swap";
+
 def enter:
   workspace
   | if (.nodes | length) == 1 then
-      "[con_id=\(.nodes[0].id)] mark insert_before"
+      .nodes[0] | mark_before
     elif (.nodes | length) >= 2 then
       .nodes[0] # enter into stack
       | if .layout == "none" then
@@ -22,13 +25,13 @@ def close:
   workspace
   | if (.nodes | length) == 1 then
       if .nodes[0].layout == "none" then
-        "[con_id=\(.nodes[0].id)] mark insert_before"
+        .nodes[0] | mark_before
       else
         .nodes[0] # enter the stack
         | if (.nodes | length) == 1 then
-            "[con_id=\(.nodes[0].id)] split none; [con_id=\(.nodes[0].id)] mark insert_before"
+            .nodes[0] | "[con_id=\(.id)] split none; \(mark_before)"
           else
-            "[con_id=\(.nodes[-1].id)] move right; [con_id=\(.nodes[-2].id)] mark insert"
+            "[con_id=\(.nodes[-1].id)] move right; \(.nodes[-2] | mark_before)"
           end
       end
     else
@@ -41,7 +44,7 @@ def close:
     end;
 
 def normalize(f):
-  "unmark insert; unmark insert_before; \(f)";
+  "unmark insert; unmark swap; \(f)";
 
 def event_workspace_focus($tree):
   $tree | normalize(enter);

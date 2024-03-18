@@ -13,6 +13,6 @@ subscriptions="$("$jq" -rcn --argjson s "$settings" '$s | [.[].type]')"
         if [ ! -z "$msg_type" ]; then
         echo "$event" \
             | $jq -r "include \"${name}\"; event_${msg_type}(\$tree) // empty" --argjson tree "$("$i3" -t get_tree)" \
-            | xargs -t -L1 "$i3"
+            | xargs -t -L1 "$i3" --
         fi
     done
