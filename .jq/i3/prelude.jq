@@ -47,6 +47,15 @@ def when(condition; filter):
 def descend(nodes):
   first((.focus | .[]) as $i | nodes | select(.id == $i));
 
+# Same as descend/1, but descends into a neighbour of the most focused node
+def descend(generator; $offset; $wrap):
+  first(
+    (.focus | .[]) as $id
+    | [generator]
+    | (indexl(.id == $id) + $offset) as $i
+    | .[if $wrap then wrap($i) else clip($i) end]
+  );
+
 # Descend tree structure into focused node one level
 def descend_any:
   descend(.nodes[], .floating_nodes[]);
