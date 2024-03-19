@@ -7,4 +7,7 @@ c.tabs.tabs_are_windows = True
 
 c.window.title_format = "{perc}{current_title}"
 
+config.bind(',p',
+    'spawn --userscript qute-pass --dmenu-invocation bemenu')
+
 config.load_autoconfig(False)
