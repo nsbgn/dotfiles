@@ -42,10 +42,13 @@ def when(condition; filter):
 
 # Sway-specific
 
-# Descend tree structure one level, into the "most" focused node from the given 
+# Descend tree structure one level, into the nth focused node from the given 
 # nodes (typically .nodes[] and/or .floating_nodes[])
-def descend(nodes):
-  first((.focus | .[]) as $i | nodes | select(.id == $i));
+def descend(generator; $n):
+  nth($n; (.focus | .[]) as $i | generator | select(.id == $i));
+
+def descend(generator):
+  descend(generator; 0);
 
 # Same as descend/1, but descends into a neighbour of the most focused node
 def descend(generator; $offset; $wrap):
