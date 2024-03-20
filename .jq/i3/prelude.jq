@@ -51,13 +51,24 @@ def descend(generator):
   descend(generator; 0);
 
 # Same as descend/1, but descends into a neighbour of the most focused node
-def descend(generator; $offset; $wrap):
-  first(
-    (.focus | .[]) as $id
-    | [generator]
-    | (indexl(.id == $id) + $offset) as $i
-    | .[if $wrap then wrap($i) else clip($i) end]
-  );
+# def descend(generator; $offset; $wrap):
+#   first(
+#     (.focus | .[]) as $id
+#     | [generator]
+#     | (indexl(.id == $id) + $offset) as $i
+#     | .[if $wrap then wrap($i) else clip($i) end]
+#   );
+
+# Descend one level into a neighbour of the nth focused tiling node
+def descend_neighbour($offset; $wrap; $n):
+  nth($n; .focus[] as $id | .nodes | indexl(.id == $id) // empty) as $i
+  | ($i + $offset) as $j
+  | .nodes
+  | .[if $wrap then wrap($j) else clip($j) end];
+
+# Descend one level into a neighbour of the most focused tiling node
+def descend_neighbour($offset; $wrap):
+  descend_neighbour($offset; $wrap; 0);
 
 # Descend tree structure into focused node one level
 def descend_any:
