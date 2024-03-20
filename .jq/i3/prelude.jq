@@ -59,6 +59,14 @@ def descend(generator):
 #     | .[if $wrap then wrap($i) else clip($i) end]
 #   );
 
+def descend_n(generator; $n):
+  nth($n; .focus[] as $id | generator | select(.id == $id));
+
+def descend_n($n):
+  .focus[$n] as $id
+  | .nodes[], .floating_nodes[]
+  | select(.id == $id);
+
 # Descend one level into a neighbour of the nth focused tiling node
 def descend_neighbour($offset; $wrap; $n):
   nth($n; .focus[] as $id | .nodes | indexl(.id == $id) // empty) as $i
