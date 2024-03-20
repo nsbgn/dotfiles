@@ -1,10 +1,14 @@
 include "i3/prelude";
 
+def mark_after: mark("insert");
+def mark_before: mark("insert", "swap");
+
 # Enforce a layout that puts a stack of windows on the first container and a 
 # single (main?) window on the second
 
-def mark_before:
-  "[con_id=\(.id)] mark insert; [con_id=\(.id)] mark --add swap";
+def make_stack:
+  assert(.layout == "none") |
+  "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv; [con_id=\(.id)] layout stacking";
 
 def enter:
   workspace
@@ -13,9 +17,9 @@ def enter:
     elif (.nodes | length) >= 2 then
       .nodes[0] # enter into stack
       | if .layout == "none" then
-          "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv; [con_id=\(.id)] layout stacking"
+          make_stack
         else
-          last(tiles) | "[con_id=\(.id)] mark insert"
+          descend_n(0) | mark_after
         end
     else
       "nop"
@@ -23,23 +27,25 @@ def enter:
 
 def close:
   workspace
-  | if (.nodes | length) == 1 then
-      if .nodes[0].layout == "none" then
-        .nodes[0] | mark_before
-      else
-        .nodes[0] # enter the stack
-        | if (.nodes | length) == 1 then
-            .nodes[0] | "[con_id=\(.id)] split none; \(mark_before)"
+  | if .nodes == [] then
+      "nop"
+    elif (.nodes | length) == 1 then
+      .nodes[0]
+      | if .layout == "none" then
+          mark_before
+        else
+          if (.nodes | length) >= 2 then
+            "[con_id=\(descend_n(1).id)] move right"
           else
-            "[con_id=\(.nodes[-1].id)] move right; \(.nodes[-2] | mark_before)"
+            .nodes[0] | "[con_id=\(.id)] split none; \(mark_before)"
           end
       end
     else
       .nodes[0]
       | if .layout == "none" then
-          "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv; [con_id=\(.id)] layout stacking"
+          make_stack
         else
-          "[con_id=\(.nodes[-1].id)] mark insert"
+          descend_n(0) | window | mark_after
         end
     end;
 

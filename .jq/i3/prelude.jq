@@ -152,6 +152,9 @@ def swap($anchor):
 def focus:
   window | "[con_id=\(.id)] focus";
 
+def mark(marks):
+  ["[con_id=\(.id)] mark --add \(marks)"] | join("; ");
+
 # Move the input container to the given container
 def move_after($anchor):
   "_tmp\($anchor.id)" as $m
