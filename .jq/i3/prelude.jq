@@ -102,13 +102,13 @@ def scratchpad:
 def workspace:
   until(.type == "workspace"; descend_focus);
 
-# Follow focus until arriving at a tabbed/stacked container
-def tab:
-  until(is_pile; descend_focus);
+# Follow focus until arriving at a tabbed/stacked container or a leaf window
+def pile:
+  until(is_pile or is_leaf; descend_focus);
 
 # Find window that would be focused if this container receives focus
 def window:
-  until(.nodes == []; descend_focus);
+  until(is_leaf; descend_focus);
 
 # All tiled leaf nodes in the given container
 def tiles:

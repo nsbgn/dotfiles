@@ -13,7 +13,7 @@ def outer:
 # Get all leaf windows in the same tabbed/stacking container as the one that is 
 # in focus within the current container
 def inner:
-  (tab // window) | tiles;
+  pile | tiles;
 
 # Select the child that is the given offset away from the one that has focus
 def tile(generator; $offset; $wrap):
