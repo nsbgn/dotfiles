@@ -1,5 +1,18 @@
 include "i3/prelude";
 
+# This is an experiment.
+# Usually, there should be only two or three windows on the screen, so it could 
+# make make sense to engineer the selection mechanism such that you can usually 
+# shift focus to any one of them within a single keypress. Therefore, instead 
+# of the four cardinal directions (that is, i3's usual left/right/up/down), we 
+# use the ordinal directions (but only actually travel along the axis of the 
+# current split unless you've reached the end of said split or if you're at the 
+# edge of the screen and you're travelling away from it). Granted, this is 
+# slightly less intuitive in complicated layouts --- but complicated layouts 
+# should hardly ever occur, while this allows you to immediately travel to 
+# windows in the 'corner', which is an efficient and visually intuitive way to 
+# get around in master-stack layouts.
+
 def ordinal_direction:
   if among("leftup", "northwest", "nw") then
     {y: -1, x: -1}
@@ -12,6 +25,16 @@ def ordinal_direction:
   else
     error("\(.) is not recognized as an ordinal direction.")
   end;
+
+# Find out what the position of the focused container is in its node list. This 
+# is related to descend/1.
+def focus_index:
+  .focus[0] as $i
+  | .nodes
+  | indexl(.id == $i);
+
+def focus_indexr:
+  focus_index - (.nodes | length);
 
 # Select the leaf container occupying the given corner of the current 
 # container.
@@ -65,17 +88,6 @@ def look($dir; $parent):
   // look_blackbox($dir; $parent);
 
 # Shift focus in the given ordinal direction.
-# Usually, there should be only two or three windows on the screen, so it makes 
-# sense to engineer the selection mechanism such that you can usually shift 
-# focus to any one of them within a single keypress. Therefore, instead of the 
-# four cardinal directions (that is, i3's usual left/right/up/down), we use the 
-# ordinal directions (but only actually travel along the axis of the current 
-# split unless you've reached the end of said split or if you're at the edge of 
-# the screen and you're travelling away from it). Granted, this is slightly 
-# less intuitive in complicated layouts --- but complicated layouts should 
-# hardly ever occur, while this allows you to immediately travel to windows in 
-# the 'corner', which is an efficient and visually intuitive way to get around 
-# in master-stack layouts.
 def focus_ordinal($dir):
   ($dir | ordinal_direction) as $dir
   | workspace

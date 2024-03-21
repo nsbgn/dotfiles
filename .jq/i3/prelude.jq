@@ -1,18 +1,23 @@
-# Prelude
+module {
+  name: "i3",
+  description: "Filters that are generally useful for i3/Sway."
+};
 
-# Utility filters
+
+# Utility filters #######################################################
 
 def assert($condition):
   if $condition then . else error("an assertion failed") end;
 
 # Find the index of the first item satisfying the condition in an array
 def indexl(condition):
-  (map(condition) | index(true));
+  map(condition) | index(true);
+
+# Find the negative index of the last item satisfying the condition
 def indexr(condition): # TODO
   length - indexl(condition);
-def position(condition): indexl(condition);
 
-# Is a value among the given values? 2 | among(1, 2, 3) == true
+# Is a value among the given values? ie `2 | among(1, 2, 3) == true`
 def among(f):
   first(. == f // empty) // false;
 
@@ -24,28 +29,38 @@ def clamp($min; $max):
 def clip($min; $max):
   if . >= $min and . <= $max then . else empty end;
 
-# Snap a number to the last value if greater than 0
-def snap:
-  if . > 0 then -1 else 0 end;
-
-# Transform array indexes
+# Transform array indices
 def wrap($i): $i % length;
 def clamp($i): length as $n | $i | clamp(0; $n - 1);
 def clip($i): length as $n | $i | clip(0; $n - 1);
 
-# Index an array, clamping to the beginning or end if outside the range
-def at($i): .[clamp($i)];
+# Predicates on containers ###################################################
 
-# Convenience function to exectue a command only when a condition passes
-def when(condition; filter):
-  if condition then filter else "nop" end;
+def is_marked($mark):
+  .marks as $marks | $mark | among($marks[]);
 
-# Sway-specific
+def is_horizontal:
+  .layout | among("splith", "tabbed");
+
+def is_vertical:
+  .layout | among("splitv", "stacked");
+
+def is_pile:
+  .layout | among("tabbed", "stacked");
+
+def is_leaf:
+  .nodes == [] and .layout == "none";
+
+def is_tile:
+  .type == "con" and .nodes == [];
+
+
+# Finding general containers #################################################
 
 # Descend tree structure one level, into the nth focused node from the given 
 # nodes (typically .nodes[] and/or .floating_nodes[])
 def descend(generator; $n):
-  nth($n; (.focus | .[]) as $i | generator | select(.id == $i));
+  nth($n; (.focus | .[]) as $i | generator | select(.id == $i)) // empty;
 
 def descend(generator):
   descend(generator; 0);
@@ -85,32 +100,6 @@ def descend_any:
 def descend:
   descend(.nodes[]);
 
-# Find out what the position of the focused container is in its node list. This 
-# is related to descend/1.
-def focus_index:
-  .focus[0] as $i
-  | .nodes
-  | position(.id == $i);
-
-def focus_indexr:
-  focus_index - (.nodes | length);
-
-# Descend tree structure until finding focused workspace
-def workspace:
-  until(.type == "workspace"; descend);
-
-# Follow focus until arriving at a tabbed/stacked container
-def tab:
-  until(.layout | among("stacked", "tabbed"); descend);
-
-# Find window that would be focused if this container receives focus
-def window:
-  until(.nodes == []; descend_any);
-
-# Find scratchpad workspace from root node
-def scratchpad:
-  .nodes[] | select(.name == "__i3") | .nodes[0];
-
 # Find a unique node
 def find(condition):
   first(recurse(.nodes[], .floating_nodes[]) | select(condition)) // null;
@@ -119,31 +108,31 @@ def find(condition):
 def find_all(condition):
   recurse(.nodes[], .floating_nodes[]) | select(condition);
 
+
+# Finding specific containers ################################################
+
+# Find scratchpad workspace from root node
+def scratchpad:
+  .nodes[] | select(.name == "__i3") | .nodes[0];
+
+# Descend tree structure until finding focused workspace
+def workspace:
+  until(.type == "workspace"; descend);
+
+# Follow focus until arriving at a tabbed/stacked container
+def tab:
+  until(is_pile; descend);
+
+# Find window that would be focused if this container receives focus
+def window:
+  until(.nodes == []; descend_any);
+
 # All tiled leaf nodes in the given container
 def tiles:
-  recurse(.nodes[]) | select(.type == "con" and .nodes == []);
+  recurse(.nodes[]) | select(is_tile);
 
-def is_marked($mark):
-  .marks as $marks | $mark | among($marks[]);
 
-# Convenience function to turn a word into a corresponding number
-def numeric:
-  if . == "next" or . == "second" then 1
-  elif . == "first" then 0
-  elif . == "last" or . == "prev" or . == "previous" then -1
-  else tonumber end;
-
-def is_horizontal:
-  .layout | among("splith", "tabbed");
-
-def is_vertical:
-  .layout | among("splitv", "stacked");
-
-def is_pile:
-  .layout | among("tabbed", "stacked");
-
-def is_leaf:
-  .layout == "none";
+# Simple commands ############################################################
 
 # Swap the input container with the given one
 def swap($anchor):

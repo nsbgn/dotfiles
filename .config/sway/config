@@ -106,8 +106,8 @@ hide_edge_borders none
 default_border normal 0
 default_floating_border normal 2
 titlebar_border_thickness 1
-titlebar_padding 8 1
-font pango:Inconsolata, FontAwesome 13
+titlebar_padding 8 2
+font pango:Inconsolata, FontAwesome 12
 # font Cozette 9
 gaps inner 1
 # focus_wrapping workspace
@@ -189,10 +189,10 @@ bindsym $fn+Shift+j exec "i3jq tiles 'cycle_inner_swap(1)'"
 bindsym $fn+k exec "i3jq tiles 'cycle_inner_focus(-1)'"
 bindsym $fn+Shift+k exec "i3jq tiles 'cycle_inner_swap(-1)'"
 
-bindsym $fn+h exec "i3jq tiles focus_outer_tile prev"
-bindsym $fn+l exec "i3jq tiles focus_outer_tile next"
-bindsym $fn+Shift+h exec "i3jq tiles swap_outer_tile prev"
-bindsym $fn+Shift+l exec "i3jq tiles swap_outer_tile next"
+bindsym $fn+h exec "i3jq tiles focus_outer_tile -1"
+bindsym $fn+l exec "i3jq tiles focus_outer_tile 1"
+bindsym $fn+Shift+h exec "i3jq tiles swap_outer_tile -1"
+bindsym $fn+Shift+l exec "i3jq tiles swap_outer_tile 1"
 
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next

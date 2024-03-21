@@ -35,11 +35,11 @@ def focus_inner_tile($offset):
 def swap_inner_tile($offset):
   window as $w | tile(outer; $offset; true) | swap($w);
 
-def focus_outer_tile: focus_outer_tile(($ARGS.positional[0] // 0) | numeric);
-def focus_inner_tile: focus_inner_tile(($ARGS.positional[0] // 0) | numeric);
+def focus_outer_tile: focus_outer_tile(($ARGS.positional[0] // 0) | tonumber);
+def focus_inner_tile: focus_inner_tile(($ARGS.positional[0] // 0) | tonumber);
 
-def swap_outer_tile: swap_outer_tile(($ARGS.positional[0] // 0) | numeric);
-def swap_inner_tile: swap_inner_tile(($ARGS.positional[0] // 0) | numeric);
+def swap_outer_tile: swap_outer_tile(($ARGS.positional[0] // 0) | tonumber);
+def swap_inner_tile: swap_inner_tile(($ARGS.positional[0] // 0) | tonumber);
 
 # Same as focus, but return
 def focus_inactive(extra):
