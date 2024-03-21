@@ -1,10 +1,7 @@
 include "i3/prelude";
 
-# Enforce a layout that puts a stack of windows on the first container and a 
-# single (main?) window on the second
-
 def make_stack:
-  "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv; [con_id=\(.id)] layout stacking";
+  "[con_id=\(.id)] mark insert; [con_id=\(.id)] splitv";
 
 def normalize:
   workspace
