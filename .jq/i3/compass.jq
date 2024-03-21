@@ -84,7 +84,7 @@ def look_blackbox($dir; $parent):
     end;
 
 def look($dir; $parent):
-  (. as $parent | descend | look($dir; $parent))
+  (. as $parent | descend_focus(.nodes[]; 0) | look($dir; $parent))
   // look_blackbox($dir; $parent);
 
 # Shift focus in the given ordinal direction.

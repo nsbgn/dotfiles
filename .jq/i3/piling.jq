@@ -20,8 +20,8 @@ def normalize:
             .nodes[0]
             | "[con_id=\(.id)] split none; \(mark("swap"))"
           else
-            "[con_id=\(descend_n(1).id)] move right; "
-            + (descend_n(0) | mark("insert"))
+            "[con_id=\(descend_focus(1).id)] move right; "
+            + (descend_focus(0) | mark("insert"))
           end
       end
     else

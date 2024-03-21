@@ -58,29 +58,19 @@ def is_tile:
 # Finding general containers #################################################
 
 # Descend tree structure one level, into the nth focused node from the given 
-# nodes (typically .nodes[] and/or .floating_nodes[])
-def descend(generator; $n):
-  nth($n; (.focus | .[]) as $i | generator | select(.id == $i)) // empty;
+# node generator (typically .nodes[] or .floating_nodes[])
+def descend_focus(generator; $n):
+  nth($n; .focus[] as $id | generator | select(.id == $id) // empty);
 
-def descend(generator):
-  descend(generator; 0);
-
-# Same as descend/1, but descends into a neighbour of the most focused node
-# def descend(generator; $offset; $wrap):
-#   first(
-#     (.focus | .[]) as $id
-#     | [generator]
-#     | (indexl(.id == $id) + $offset) as $i
-#     | .[if $wrap then wrap($i) else clip($i) end]
-#   );
-
-def descend_n(generator; $n):
-  nth($n; .focus[] as $id | generator | select(.id == $id));
-
-def descend_n($n):
+# Descend tree structure one level, into the nth focused node
+def descend_focus($n):
+  # We can assume that the nth item in the focus list exists among the nodes
   .focus[$n] as $id
-  | .nodes[], .floating_nodes[]
+  | .floating_nodes[], .nodes[]
   | select(.id == $id);
+
+def descend_focus:
+  descend_focus(0);
 
 # Descend one level into a neighbour of the nth focused tiling node
 def descend_neighbour($offset; $wrap; $n):
@@ -92,13 +82,6 @@ def descend_neighbour($offset; $wrap; $n):
 # Descend one level into a neighbour of the most focused tiling node
 def descend_neighbour($offset; $wrap):
   descend_neighbour($offset; $wrap; 0);
-
-# Descend tree structure into focused node one level
-def descend_any:
-  descend(.nodes[], .floating_nodes[]);
-
-def descend:
-  descend(.nodes[]);
 
 # Find a unique node
 def find(condition):
@@ -117,15 +100,15 @@ def scratchpad:
 
 # Descend tree structure until finding focused workspace
 def workspace:
-  until(.type == "workspace"; descend);
+  until(.type == "workspace"; descend_focus);
 
 # Follow focus until arriving at a tabbed/stacked container
 def tab:
-  until(is_pile; descend);
+  until(is_pile; descend_focus);
 
 # Find window that would be focused if this container receives focus
 def window:
-  until(.nodes == []; descend_any);
+  until(.nodes == []; descend_focus);
 
 # All tiled leaf nodes in the given container
 def tiles:
