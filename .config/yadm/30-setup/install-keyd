@@ -36,6 +36,7 @@ chord_timeout = 50
 overload_tap_timeout = 300
 oneshot_timeout = 1000
 default_layout = qwerty_shifted
+disable_modifier_guard = 1
 
 [qwerty_shifted:layout]
 # Shift right hand one key to the right
@@ -200,7 +201,7 @@ c = overload(meta_control_alt, M-A-c)
 
 [meta_control_alt:M-C-A]
 
-[fnL:M]
+[fnL]
 rightcontrol = overload(fnR, rightmeta)
 compose = overload(fnR, rightmeta)
 
@@ -227,12 +228,49 @@ v = swapm(empty, compose)
 # / = swap(alt2)
 # rightshift = oneshot(meta2)
 
+u = M-C-y
+i = M-C-u
+o = M-C-i
+p = M-C-o
+[ = M-C-p
+] = M-C-[
+
+j = M-C-h
+k = M-C-j
+l = M-C-k
+; = M-C-l
+apostrophe = M-C-;
+enter = M-C-'
+
+m = M-C-n
+, = M-C-m
+. = M-C-,
+/ = M-C-.
+rightshift = M-C-/
+
 ' = macro(esc ;)
 
-[fnR:M]
+[fnR]
 leftalt = overload(fnL, leftmeta)
 
 # scrolllock, capslock, insert, sysrq, pause
+
+tab = M-C-tab
+q = M-C-q
+w = M-C-w
+e = M-C-e
+r = M-C-r
+
+capslock = M-C-backspace
+a = M-C-a
+s = M-C-s
+d = M-C-d
+f = M-C-f
+
+z = M-C-z
+x = M-C-x
+c = M-C-c
+v = M-C-v
 
 u = f7
 i = f8
