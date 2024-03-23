@@ -1,5 +1,6 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
 set $fn Ctrl+Mod4
+set $meta Mod4
 # You can also do nop halfwm and have it listen for binding events; probably 
 # better.
 
@@ -135,7 +136,7 @@ floating_modifier Mod4 normal
 # bindsym $fn+w key up
 # bindsym $fn+e key end
 # bindsym $fn+r key pgup
-bindsym $fn+t exec foot-cwd
+bindsym $meta+t exec foot-cwd
 
 # ROW 2 LEFT #################################################################
 
@@ -143,24 +144,22 @@ bindsym $fn+t exec foot-cwd
 # bindsym $fn+s key down
 # bindsym $fn+d key right
 # bindsym $fn+f key pgdn
-bindsym $fn+g exec dmenu-apps
-
-bindsym $fn+f exec sed -n 's/^def \(.\+\):.*$/\1/p' .jq/i3.jq | dmenu | xargs i3jq
+bindsym $meta+g exec dmenu-apps
 
 # ROW 3 LEFT #################################################################
-bindsym $fn+z nop "Too easy to accidentally trigger w/ my keymap"
-bindsym $fn+q kill
+bindsym $meta+z nop "Too easy to accidentally trigger w/ my keymap"
+bindsym $meta+q kill
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
-bindsym $fn+v fullscreen
-bindsym $fn+x focus mode_toggle
-bindsym $fn+Shift+b floating toggle
+bindsym $meta+v fullscreen
+bindsym $meta+x focus mode_toggle
+bindsym $meta+Shift+b floating toggle
 
 # ROW 1 RIGHT ################################################################
 
 
-bindsym $fn+b exec "i3jq toggle_tiling_mode"
+bindsym $meta+b exec "i3jq toggle_tiling_mode"
 
 # bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
