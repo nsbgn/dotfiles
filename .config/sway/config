@@ -137,6 +137,7 @@ floating_modifier Mod4 normal
 # bindsym $fn+e key end
 # bindsym $fn+r key pgup
 bindsym $meta+t exec foot-cwd
+bindsym Pause exec foot-cwd
 
 # ROW 2 LEFT #################################################################
 
@@ -145,6 +146,7 @@ bindsym $meta+t exec foot-cwd
 # bindsym $fn+d key right
 # bindsym $fn+f key pgdn
 bindsym $meta+g exec dmenu-apps
+bindsym Scroll_Lock exec dmenu-apps
 
 # ROW 3 LEFT #################################################################
 bindsym $meta+z nop "Too easy to accidentally trigger w/ my keymap"

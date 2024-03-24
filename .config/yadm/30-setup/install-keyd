@@ -173,25 +173,10 @@ rightshift = /
 
 
 # TODO mirroring
-[shift2:S]
-z = overload(meta_shift, S-z)
-x = overload(alt_shift, S-x)
-c = overload(control_shift, S-c)
-
-[meta2:M]
-x = overload(meta_alt, M-x)
-c = overload(meta_control, M-c)
-
-[alt2:A]
-z = overload(meta_alt, A-z)
-c = overload(control_alt, A-c)
-
-[control2:C]
-z = overload(meta_control, C-z)
-x = overload(control_alt, C-x)
+[meta_control_alt:M-C-A]
 
 [control_alt:C-A]
-z = overload(meta_control_alt, C-A-z)
+v = overload(meta_control_alt, C-A-z)
 
 [meta_control:M-C]
 x = overload(meta_control_alt, M-C-x)
@@ -199,8 +184,22 @@ x = overload(meta_control_alt, M-C-x)
 [meta_alt:M-A]
 c = overload(meta_control_alt, M-A-c)
 
-[meta_control_alt:M-C-A]
+[meta2:M]
+x = overload(meta_alt, M-x)
+c = overload(meta_control, M-c)
 
+[alt2:A]
+c = overload(control_alt, A-c)
+v = overload(meta_alt, A-z)
+
+[control2:C]
+x = overload(control_alt, C-x)
+v = overload(meta_control, C-z)
+
+# [shift2:S]
+# x = overload(alt_shift, S-x)
+# c = overload(control_shift, S-c)
+# v = overload(meta_shift, S-v)
 [fnL]
 rightcontrol = overload(fnR, rightmeta)
 compose = overload(fnR, rightmeta)
@@ -210,23 +209,21 @@ q = home
 w = up
 e = end
 r = pageup
+t = pause
 
 capslock = backspace
 a = left
 s = down
 d = right
 f = pagedown
+g = scrolllock
 
 leftshift = overload(shift, oneshot(shifto))
-z = swap(meta2)
+z = swapm(empty, compose)
 x = swap(alt2)
 c = swap(control2)
-v = swapm(empty, compose)
-
-# , = swap(shift2)
-# . = swap(control2)
-# / = swap(alt2)
-# rightshift = oneshot(meta2)
+v = swap(meta2)
+b = sysrq
 
 u = M-C-y
 i = M-C-u
@@ -252,8 +249,6 @@ rightshift = M-C-/
 
 [fnR]
 leftalt = overload(fnL, leftmeta)
-
-# scrolllock, capslock, insert, sysrq, pause
 
 tab = M-C-tab
 q = M-C-q
@@ -286,11 +281,11 @@ l = f3
 apostrophe = f5
 enter = f6
 
-m = sysrq
-, = pause
+m = insert
+, = swap(meta2)
 . = swap(control2)
 / = swap(alt2)
-rightshift = swap(meta2)
+rightshift = capslock
 
 
 # Layouts are very hard to accidentally toggle this way
@@ -299,56 +294,56 @@ space = setlayout(qwerty_shifted)
 rightalt = setlayout(colemakdh_shifted)
 
 leftshift = overload(shift2, rightshift)
-z = overload(meta2, leftmeta)
 x = overload(alt2, leftalt)
 c = overload(control2, leftcontrol)
+v = overload(meta2, leftmeta)
 
+, = overload(meta, rightmeta)
 . = overload(control2, rightcontrol)
 / = overload(alt2, rightalt)
-rightshift = overload(meta, rightmeta)
 
 # Explicitly override the combination so that you can for example do C-+ 
 # intuitively
 [fnL+symbol]
 leftshift = swap(shift2)
-z = swap(meta2)
+z = M-C-&
 x = swap(alt2)
 c = swap(control2)
-v = M-compose
+v = swap(meta2)
 
-q = M-!
-w = M-[
-e = M-+
-r = M-#
-t = M-]
+q = M-C-!
+w = M-C-[
+e = M-C-+
+r = M-C-#
+t = M-C-]
 
-u = M-^
-i = M-7
-o = M-8
-p = M-9
-[ = M-.
-] = M-@
+u = M-C-^
+i = M-C-7
+o = M-C-8
+p = M-C-9
+[ = M-C-.
+] = M-C-@
 
-a = M-*
-s = M-(
-d = M--
-f = M-=
-g = M-)
+a = M-C-*
+s = M-C-(
+d = M-C--
+f = M-C-=
+g = M-C-)
 
-j = M-~
-k = M-4
-l = M-5
-; = M-6
-' = M-0
-enter = M-grave
+j = M-C-~
+k = M-C-4
+l = M-C-5
+; = M-C-6
+' = M-C-0
+enter = M-C-grave
 
-b = M-}
+b = M-C-}
 
-m = M-%
-, = M-1
-. = M-2
-/ = M-3
-rightshift = M-/
+m = M-C-%
+, = M-C-1
+. = M-C-2
+/ = M-C-3
+rightshift = M-C-/
 
 [extra]
 # XF86WLAN / 0xf6. See also rfkill for XF86RFKill
