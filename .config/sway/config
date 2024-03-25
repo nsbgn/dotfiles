@@ -154,7 +154,8 @@ bindsym $meta+q kill
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
-bindsym $meta+v fullscreen
+bindsym $meta+v nop "too easy to trigger"
+bindsym $meta+f fullscreen
 bindsym $meta+x focus mode_toggle
 bindsym $meta+Shift+b floating toggle
 
