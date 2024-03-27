@@ -176,7 +176,7 @@ rightshift = /
 [meta_control_alt:M-C-A]
 
 [control_alt:C-A]
-v = overload(meta_control_alt, C-A-z)
+v = overload(meta_control_alt, C-A-v)
 
 [meta_control:M-C]
 x = overload(meta_control_alt, M-C-x)
@@ -190,11 +190,11 @@ c = overload(meta_control, M-c)
 
 [alt2:A]
 c = overload(control_alt, A-c)
-v = overload(meta_alt, A-z)
+v = overload(meta_alt, A-v)
 
 [control2:C]
 x = overload(control_alt, C-x)
-v = overload(meta_control, C-z)
+v = overload(meta_control, C-v)
 
 # [shift2:S]
 # x = overload(alt_shift, S-x)
