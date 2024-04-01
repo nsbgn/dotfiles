@@ -44,4 +44,12 @@ def event_window_close($tree):
   $tree | normalize;
 
 def event_window_focus($tree):
-  $tree | workspace | .nodes[0] // empty | window | mark("insert");
+  $tree
+  | workspace
+  | .nodes[0] // empty
+  | (pile | [tiles][-1]) as $last
+  | window
+  | mark("insert") + (
+      if .id != $last.id then
+        "; \(window | move_after($last))"
+      else "" end);
