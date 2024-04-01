@@ -11,13 +11,15 @@ def assert($condition):
 
 # Find the index of the first item satisfying the condition in an array
 def indexl(condition):
-  label $out
-  | foreach .[] as $x (-1; . + 1;
-      if ($x | condition) then ., break $out else empty end) // null;
+  label $out | . as $arr
+  | foreach range(length) as $i (null; $arr[$i];
+      if condition then $i, break $out else empty end) // null;
 
 # Find the negative index of the last item satisfying the condition
 def indexr(condition):
-  try (-1 - (reverse | indexl(condition))) catch null;
+  label $out | . as $arr
+  | foreach range(1; length + 1) as $i (null; $arr[-$i];
+      if condition then -$i, break $out else empty end) // null;
 
 # Is a value among the given values? ie `2 | among(1, 2, 3) == true`
 def among(f):
