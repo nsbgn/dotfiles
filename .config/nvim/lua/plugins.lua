@@ -436,9 +436,12 @@ use {
       require('leap').add_default_mappings()
       require('leap').opts.highlight_unlabeled_phase_one_targets = true
 
-      -- So that the first match in leap.nvim is shown
-      -- See https://github.com/ggandor/leap.nvim/issues/27
-      vim.cmd([[ highlight Cursor ctermbg=White ctermfg=Black ]])
+      -- So that the first match in leap.nvim is shown, see 
+      -- https://github.com/ggandor/leap.nvim/issues/27
+      vim.api.nvim_set_hl(0, 'LeapBackdrop', { fg = 'grey' })
+      vim.api.nvim_set_hl(0, 'LeapMatch', { fg = 'white', bg = 'black' })
+      vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { fg = 'white', bg = 'blue' })
+      vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { fg = 'white', bg = 'red' })
     end
   }
 
