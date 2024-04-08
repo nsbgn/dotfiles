@@ -1,3 +1,4 @@
+# Alpine: https://pkgs.alpinelinux.org/package/edge/community/x86_64/wmenu
 # Debian: https://packages.debian.org/trixie/wmenu
 
 cd ~/.builds
