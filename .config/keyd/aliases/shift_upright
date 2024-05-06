@@ -3,8 +3,9 @@
 
 [aliases]
 space = L1
-v = L2
-c = L3
+v = L1
+c = L2
+x = L3
 leftalt = L3
 
 , = R1
