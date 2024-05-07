@@ -1,11 +1,11 @@
 [aliases]
-leftalt = L3
-enter = L2
-space = L1
+f1 = L3
+f2 = L2
+f3 = L1
 
-rightalt = R2
-compose = R3
-rightcontrol = R1
+f4 = R2
+f5 = R3
+f6 = R1
 
 tab = TL1
 q = TL2
@@ -18,7 +18,7 @@ u = TR2
 i = TR3
 o = TR4
 p = TR5
-[ = TR6
+\ = TR6
 capslock = ML1
 a = ML2
 s = ML3

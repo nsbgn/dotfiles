@@ -1,13 +1,13 @@
 [aliases]
-leftalt = L3
-enter = L2
-space = L1
+leftcontrol = L3
+backspace = L1
+leftmeta = L2
 
-rightalt = R2
-compose = R3
-rightcontrol = R1
+leftalt = R1
+space = R2
+rightcontrol = R3
 
-tab = TL1
+~ = TL1
 q = TL2
 w = TL3
 e = TL4
@@ -18,8 +18,8 @@ u = TR2
 i = TR3
 o = TR4
 p = TR5
-[ = TR6
-capslock = ML1
+= = TR6
+pageup = ML1
 a = ML2
 s = ML3
 d = ML4
@@ -31,7 +31,7 @@ k = MR3
 l = MR4
 ; = MR5
 ' = MR6
-leftshift = BL1
+pagedown = BL1
 z = BL2
 x = BL3
 c = BL4
@@ -42,4 +42,9 @@ m = BR2
 , = BR3
 . = BR4
 / = BR5
-rightshift = BR6
+- = BR6
+
+tab = NOTHING
+esc = NOTHING
+enter = NOTHING
+rightalt = NOTHING

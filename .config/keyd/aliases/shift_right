@@ -2,11 +2,12 @@
 
 [aliases]
 leftalt = L3
-enter = L2
+leftmeta = L2
 space = L1
 
+rightmeta = R1
 rightalt = R2
-menu = R3
+compose = R3
 rightcontrol = R3
 
 tab = TL1
