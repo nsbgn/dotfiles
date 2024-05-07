@@ -12,19 +12,19 @@ disable_modifier_guard = 1
 # leftmeta = oneshot(alt)
 
 # Thumb keys
-FN_ESC = timeout(overload(fnL, oneshotm(dbl_esc, escape)), 200, layer(fnL))
-FN_ENTER = timeout(overload(fnL, oneshotm(dbl_enter, enter)), 200, layer(fnL))
+FN_ESC = timeout(overload(fnL, escape), 200, layer(fnL))
+FN_ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 200, layer(fnL))
 SPACE = space
 
 SHIFT = oneshot(shift)
 SYMBOL = oneshot(symbol)
 FN_COMPOSE = compose
 
-[dbl_esc]
-FN_ESC = timeout(overload(fnL, oneshotm(dbl_esc, escape)), 500, esc)
+[double_enter]
+FN_ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 200, layer(fnL))
 
-[dbl_enter]
-FN_ENTER = timeout(overload(fnL, oneshotm(dbl_enter, enter)), 500, enter)
+[triple_enter]
+FN_ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 500, enter)
 
 [empty]
 
