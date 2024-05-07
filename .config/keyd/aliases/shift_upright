@@ -2,17 +2,17 @@
 # key up
 
 [aliases]
-space = L1
-v = L1
-c = L2
-x = L3
-leftalt = L3
+leftalt = FN_ESC
+x = FN_ESC
+c = FN_ENTER
+v = SPACE
+space = SPACE
 
-, = R1
-. = R2
-rightalt = R2
-compose = R3
-rightcontrol = R3
+, = SHIFT
+. = SYMBOL
+rightalt = SYMBOL
+compose = FN_COMPOSE
+rightcontrol = FN_ENTER
 
 grave = TL1
 1 = TL2

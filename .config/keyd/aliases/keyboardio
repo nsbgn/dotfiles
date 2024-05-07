@@ -1,11 +1,11 @@
 [aliases]
-leftcontrol = L3
-backspace = L1
-leftmeta = L2
+leftcontrol = FN_ESC
+backspace = SPACE
+leftmeta = FN_ENTER
 
-leftalt = R1
-space = R2
-rightcontrol = R3
+leftalt = SHIFT
+space = SYMBOL
+rightcontrol = FN_COMPOSE
 
 ~ = TL1
 q = TL2

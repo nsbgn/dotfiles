@@ -1,11 +1,10 @@
 [aliases]
-f1 = L3
-f2 = L2
-f3 = L1
-
-f4 = R2
-f5 = R3
-f6 = R1
+f1 = FN_ESC
+f2 = FN_ENTER
+f3 = SPACE
+f4 = SHIFT
+f5 = SYMBOL
+f6 = FN_COMPOSE
 
 tab = TL1
 q = TL2

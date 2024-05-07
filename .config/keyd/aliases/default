@@ -1,11 +1,10 @@
 [aliases]
-leftalt = L3
-enter = L2
-space = L1
-
-rightalt = R2
-compose = R3
-rightcontrol = R1
+leftalt = FN_ESC
+enter = FN_ENTER
+space = SPACE
+rightalt = SYMBOL
+compose = FN_COMPOSE
+rightcontrol = SHIFT
 
 tab = TL1
 q = TL2

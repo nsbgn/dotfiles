@@ -12,13 +12,13 @@ disable_modifier_guard = 1
 # leftmeta = oneshot(alt)
 
 # Thumb keys
-L3 = overload(fnL, escape)
-L2 = overload(fnL, enter)
-L1 = space
+FN_ESC = overload(fnL, escape)
+FN_ENTER = overload(fnL, enter)
+SPACE = space
 
-R1 = oneshot(shift)
-R2 = oneshot(symbol)
-R3 = overloadt2(fnR, enter, 150)
+SHIFT = oneshot(shift)
+SYMBOL = oneshot(symbol)
+FN_COMPOSE = compose
 
 NOTHING = nop
 

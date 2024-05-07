@@ -1,14 +1,14 @@
 # Shift right hand one unit further right
 
 [aliases]
-leftalt = L3
-leftmeta = L2
-space = L1
+leftmeta = FN_ENTER
+leftalt = FN_ESC
+space = SPACE
 
-rightmeta = R1
-rightalt = R2
-compose = R3
-rightcontrol = R3
+rightmeta = SHIFT
+rightalt = SYMBOL
+compose = FN_ENTER
+rightcontrol = FN_COMPOSE
 
 tab = TL1
 q = TL2
