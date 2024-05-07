@@ -7,7 +7,7 @@ leftalt = SHIFT
 space = SYMBOL
 rightcontrol = FN_COMPOSE
 
-~ = TL1
+grave = TL1
 q = TL2
 w = TL3
 e = TL4

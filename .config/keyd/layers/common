@@ -20,13 +20,11 @@ SHIFT = oneshot(shift)
 SYMBOL = oneshot(symbol)
 FN_COMPOSE = compose
 
-NOTHING = nop
-
 [dbl_esc]
-FN_ESC = timeout(overload(fnL, oneshotm(dbl_esc, escape)), 200, esc)
+FN_ESC = timeout(overload(fnL, oneshotm(dbl_esc, escape)), 500, esc)
 
 [dbl_enter]
-FN_ENTER = timeout(overload(fnL, oneshotm(dbl_enter, enter)), 200, enter)
+FN_ENTER = timeout(overload(fnL, oneshotm(dbl_enter, enter)), 500, enter)
 
 [empty]
 
@@ -121,7 +119,7 @@ ML4 = down
 ML5 = right
 ML6 = scrolllock
 
-BL1 = overload(shift)
+BL1 = oneshot(shift)
 BL2 = swapm(empty, compose)
 BL3 = swap(alt2)
 BL4 = swap(control2)
@@ -192,10 +190,10 @@ BR5 = capslock
 
 # Layouts are very hard to accidentally toggle this way
 [fnL+fnR]
-L1 = setlayout(qwerty)
-R1 = setlayout(colemakdhx)
+SPACE = setlayout(qwerty)
+SYMBOL = setlayout(colemakdhx)
 
-BL1 = overload(shift2, rightshift)
+BL1 = overload(shift, rightshift)
 BL3 = overload(alt2, leftalt)
 BL4 = overload(control2, leftcontrol)
 BL5 = overload(meta2, leftmeta)
@@ -231,7 +229,7 @@ MR4 = M-C-6
 MR5 = M-C-0
 MR6 = M-C-grave
 
-BL1 = swap(shift2)
+BL1 = swap(shift)
 BL2 = M-C-&
 BL3 = swap(alt2)
 BL4 = swap(control2)
@@ -242,4 +240,4 @@ BR2 = M-C-1
 BR3 = M-C-2
 BR4 = M-C-3
 BR5 = M-C-/
-BR6 = swap(shift2)
+BR6 = swap(shift)
