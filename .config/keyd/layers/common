@@ -12,19 +12,19 @@ disable_modifier_guard = 1
 # leftmeta = oneshot(alt)
 
 # Thumb keys
-FN_ESC = timeout(overload(fnL, escape), 200, layer(fnL))
-FN_ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 200, layer(fnL))
+ESC = timeout(overload(fnL, escape), 200, layer(fnL))
+ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 200, layer(fnL))
 SPACE = space
 
 SHIFT = oneshot(shift)
 SYMBOL = oneshot(symbol)
-FN_COMPOSE = compose
+COMPOSE = compose
 
 [double_enter]
-FN_ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 200, layer(fnL))
+ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 200, layer(fnL))
 
 [triple_enter]
-FN_ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 500, enter)
+ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 500, enter)
 
 [empty]
 
@@ -36,46 +36,46 @@ SYMBOL = swapm(symbol, compose)
 SHIFT = swapm(shift, compose)
 SYMBOL = swapm(symbol, compose)
 
-TL2 = !
-TL3 = [
-TL4 = +
-TL5 = #
-TL6 = ]
-TR1 = ^
-TR2 = 7
-TR3 = 8
-TR4 = 9
-TR5 = oneshotm(symbol2, .)
-TR6 = @
+1L5 = !
+1L4 = [
+1L3 = +
+1L2 = #
+1L1 = ]
+1R1 = ^
+1R2 = 7
+1R3 = 8
+1R4 = 9
+1R5 = oneshotm(symbol2, .)
+1R6 = @
 
-ML2 = *
-ML3 = (
-ML4 = -
-ML5 = =
-ML6 = )
-MR1 = ~
-MR2 = 4
-MR3 = 5
-MR4 = 6
-MR5 = 0
-MR6 = grave
+2L5 = *
+2L4 = (
+2L3 = -
+2L2 = =
+2L1 = )
+2R1 = ~
+2R2 = 4
+2R3 = 5
+2R4 = 6
+2R5 = 0
+2R6 = grave
 
-TL1 = swap(shift)
-BL2 = &
-BL3 = {
-BL4 = $
-BL5 = _
-BL6 = }
-BR1 = %
-BR2 = 1
-BR3 = 2
-BR4 = 3
-BR5 = /
-BR6 = swap(shift)
+1L6 = swap(shift)
+3L5 = &
+3L4 = {
+3L3 = $
+3L2 = _
+3L1 = }
+3R1 = %
+3R2 = 1
+3R3 = 2
+3R4 = 3
+3R5 = /
+3R6 = swap(shift)
 
 
 [symbol2]
-TR5 = macro(backspace :)
+1R5 = macro(backspace :)
 
 
 # TODO mirroring, complete
@@ -111,139 +111,139 @@ TR5 = macro(backspace :)
 
 [fnL]
 
-TL1 = delete
-TL2 = pageup
-TL3 = home
-TL4 = up
-TL5 = end
-TL6 = pause
+1L6 = delete
+1L5 = pageup
+1L4 = home
+1L3 = up
+1L2 = end
+1L1 = pause
 
-ML1 = backspace
-ML2 = pagedown
-ML3 = left
-ML4 = down
-ML5 = right
-ML6 = scrolllock
+2L6 = backspace
+2L5 = pagedown
+2L4 = left
+2L3 = down
+2L2 = right
+2L1 = scrolllock
 
-BL1 = oneshot(shift)
-BL2 = swapm(empty, compose)
-BL3 = swap(alt2)
-BL4 = swap(control2)
-BL5 = swap(meta2)
-BL6 = sysrq
+3L6 = oneshot(shift)
+3L5 = swapm(empty, compose)
+3L4 = swap(alt2)
+3L3 = swap(control2)
+3L2 = swap(meta2)
+3L1 = sysrq
 
-TR1 = M-C-y
-TR2 = M-C-u
-TR3 = M-C-i
-TR4 = M-C-o
-TR5 = M-C-p
-TR6 = M-C-[
+1R1 = M-C-y
+1R2 = M-C-u
+1R3 = M-C-i
+1R4 = M-C-o
+1R5 = M-C-p
+1R6 = M-C-[
 
-MR1 = M-C-h
-MR2 = M-C-j
-MR3 = M-C-k
-MR4 = M-C-l
-MR5 = M-C-;
-MR6 = M-C-'
+2R1 = M-C-h
+2R2 = M-C-j
+2R3 = M-C-k
+2R4 = M-C-l
+2R5 = M-C-;
+2R6 = M-C-'
 
-BR1 = M-C-n
-BR2 = M-C-m
-BR3 = M-C-,
-BR4 = M-C-.
-BR5 = M-C-/
+3R1 = M-C-n
+3R2 = M-C-m
+3R3 = M-C-,
+3R4 = M-C-.
+3R5 = M-C-/
 
 [fnR]
-TL1 = M-C-tab
-TL2 = M-C-q
-TL3 = M-C-w
-TL4 = M-C-e
-TL5 = M-C-r
-TL6 = M-C-t
+1L6 = M-C-tab
+1L5 = M-C-q
+1L4 = M-C-w
+1L3 = M-C-e
+1L2 = M-C-r
+1L1 = M-C-t
 
-ML1 = M-C-backspace
-ML2 = M-C-a
-ML3 = M-C-s
-ML4 = M-C-d
-ML5 = M-C-f
-ML6 = M-C-g
+2L6 = M-C-backspace
+2L5 = M-C-a
+2L4 = M-C-s
+2L3 = M-C-d
+2L2 = M-C-f
+2L1 = M-C-g
 
-BL1 = M-C-leftshift
-BL2 = M-C-z
-BL3 = M-C-x
-BL4 = M-C-c
-BL5 = M-C-v
-BL6 = M-C-b
+3L6 = M-C-leftshift
+3L5 = M-C-z
+3L4 = M-C-x
+3L3 = M-C-c
+3L2 = M-C-v
+3L1 = M-C-b
 
-TR1 = f7
-TR2 = f8
-TR3 = f9
-TR4 = f10
-TR5 = f11
-TR6 = f12
+1R1 = f7
+1R2 = f8
+1R3 = f9
+1R4 = f10
+1R5 = f11
+1R6 = f12
 
-MR1 = f1
-MR2 = f2
-MR3 = f3
-MR4 = f4
-MR5 = f5
-MR6 = f6
+2R1 = f1
+2R2 = f2
+2R3 = f3
+2R4 = f4
+2R5 = f5
+2R6 = f6
 
-BR1 = insert
-BR2 = swap(meta2)
-BR3 = swap(control2)
-BR4 = swap(altgr2)
-BR5 = capslock
+3R1 = insert
+3R2 = swap(meta2)
+3R3 = swap(control2)
+3R4 = swap(altgr2)
+3R5 = capslock
 
 # Layouts are very hard to accidentally toggle this way
 [fnL+fnR]
 SPACE = setlayout(qwerty)
 SYMBOL = setlayout(colemakdhx)
 
-BL1 = overload(shift, rightshift)
-BL3 = overload(alt2, leftalt)
-BL4 = overload(control2, leftcontrol)
-BL5 = overload(meta2, leftmeta)
+3L6 = overload(shift, rightshift)
+3L4 = overload(alt2, leftalt)
+3L3 = overload(control2, leftcontrol)
+3L2 = overload(meta2, leftmeta)
 
-BR2 = overload(meta, rightmeta)
-BR3 = overload(control2, rightcontrol)
-BR4 = overload(altgr2, rightalt)
+3R2 = overload(meta, rightmeta)
+3R3 = overload(control2, rightcontrol)
+3R4 = overload(altgr2, rightalt)
 
 # Explicitly override the combination so that you can for example do C-+ 
 # intuitively
 [fnL+symbol]
-TL2 = M-C-!
-TL3 = M-C-[
-TL4 = M-C-+
-TL5 = M-C-#
-TL6 = M-C-]
-TR1 = M-C-^
-TR2 = M-C-7
-TR3 = M-C-8
-TR4 = M-C-9
-TR5 = M-C-.
-TR6 = M-C-@
+1L5 = M-C-!
+1L4 = M-C-[
+1L3 = M-C-+
+1L2 = M-C-#
+1L1 = M-C-]
+1R1 = M-C-^
+1R2 = M-C-7
+1R3 = M-C-8
+1R4 = M-C-9
+1R5 = M-C-.
+1R6 = M-C-@
 
-ML2 = M-C-*
-ML3 = M-C-(
-ML4 = M-C--
-ML5 = M-C-=
-ML6 = M-C-)
-MR1 = M-C-~
-MR2 = M-C-4
-MR3 = M-C-5
-MR4 = M-C-6
-MR5 = M-C-0
-MR6 = M-C-grave
+2L5 = M-C-*
+2L4 = M-C-(
+2L3 = M-C--
+2L2 = M-C-=
+2L1 = M-C-)
+2R1 = M-C-~
+2R2 = M-C-4
+2R3 = M-C-5
+2R4 = M-C-6
+2R5 = M-C-0
+2R6 = M-C-grave
 
-BL1 = swap(shift)
-BL2 = M-C-&
-BL3 = swap(alt2)
-BL4 = swap(control2)
-BL5 = swap(meta2)
-BL6 = M-C-}
-BR1 = M-C-%
-BR2 = M-C-1
-BR3 = M-C-2
-BR4 = M-C-3
-BR5 = M-C-/
-BR6 = swap(shift)
+3L6 = swap(shift)
+3L5 = M-C-&
+3L4 = swap(alt2)
+3L3 = swap(control2)
+3L2 = swap(meta2)
+3L1 = M-C-}
+3R1 = M-C-%
+3R2 = M-C-1
+3R3 = M-C-2
+3R4 = M-C-3
+3R5 = M-C-/
+3R6 = swap(shift)
