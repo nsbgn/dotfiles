@@ -28,8 +28,14 @@ FN_ENTER = timeout(overload(fnL, oneshotm(triple_enter, enter)), 500, enter)
 
 [empty]
 
+[shift:S]
+SHIFT = swapm(shift, compose)
+SYMBOL = swapm(symbol, compose)
 
 [symbol]
+SHIFT = swapm(shift, compose)
+SYMBOL = swapm(symbol, compose)
+
 TL2 = !
 TL3 = [
 TL4 = +
