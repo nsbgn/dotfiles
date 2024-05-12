@@ -1,0 +1,8 @@
+theme = "github_light_high_contrast"
+
+[editor]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
