@@ -25,11 +25,6 @@ export PS1="\[\033[1;34m\]\w\[\033[0;34m\]\$(__git_ps1) \[\033[1;32m\]\$\[\033[0
 
 source "$HOME/.bash_aliases"
 source /etc/bash_completion
-# eval "$(register-python-argcomplete3 pubs)" # ~/.local/bin/pubs adds layer of
-# indirection, hiding "PYTHON_ARGCOMPLETE_OK" (kislyuk.github.io/argcomplete)
-
-# Vi editing mode
-# set -o vi
 
 # Change colors on tty
 # if [ "$TERM" = "linux" ]; then
@@ -52,36 +47,12 @@ source /etc/bash_completion
 #     clear #for background artifacting
 # fi
 
-function jqs {
-    MODULE="$1"
-    FILTER="$2"
-    shift
-    shift
-    swaymsg -t get_tree | jq -r "include \"i3/${MODULE}\"; ${FILTER}" --args "$@"
-}
-
 # Change directory after browsing with file manager `lf`
 function lf {
     $(which lf) -last-dir-path="/tmp/lfdir" "$@"
     dir="$(cat /tmp/lfdir)"
     [ -d "$dir" ] && [ "$PWD" != "$dir" ] && cd "$dir"
 }
-
-function g {
-    nvim "$(fzf-repo)"
-    # F="$(fzf-repo)"
-    # if [ -d "$F" ]; then
-    #     cd "$F"
-    # elif file --mime-type "$F" | grep -q ': text'; then
-    #     nvim "$F"
-    # else
-    #     xdg-open "$F"
-    # fi
-}
-
-if which mcfly > /dev/null; then
-    eval "$(mcfly init bash)"
-fi
 
 # fshow - git commit browser
 # https://gist.github.com/junegunn/f4fca918e937e6bf5bad
@@ -96,13 +67,4 @@ fshow() {
 FZF-EOF"
 }
 
-venv() {
-    VENV="$HOME/.venv"
-    if [ ! -d $VENV ]; then
-        python -m venv "$VENV" --system-site-packages
-        pip3 install -U python-lsp-server[all] pylsp-mypy mypy
-    fi
-    source $VENV/bin/activate
-}
 . "$HOME/.cargo/env"
-
