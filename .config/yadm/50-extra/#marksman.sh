@@ -4,6 +4,6 @@
 
 wget -O ~/.local/bin/marksman "$( \
     curl -s 'https://api.github.com/repos/artempyanykh/marksman/releases/latest' \
-    | jq -r '.assets | .[] | .browser_download_url | select(endswith("-linux"))'\
+    | jq -r '.assets | .[] | .browser_download_url | select(endswith("-linux-x64"))'\
 )"
 chmod +x ~/.local/bin/marksman
