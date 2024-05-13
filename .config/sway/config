@@ -35,7 +35,7 @@ bar {
 }
 
 #                       tBorder      bg    text indic8r wBorder
-client.focused          #039660 #012316 #ffffff #ff0000 #000000
+client.focused          #a8cba8 #cce1cc #1c301c #ff0000 #000000
 client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
 client.unfocused        #000000 #000000 #999999 #ff0000 #666666
 client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
