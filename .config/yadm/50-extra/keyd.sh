@@ -16,12 +16,3 @@ if ! which keyd > /dev/null; then
     sudo systemctl enable keyd
     sudo systemctl start keyd
 fi
-
-# also set setxkbmap -option compose:menu
-# <https://gist.githubusercontent.com/rvaiya/be31f42049a4b5ad46666a8e120d9843/>
-# <https://cgit.freedesktop.org/xorg/proto/x11proto/tree/XF86keysym.h>
-#
-echo "Updating keyd config..." >&2
-sudo mkdir -p /etc/keyd
-sudo rsync --recursive --delete --progress ~/.config/keyd/ /etc/keyd/
-sudo systemctl restart keyd
