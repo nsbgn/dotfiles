@@ -2,7 +2,7 @@
 # Python env
 set -eu
 
-VENV=$HOME/.venv
+VENV=venv
 sudo apt install -y python3-venv
 
 if [ ! -d "$VENV" ]; then

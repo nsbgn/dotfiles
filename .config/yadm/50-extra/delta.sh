@@ -4,7 +4,7 @@
 #
 # SOURCE: https://github.com/dandavison/delta
 # ALPINE: https://pkgs.alpinelinux.org/package/edge/community/x86_64/delta
-# DEBIAN: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=944028
+# DEBIAN: https://packages.debian.org/trixie/git-delta
 set -euo pipefail
 
 if ! which delta > /dev/null; then

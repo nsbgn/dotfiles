@@ -1,6 +1,7 @@
 #!/bin/sh
 # Stacking Wayland window manager
 # Alpine: https://pkgs.alpinelinux.org/package/edge/community/x86_64/labwc
+# Debian: https://packages.debian.org/trixie/labwc
 
 ROOT=$HOME/.builds/labwc
 
