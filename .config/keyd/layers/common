@@ -95,21 +95,21 @@ ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 500, enter)
 [fnL]
 
 1L6 = delete
-1L5 = pageup
+1L5 = pause
 1L4 = home
 1L3 = up
 1L2 = end
-1L1 = pause
+1L1 = pageup
 
 2L6 = backspace
-2L5 = pagedown
+2L5 = esc
 2L4 = left
 2L3 = down
 2L2 = right
-2L1 = scrolllock
+2L1 = pagedown
 
 3L6 = oneshot(shift)
-3L5 = swapm(empty, compose)
+3L5 = scrollock
 3L4 = swap(alt2)
 3L3 = swap(control2)
 3L2 = swap(meta2)
