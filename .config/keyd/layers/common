@@ -7,8 +7,8 @@ disable_modifier_guard = 1
 
 [main]
 # Thumb keys
-ESC = timeout(overload(fnL, escape), 200, layer(fnL))
-ENTER = timeout(overload(fnR, oneshotm(double_enter, enter)), 200, layer(fnR))
+ESC = timeout(overload(fnR, escape), 200, layer(fnR))
+ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 150, layer(fnL))
 SPACE = space
 
 SHIFT = oneshot(shift)
@@ -16,10 +16,7 @@ SYMBOL = oneshot(symbol)
 COMPOSE = compose
 
 [double_enter]
-ENTER = timeout(overload(fnR, oneshotm(triple_enter, enter)), 200, layer(fnR))
-
-[triple_enter]
-ENTER = timeout(overload(fnR, oneshotm(triple_enter, enter)), 500, enter)
+ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 500, enter)
 
 [empty]
 
