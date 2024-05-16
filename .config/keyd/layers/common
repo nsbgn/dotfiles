@@ -93,6 +93,8 @@ ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 500, enter)
 # # v = overload(meta_shift, S-v)
 
 [fnL]
+# Still allow a continous press
+SPACE = enter
 
 1L6 = delete
 1L5 = pause
