@@ -1,6 +1,12 @@
 theme = "github_light_high_contrast"
 
 [editor]
+text-width = 79
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+wrap-indicator = "↪"
 
 [editor.cursor-shape]
 insert = "bar"
