@@ -8,7 +8,7 @@ disable_modifier_guard = 1
 [main]
 # Thumb keys
 ESC = timeout(overload(fnR, escape), 200, layer(fnR))
-ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 150, layer(fnL))
+ENTER = timeout(overload(fnL, enter), 150, layer(fnL))
 SPACE = space
 
 SHIFT = oneshot(shift)
