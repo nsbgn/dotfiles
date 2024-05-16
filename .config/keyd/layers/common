@@ -109,7 +109,7 @@ ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 500, enter)
 2L1 = pagedown
 
 3L6 = oneshot(shift)
-3L5 = scrollock
+3L5 = scrolllock
 3L4 = swap(alt2)
 3L3 = swap(control2)
 3L2 = swap(meta2)
