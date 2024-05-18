@@ -7,16 +7,13 @@ disable_modifier_guard = 1
 
 [main]
 # Thumb keys
-ESC = timeout(overload(fnR, escape), 200, layer(fnR))
+ESC = timeout(overload(fnR, escape), 150, layer(fnR))
 ENTER = timeout(overload(fnL, enter), 150, layer(fnL))
 SPACE = space
 
 SHIFT = oneshot(shift)
 SYMBOL = oneshot(symbol)
 COMPOSE = compose
-
-[double_enter]
-ENTER = timeout(overload(fnL, oneshotm(double_enter, enter)), 500, enter)
 
 [empty]
 
@@ -104,7 +101,7 @@ SPACE = enter
 1L1 = pageup
 
 2L6 = backspace
-2L5 = esc
+2L5 = swap(meta2)
 2L4 = left
 2L3 = down
 2L2 = right
@@ -114,7 +111,7 @@ SPACE = enter
 3L5 = scrolllock
 3L4 = swap(alt2)
 3L3 = swap(control2)
-3L2 = swap(meta2)
+3L2 = esc
 3L1 = sysrq
 
 1R1 = M-C-y
