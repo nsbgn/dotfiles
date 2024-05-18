@@ -7,8 +7,8 @@ disable_modifier_guard = 1
 
 [main]
 # Thumb keys
-ESC = timeout(overload(fnR, escape), 150, layer(fnR))
-ENTER = timeout(overload(fnL, enter), 150, layer(fnL))
+ESC = timeout(overload(fnL, escape), 150, layer(fnL))
+ENTER = timeout(overload(fnR, enter), 150, layer(fnR))
 SPACE = space
 
 SHIFT = oneshot(shift)
@@ -111,7 +111,7 @@ SPACE = enter
 3L5 = scrolllock
 3L4 = swap(alt2)
 3L3 = swap(control2)
-3L2 = esc
+3L2 = enter
 3L1 = sysrq
 
 1R1 = M-C-y

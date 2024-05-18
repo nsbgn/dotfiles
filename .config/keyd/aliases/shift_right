@@ -2,12 +2,12 @@
 
 [aliases]
 leftmeta = COMPOSE
-leftalt = ENTER
+leftalt = ESC
 space = SPACE
 
 rightmeta = SHIFT
 rightalt = SYMBOL
-compose = ESC
+compose = ENTER
 rightcontrol = ESC
 
 tab = 1L6
