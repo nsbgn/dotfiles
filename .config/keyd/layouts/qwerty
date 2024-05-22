@@ -1,5 +1,5 @@
 [qwerty:layout]
-1L6 = tab
+# 1L6 = tab
 1L5 = q
 1L4 = w
 1L3 = e
@@ -10,9 +10,9 @@
 1R3 = i
 1R4 = o
 1R5 = p
-1R6 = backslash
+# 1R6 = backslash
 
-2L6 = backspace
+# 2L6 = backspace
 2L5 = a
 2L4 = s
 2L3 = d
@@ -23,9 +23,9 @@
 2R3 = k
 2R4 = l
 2R5 = ;
-2R6 = '
+# 2R6 = apostrophe
 
-3L6 = oneshot(shift)
+# 3L6 = oneshot(shift)
 3L5 = z
 3L4 = x
 3L3 = c
@@ -36,6 +36,4 @@
 3R3 = ,
 3R4 = .
 3R5 = /
-3R6 = overload(shift, rightshift)
-
-
+# 3R6 = overload(shift, rightshift)

@@ -6,14 +6,19 @@ default_layout = qwerty
 disable_modifier_guard = 1
 
 [main]
-ESC = oneshot(fn)
+ESC = oneshot(nav)
 SPACE = space
 SHIFT = oneshot(shift)
-SYMBOL = oneshot(symbol)
+SYMBOL = oneshot(num)
+
+1L6 = tab
+2L6 = backspace
+1R6 = esc
+2R6 = enter
 
 [empty]
 
-[symbol]
+[num]
 1L5 = !
 1L4 = [
 1L3 = +
@@ -24,7 +29,6 @@ SYMBOL = oneshot(symbol)
 1R3 = 8
 1R4 = 9
 1R5 = oneshotm(double_colon, .)
-1R6 = @
 
 2L5 = *
 2L4 = (
@@ -36,7 +40,6 @@ SYMBOL = oneshot(symbol)
 2R3 = 5
 2R4 = 6
 2R5 = 0
-2R6 = `
 
 3L5 = &
 3L4 = {
@@ -85,9 +88,10 @@ SYMBOL = oneshot(symbol)
 # # c = overload(control_shift, S-c)
 # # v = overload(meta_shift, S-v)
 
-[fn]
+[nav]
+# scrolllock, sysrq, pause, insert, compose, capslock
 
-1L6 = delete
+1L6 = esc
 1L5 = swap(meta2)
 1L4 = home
 1L3 = up
@@ -99,35 +103,33 @@ SYMBOL = oneshot(symbol)
 2L4 = left
 2L3 = down
 2L2 = right
-2L1 = pagedown
+2L1 = delete
 
 3L5 = swap(alt2)
-3L4 = scrolllock
-3L3 = esc
-3L2 = enter
+3L4 = pageup
+3L3 = enter
+3L2 = pagedown
 3L1 = sysrq
 
-1R1 = M-C-y
-1R2 = M-C-u
-1R3 = M-C-i
-1R4 = M-C-o
-1R5 = M-C-p
-1R6 = M-C-[
+1R1 = <
+1R2 = |
+1R3 = &
+1R4 = >
+1R5 = !
 
-2R1 = M-C-h
-2R2 = M-C-j
-2R3 = M-C-k
-2R4 = M-C-l
-2R5 = M-C-;
-2R6 = M-C-apostrophe
+2R1 = ~
+2R2 = '
+2R3 = "
+2R4 = `
+2R5 = \
 
-3R1 = M-C-n
-3R2 = M-C-m
-3R3 = M-C-,
-3R4 = M-C-.
-3R5 = M-C-/
+3R1 = %
+3R2 = @
+3R3 = ,
+3R4 = .
+3R5 = ?
 
-[fn+symbol]
+[nav+num]
 1L6 = M-C-tab
 1L5 = M-C-q
 1L4 = M-C-w
@@ -169,7 +171,7 @@ SYMBOL = oneshot(symbol)
 3R5 = capslock
 
 # Layouts are very hard to accidentally toggle this way
-[fn+symbol]
+[nav+num+shift]
 SPACE = setlayout(qwerty)
 SYMBOL = setlayout(colemakdhx)
 
@@ -182,7 +184,7 @@ SYMBOL = setlayout(colemakdhx)
 3R3 = overload(control2, rightcontrol)
 3R4 = overload(altgr2, rightalt)
 
-[fn+symbol]
+[nav+num]
 1L5 = M-C-!
 1L4 = M-C-[
 1L3 = M-C-+
@@ -205,7 +207,6 @@ SYMBOL = setlayout(colemakdhx)
 2R3 = M-C-5
 2R4 = M-C-6
 2R5 = M-C-0
-2R6 = M-C-grave
 
 3L5 = M-C-&
 3L4 = swap(alt2)
