@@ -1,10 +1,10 @@
 [aliases]
-leftalt = ESC
-enter = ENTER
-space = SPACE
-rightalt = SYMBOL
-compose = COMPOSE
-rightcontrol = SHIFT
+leftalt = TL3
+enter = TL2
+space = TL1
+rightalt = TR2
+compose = TR3
+rightcontrol = TR1
 
 tab = 1L6
 q = 1L5

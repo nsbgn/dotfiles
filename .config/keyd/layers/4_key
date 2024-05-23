@@ -6,10 +6,10 @@ default_layout = qwerty
 disable_modifier_guard = 1
 
 [main]
-ESC = oneshot(nav)
-SPACE = space
-SHIFT = oneshot(shift)
-SYMBOL = oneshot(num)
+TL3 = oneshot(nav)
+TL1 = space
+TR1 = oneshot(shift)
+TR2 = oneshot(num)
 
 1L6 = tab
 2L6 = backspace
@@ -172,8 +172,8 @@ SYMBOL = oneshot(num)
 
 # Layouts are very hard to accidentally toggle this way
 [nav+num+shift]
-SPACE = setlayout(qwerty)
-SYMBOL = setlayout(colemakdhx)
+TL1 = setlayout(qwerty)
+TR2 = setlayout(colemakdhx)
 
 3L6 = overload(shift, rightshift)
 3L4 = overload(alt2, leftalt)

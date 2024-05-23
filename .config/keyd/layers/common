@@ -7,13 +7,13 @@ disable_modifier_guard = 1
 
 [main]
 # Thumb keys
-ESC = timeout(overload(fnL, escape), 150, layer(fnL))
-ENTER = timeout(overload(fnR, enter), 150, layer(fnR))
-SPACE = space
+TL3 = timeout(overload(fnL, escape), 150, layer(fnL))
+TL2 = timeout(overload(fnR, enter), 150, layer(fnR))
+TL1 = space
 
-SHIFT = oneshot(shift)
-SYMBOL = oneshot(symbol)
-COMPOSE = compose
+TR1 = oneshot(shift)
+TR2 = oneshot(symbol)
+TR3 = compose
 
 [empty]
 
@@ -91,7 +91,7 @@ COMPOSE = compose
 
 [fnL]
 # Still allow a continous press
-SPACE = enter
+TL1 = enter
 
 1L6 = delete
 1L5 = pause
@@ -178,8 +178,8 @@ SPACE = enter
 
 # Layouts are very hard to accidentally toggle this way
 [fnL+fnR]
-SPACE = setlayout(qwerty)
-SYMBOL = setlayout(colemakdhx)
+TL1 = setlayout(qwerty)
+TR2 = setlayout(colemakdhx)
 
 3L6 = overload(shift, rightshift)
 3L4 = overload(alt2, leftalt)

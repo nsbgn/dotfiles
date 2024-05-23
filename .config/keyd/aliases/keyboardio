@@ -1,11 +1,11 @@
 [aliases]
-leftcontrol = ESC
-backspace = SPACE
-leftmeta = ENTER
+leftcontrol = TL3
+backspace = TL1
+leftmeta = TL2
 
-leftalt = SHIFT
-space = SYMBOL
-rightcontrol = COMPOSE
+leftalt = TR1
+space = TR2
+rightcontrol = TR3
 
 grave = 1L6
 q = 1L5
