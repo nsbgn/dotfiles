@@ -159,6 +159,8 @@ bindsym $meta+q nop
 bindsym $meta+a nop
 bindsym $meta+z nop
 
+bindsym --no-repeat --release Super_L exec dmenu-apps
+
 bindsym $meta+backspace kill
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
