@@ -19,10 +19,10 @@ TR2 = oneshot(num)
 [empty]
 
 [num]
-1L5 = #
+1L5 = \
 1L4 = [
 1L3 = +
-1L2 = *
+1L2 = #
 1L1 = ]
 1R1 = ^
 1R2 = 7
@@ -30,7 +30,7 @@ TR2 = oneshot(num)
 1R4 = 9
 1R5 = oneshotm(double_colon, .)
 
-2L5 = /
+2L5 = *
 2L4 = (
 2L3 = -
 2L2 = =
@@ -41,7 +41,7 @@ TR2 = oneshot(num)
 2R4 = 6
 2R5 = 0
 
-3L5 = &
+3L5 = /
 3L4 = {
 3L3 = $
 3L2 = _
