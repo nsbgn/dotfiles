@@ -1,20 +1,19 @@
-1L5 = swap(meta2)
+1L5 = delete
 1L4 = home
 1L3 = up
 1L2 = end
-1L1 = delete
+1L1 = pageup
 
-# 2L6 = backspace
-2L5 = swap(control2)
+2L5 = tab
 2L4 = left
 2L3 = down
 2L2 = right
-2L1 = enter
+2L1 = pagedown
 
 3L5 = swap(alt2)
 3L4 = swap(control2)
-3L3 = pageup
-3L2 = pagedown
-3L1 = sysrq
+3L3 = swap(shift)
+3L2 = swapm(empty, leftmeta)
+3L1 = enter
 
 # scrolllock, sysrq, pause, insert, compose, capslock
