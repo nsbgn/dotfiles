@@ -1,0 +1,17 @@
+1R1 = sysrq
+1R2 = f7
+1R3 = f8
+1R4 = f9
+1R5 = f10
+
+2R1 = scrolllock
+2R2 = f4
+2R3 = f5
+2R4 = f6
+2R5 = f11
+
+3R1 = pause
+3R2 = 1
+3R3 = 2
+3R4 = 3
+3R5 = f12
