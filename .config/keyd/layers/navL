@@ -10,9 +10,9 @@
 2L2 = right
 2L1 = pagedown
 
-3L5 = swap(alt2)
-3L4 = swap(control2)
-3L3 = swapm(empty, leftmeta)
+3L5 = swap(control)
+3L4 = swap(alt)
+3L3 = swap(meta)
 3L2 = enter
 3L1 = enter
 
