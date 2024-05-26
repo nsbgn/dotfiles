@@ -1,5 +1,5 @@
 [colemakdhx:layout]
-1L6 = tab
+# 1L6 = tab
 1L5 = q
 1L4 = w
 1L3 = f
@@ -10,9 +10,9 @@
 1R3 = u
 1R4 = y
 1R5 = ;
-1R6 = backslash
+# 1R6 = backslash
 
-2L6 = backspace
+# 2L6 = backspace
 2L5 = a
 2L4 = r
 2L3 = s
@@ -25,7 +25,7 @@
 2R5 = o
 2R6 = '
 
-3L6 = oneshot(shift)
+# 3L6 = oneshot(shift)
 3L5 = z
 3L4 = b
 3L3 = c
@@ -35,5 +35,6 @@
 3R2 = h
 3R3 = ,
 3R4 = .
-3R5 = /
-3R6 = overload(shift, rightshift)
+# 3R5 = /
+# 3R6 = overload(shift, rightshift)
+

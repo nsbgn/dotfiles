@@ -4,7 +4,7 @@
 1L2 = end
 1L1 = pageup
 
-2L5 = tab
+2L5 = esc
 2L4 = left
 2L3 = down
 2L2 = right
@@ -12,8 +12,8 @@
 
 3L5 = swap(alt2)
 3L4 = swap(control2)
-3L3 = swap(shift)
-3L2 = swapm(empty, leftmeta)
+3L3 = swapm(empty, leftmeta)
+3L2 = enter
 3L1 = enter
 
 # scrolllock, sysrq, pause, insert, compose, capslock
