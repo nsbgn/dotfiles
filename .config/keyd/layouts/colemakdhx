@@ -10,7 +10,7 @@
 1R3 = u
 1R4 = y
 1R5 = ;
-# 1R6 = backslash
+1R6 = backslash
 
 # 2L6 = backspace
 2L5 = a
@@ -35,6 +35,6 @@
 3R2 = h
 3R3 = ,
 3R4 = .
-# 3R5 = /
+3R5 = /
 # 3R6 = overload(shift, rightshift)
 

@@ -23,7 +23,7 @@
 2R3 = k
 2R4 = l
 2R5 = ;
-# 2R6 = apostrophe
+2R6 = '
 
 # 3L6 = oneshot(shift)
 3L5 = z
@@ -35,5 +35,5 @@
 3R2 = m
 3R3 = ,
 3R4 = .
-# 3R5 = /
+3R5 = /
 # 3R6 = overload(shift, rightshift)
