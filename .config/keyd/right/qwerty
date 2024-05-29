@@ -1,0 +1,20 @@
+1R1 = y
+1R2 = u
+1R3 = i
+1R4 = o
+1R5 = p
+# 1R6 = backslash
+
+2R1 = h
+2R2 = j
+2R3 = k
+2R4 = l
+2R5 = ;
+2R6 = '
+
+3R1 = n
+3R2 = m
+3R3 = ,
+3R4 = .
+3R5 = /
+# 3R6 = overload(shift, rightshift)
