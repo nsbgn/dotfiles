@@ -10,10 +10,10 @@
 2L2 = right
 2L1 = pagedown
 
-3L5 = swap(control)
-3L4 = swap(alt)
-3L3 = swap(meta)
-3L2 = enter
-3L1 = enter
+3L5 = swap(shift)
+3L4 = swap(control)
+3L3 = swap(alt)
+3L2 = swap(meta)
+3L1 = swap(altgr)
 
 # scrolllock, sysrq, pause, insert, compose, capslock

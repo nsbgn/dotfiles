@@ -1,0 +1,20 @@
+1R1 = M-C-y
+1R2 = M-C-u
+1R3 = M-C-i
+1R4 = M-C-o
+1R5 = M-C-p
+1R6 = M-C-\
+
+2R1 = M-C-h
+2R2 = M-C-j
+2R3 = M-C-k
+2R4 = M-C-l
+2R5 = M-C-;
+2R6 = M-C-'
+
+3R1 = M-C-n
+3R2 = M-C-m
+3R3 = M-C-,
+3R4 = M-C-.
+3R5 = M-C-/
+3R6 = M-C-rightshift
