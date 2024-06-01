@@ -1,6 +1,6 @@
 [aliases]
-leftalt = TL3
-enter = TL2
+leftmeta = TL3
+leftalt = TL2
 space = TL1
 rightalt = TR2
 compose = TR3

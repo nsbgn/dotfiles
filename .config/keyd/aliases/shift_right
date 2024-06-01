@@ -1,8 +1,8 @@
 # Shift right hand one unit further right
 
 [aliases]
-leftmeta = TR3
-leftalt = TL3
+leftmeta = TL3
+leftalt = TL2
 space = TL1
 
 rightmeta = TR1
