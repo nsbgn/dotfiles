@@ -2,6 +2,12 @@ export HISTCONTROL=ignoreboth # ignore duplicates & spaces
 shopt -s histappend # append to the history file, don't overwrite it
 shopt -s checkwinsize # update values of LINES and COLUMNS if winsize changes
 
+# Disable Ctrl-s when running interactively
+if [[ -t 0 && $- = *i* ]]; then
+    stty -ixon
+fi
+
+
 if [ -f ~/.sensible.bash ]; then
    source ~/.sensible.bash
 fi

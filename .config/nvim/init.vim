@@ -73,6 +73,9 @@ set titlestring=\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
 " Stop annoying window from popping up
 map q: :q
 nnoremap ; :
+noremap <silent> <C-S> :update<CR>
+vnoremap <silent> <C-S> <C-C>:update<CR>
+inoremap <silent> <C-S> <C-O>:update<CR>
 
 " cursor makes it obvious what mode I am in anyway
 set noshowmode
