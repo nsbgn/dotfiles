@@ -12,8 +12,8 @@
 
 3L5 = swap(shift)
 3L4 = esc
-3L3 = delete
+3L3 = swap(altgr)
 3L2 = swap(meta)
-3L1 = swap(altgr)
+3L1 = delete
 
 # scrolllock, sysrq, pause, insert, compose, capslock
