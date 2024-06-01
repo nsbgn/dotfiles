@@ -6,10 +6,11 @@ F="$1"
 EXT="$(echo "${F##*.}" | tr '[:upper:]' '[:lower:]' )"
 case "$EXT" in
     md|mkd)
-        awk 'NR==1 && $0=="---" {x=1} NR>1 {if(x==1 && $0=="---") x=0; else print}' "$F" \
-            | lowdown -Tterm --term-shortlinks --term-width=50;;
+        # awk 'NR==1 && $0=="---" {x=1} NR>1 {if(x==1 && $0=="---") x=0; else 
+        # print}' "$F" \
         # glow "$F" --style light;;
         # sed 's/\ $//g' "$F"
+        lowdown -Tterm --term-shortlinks --term-width=50 "$F";;
     epub) unzip -p "$F" "$(zipinfo -1 "$F" | grep .opf$)" \
             | xmlstarlet sel \
             -N dc="http://purl.org/dc/elements/1.1/" \

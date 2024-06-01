@@ -141,6 +141,8 @@ floating_modifier Mod4 normal
 # bindsym $fn+e key end
 # bindsym $fn+r key pgup
 bindsym $meta+t exec foot-cwd
+bindsym $meta+d exec foot-cwd
+
 # bindsym Pause exec foot-cwd
 
 # ROW 2 LEFT #################################################################

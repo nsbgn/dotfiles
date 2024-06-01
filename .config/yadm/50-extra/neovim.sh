@@ -19,8 +19,8 @@ URL="https://github.com/neovim/neovim/releases/download/stable/nvim.appimage"
 
 if [ "$CUR" = "$DIR/$BIN" -a "$OLDVER" = "$NEWVER" ]; then
     echo "Neovim stable ($NEWVER) is installed already." >&2
-elif [ ! -z "$CUR" ]; then
-    echo "You have Neovim $OLDVER installed already (newest is $NEWVER)." >&2
+# elif [ ! -z "$CUR" ]; then
+#     echo "You have Neovim $OLDVER installed already (newest is $NEWVER)." >&2
 else
     echo "Installing the latest stable Neovim ($NEWVER)." >&2
     mkdir -p "$DIR"
