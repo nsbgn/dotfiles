@@ -1,19 +1,19 @@
-1L5   = swap(alt)
+1L5   = swap(meta)
 1L4   = home
 1L3   = up
 1L2   = end
 1L1   = pageup
 
-2L5   = swap(control)
+2L5   = delete
 2L4   = left
 2L3   = down
 2L2   = right
 2L1   = pagedown
 
-3L5   = swap(shift)
-3L4   = swap(altgr)
-3L3   = swapm(empty, compose)
-3L2   = swap(meta)
-3L1   = delete
+3L5   = C-z
+3L4   = C-x
+3L3   = C-c
+3L2   = C-v
+3L1   = C-s
 
 # scrolllock, sysrq, pause, insert, compose, capslock

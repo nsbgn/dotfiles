@@ -7,8 +7,8 @@ space = TL1
 
 rightmeta = TR1
 rightalt = TR2
-compose = TL2
-rightcontrol = TL3
+compose = TR2
+rightcontrol = TR3
 
 tab = 1L6
 q = 1L5

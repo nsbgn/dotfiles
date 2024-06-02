@@ -1,5 +1,6 @@
 # cf <https://www.chordpro.org/chordpro/pango_markup/>
-set $fn Ctrl+Mod4
+# set $fn Ctrl+Mod4
+set $fn Mod4
 set $meta Mod4
 # You can also do nop halfwm and have it listen for binding events; probably 
 # better.
