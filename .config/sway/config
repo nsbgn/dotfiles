@@ -173,7 +173,7 @@ bindsym $meta+x nop
 bindsym $meta+c nop
 bindsym $meta+v nop
 
-bindsym --no-repeat --release Super_L exec fuzzel
+bindsym --no-repeat --release Super_L exec fuzzel || wofi -I -S drun
 
 bindsym $meta+q kill
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
