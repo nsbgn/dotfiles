@@ -6,9 +6,13 @@ text-width = 79
 [editor.soft-wrap]
 enable = true
 wrap-at-text-width = true
-wrap-indicator = "↪"
+wrap-indicator = "" # ↪
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[keys.normal]
+C-s = ":w"
+";" = "command_mode"
