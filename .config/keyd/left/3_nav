@@ -11,10 +11,10 @@
 2L1   = pagedown
 
 3L6   = overload(shift, S-enter)
-3L5   = C-z
-3L4   = C-x
-3L3   = C-c
-3L2   = C-v
+3L5   = M-z
+3L4   = M-x
+3L3   = M-c
+3L2   = M-v
 3L1   = swap(meta)
 
 # scrolllock, sysrq, pause, insert, compose, capslock

@@ -2,29 +2,15 @@
 # set $fn Ctrl+Mod4
 set $fn Mod4
 set $meta Mod4
-# You can also do nop halfwm and have it listen for binding events; probably 
-# better.
 
 exec dbus-update-activation-environment --verbose --systemd --all
 # exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
-
 #exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id lxpolkit
 
-exec sway-halfwm
-
 exec foot --server
 exec gammastep -O 5500K
-# exec wvkbd-mobintl --hidden
-# Toggle with `pkill -SIGRTMIN wvkbd-mobintl`
-exec sway-autoexit-fullscreen
-# exec wl-paste -t text --watch clipman store --no-persist
-
-# If there is an insertion mark, put any new window mark there. To put it 
-# *before* the insertion mark, also put the swap mark
-for_window [tiling] move container to mark insert
-for_window [tiling] swap container with mark swap
+exec i3jq -m auto_exit_fullscreen
 
 bar {
    id bar0
@@ -125,6 +111,8 @@ for_window [app_id=^org.telegram.desktop$] title_format " %title"
 for_window [app_id=^org.qutebrowser.qutebrowser$] title_format " %title"
 for_window [app_id=^org.pwmt.zathura$] title_format " %title"
 
+for_window [app_id=^foot-lf$] floating enable; border pixel 5
+
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
@@ -144,6 +132,7 @@ floating_modifier Mod4 normal
 bindsym $meta+t exec foot-cwd
 bindsym $meta+d exec foot-cwd
 
+bindsym $meta+v exec foot-cwd --app-id "foot-lf" lf
 # bindsym Pause exec foot-cwd
 
 # ROW 2 LEFT #################################################################
@@ -166,13 +155,6 @@ bindsym --whole-window BTN_SIDE workspace next
 # bindsym --input-device=$MOUSE --whole-window BTN_LEFT seat - cursor press 
 # BTN_RIGHT, seat - cursor release BTN_RIGHT
 
-
-# These are too easy to accidentally trigger with my current keymap
-bindsym $meta+z nop
-bindsym $meta+x nop
-bindsym $meta+c nop
-bindsym $meta+v nop
-
 bindsym --no-repeat --release Super_L exec fuzzel || wofi -I -S drun
 
 bindsym $meta+q kill
@@ -184,9 +166,6 @@ bindsym $meta+a focus mode_toggle
 bindsym $meta+Shift+b floating toggle
 
 # ROW 1 RIGHT ################################################################
-
-
-bindsym $meta+b exec "i3jq toggle_tiling_mode"
 
 # bindsym $fn+y exec "$hwm swap next"
 # bindsym $fn+u exec "$pwm mark_focus u"
