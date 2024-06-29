@@ -1,9 +1,9 @@
 # The ~/.profile file is a good place to put environment variables. This file
 # is not read by bash if ~/.bash_profile or ~/.bash_login exists.
 
-export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.scripts:$HOME/.private/bin:$HOME/.local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/.go/bin:$HOME/.npm-global/bin:.luarocks/bin:$PATH
-export PATH=$HOME/projects/twins:$HOME/.scripts:$HOME/dotfiles/.scripts:$HOME/.private/bin:$HOME/.local/bin:$PATH
+export PATH=/usr/local/go/bin:/usr/local/bin:$PATH
 
 export PASSWORD_STORE_DIR=$HOME/.private/password-store
 export VDIRSYNCER_CONFIG=$HOME/.private/vdirsyncer/config
