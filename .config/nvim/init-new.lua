@@ -3,17 +3,18 @@
 -- https://joehallenbeck.com/the-glories-of-text-files-on-using-vim-for-code-and-prose/
 -- https://www.opensourceagenda.com/projects/vim-no-color-collections
 -- https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887?gi=32e31ad24afb
--- https://github.com/mthnglac/dotfiles
 
-require('plugins')
+require("lazy_config")
+
 for key, value in pairs {
   -- Interface elements
+  termguicolors = true,
   background = "light",
   title = true,
   titlestring = "%F %m",
   laststatus = 0,
   ruler = true,
-  number = false,
+  number = true,
   showcmd = false,
   showmode = false,
 
@@ -32,6 +33,6 @@ for key, value in pairs {
   clipboard = "unnamedplus",
   wildmode = "longest,list,full", -- show menu, tabcomplete to common prefix
   list = true -- visible indication for tabs & spaces
-} do
-    vim["o"][key] = value
-end
+} do vim["o"][key] = value end
+
+vim.cmd[[set formatoptions+=aw2tq]] 
