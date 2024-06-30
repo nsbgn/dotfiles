@@ -1,12 +1,45 @@
+# Moving to Lua
+
+https://github.com/nanotee/nvim-lua-guide/
+https://toroid.org/modern-neovim
+https://joehallenbeck.com/the-glories-of-text-files-on-using-vim-for-code-and-prose/
+https://www.opensourceagenda.com/projects/vim-no-color-collections
+https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887?gi=32e31ad24afb
+
+# NOtes
+
+
 In this file, I collect plugins that I have yet to incorporate in my 
 workflow, or that have been superseded by other plugins.
+
+
+https://github.com/wbthomason/packer.nvim
+https://github.com/neovim/nvim-lspconfig
+https://github.com/nvim-treesitter/nvim-treesitter
+https://github.com/numToStr/FTerm.nvim
+https://github.com/yochem/autosplit.nvim
+https://github.com/nvim-telescope/telescope.nvim
+https://github.com/natecraddock/telescope-zf-native.nvim
+https://github.com/cljoly/telescope-repo.nvim
+https://github.com/nvim-telescope/telescope-file-browser.nvim
+https://github.com/morhetz/gruvbox
+https://github.com/cbochs/portal.nvim
+https://github.com/folke/which-key.nvim
+https://github.com/sindrets/diffview.nvim
+https://github.com/TimUntersberger/neogit
+https://github.com/tpope/vim-fugitive
+https://github.com/lewis6991/gitsigns.nvim
+https://github.com/tanvirtin/vgit.nvim
+https://github.com/klen/nvim-test
+https://github.com/vim-test/vim-test
+https://github.com/rcarriga/vim-ultest
+https://github.com/nvim-neotest/neotest
 
 https://github.com/mfussenegger/nvim-dap
 
 " Statusline
 " See also https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
-" https://github.com/beauwilliams/statusline.lua
-
+https://github.com/beauwilliams/statusline.lua 
 https://github.com/folke/noice.nvim
 https://github.com/gorbit99/codewindow.nvim
 https://github.com/wfxr/minimap.vim
@@ -18,13 +51,8 @@ https://github.com/ojroques/nvim-lspfuzzy
 https://github.com/ap/vim-buftabline
 https://github.com/akinsho/bufferline.nvim
 https://github.com/bling/vim-bufferline
-
-View LSP symbols & tags
-https://github.com/liuchengxu/vista.vim
-
-Browse the undo tree
-https://github.com/sjl/gundo.vim
-
+https://github.com/liuchengxu/vista.vim # View LSP symbols & tags
+https://github.com/sjl/gundo.vim # Browse the undo tree
 https://github.com/elihunter173/dirbuf.nvim
 https://github.com/rbong/vim-flog
 https://github.com/folke/trouble.nvim
