@@ -132,8 +132,8 @@ floating_modifier Mod4 normal
 bindsym $meta+t exec foot-cwd
 bindsym $meta+d exec foot-cwd
 
-bindsym $meta+v exec foot-cwd
-bindsym $meta+c exec foot-cwd --app-id "foot-lf" lf
+bindsym $meta+c exec foot-cwd
+bindsym $meta+x exec foot-cwd --app-id "foot-lf" lf
 # bindsym Pause exec foot-cwd
 
 # ROW 2 LEFT #################################################################
