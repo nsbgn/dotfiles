@@ -9,6 +9,55 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
+
+    { 'https://github.com/YorickPeterse/vim-paper',
+      init = function()
+        vim.cmd[[
+          set background=light
+          colorscheme paper
+
+          hi Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
+          hi Visual guifg=#cccccc guibg=#333333
+          hi SignColumn guibg=NONE cterm=NONE term=NONE
+
+          hi Comment gui=italic guifg=gray
+          hi Special gui=NONE guifg=gray
+          hi Statement gui=bold guifg=black
+          hi Constant gui=italic guifg=darkgreen
+          hi Identifier gui=NONE guifg=darkred
+          hi Type gui=italic guifg=black
+          hi PreProc gui=bold guifg=black
+          hi Todo gui=underline,bold
+          hi MatchParen gui=bold guifg=black guibg=lightgray
+
+          hi DiffAdd guifg=darkgreen guibg=NONE
+          hi DiffChange guifg=gray guibg=NONE
+          hi DiffDelete guifg=darkred guibg=NONE
+
+          hi NonText guifg=#888888
+
+          hi LeapBackdrop guifg=gray
+          hi LeapLabelPrimary gui=bold,italic guifg=black guibg=white
+          hi LeapMatch gui=bold guifg=black guibg=white
+          hi ScrollView guifg=red guibg=black
+
+          hi markdownH1 gui=underline,bold
+          hi markdownH2 gui=underline,bold,italic
+          hi markdownH3 gui=underline,italic
+          hi markdownItalic gui=italic
+          hi markdownItalicDelimiter gui=italic guifg=gray
+          hi markdownBold gui=bold
+          hi markdownBoldDelimiter gui=bold guifg=gray
+          hi markdownCode guibg=#eeeeee
+          hi markdownAutomaticLink gui=underline
+          hi yamlBlockMappingKey gui=bold guifg=black
+          hi yamlDocumentStart gui=none guifg=gray
+          hi pythonBuiltin gui=none guifg=black
+          hi pythonFunction gui=bold guifg=darkred
+        ]]
+      end
+    },
+
     -- Integrate direnv; see <https://direnv.net/>
     { 'https://github.com/direnv/direnv.vim' },
 
@@ -31,8 +80,7 @@ require("lazy").setup({
     },
 
     -- Set working directory to project root
-    {
-      'https://github.com/airblade/vim-rooter.git',
+    { 'https://github.com/airblade/vim-rooter.git',
       init = function()
         vim.cmd([[
           let g:rooter_silent_chdir = 1
@@ -150,49 +198,49 @@ require("lazy").setup({
       end
     },
 
-    { 'https://github.com/folke/zen-mode.nvim',
-      init = function()
-        require("zen-mode").setup {
-          window = {
-            width = 82,
-            height = 1,
-            options = {
-            signcolumn = "yes", -- keep signcolumn
-            -- number = false, -- disable number column
-            -- relativenumber = false, -- disable relative numbers
-            -- cursorline = false, -- disable cursorline
-            -- cursorcolumn = false, -- disable cursor column
-            -- foldcolumn = "0", -- disable fold column
-            -- list = false, -- disable whitespace characters
-            },
-          },
-          plugins = {
-            options = {
-              enabled = true,
-              ruler = true,
-              showcmd = true,
-            },
-          },
-          -- cf <https://github.com/folke/zen-mode.nvim/issues/35>
-          -- on_open = function(_)
-          --   vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
-          --   vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
-          -- end,
-          -- on_close = function()
-          --   if vim.b.quitting == 1 then
-          --     vim.b.quitting = 0
-          --     vim.cmd 'q'
-          --   end
-          -- end,
-        }
+    -- { 'https://github.com/folke/zen-mode.nvim',
+    --   init = function()
+    --     require("zen-mode").setup {
+    --       window = {
+    --         width = 82,
+    --         height = 1,
+    --         options = {
+    --         signcolumn = "yes", -- keep signcolumn
+    --         -- number = false, -- disable number column
+    --         -- relativenumber = false, -- disable relative numbers
+    --         -- cursorline = false, -- disable cursorline
+    --         -- cursorcolumn = false, -- disable cursor column
+    --         -- foldcolumn = "0", -- disable fold column
+    --         -- list = false, -- disable whitespace characters
+    --         },
+    --       },
+    --       plugins = {
+    --         options = {
+    --           enabled = true,
+    --           ruler = true,
+    --           showcmd = true,
+    --         },
+    --       },
+    --       -- cf <https://github.com/folke/zen-mode.nvim/issues/35>
+    --       -- on_open = function(_)
+    --       --   vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
+    --       --   vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
+    --       -- end,
+    --       -- on_close = function()
+    --       --   if vim.b.quitting == 1 then
+    --       --     vim.b.quitting = 0
+    --       --     vim.cmd 'q'
+    --       --   end
+    --       -- end,
+    --     }
 
-        -- vim.cmd([[
-        --   autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
-        -- ]])
-      end
-    }
+    --     -- vim.cmd([[
+    --     --   autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
+    --     -- ]])
+    --   end
+    -- }
 
   },
-  install = { colorscheme = { "habamax" } },
-  checker = { enabled = true },
+  install = { },
+  checker = { enabled = false },
 })

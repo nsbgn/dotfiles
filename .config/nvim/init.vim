@@ -6,6 +6,8 @@ lua vim.keymap.set('n', '<space><space>', ':')
 " Do not write which mode I am in; cursor should make that obvious anyway
 set noshowmode
 
+set termguicolors
+
 " Don't show status bar, etc
 set laststatus=0
 set noshowcmd
@@ -81,10 +83,10 @@ noremap <silent> j gj
 " - q allows the gq command to automatically reformat text
 " set formatoptions+=aw2tq
 
-augroup pandoc_syntax
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-    au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown.pandoc
-    autocmd FileType markdown.pandoc setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
+augroup markdown
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+    au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown
+    autocmd FileType markdown setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
 augroup END
 
 augroup latex
@@ -118,49 +120,6 @@ inoremap <silent> <C-S> <C-O>:update<CR>
 " vim.fn.sign_define("DiagnosticSignHint",
 "   {text = "", texthl = "DiagnosticSignHint"})
 " EOF
-
-" Colorscheme stuff """""""""""""""""""""""""""""""""""""""""""""""""""
-set termguicolors
-set background=light
-colorscheme peachpuff
-
-hi Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
-hi Visual guifg=#cccccc guibg=#333333
-
-hi Comment gui=italic guifg=gray
-hi Special gui=NONE guifg=gray
-hi Statement gui=bold guifg=black
-hi Constant gui=italic guifg=darkgreen
-hi Identifier gui=NONE guifg=darkred
-hi Type gui=italic guifg=black
-hi PreProc gui=bold guifg=black
-hi Todo gui=underline,bold
-hi MatchParen gui=bold guifg=black guibg=lightgray
-
-hi DiffAdd guifg=darkgreen guibg=NONE
-hi DiffChange guifg=gray guibg=NONE
-hi DiffDelete guifg=darkred guibg=NONE
-
-hi NonText guifg=#888888
-
-hi LeapBackdrop guifg=gray
-hi LeapLabelPrimary gui=bold,italic guibg=white
-hi LeapMatch guifg=black guibg=white
-hi ScrollView guifg=red guibg=black
-
-hi markdownH1 gui=underline,bold
-hi markdownH2 gui=underline,bold,italic
-hi markdownH3 gui=underline,italic
-hi markdownItalic gui=italic
-hi markdownItalicDelimiter gui=italic guifg=gray
-hi markdownBold gui=bold
-hi markdownBoldDelimiter gui=bold guifg=gray
-hi markdownCode guibg=#eeeeee
-hi markdownAutomaticLink gui=underline
-hi yamlBlockMappingKey gui=bold guifg=black
-hi yamlDocumentStart gui=none guifg=gray
-hi pythonBuiltin gui=none guifg=black
-hi pythonFunction gui=bold guifg=darkred
 
 
 " cf.https://www.jamescherti.com/vim-script-replace-the-home-directory-with-a-tilde/

@@ -6,8 +6,8 @@ https://joehallenbeck.com/the-glories-of-text-files-on-using-vim-for-code-and-pr
 https://www.opensourceagenda.com/projects/vim-no-color-collections
 https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887?gi=32e31ad24afb
 
-# NOtes
 
+# Notes
 
 In this file, I collect plugins that I have yet to incorporate in my 
 workflow, or that have been superseded by other plugins.
