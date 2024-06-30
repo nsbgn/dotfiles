@@ -1,4 +1,4 @@
-1L5   = swap(meta)
+1L5   = swap(oneshotmeta)
 1L4   = home
 1L3   = up
 1L2   = end
@@ -11,7 +11,7 @@
 2L1   = pagedown
 
 3L6   = overload(shift, S-enter)
-3L5   = M-z
+3L5   = layer(meta)
 3L4   = M-x
 3L3   = M-c
 3L2   = M-v

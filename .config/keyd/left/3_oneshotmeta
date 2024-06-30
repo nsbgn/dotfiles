@@ -1,0 +1,17 @@
+1L5   = swapm(nav, M-q)
+1L4   = swapm(nav, M-w)
+1L3   = swapm(nav, M-e)
+1L2   = swapm(nav, M-r)
+1L1   = swapm(nav, M-t)
+
+2L5   = swapm(nav, M-a)
+2L4   = swapm(nav, M-s)
+2L3   = swapm(nav, M-d)
+2L2   = swapm(nav, M-f)
+2L1   = swapm(nav, M-g)
+
+3L5   = swapm(nav, M-z)
+3L4   = swapm(nav, M-x)
+3L3   = swapm(nav, M-c)
+3L2   = swapm(nav, M-v)
+3L1   = swapm(nav, M-b)
