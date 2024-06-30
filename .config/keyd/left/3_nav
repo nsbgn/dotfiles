@@ -1,10 +1,10 @@
-1L5   = delete
+1L5   = swap(meta)
 1L4   = home
 1L3   = up
 1L2   = end
-1L1   = M-t
+1L1   = pageup
 
-2L5   = pageup
+2L5   = delete
 2L4   = left
 2L3   = down
 2L2   = right
@@ -15,6 +15,6 @@
 3L4   = M-x
 3L3   = M-c
 3L2   = M-v
-3L1   = swap(meta)
+3L1   = M-b
 
 # scrolllock, sysrq, pause, insert, compose, capslock
