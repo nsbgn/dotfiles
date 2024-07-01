@@ -4,6 +4,8 @@
 [core]
 	editor = nvim
 	pager = delta --light
+[push]
+	autoSetupRemote = true
 [interactive]
 	diffFilter = delta --color-only
 [merge]
