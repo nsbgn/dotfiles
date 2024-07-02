@@ -1,4 +1,4 @@
-1L5   = swap(oneshotmeta)
+1L5   = oneshot(oneshotmeta)
 1L4   = home
 1L3   = up
 1L2   = end
