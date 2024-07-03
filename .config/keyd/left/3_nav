@@ -11,10 +11,10 @@
 2L1   = pagedown
 
 3L6   = overload(shift, S-enter)
-3L5   = layer(meta)
+3L5   = M-z
 3L4   = M-x
 3L3   = M-c
-3L2   = M-v
+3L2   = layer(meta)
 3L1   = M-b
 
 # scrolllock, sysrq, pause, insert, compose, capslock
