@@ -9,13 +9,13 @@ f5 = TR2
 f6 = TR3
 grave = 1L6
 # Keyboardio
-leftcontrol = TL3
-backspace = TL1
-leftmeta = TL2
-leftalt = TR1
-space = TR2
-rightcontrol = TR3
-tab = 1L6
+# leftcontrol = TL3
+# backspace = TL1
+# leftmeta = TL2
+# leftalt = TR1
+# space = TR2
+# rightcontrol = TR3
+# tab = 1L6
 
 q = 1L5
 w = 1L4
@@ -29,8 +29,8 @@ o = 1R4
 p = 1R5
 
 # Keyboardio
-= = 1R6
-pageup = 2L6
+# = = 1R6
+# pageup = 2L6
 
 # Corne
 \ = 1R6
@@ -51,7 +51,7 @@ l = 2R4
 # Corne
 leftshift = 3L6
 # Keyboardio
-pagedown = 3L6
+# pagedown = 3L6
 
 z = 3L5
 x = 3L4
@@ -67,4 +67,4 @@ m = 3R2
 # Corne
 rightshift = 3R6
 # Keyboardio
-- = 3R6
+# - = 3R6
