@@ -3,8 +3,8 @@
 # to the side. TODO This is just for the case where the master window is to the 
 # right.
 
-import "i3jq/ipc" as ipc;
-import "i3jq/tree" as tree;
+import "i3jq@ipc" as ipc;
+import "i3jq@tree" as tree;
 
 def insert: "insert";
 def swap: "swap";
