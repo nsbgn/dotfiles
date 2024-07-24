@@ -159,8 +159,8 @@ bindsym --whole-window BTN_SIDE workspace next
 bindsym --no-repeat --release Super_L exec fuzzel || wofi -I -S drun
 
 bindsym $meta+q kill
-bindsym $meta+z exec i3jq -m float focus
-bindsym $meta+Shift+z exec i3jq -m float toggle
+bindsym $meta+m focus floating
+bindsym $meta+Shift+m exec i3jq -m float toggle
 # bindsym $fn+Shift+x move container to workspace prev; workspace prev
 # bindsym $fn+c []
 # bindsym $fn+Shift+c move container to workspace next; workspace next
