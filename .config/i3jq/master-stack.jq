@@ -9,15 +9,11 @@ import "i3jq@tree" as tree;
 def insert: "insert";
 def swap: "swap";
 
-def some(generator):
-  first(generator | select(.) | true) // false;
-
-def event(event; change):
-  (.event as $e | any(event; $e == .)) and
-  (.change as $c | any(change; $c == .));
+def is(a; b):
+  first(a == b | select(.) | true) // false;
 
 def mark($mark; $yes):
-  some(.marks[] == $mark) as $marked |
+  is(.marks[]; $mark) as $marked |
   if $yes and ($marked | not) then
     "[con_id=\(.id)] mark --add \($mark)"
   elif ($yes | not) and $marked then
@@ -63,25 +59,38 @@ def apply_layout:
     empty
   end;
 
-def handler:
-  ipc::subscribe(["workspace", "window"]) |
-  if event("workspace"; "focus") or event("window"; "new", "close") then
-    ipc::do(
-      ipc::get_tree |
-      tree::focus(.type == "workspace") |
-      apply_layout
-    )
-  elif event("window"; "focus") then
-    ipc::do(
-      ipc::get_tree |
-      tree::focus(.type == "workspace") |
-      (.nodes[0] // empty) |
-      tree::focus |
-      mark(insert)
-    )
-  else
-    empty
-  end;
+def _handler:
+  foreach ipc::subscribe(["workspace", "window", "tick"]) as $e (
+    # Initial state
+    { layout: "up" };
+
+    # Update state
+    if $e.event == "tick" and ($e.payload | startswith("master-stack")) and
+        ([$e.payload[12:] == ("up", "right", "bottom", "left")] | any) then
+      .layout |= $e.payload[12:]
+    end;
+
+    # Extract
+    . as {$layout} | $e |
+    if (.event == "workspace" and .change == "focus")
+        or (.event == "window" and is(.change; "new", "close")) then
+      ipc::do(
+        ipc::get_tree |
+        tree::focus(.type == "workspace") |
+        apply_layout
+      )
+    elif .event == "window" and .change == "focus" then
+      ipc::do(
+        ipc::get_tree |
+        tree::focus(.type == "workspace") |
+        (.nodes[0] // empty) |
+        tree::focus |
+        mark(insert)
+      )
+    else
+      empty
+    end
+  );
 
 # To instantly put new tiling windows where they belong, without a moment of 
 # flickering as the script responds to events, we start by putting in place 
@@ -90,4 +99,4 @@ def handler:
 ipc::do(
   "for_window [tiling] move container to mark \(insert)",
   "for_window [tiling] swap container with mark \(swap)"),
-handler
+_handler
