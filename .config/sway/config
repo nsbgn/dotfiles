@@ -1,16 +1,19 @@
-# cf <https://www.chordpro.org/chordpro/pango_markup/>
-# set $fn Ctrl+Mod4
+include /etc/sway/config-vars.d/*
+
 set $fn Mod4
-set $meta Mod4
 
-exec dbus-update-activation-environment --verbose --systemd --all
-# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id lxpolkit
-
-exec foot --server
-exec gammastep -O 5500K
-exec i3jq -m auto_exit_fullscreen
+default_border normal 0
+default_floating_border normal 2
+floating_modifier Mod4 normal
+focus_wrapping no
+font pango:Inconsolata, FontAwesome 12
+gaps inner 1
+hide_edge_borders none
+smart_borders off
+smart_gaps off
+titlebar_border_thickness 1
+titlebar_padding 8 2
+# title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
 
 bar {
    id bar0
@@ -21,38 +24,60 @@ bar {
    position top
 }
 
-#                       tBorder      bg    text indic8r wBorder
 client.focused          #a8cba8 #cce1cc #1c301c #ff0000 #000000
 client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
 client.unfocused        #000000 #000000 #999999 #ff0000 #666666
 client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
-
-# mode "passthrough" {
-#   bindsym f exec firefox; mode "default"
-#}
+#                       tBorder      bg    text indic8r wBorder
 
 output * bg #000000 solid_color
-# output * bg #fffaf0 solid_color
-# output * bg #ffffff solid_color
+
+
+# Startup ####################################################################
+
+exec dbus-update-activation-environment --verbose --systemd --all
+# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id lxpolkit
+exec foot --server
+exec gammastep -O 5500K
+exec i3jq -m auto_exit_fullscreen
+
+
+# Devices ####################################################################
+
+input type:keyboard {
+    xkb_options compose:menu
+    repeat_delay 300
+    repeat_rate 45
+}
+input type:touchpad {
+    tap enabled
+    dwt enabled
+    click_method clickfinger
+    tap_button_map lrm
+}
+input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output DP-2
+input 1032:12296:Quanta_OpticalTouchScreen map_to_output DVI-I-1
+input 8746:1:ILITEK_ILITEK-TP map_to_output DP-2
+
 output HDMI-A-1 {
    mode 1920x1080@60.000Hz
    pos 0 0
 }
-
 output 'Unknown Mira133 202105'  {
    mode 2200x1650@38.002Hz
    pos 0 1080
    transform 90
    scale 2
+   bg #ffffff solid_color
 }
-
 output 'Unknown XtendTouch ' {
    mode 1920x1080@60.000Hz
    pos 0 0
    transform 0
    scale 1.5
 }
-
 output Virtual-1 {
    mode 1920x1080@60.000Hz
    pos 0 0
@@ -60,193 +85,43 @@ output Virtual-1 {
    scale 1.5
 }
 
+# Titlebars ##################################################################
 
-input 10176:2136:WingCoolTouch_WingCoolTouch {
-   # map_to_output DVI-I-1
-   map_to_output DP-2
-   # map_to_region 0 1080 2200x1650
-   # map_from_region 0x1080 2200x2730
-}
-input 1032:12296:Quanta_OpticalTouchScreen {
-   map_to_output DVI-I-1
-}
-input 8746:1:ILITEK_ILITEK-TP {
-   map_to_output DP-2
-}
-
-
-input type:keyboard {
-    xkb_options compose:menu
-    repeat_delay 300
-    repeat_rate 45
-}
-
-input type:touchpad {
-    tap enabled
-    dwt enabled
-    click_method clickfinger
-    tap_button_map lrm
-}
-
-# https://docs.gtk.org/Pango/pango_markup.html
-# title_window_icon yes
-
-smart_gaps off
-smart_borders off
-hide_edge_borders none
-default_border normal 0
-default_floating_border normal 2
-titlebar_border_thickness 1
-titlebar_padding 8 2
-font pango:Inconsolata, FontAwesome 12
-# font Cozette 9
-gaps inner 1
-# focus_wrapping workspace
-# workspace_layout tabbed
-# gaps horizontal 0
 for_window [app_id=^Firefox-esr$] title_format " %title"
 for_window [app_id=^mpv$] title_format " %title"
 for_window [app_id=^imv$] title_format " %title"
 for_window [app_id=^org.telegram.desktop$] title_format " %title"
 for_window [app_id=^org.qutebrowser.qutebrowser$] title_format " %title"
 for_window [app_id=^org.pwmt.zathura$] title_format " %title"
-
 for_window [app_id=^foot-lf$] floating enable; border pixel 5
 
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
-include /etc/sway/config-vars.d/*
-floating_modifier Mod4 normal
-
-##############################################################################
-# $fn: Navigation between and within windows
-
-# ROW 1 LEFT #################################################################
-
-# bindsym $fn+q key home
-# bindsym $fn+w key up
-# bindsym $fn+e key end
-# bindsym $fn+r key pgup
-bindsym $meta+t exec foot-cwd
-bindsym $meta+d exec foot-cwd
-
-bindsym $meta+c exec foot-cwd
-bindsym $meta+x exec foot-cwd --app-id "foot-lf" lf
-# bindsym Pause exec foot-cwd
-
-# ROW 2 LEFT #################################################################
-
-# bindsym $fn+a key left
-# bindsym $fn+s key down
-# bindsym $fn+d key right
-# bindsym $fn+f key pgdn
-bindsym $meta+g exec dmenu-apps
-# bindsym Scroll_Lock exec dmenu-apps
-
-# ROW 3 LEFT #################################################################
+# Keybinds ###################################################################
 
 bindsym --whole-window BTN_EXTRA workspace prev
 bindsym --whole-window BTN_SIDE workspace next
 
-# https://github.com/swaywm/sway/issues/3960
-# bindsym --input-device=$MOUSE --whole-window BTN_RIGHT seat - cursor press 
-# BTN_EXTRA, seat - cursor release BTN_LEFT
-# bindsym --input-device=$MOUSE --whole-window BTN_LEFT seat - cursor press 
-# BTN_RIGHT, seat - cursor release BTN_RIGHT
-
 bindsym --no-repeat --release Super_L exec fuzzel || wofi -I -S drun
 
-bindsym $meta+q kill
-bindsym $meta+m focus floating
-bindsym $meta+Shift+m exec i3jq -m float toggle
-# bindsym $fn+Shift+x move container to workspace prev; workspace prev
-# bindsym $fn+c []
-# bindsym $fn+Shift+c move container to workspace next; workspace next
-bindsym $meta+f fullscreen
-bindsym $meta+a focus mode_toggle
-bindsym $meta+Shift+b floating toggle
-
-# ROW 1 RIGHT ################################################################
-
-# bindsym $fn+y exec "$hwm swap next"
-# bindsym $fn+u exec "$pwm mark_focus u"
-# bindsym $fn+i exec "i3jq cycle_hidden prev"
-# bindsym $fn+Shift+i exec "i3jq alt_cycle_hidden prev"
-# bindsym $fn+o exec "i3jq cycle_hidden next"
-# bindsym $fn+Shift+o exec "i3jq alt_cycle_hidden next"
-# bindsym $fn+p exec "$pwm mark_focus p"
-
-# ROW 2 RIGHT ################################################################
-
-# bindsym $fn+h exec "$pwm mark_focus h"
-# bindsym $fn+h focus left
-# bindsym $fn+Shift+h swap prev
-
-# bindsym $fn+i exec "i3jq tiles cycle_prev"
-# bindsym $fn+o exec "i3jq tiles cycle_next"
-# bindsym $fn+Shift+i exec "i3jq tiles cycle_hold_prev"
-# bindsym $fn+Shift+o exec "i3jq tiles cycle_hold_next"
-
-# bindsym $fn+u exec "i3jq compass focus_ordinal nw"
-# bindsym $fn+i exec "i3jq compass focus_ordinal ne"
-# bindsym $fn+h exec "i3jq tiles 'cycle_inner_focus(-1)'"
-# bindsym $fn+n exec "i3jq tiles 'cycle_inner_focus(1)'"
-# bindsym $fn+Shift+h exec "i3jq tiles 'cycle_inner_swap(-1)'"
-# bindsym $fn+Shift+n exec "i3jq tiles 'cycle_inner_swap(1)'"
-
-# bindsym $fn+h focus floating
-# bindsym $fn+Shift+h floating toggle
-
-focus_wrapping no
+bindsym $fn+c exec foot-cwd
+bindsym $fn+x exec foot-cwd --app-id "foot-lf" lf
+bindsym $fn+g exec dmenu-apps
+bindsym $fn+q kill
+bindsym $fn+m focus floating
+bindsym $fn+Shift+m exec i3jq -m float toggle
+bindsym $fn+f fullscreen
+bindsym $fn+a focus mode_toggle
+bindsym $fn+Shift+b floating toggle
 bindsym $fn+i focus up
 bindsym $fn+k focus down
 bindsym $fn+j focus left
 bindsym $fn+l focus right
-
-bindsym $fn+Shift+j exec "i3jq tiles swap_outer_tile -1"
-bindsym $fn+Shift+l exec "i3jq tiles swap_outer_tile 1"
-
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
-
-# bindsym $fn+l focus right
-#bindsym $fn+l exec "$pwm mark_focus k"
-#bindsym $fn+Shift+l swap next
-#bindsym $fn+l exec "$pwm mark_focus l"
-
-# bindsym $fn+semicolon exec "$pwm mark_focus k"
-
-# ROW 3 RIGHT ################################################################
-
-# bindsym $fn+n exec "$pwm mark_focus n"
-
-#bindsym $fn+m exec "$pwm mark_focus m"
-# bindsym $fn+m exec "$pwm pile_focus_shift"
-# bindsym $fn+Shift+m exec "$pwm toggle_aux"
-
-# bindsym $fn+comma workspace prev_on_output
-# # bindsym $fn+comma exec "$pwm win_focus_prev"
-# bindsym $fn+Shift+comma move container to workspace prev_on_output
-
-# bindsym $fn+period workspace next_on_output
-# bindsym $fn+Shift+period move container to workspace next_on_output
-
-# bindsym $fn+backslash exec "$pwm new_workspace"
-
-# bindsym $fn+space floating toggle
-
-##############################################################################
-# $fn: Function keys
-
-# bindsym XF86MenuKB exec dmenu-apps
-# bindsym $fn+g exec dmenu-apps
-# bindsym $fn+b exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
-# # bindsym $fn+m exec dmenu-mpv
-# bindsym $fn+u exec dmenu-thesaurus
+bindsym $fn+z exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
+bindsym $fn+e exec dmenu-mpv
+bindsym $fn+u exec dmenu-thesaurus
 bindsym $fn+r exec dmenu-pass
-# bindsym $fn+apostrophe clipman pick -t bemenu
 
 bindsym $fn+1 workspace number 1
 bindsym $fn+2 workspace number 2
@@ -260,15 +135,11 @@ bindsym $fn+Shift+4 move container to workspace number 4; workspace number 4
 bindsym Ctrl+F1 reload
 bindsym Ctrl+F2 exec "npx mira reload"
 
-# See also https://github.com/francma/wob
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
-bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
-bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
-bindsym XF86AudioMute exec pamixer --toggle-mute && ( [ "$(pamixer --get-mute)" = "true" ] && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
-bindsym XF86MonBrightnessDown exec brightnessctl set 2%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-bindsym XF86MonBrightnessUp exec brightnessctl set 2%+ | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-
+bindsym XF86AudioRaiseVolume exec pamixer -ui 2
+bindsym XF86AudioLowerVolume exec pamixer -ud 2
+bindsym XF86AudioMute exec pamixer --toggle-mute
+bindsym XF86MonBrightnessDown exec brightnessctl set 2%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 2%+
 bindsym XF86AudioRewind exec playerctl position -1
 bindsym XF86AudioForward exec playerctl position +1
 bindsym XF86AudioPrev exec playerctl prev
