@@ -9,9 +9,11 @@ def toggle:
     tree::focus |
     if .type == "floating_con" then
       "floating disable",
+      "sticky disable",
       "border normal 0"
     else
       "floating enable",
+      "sticky enable",
       "border normal 2"
     end
   );
