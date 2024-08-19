@@ -108,6 +108,16 @@ require("lazy").setup({
       end
     },
 
+    -- Lua
+    { 'https://github.com/folke/zen-mode.nvim', },
+
+    { 'https://github.com/smoka7/hop.nvim',
+      version = "*",
+      opts = {
+        keys = 'etovxqpdygfblzhckisuran'
+      }
+    },
+
     -- Comfortable middle ground between hop and sneak
     { 'https://github.com/ggandor/leap.nvim',
       init = function()
