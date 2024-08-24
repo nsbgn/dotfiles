@@ -109,7 +109,6 @@ require("lazy").setup({
     },
 
     -- Lua
-    { 'https://github.com/folke/zen-mode.nvim', },
 
     { 'https://github.com/smoka7/hop.nvim',
       version = "*",
@@ -208,47 +207,47 @@ require("lazy").setup({
       end
     },
 
-    -- { 'https://github.com/folke/zen-mode.nvim',
-    --   init = function()
-    --     require("zen-mode").setup {
-    --       window = {
-    --         width = 82,
-    --         height = 1,
-    --         options = {
-    --         signcolumn = "yes", -- keep signcolumn
-    --         -- number = false, -- disable number column
-    --         -- relativenumber = false, -- disable relative numbers
-    --         -- cursorline = false, -- disable cursorline
-    --         -- cursorcolumn = false, -- disable cursor column
-    --         -- foldcolumn = "0", -- disable fold column
-    --         -- list = false, -- disable whitespace characters
-    --         },
-    --       },
-    --       plugins = {
-    --         options = {
-    --           enabled = true,
-    --           ruler = true,
-    --           showcmd = true,
-    --         },
-    --       },
-    --       -- cf <https://github.com/folke/zen-mode.nvim/issues/35>
-    --       -- on_open = function(_)
-    --       --   vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
-    --       --   vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
-    --       -- end,
-    --       -- on_close = function()
-    --       --   if vim.b.quitting == 1 then
-    --       --     vim.b.quitting = 0
-    --       --     vim.cmd 'q'
-    --       --   end
-    --       -- end,
-    --     }
+    { 'https://github.com/folke/zen-mode.nvim',
+      init = function()
+        require("zen-mode").setup {
+          window = {
+            width = 82,
+            height = 1,
+            options = {
+            signcolumn = "yes", -- keep signcolumn
+            -- number = false, -- disable number column
+            -- relativenumber = false, -- disable relative numbers
+            -- cursorline = false, -- disable cursorline
+            -- cursorcolumn = false, -- disable cursor column
+            -- foldcolumn = "0", -- disable fold column
+            -- list = false, -- disable whitespace characters
+            },
+          },
+          plugins = {
+            options = {
+              enabled = true,
+              ruler = true,
+              showcmd = true,
+            },
+          },
+          -- cf <https://github.com/folke/zen-mode.nvim/issues/35>
+          -- on_open = function(_)
+          --   vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
+          --   vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
+          -- end,
+          -- on_close = function()
+          --   if vim.b.quitting == 1 then
+          --     vim.b.quitting = 0
+          --     vim.cmd 'q'
+          --   end
+          -- end,
+        }
 
-    --     -- vim.cmd([[
-    --     --   autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
-    --     -- ]])
-    --   end
-    -- }
+        -- vim.cmd([[
+        --   autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
+        -- ]])
+      end
+    }
 
   },
   install = { },
