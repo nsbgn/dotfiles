@@ -53,6 +53,7 @@ PACKAGES=(
     firefox-esr # Web browser
     foot # Terminal emulator
     git # Version control
+    gnumeric # lightweight spreadsheets
     gnupg # Encrypt files and emails
     gojq # Go implementation of jq, with YAML support
     graphicsmagick # Imagemagick: Graphics processing
@@ -62,6 +63,7 @@ PACKAGES=(
     innoextract # Extract from Windows installers
     jq # Parsing JSON
     jqp # Playground for gojq
+    k2pdfopt # PDF reflow
     khal # TUI calendar
     khard # TUI vcards
     kiwix # Offline reader
@@ -76,10 +78,10 @@ PACKAGES=(
     network-manager # Network
     offlineimap3 # Offline syncer for IMAP email
     otpclient otpclient-cli # TOTP authentication
+    pamixer # Controlling pulseaudio
     pandoc # Document converter
     parallel # Execute commands in parallel
     pass # Simple password manager based on gnupg
-    pamixer # Controlling pulseaudio
     playerctl # Controlling MPRIS media players
     pmount # Mount filesystems as normal user
     puddletag # Tagging audio files
@@ -104,7 +106,6 @@ PACKAGES=(
     xq # XML processor, like jq or htmlq
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
     zim-tools
-    k2pdfopt # PDF reflow
 
     # Bluetooth
     bluez bluez-alsa-utils pulseaudio-module-bluetooth
