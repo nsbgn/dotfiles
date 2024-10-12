@@ -3,7 +3,7 @@
 1R3   = 8
 1R4   = 9
 1R5   = oneshotm(double_colon, .)
-1R6   = @
+1R6   = enter
 
 2R1   = ~
 2R2   = 4
@@ -17,4 +17,4 @@
 3R3   = 2
 3R4   = 3
 3R5   = /
-# 3R6 =
+3R6   = @

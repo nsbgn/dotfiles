@@ -3,7 +3,7 @@
 1R3   = u
 1R4   = y
 1R5   = ;
-1R6   = \
+1R6   = enter
 
 2R1   = m
 2R2   = n
@@ -17,4 +17,4 @@
 3R3   = ,
 3R4   = .
 3R5   = /
-# 3R6 = overload(shift, rightshift)
+3R6   = \

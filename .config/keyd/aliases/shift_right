@@ -1,14 +1,7 @@
 # Shift right hand one unit further right
+# To accommodate, rightshift moves over to the n key
 
 [aliases]
-leftmeta = TL3
-leftalt = TL2
-space = TL1
-
-rightmeta = TR1
-rightalt = TR2
-compose = TR2
-rightcontrol = TR3
 
 tab = 1L6
 q = 1L5
@@ -23,6 +16,7 @@ o = 1R3
 p = 1R4
 [ = 1R5
 ] = 1R6
+
 capslock = 2L6
 a = 2L5
 s = 2L4
@@ -49,4 +43,4 @@ m = 3R1
 . = 3R3
 / = 3R4
 rightshift = 3R5
-y = 3R6
+n = 3R6

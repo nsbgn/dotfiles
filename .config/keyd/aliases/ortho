@@ -1,13 +1,5 @@
 [aliases]
 
-# Corne
-f1 = TL3
-f2 = TL2
-f3 = TL1
-f4 = TR1
-f5 = TR2
-f6 = TR3
-grave = 1L6
 # Keyboardio
 # leftcontrol = TL3
 # backspace = TL1
@@ -17,6 +9,7 @@ grave = 1L6
 # rightcontrol = TR3
 # tab = 1L6
 
+grave = 1L6
 q = 1L5
 w = 1L4
 e = 1L3
