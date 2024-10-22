@@ -3,14 +3,14 @@
 1R3   = i
 1R4   = o
 1R5   = p
-1R6   = enter
+1R6   = '
 
 2R1   = h
 2R2   = j
 2R3   = k
 2R4   = l
 2R5   = ;
-2R6   = '
+2R6   = enter
 
 3R1   = n
 3R2   = m
