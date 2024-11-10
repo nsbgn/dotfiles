@@ -1,6 +1,10 @@
+# See also:
+# - <https://wiki.archlinux.org/title/Sway>
+
 include /etc/sway/config-vars.d/*
 
 set $fn Mod4
+set $menu fuzzel || wofi -I -S drun
 
 default_border normal 0
 default_floating_border normal 2
@@ -24,7 +28,7 @@ bar {
    position top
 }
 
-client.focused          #a8cba8 #cce1cc #1c301c #ff0000 #000000
+client.focused          #aaaaaa #dddddd #1c301c #ff0000 #aaaaaa
 client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
 client.unfocused        #000000 #000000 #999999 #ff0000 #666666
 client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
@@ -101,8 +105,10 @@ for_window [app_id=^foot-lf$] floating enable; border pixel 5
 bindsym --whole-window BTN_EXTRA workspace prev
 bindsym --whole-window BTN_SIDE workspace next
 
-bindsym --no-repeat --release Super_L exec fuzzel || wofi -I -S drun
+bindsym --no-repeat --release Super_L exec $menu
+bindsym --no-repeat --release Super_R exec $menu
 
+bindsym $fn+v exec $menu
 bindsym $fn+c exec foot-cwd
 bindsym $fn+x exec foot-cwd --app-id "foot-lf" lf
 bindsym $fn+g exec dmenu-apps
@@ -112,12 +118,18 @@ bindsym $fn+Shift+m exec i3jq -m float toggle
 bindsym $fn+f fullscreen
 bindsym $fn+a focus mode_toggle
 bindsym $fn+Shift+b floating toggle
+
 bindsym $fn+i focus up
+bindsym F9 focus up
 bindsym $fn+k focus down
+bindsym F3 focus down
 bindsym $fn+j focus left
+bindsym F2 focus left
 bindsym $fn+l focus right
+bindsym F4 focus right
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
+
 bindsym $fn+z exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $fn+e exec dmenu-mpv
 bindsym $fn+u exec dmenu-thesaurus
