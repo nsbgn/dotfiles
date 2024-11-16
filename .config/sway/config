@@ -120,13 +120,13 @@ bindsym $fn+a focus mode_toggle
 bindsym $fn+Shift+b floating toggle
 
 bindsym $fn+i focus up
-bindsym F9 focus up
+bindsym F8 focus up
 bindsym $fn+k focus down
-bindsym F3 focus down
+bindsym F5 focus down
 bindsym $fn+j focus left
-bindsym F2 focus left
+bindsym F4 focus left
 bindsym $fn+l focus right
-bindsym F4 focus right
+bindsym F6 focus right
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
 
