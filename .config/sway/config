@@ -51,7 +51,7 @@ exec i3jq -m auto_exit_fullscreen
 # Devices ####################################################################
 
 input type:keyboard {
-    xkb_options compose:menu
+    xkb_options compose:102
     repeat_delay 300
     repeat_rate 45
 }
