@@ -4,6 +4,7 @@
 include /etc/sway/config-vars.d/*
 
 set $fn Mod4
+set $altgr Mod5
 set $menu fuzzel || wofi -I -S drun
 
 default_border normal 0
@@ -51,6 +52,9 @@ exec i3jq -m auto_exit_fullscreen
 # Devices ####################################################################
 
 input type:keyboard {
+    xkb_layout thumbledore,thumbledore
+    xkb_variant thumbledore,handalf
+    xkb_numlock enabled
     xkb_options compose:102
     repeat_delay 300
     repeat_rate 45
@@ -125,12 +129,13 @@ bindsym $fn+k focus down
 bindsym F5 focus down
 bindsym $fn+j focus left
 bindsym F4 focus left
-bindsym $fn+l focus right
+# bindsym $fn+l focus right
 bindsym F6 focus right
 bindsym $fn+comma workspace prev
 bindsym $fn+period workspace next
 
-bindsym $fn+z exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
+bindsym $fn+Space input type:keyboard xkb_switch_layout next
+bindsym $fn+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $fn+e exec dmenu-mpv
 bindsym $fn+u exec dmenu-thesaurus
 bindsym $fn+r exec dmenu-pass
@@ -143,6 +148,15 @@ bindsym $fn+Shift+1 move container to workspace number 1; workspace number 1
 bindsym $fn+Shift+2 move container to workspace number 2; workspace number 2
 bindsym $fn+Shift+3 move container to workspace number 3; workspace number 3
 bindsym $fn+Shift+4 move container to workspace number 4; workspace number 4
+
+bindsym $altgr+F1 workspace number 1
+bindsym $altgr+F2 workspace number 2
+bindsym $altgr+F3 workspace number 3
+bindsym $altgr+F4 workspace number 4
+bindsym $altgr+Shift+F1 move container to workspace number 1; workspace number 1
+bindsym $altgr+Shift+F2 move container to workspace number 2; workspace number 2
+bindsym $altgr+Shift+F3 move container to workspace number 3; workspace number 3
+bindsym $altgr+Shift+F4 move container to workspace number 4; workspace number 4
 
 bindsym Ctrl+F1 reload
 bindsym Ctrl+F2 exec "npx mira reload"
