@@ -21,24 +21,15 @@ set -eu
 
 echo "Starting script to encrypt $HOME with fscrypt." >&2
 
+# Make sure that $HOME is not yet encrypted
+if fscrypt status "$HOME"; then
+    echo "$HOME is already encrypted." >&2
+    exit 0
+fi
+
 # Make sure that fscrypt et al are installed
 if ! which fscrypt; then
-    if grep -q debian /etc/os-release; then
-        sudo apt-get install fscrypt libpam-fscrypt e2fsprogs util-linux
-    elif grep -q alpine /etc/os-release; then
-        cd
-        doas apk add git make gcc go m4 linux-pam-dev e2fsprogs-extra findmnt
-        git clone https://github.com/google/fscrypt
-        cd fscrypt
-        make
-        doas make install PREFIX=
-        alias sudo="doas"
-
-        # Default login isn't linked to pam
-        doas apk add shadow-login
-    else
-        exit 1
-    fi
+    sudo apt-get install -y fscrypt libpam-fscrypt e2fsprogs util-linux
 fi
 
 if test $(id -u) -ne 0; then
@@ -54,12 +45,6 @@ fi
 # Make sure that there are no non-hidden files in $HOME
 if ! -z "$(ls "$HOME")" || exit 1
 
-# Make sure that $HOME is not yet encrypted
-if ! fscrypt status "$HOME"; then
-    echo "ERROR: $HOME is already encrypted." >&2
-    exit 1
-fi
-
 # Find device on which $HOME is mounted
 DEV=$(findmnt -n -o SOURCE --target "$HOME")
 
@@ -70,22 +55,9 @@ test $(findmnt -n --source "$DEV" -o fstype) == "ext4" || exit 1
 sudo tune2fs -O encrypt "$DEV"
 sudo fscrypt setup
 
-if grep -q debian /etc/os-release; then
-    # Debian installs defaults for fscrypt here
-    test -e /usr/share/pam-configs/fscrypt
-    sudo pam-auth-update
-
-elif grep -q alpine /etc/os-release; then
-    # TODO pam-fscrypt seems to segfault on Alpine. Need to investigate.
-    exit 1
-
-    echo "auth required pam_unix.so" | tee /etc/pam.d/fscrypt
-    sed -i '$aauth optional pam_fscrypt.so' /etc/pam.d/base-auth
-    sed -i '1ipassword optional pam_fscrypt.so' /etc/pam.d/base-password
-    sed -i '$asession optional pam_fscrypt.so' /etc/pam.d/base-session
-else
-    exit 1
-fi
+# Debian installs defaults for fscrypt here
+test -e /usr/share/pam-configs/fscrypt
+sudo pam-auth-update
 
 # Encrypt a new directory
 CRYPT=/home/$USER.crypt
