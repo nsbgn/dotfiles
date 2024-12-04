@@ -1,67 +1,28 @@
 #!/bin/bash
-# Packages installed on every system
 
 PACKAGES=(
-    # Theme
-    fonts-font-awesome # Font icon
-    fonts-{cabin,karla,karmilla} # Sans serif font
-    fonts-{anonymous-pro,inconsolata,jetbrains-mono} # Monospace
-    fonts-terminus-otb # Bitmap monospace
-    dmz-cursor-theme
-    # gnome-accessibility-icons # High contrast icons
-
-    # Encryption
-    cryptsetup # Block device encryption
-    fscrypt # Linux kernel file encryption
-    libpam-fscrypt # Auto-unencrypt
-
-    # Build stuff
-    gcc
-    make
-    build-essential
-
-    # Sway
-    sway
-    xwayland
-    python3-i3ipc
-    swaylock
-    clipman # Clipboard manager
-    mako-notifier # Notifications
-    wl-clipboard
-    wdisplays
-    wtype
-    wob # progress bar overlay
-    waybar
-    yambar
-    xdg-desktop-portal-wlr
-    wvkbd # On-screen keyboard
-
     # Utilities
+    gnupg # Encrypt files and emails
+    pass # Simple password manager based on gnupg
+    jq # Parsing JSON
+    gojq # Go implementation of jq, with YAML support
+    pamixer # Controlling pulseaudio
     aerc # TUI email client
     alacritty # Another terminal
-    apt-file # Finding files in Debian packages
-    bat # Highlighting
-    bemenu # dmenu-like menu for Wayland
+    bat # Cat with highlighting
     black # Python3 code formatter
     brightnessctl # Controlling the backlight
-    bubblewrap # Wrapper for jailing applications
-    command-not-found # Suggest packages
     curl # Retrieve files from the web
-    direnv # Directory-dependent environment variables
     dtrx # Unzipping various formats
     fd-find # Search for files on the filesystem; `find` alternative
     firefox-esr # Web browser
-    foot # Terminal emulator
     git # Version control
     gnumeric # lightweight spreadsheets
-    gnupg # Encrypt files and emails
-    gojq # Go implementation of jq, with YAML support
     graphicsmagick # Imagemagick: Graphics processing
     hexyl # CLI hex viewer
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers
-    jq # Parsing JSON
     jqp # Playground for gojq
     k2pdfopt # PDF reflow
     khal # TUI calendar
@@ -69,21 +30,15 @@ PACKAGES=(
     kiwix # Offline reader
     latexdiff # Annotate changes in latex files
     lf # File browser
-    libglib2.0-bin # Trashbin via `gio trash`
     lowdown # Markdown processor and terminal viewer
-    lxpolkit # Policy kit
     moreutils # Contains `vipe`, which can edit data between pipes
     mpv # Video viewer
     ncdu # See size of directories
-    network-manager # Network
     offlineimap3 # Offline syncer for IMAP email
     otpclient otpclient-cli # TOTP authentication
-    pamixer # Controlling pulseaudio
     pandoc # Document converter
     parallel # Execute commands in parallel
-    pass # Simple password manager based on gnupg
     playerctl # Controlling MPRIS media players
-    pmount # Mount filesystems as normal user
     puddletag # Tagging audio files
     rename # Use like `rename 's/S([0-9]*)E([0-9]*) (.*)/$1x$2 $3/g' *.mkv`
     rfkill # Enabling & disabling wireless
@@ -94,22 +49,21 @@ PACKAGES=(
     texlive-{fonts-extra,latex-extra,latex-recommended,science} # LaTeX
     tig # Git TUI frontend
     tmux # Attach and detach from terminal sessions/tiling for terminal
-    ufw # Firewall
     util-linux # System utilities like checking filesystem, block devices..
     vdirsyncer # Synchronise CalDAV and CardDAV
     visidata # Terminal CSV viewer
     webext-browserpass # `pass` plugin
     webext-ublock-origin-firefox # Ad blocker
     wget # Retrieve files from the web
-    xdg-utils # Open in defaul program via `xdg-open`
     xournalpp # Drawing & PDF annotations
     xq # XML processor, like jq or htmlq
     zathura{,-cb,-ps,-djvu,-pdf-poppler} # PDF viewer
     zim-tools
 
-    # Bluetooth
-    bluez bluez-alsa-utils pulseaudio-module-bluetooth
-    firmware-intel-sound
+    # Build stuff
+    gcc
+    make
+    build-essential
 
     # Dependencies for scripts
     pipx  # pip with auto venv

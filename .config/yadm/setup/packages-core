@@ -1,0 +1,47 @@
+#!/bin/bash
+# Packages installed on every system
+
+PACKAGES=(
+    # Encryption
+    cryptsetup # Block device encryption
+    fscrypt # Linux kernel file encryption
+    libpam-fscrypt # Auto-unencrypt
+
+    # Fonts & icons
+    fonts-font-awesome # Font icon
+    fonts-{cabin,karla,karmilla} # Sans serif fonts
+    fonts-{anonymous-pro,inconsolata,jetbrains-mono} # Monospace
+    fonts-terminus-otb # Bitmap monospace
+    dmz-cursor-theme
+
+    # Bluetooth
+    # bluez bluez-alsa-utils pulseaudio-module-bluetooth
+    # firmware-intel-sound
+
+    # Sway
+    apt-file # Finding files in Debian packages
+    bemenu # dmenu-like menu for Wayland
+    bubblewrap # Wrapper for jailing applications
+    command-not-found # Suggest packages
+    direnv # Directory-dependent environment variables
+    foot # Terminal emulator
+    libglib2.0-bin # Trashbin via `gio trash`
+    lxpolkit # Policy kit
+    mako-notifier # Notifications
+    network-manager # Network
+    pmount # Mount filesystems as normal user
+    sway xwayland # Window manager
+    swaylock # Locking screen
+    ufw # Firewall
+    waybar # Bar
+    wdisplays # Selecting & moving displays
+    wl-clipboard # Clipboard manager
+    wtype # Type something (Wayland)
+    wvkbd # On-screen keyboard
+    xdg-desktop-portal-wlr
+    xdg-utils # Open in defaul program via `xdg-open`
+)
+
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y "${PACKAGES[@]}"

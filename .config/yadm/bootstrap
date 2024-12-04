@@ -5,17 +5,13 @@
 
 case $(lsb_release -si) in
     Debian)
-        echo On Debian...
-        sudo apt-get install -y findutils coreutils
+        echo Bootstrap for Debian... >&2
+        cd "$(dirname "$0")"
+        setup/packages-core
+        setup/firewall
+    ;;
+    *)
+        echo No bootscript for this distribution. >&2
+        exit 1
     ;;
 esac
-
-cd "$(dirname "$0")"
-find -L "." -mindepth 2 -type f -executable ! -name "*##*" ! -name "#*" \
-        | sort | while IFS= read -r SCRIPT; do
-    echo "Running $SCRIPT"
-    if ! "$SCRIPT"; then
-        echo "Error: bootstrap '$SCRIPT' failed" >&2
-        exit 1
-    fi
-done
