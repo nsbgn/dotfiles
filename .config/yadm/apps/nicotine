@@ -1,0 +1,33 @@
+#!/bin/bash
+# Nicotine+ - p2p downloads
+#
+# ALPINE: https://pkgs.alpinelinux.org/package/edge/testing/x86_64/nicotine-plus
+# DEBIAN: https://packages.debian.org/trixie/nicotine
+set -eu
+
+exit 0
+
+CUR="$(which nicotine || echo)"
+
+OLDVER="$(nicotine -v | cut -d' ' -f2)"
+NEWVER="$(curl -s 'https://api.github.com/repos/nicotine-plus/nicotine-plus/releases' | \
+    jq -r '[.[] | select(.prerelease == false)] | .[0].tag_name')"
+
+TMP=$(mktemp -d)
+trap "rm -rf $TMP" EXIT
+
+sudo apt install -y python3-cairocffi python3-cairo-dev gir1.2-gspell-1 gir1.2-gtk-3.0 python3-gi python3-gdbm
+export VENV="/home/library/.nicotine-venv"
+python3 -m venv --system-site-packages "$VENV"
+source "$VENV/bin/activate"
+pip install nicotine-plus
+
+
+if [ "$CUR" = "$DIR/$BIN" -a "$OLDVER" = "$NEWVER" ]; then
+    echo "Latest Nicotine++ ($NEWVER) is installed already." >&2
+else
+    echo "Installing the latest Nicotine++ ($NEWVER)." >&2
+    wget -O "$TMP/nicotine.zip" "$URL"
+    unzip "$TMP/nicotine.zip" -d "$TMP"
+    sudo dpkg -i "$TMP/"nicotine*.deb
+fi
