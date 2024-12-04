@@ -19,19 +19,7 @@
 
 set -eu
 
-if test $(id -u) -ne 0; then
-    echo "Must run as root"; exit 1
-fi
-TARGET_USER=$1
-if test -z "$TARGET_USER"; then
-    TARGET_USER=nsbg
-fi
-
-# Make sure that there are no non-hidden files in $HOME
-test -z "$(ls "$HOME")" || exit 1
-
-# Make sure that $HOME is not yet encrypted
-fscrypt status "$HOME" || exit 1
+echo "Starting script to encrypt $HOME with fscrypt." >&2
 
 # Make sure that fscrypt et al are installed
 if ! which fscrypt; then
@@ -51,6 +39,25 @@ if ! which fscrypt; then
     else
         exit 1
     fi
+fi
+
+if test $(id -u) -ne 0; then
+    echo "ERROR: This script must run as root." >&2
+    exit 1
+fi
+
+TARGET_USER=$1
+if test -z "$TARGET_USER"; then
+    TARGET_USER=nsbg
+fi
+
+# Make sure that there are no non-hidden files in $HOME
+if ! -z "$(ls "$HOME")" || exit 1
+
+# Make sure that $HOME is not yet encrypted
+if ! fscrypt status "$HOME"; then
+    echo "ERROR: $HOME is already encrypted." >&2
+    exit 1
 fi
 
 # Find device on which $HOME is mounted
@@ -88,5 +95,3 @@ sudo fscrypt encrypt "$CRYPT" --user=$USER --source=pam_passphrase
 
 # ... That's all.
 # fscrypt lock /home/$USER --user=$USER
-
-
