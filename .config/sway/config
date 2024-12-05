@@ -3,7 +3,7 @@
 
 include /etc/sway/config-vars.d/*
 
-set $fn Mod4
+set $os Mod4
 set $altgr Mod5
 set $menu fuzzel || wofi -I -S drun
 
@@ -112,42 +112,42 @@ bindsym --whole-window BTN_SIDE workspace next
 bindsym --no-repeat --release Super_L exec $menu
 bindsym --no-repeat --release Super_R exec $menu
 
-bindsym $fn+v exec $menu
-bindsym $fn+c exec foot-cwd
-bindsym $fn+x exec foot-cwd --app-id "foot-lf" lf
-bindsym $fn+g exec dmenu-apps
-bindsym $fn+q kill
-bindsym $fn+m focus floating
-bindsym $fn+Shift+m exec i3jq -m float toggle
-bindsym $fn+f fullscreen
-bindsym $fn+a focus mode_toggle
-bindsym $fn+Shift+b floating toggle
+bindsym $os+v exec $menu
+bindsym $os+c exec foot-cwd
+bindsym $os+x exec foot-cwd --app-id "foot-lf" lf
+bindsym $os+g exec dmenu-apps
+bindsym $os+q kill
+bindsym $os+m focus floating
+bindsym $os+Shift+m exec i3jq -m float toggle
+bindsym $os+f fullscreen
+bindsym $os+a focus mode_toggle
+bindsym $os+Shift+b floating toggle
 
-bindsym $fn+i focus up
+bindsym $os+i focus up
 bindsym F8 focus up
-bindsym $fn+k focus down
+bindsym $os+k focus down
 bindsym F5 focus down
-bindsym $fn+j focus left
+bindsym $os+j focus left
 bindsym F4 focus left
-# bindsym $fn+l focus right
+# bindsym $os+l focus right
 bindsym F6 focus right
-bindsym $fn+comma workspace prev
-bindsym $fn+period workspace next
+bindsym $os+comma workspace prev
+bindsym $os+period workspace next
 
-bindsym $fn+Space input type:keyboard xkb_switch_layout next
-bindsym $fn+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
-bindsym $fn+e exec dmenu-mpv
-bindsym $fn+u exec dmenu-thesaurus
-bindsym $fn+r exec dmenu-pass
+bindsym $os+Space input type:keyboard xkb_switch_layout next
+bindsym $os+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
+bindsym $os+e exec dmenu-mpv
+bindsym $os+u exec dmenu-thesaurus
+bindsym $os+r exec dmenu-pass
 
-bindsym $fn+1 workspace number 1
-bindsym $fn+2 workspace number 2
-bindsym $fn+3 workspace number 3
-bindsym $fn+4 workspace number 4
-bindsym $fn+Shift+1 move container to workspace number 1; workspace number 1
-bindsym $fn+Shift+2 move container to workspace number 2; workspace number 2
-bindsym $fn+Shift+3 move container to workspace number 3; workspace number 3
-bindsym $fn+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $os+1 workspace number 1
+bindsym $os+2 workspace number 2
+bindsym $os+3 workspace number 3
+bindsym $os+4 workspace number 4
+bindsym $os+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $os+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $os+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $os+Shift+4 move container to workspace number 4; workspace number 4
 
 bindsym $altgr+F1 workspace number 1
 bindsym $altgr+F2 workspace number 2
