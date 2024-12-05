@@ -1,5 +1,5 @@
 # See also:
-# - <https://wiki.archlinux.org/title/Sway>
+# <https://wiki.archlinux.org/title/Sway>
 
 include /etc/sway/config-vars.d/*
 
@@ -20,6 +20,12 @@ titlebar_border_thickness 1
 titlebar_padding 8 2
 # title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
 
+#                       tBorder      bg    text indic8r wBorder
+client.focused          #aaaaaa #dddddd #1c301c #ff0000 #aaaaaa
+client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
+client.unfocused        #000000 #000000 #999999 #ff0000 #666666
+client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
+
 bar {
    id bar0
    swaybar_command waybar
@@ -28,14 +34,6 @@ bar {
    modifier Mod1
    position top
 }
-
-client.focused          #aaaaaa #dddddd #1c301c #ff0000 #aaaaaa
-client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
-client.unfocused        #000000 #000000 #999999 #ff0000 #666666
-client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
-#                       tBorder      bg    text indic8r wBorder
-
-output * bg #000000 solid_color
 
 
 # Startup ####################################################################
@@ -69,6 +67,7 @@ input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output DP-2
 input 1032:12296:Quanta_OpticalTouchScreen map_to_output DVI-I-1
 input 8746:1:ILITEK_ILITEK-TP map_to_output DP-2
 
+output * bg #000000 solid_color
 output HDMI-A-1 {
    mode 1920x1080@60.000Hz
    pos 0 0
@@ -122,32 +121,18 @@ bindsym $os+Shift+m exec i3jq -m float toggle
 bindsym $os+f fullscreen
 bindsym $os+a focus mode_toggle
 bindsym $os+Shift+b floating toggle
-
-bindsym $os+i focus up
-bindsym F8 focus up
-bindsym $os+k focus down
-bindsym F5 focus down
-bindsym $os+j focus left
-bindsym F4 focus left
-# bindsym $os+l focus right
-bindsym F6 focus right
-bindsym $os+comma workspace prev
-bindsym $os+period workspace next
-
 bindsym $os+Space input type:keyboard xkb_switch_layout next
 bindsym $os+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
-bindsym $os+e exec dmenu-mpv
-bindsym $os+u exec dmenu-thesaurus
-bindsym $os+r exec dmenu-pass
+bindsym $os+e exec "dmenu-mpv"
+bindsym $os+u exec "dmenu-thesaurus"
+bindsym $os+r exec "dmenu-pass"
 
-bindsym $os+1 workspace number 1
-bindsym $os+2 workspace number 2
-bindsym $os+3 workspace number 3
-bindsym $os+4 workspace number 4
-bindsym $os+Shift+1 move container to workspace number 1; workspace number 1
-bindsym $os+Shift+2 move container to workspace number 2; workspace number 2
-bindsym $os+Shift+3 move container to workspace number 3; workspace number 3
-bindsym $os+Shift+4 move container to workspace number 4; workspace number 4
+bindsym F8 focus up
+bindsym F5 focus down
+bindsym F4 focus left
+bindsym F6 focus right
+bindsym F2 workspace prev
+bindsym F3 workspace next
 
 bindsym $altgr+F1 workspace number 1
 bindsym $altgr+F2 workspace number 2
