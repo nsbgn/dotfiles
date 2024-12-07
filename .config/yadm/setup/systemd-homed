@@ -1,0 +1,10 @@
+#!/bin/sh
+# Use systemd-homed to encrypt homedir with fscrypt
+# <https://github.com/google/fscrypt/issues/295>
+
+# enable systemd homed support in pam
+authselect enable-feature with-systemd-homed
+systemctl enable --now systemd-homed.service
+
+# Then recreate the user
+homectl create username --storage=fscrypt
