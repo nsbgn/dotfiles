@@ -1,0 +1,4 @@
+#!/bin/sh
+# cf. <https://wiki.archlinux.org/title/HiDPI>
+
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
