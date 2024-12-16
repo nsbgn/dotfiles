@@ -1,0 +1,7 @@
+#!/bin/sh
+# Make sure yadm origin is set to SSH
+
+origin="git@github.com:nsbgn/dotfiles.git"
+if [ ! "$(yadm remote get-url origin)" = "$origin" ]; then
+    yadm remote set-url origin "$origin"
+fi
