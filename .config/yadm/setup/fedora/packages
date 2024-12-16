@@ -2,6 +2,28 @@
 
 PACKAGES=(
     sway
+    swaylock
+    waybar
+    mako # Notifications
+    direnv
+    foot
+    bemenu
+    wtype
+    squeekboard
+    wdisplays
+    xdg-utils # Provides `xdg-open`
+    ufw
+
+    # Fonts
+    fontawesome-6-free-fonts
+    msimonson-anonymouspro-fonts
+    jetbrains-mono-fonts-all
+    levien-inconsolata-fonts
+
+    pmount
+    wget
+    unzip
+    glib2 # Provides trashbin via `gio trash`
 )
 
 sudo dnf install ${PACKAGES[@]}

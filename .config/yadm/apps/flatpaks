@@ -13,13 +13,13 @@ fi
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # GC/Wii emulator (no longer in Debian)
-flatpak install flathub org.DolphinEmu.dolphin-emu
+# flatpak install flathub org.DolphinEmu.dolphin-emu
 
 # Xonotic game because it is (not in Debian)
-flatpak install flathub org.xonotic.Xonotic
+# flatpak install flathub org.xonotic.Xonotic
 
 # OpenRCT2 Rollercoaster Tycoon reimplementation (not in Debian)
-flatpak install flathub io.openrct2.OpenRCT2
+# flatpak install flathub io.openrct2.OpenRCT2
 
 # Soulseek client (no longer in Debian)
-flatpak install flathub org.nicotine_plus.Nicotine
+# flatpak install flathub org.nicotine_plus.Nicotine
