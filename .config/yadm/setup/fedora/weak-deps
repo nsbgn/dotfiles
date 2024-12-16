@@ -1,0 +1,9 @@
+#!/bin/sh
+# Do not automatically install weak dependencies
+# Alternatively: dnf --setopt=install_weak_deps=False ...
+# <https://superuser.com/questions/1360670/is-it-possible-to-skip-a-package-weak-dependencies-during-a-kickstart-installati>
+
+dnf="/etc/dnf/dnf.conf"
+if grep -v 'install_weak_deps=False' "$dnf"; then
+    echo 'install_weak_deps=False' > "$dnf"
+fi

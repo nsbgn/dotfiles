@@ -1,0 +1,7 @@
+#!/bin/bash
+
+PACKAGES=(
+    sway
+)
+
+sudo dnf install ${PACKAGES[@]}
