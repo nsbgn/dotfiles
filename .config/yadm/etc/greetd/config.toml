@@ -1,0 +1,11 @@
+[terminal]
+vt = 1
+
+[default_session]
+#command = "agreety --cmd /bin/sh"
+command = "tuigreet --cmd sway"
+user = "greetd"
+
+[initial_session]
+command = "sway"
+user = "nsbg"

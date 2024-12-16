@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PACKAGES=(
+    greetd tuigreet
     sway
     swaylock
     waybar
