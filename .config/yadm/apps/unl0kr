@@ -1,0 +1,25 @@
+#!/bin/sh
+# Unlocking via touchscreen
+# <https://gitlab.postmarketos.org/postmarketOS/buffybox.git>
+
+set -eu
+
+if echo; then
+    sudo dnf install \
+        meson \
+        libdrm-devel \
+        libinput-devel \
+        libudev-devel \
+        inih-devel \
+        libxkbcommon-devel \
+        scdoc
+fi
+
+mkdir -p ~/.builds
+cd ~/.builds
+git clone https://gitlab.com/postmarketOS/buffybox.git
+cd buffybox
+git submodule init
+git submodule update
+meson setup _build
+meson compile -C _build
