@@ -1,0 +1,5 @@
+#!/bin/sh
+# <https://community.frame.work/t/guide-setup-tpm2-autodecrypt/39005>
+
+sudo systemd-cryptenroll --wipe-slot tpm2 --tpm2-device auto --tpm2-pcrs "1+3+5+7+11+12+14+15" $DEVICE
+sudo dracut -f
