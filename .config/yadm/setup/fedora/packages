@@ -20,6 +20,7 @@ PACKAGES=(
     jetbrains-mono-fonts-all
     levien-inconsolata-fonts
 
+    git-delta # More readable deltas
     pmount
     wget
     unzip
