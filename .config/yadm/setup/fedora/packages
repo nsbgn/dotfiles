@@ -21,11 +21,16 @@ PACKAGES=(
     jetbrains-mono-fonts-all
     levien-inconsolata-fonts
 
+    whiptail
     git-delta # More readable deltas
     pmount
     wget
     unzip
     glib2 # Provides trashbin via `gio trash`
+    pass
+    ncdu
+    rsync
+    lspolkit
 )
 
 sudo dnf install ${PACKAGES[@]}
