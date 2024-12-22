@@ -68,7 +68,12 @@ input 1032:12296:Quanta_OpticalTouchScreen map_to_output DVI-I-1
 input 8746:1:ILITEK_ILITEK-TP map_to_output DP-2
 
 output * bg #000000 solid_color
-output HDMI-A-1 {
+output 'BOE 0x0AEC Unknown' {
+   mode 1920x1280@48.000Hz
+   scale 1.25
+   pos 0 1080
+}
+output 'Iiyama North America PL2710HD 11049A0300769' {
    mode 1920x1080@60.000Hz
    pos 0 0
 }
