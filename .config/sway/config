@@ -46,6 +46,10 @@ exec foot --server
 exec gammastep -O 5500K
 exec i3jq -m auto_exit_fullscreen
 
+exec squeekboard
+exec lisgd -d /dev/input/event5 \
+    -s 1.25 \
+    -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
 
 # Devices ####################################################################
 
