@@ -47,13 +47,17 @@ exec gammastep -O 5500K
 exec i3jq -m auto_exit_fullscreen
 
 exec squeekboard
+
+# Gestures
+# Do: `libinput list-devices`
+# or: `udevadm info --export-db --property-match=ID_INPUT_TOUCHSCREEN=1`
 exec lisgd -d /dev/input/event5 \
     -s 1.25 \
     -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
 
 exec swayidle -w \
+	timeout 60 'swaymsg "output * power off"' \
 	timeout 600 'swaylock -f' \
-	timeout 605 'swaymsg "output * power off"' \
 	resume 'swaymsg "output * power on"'
 
 # Devices ####################################################################
