@@ -47,7 +47,7 @@ case $(file --dereference --mime-type "$F" -b):"${F,,}" in
     audio/*) 
         mpv --no-audio-display "$F" ;;
     image/*) 
-        imv-folder "$F"
+        imv-dir "$F"
         # feh \
         #     --borderless \
         #     --scale-down \
