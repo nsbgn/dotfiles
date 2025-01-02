@@ -51,6 +51,11 @@ exec lisgd -d /dev/input/event5 \
     -s 1.25 \
     -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
 
+exec swayidle -w \
+	timeout 600 'swaylock -f' \
+	timeout 605 'swaymsg "output * power off"' \
+	resume 'swaymsg "output * power on"'
+
 # Devices ####################################################################
 
 input type:keyboard {
