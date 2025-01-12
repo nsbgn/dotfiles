@@ -3,7 +3,7 @@
 	email = nsbg@mailbox.org
 [core]
 	editor = nvim
-	pager = delta --light
+	pager = delta --dark --syntax-theme=gruvbox-dark
 [push]
 	autoSetupRemote = true
 [interactive]
@@ -14,7 +14,6 @@
 	options = --highlight --line-numbers
 [delta]
 	features = line-numbers
-	theme = OneHalfLight
 [includeIf "gitdir:~/work/"]
 	path = ~/work/gitconfig
 [url "https://gitlab.com/"]
