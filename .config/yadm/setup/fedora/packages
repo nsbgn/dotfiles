@@ -15,12 +15,15 @@ PACKAGES=(
     xdg-utils # Provides `xdg-open`
     ufw
 
+    intel-lpmd
+
     # Fonts
     fontawesome-6-free-fonts
     msimonson-anonymouspro-fonts
     jetbrains-mono-fonts-all
     levien-inconsolata-fonts
 
+    NetworkManager-tui
     whiptail
     git-delta # More readable deltas
     pmount
@@ -30,7 +33,9 @@ PACKAGES=(
     pass
     ncdu
     rsync
-    lspolkit
+    lxpolkit
+    mpv
+    pinentry-qt
 )
 
 sudo dnf install ${PACKAGES[@]}
