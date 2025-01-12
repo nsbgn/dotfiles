@@ -55,10 +55,10 @@ exec lisgd -d /dev/input/event5 \
     -s 1.25 \
     -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
 
-exec swayidle -w \
-	timeout 60 'swaymsg "output * power off"' \
-	timeout 600 'swaylock -f' \
-	resume 'swaymsg "output * power on"'
+#exec swayidle -w \
+#	timeout 60 'swaymsg "output * power off"' \
+#	timeout 600 'swaylock -f' \
+#	resume 'swaymsg "output * power on"'
 
 # Devices ####################################################################
 
@@ -87,7 +87,7 @@ output 'BOE 0x0AEC Unknown' {
 }
 output 'Iiyama North America PL2710HD 11049A0300769' {
    mode 1920x1080@60.000Hz
-   pos 0 -1024
+   pos 0 -1080
 }
 
 input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
