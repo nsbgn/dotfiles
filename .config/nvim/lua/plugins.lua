@@ -10,13 +10,52 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
 
-    { 'https://github.com/YorickPeterse/vim-paper',
+    { "ellisonleao/gruvbox.nvim",
+      priority = 1000 ,
+      config = true,
       init = function()
+        require("gruvbox").setup({
+          terminal_colors = true, -- add neovim terminal colors
+          undercurl = true,
+          underline = true,
+          bold = true,
+          italic = {
+            strings = true,
+            emphasis = true,
+            comments = true,
+            operators = false,
+            folds = true,
+          },
+          strikethrough = true,
+          invert_selection = false,
+          invert_signs = false,
+          invert_tabline = false,
+          invert_intend_guides = false,
+          inverse = true, -- invert background for search, diffs, statuslines and errors
+          contrast = "soft", -- can be "hard", "soft" or empty string
+          palette_overrides = {},
+          overrides = {
+            SignColumn = { bg = "NONE" },
+            DiffAdd = { fg = "green", bg = "NONE" },
+            DiffChange = { fg = "gray", bg = "NONE" },
+            DiffDelete = { fg = "darkred", bg = "NONE" },
+          },
+          dim_inactive = false,
+          transparent_mode = true,
+        })
+        vim.cmd("colorscheme gruvbox")
+      end
+    },
+    { 'https://github.com/YorickPeterse/vim-paper',
+      enabled = false,
+      init = function()
+
         vim.cmd[[
+
           set background=light
           colorscheme paper
 
-          hi Normal guifg=black ctermbg=NONE guibg=NONE ctermbg=NONE guibg=NONE
+          hi Normal guifg=white ctermfg=white ctermbg=black guibg=black
           hi Visual guifg=#cccccc guibg=#333333
           hi SignColumn guibg=NONE cterm=NONE term=NONE
 
