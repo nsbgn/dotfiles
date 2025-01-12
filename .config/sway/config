@@ -21,10 +21,31 @@ titlebar_padding 8 2
 # title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
 
 #                       tBorder      bg    text indic8r wBorder
-client.focused          #aaaaaa #dddddd #1c301c #ff0000 #aaaaaa
-client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
-client.unfocused        #000000 #000000 #999999 #ff0000 #666666
-client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
+# client.focused          #aaaaaa #dddddd #1c301c #ff0000 #aaaaaa
+# client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
+# client.unfocused        #000000 #000000 #999999 #ff0000 #666666
+# client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
+
+
+# Lifted from <https://gist.github.com/Cardoso1994/80641d652a4adcf6c8f718ebc3770ab9>
+set $bg       #282828
+set $fg       #d4be98
+set $red      #ea6962
+set $orange   #e78a4e
+set $green    #a9b665
+set $blue     #7daea3
+set $purple   #d3869b
+set $aqua     #89b482
+set $darkgray #282828
+
+#       Gruvbox Theme   brdr        bg          text    indictr     chld_brdr
+client.focused          $orange     $green      $bg     $orange     $orange
+client.focused_inactive $aqua       $aqua       $bg     $aqua       $aqua
+client.unfocused        $bg         $bg         $bg     $bg         $bg
+client.urgent           $red        $red        $bg     $red        $red
+client.placeholder      $bg         $bg         $bg     $bg         $bg
+client.background       $bg
+
 
 bar {
    id bar0

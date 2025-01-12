@@ -3,7 +3,8 @@
 	email = nsbg@mailbox.org
 [core]
 	editor = nvim
-	pager = delta --dark --syntax-theme=gruvbox-dark
+	; pager = delta --dark --syntax-theme=gruvbox-dark
+	pager = delta --light --syntax-theme=gruvbox-light
 [push]
 	autoSetupRemote = true
 [interactive]

@@ -2,7 +2,7 @@ window#waybar {
     font-family: "Karla", "Font Awesome", monospace;
     font-size: 12pt;
     background-color: black;
-    color: white;
+    color: #ebdbb2;
     margin: 0;
     padding: 0;
 }
