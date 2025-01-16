@@ -1,6 +1,6 @@
 {
     "layer": "top",
-    "position": "left",
+    "position": "bottom",
     "exclusive": false,
     //"height": 32,
     "margin": "0 0 0 0",
@@ -26,17 +26,17 @@
         },
         "scroll-step": 1,
         "on-click": "pactl set-sink-mute 0 false",
-        "on-right-click": "pavucontrol",
-        "rotate": 90
+        "on-right-click": "pavucontrol"
+        //"rotate": 90
     },
     "battery": {
         "format": "{icon} {capacity}",
-        "format-icons": ["", "", "", "", ""],
-        "rotate": 90
+        "format-icons": ["", "", "", "", ""]
+        //"rotate": 90
     },
     "clock": {
-        "format": " {:%H:%M %a %d}",
-        "rotate": 90
+        "format": " {:%H:%M %a %d}"
+        //"rotate": 90
     },
     "sway/workspaces": {
         "disable-auto-back-and-forth": true

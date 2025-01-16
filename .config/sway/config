@@ -11,13 +11,14 @@ default_border normal 0
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
-font pango:Inconsolata, FontAwesome 12
+font Overpass, FontAwesome 10
 gaps inner 1
 hide_edge_borders none
 smart_borders off
 smart_gaps off
+title_align center
 titlebar_border_thickness 1
-titlebar_padding 8 2
+titlebar_padding 8 7
 # title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
 
 #                       tBorder      bg    text indic8r wBorder
@@ -36,12 +37,11 @@ set $green    #a9b665
 set $blue     #7daea3
 set $purple   #d3869b
 set $aqua     #89b482
-set $darkgray #282828
 
 #       Gruvbox Theme   brdr        bg          text    indictr     chld_brdr
-client.focused          $orange     $green      $bg     $orange     $orange
+client.focused          $green      $green      $bg     $green      $green
 client.focused_inactive $aqua       $aqua       $bg     $aqua       $aqua
-client.unfocused        $bg         $bg         $bg     $bg         $bg
+client.unfocused        $bg         $bg         $fg     $bg         $bg
 client.urgent           $red        $red        $bg     $red        $red
 client.placeholder      $bg         $bg         $bg     $bg         $bg
 client.background       $bg
@@ -138,7 +138,7 @@ output Virtual-1 {
 
 # Titlebars ##################################################################
 
-for_window [app_id=^Firefox-esr$] title_format " %title"
+for_window [app_id=^(f|F)irefox.*$] title_format " %title"
 for_window [app_id=^mpv$] title_format " %title"
 for_window [app_id=^imv$] title_format " %title"
 for_window [app_id=^org.telegram.desktop$] title_format " %title"
