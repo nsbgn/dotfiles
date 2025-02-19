@@ -1,6 +1,6 @@
 {
     "layer": "top",
-    "position": "bottom",
+    "position": "right",
     "exclusive": false,
     //"height": 32,
     "margin": "0 0 0 0",
@@ -10,11 +10,16 @@
     "id": "bar1",
     "modules-left": ["sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "battery", "clock", "tray"],
+    "modules-right": ["pulseaudio", "pulseaudio/slider", "battery", "clock", "tray"],
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "vertical"
+    },
     "pulseaudio": {
-        "format": "{icon} {volume}",
-        "format-bluetooth": "{icon} {volume}",
-        "format-muted": "",
+        "format": "{icon}",
+        "format-bluetooth": "{icon}",
+        "format-muted": "",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -26,17 +31,20 @@
         },
         "scroll-step": 1,
         "on-click": "pactl set-sink-mute 0 false",
-        "on-right-click": "pavucontrol"
-        //"rotate": 90
+        "on-right-click": "pavucontrol",
+        "rotate": 270
     },
     "battery": {
-        "format": "{icon} {capacity}",
-        "format-icons": ["", "", "", "", ""]
-        //"rotate": 90
+        "format": "{icon}",
+        "format-charging": "{icon}",
+        "format-full": "",
+        "format-icons": ["", "", "", "", ""],
+        "rotate": 90,
+        "tooltip-format": "{capacity}% {timeTo}"
     },
     "clock": {
-        "format": " {:%H:%M %a %d}"
-        //"rotate": 90
+        "format": " {:%H:%M %a %d}",
+        "rotate": 270
     },
     "sway/workspaces": {
         "disable-auto-back-and-forth": true

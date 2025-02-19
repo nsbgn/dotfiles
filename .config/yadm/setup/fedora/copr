@@ -1,0 +1,4 @@
+#!/bin/sh
+
+dnf copr enable swayfx/swayfx
+dnf copr enable dgraef/OTPClient

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PACKAGES=(
+    gnome-shell
     greetd tuigreet
     sway
     swaylock
@@ -16,12 +17,20 @@ PACKAGES=(
     ufw
 
     intel-lpmd
+    iwlwifi-{m,d}vm-firmware
+    alsa-sof-firmware
+    NetworkManager-wifi
+    cups
+    system-config-printer
+    printer-driver-brlaser
+
 
     # Fonts
     fontawesome-6-free-fonts
     msimonson-anonymouspro-fonts
     jetbrains-mono-fonts-all
     levien-inconsolata-fonts
+    overpass-fonts
 
     NetworkManager-tui
     whiptail
@@ -36,6 +45,8 @@ PACKAGES=(
     lxpolkit
     mpv
     pinentry-qt
+    parallel
+    puddletag
 )
 
 sudo dnf install ${PACKAGES[@]}

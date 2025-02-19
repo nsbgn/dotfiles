@@ -1,0 +1,6 @@
+#!/bin/sh
+# Fedora uses a different location
+
+sudo dnf install dante w3m
+sudo ln -s /usr/libexec/aerc/filters /usr/share/aerc/filters
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+# I forgot this after installing greetd and couldn't figure out why it wouldn't
+# do anything
+
+sudo systemctl set-default graphical.target
+

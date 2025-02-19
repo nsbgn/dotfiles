@@ -11,22 +11,15 @@ default_border normal 0
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
-font Overpass, FontAwesome 10
+font Overpass, FontAwesome 9
 gaps inner 1
 hide_edge_borders none
 smart_borders off
 smart_gaps off
 title_align center
 titlebar_border_thickness 1
-titlebar_padding 8 7
+titlebar_padding 8 5
 # title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
-
-#                       tBorder      bg    text indic8r wBorder
-# client.focused          #aaaaaa #dddddd #1c301c #ff0000 #aaaaaa
-# client.focused_inactive #555555 #222222 #eeeeee #ff0000 #cccccc
-# client.unfocused        #000000 #000000 #999999 #ff0000 #666666
-# client.urgent           #333333 #ff0000 #cccccc #ff0000 #666666
-
 
 # Lifted from <https://gist.github.com/Cardoso1994/80641d652a4adcf6c8f718ebc3770ab9>
 set $bg       #282828
@@ -34,13 +27,14 @@ set $fg       #d4be98
 set $red      #ea6962
 set $orange   #e78a4e
 set $green    #a9b665
+set $dgreen   #495605
 set $blue     #7daea3
 set $purple   #d3869b
 set $aqua     #89b482
 
 #       Gruvbox Theme   brdr        bg          text    indictr     chld_brdr
 client.focused          $green      $green      $bg     $green      $green
-client.focused_inactive $aqua       $aqua       $bg     $aqua       $aqua
+client.focused_inactive $dgreen     $bg         $fg     $green      $green
 client.unfocused        $bg         $bg         $fg     $bg         $bg
 client.urgent           $red        $red        $bg     $red        $red
 client.placeholder      $bg         $bg         $bg     $bg         $bg
@@ -97,7 +91,7 @@ input type:touchpad {
     click_method clickfinger
     tap_button_map lrm
 }
-output * bg #000000 solid_color
+output * bg $bg solid_color
 
 input 1386:18948:Wacom_HID_4A04_Finger map_to_output 'BOE 0x0AEC Unknown'
 output 'BOE 0x0AEC Unknown' {
@@ -138,7 +132,7 @@ output Virtual-1 {
 
 # Titlebars ##################################################################
 
-for_window [app_id=^(f|F)irefox.*$] title_format " %title"
+for_window [app_id=Firefox] title_format " %title"
 for_window [app_id=^mpv$] title_format " %title"
 for_window [app_id=^imv$] title_format " %title"
 for_window [app_id=^org.telegram.desktop$] title_format " %title"
