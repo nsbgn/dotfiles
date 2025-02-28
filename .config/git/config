@@ -1,3 +1,5 @@
+# <https://blog.gitbutler.com/how-git-core-devs-configure-git/>
+
 [user]
 	name = Niels Steenbergen
 	email = nsbg@mailbox.org
@@ -5,8 +7,32 @@
 	editor = nvim
 	; pager = delta --dark --syntax-theme=gruvbox-dark
 	pager = delta --light --syntax-theme=gruvbox-light
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[init]
+	defaultBranch = master
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 [push]
+	default = simple
 	autoSetupRemote = true
+	followTags = true
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 [interactive]
 	diffFilter = delta --color-only
 [merge]
