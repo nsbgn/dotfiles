@@ -1,0 +1,53 @@
+#!/bin/sh
+# Upload a pdf file to reMarkable
+# Just a quick plain shell version of <https://github.com/teticio/pdf2remarkable>
+
+set -eu
+
+for dep in uuidgen jq xdg-open curl file; do
+    if ! which $dep &> /dev/null; then
+        echo ERROR: Missing dependency $dep >&2
+        exit 1
+    fi
+done
+
+get_device_token() {
+    if [ ! -f $HOME/.rmtoken ]; then
+        xdg-open "https://my.remarkable.com/device/browser/connect"
+        read -p "Please enter the OTC code from reMarkable: " otc
+        curl -X POST \
+            --json "$(jq -n --arg code "$otc" --arg deviceID "$(uuidgen)" '{$code, $deviceID, deviceDesc: "browser-chrome"}')" \
+            "https://webapp.cloud.remarkable.com/token/json/2/device/new" \
+            > $HOME/.rmtoken
+    fi
+    cat $HOME/.rmtoken
+}
+
+get_user_token(){
+    echo Getting user token... >&2
+    token="$(curl -L -X POST \
+        -H "Authorization: Bearer $(get_device_token)" \
+        -d "" \
+        "https://webapp.cloud.remarkable.com/token/json/2/user/new")"
+    echo Got user token: $token >&2
+    echo -n $token
+}
+
+upload() {
+    mime="$(file -b --mime-type "$1")"
+    if [ ! -f "$1" ]; then
+        echo "File does not exist: $1" >&2
+    elif [ "$mime" != "application/pdf" ]; then
+        echo "Wrong mimetype on $1: $mime" >&2
+    else
+        echo "Uploading..." >&2
+        curl -L -X POST \
+            -H "Authorization: Bearer $(get_user_token)" \
+            -H "Content-Type: application/pdf" \
+            -H "rm-meta: $(jq -n --arg f "$1" -r '{file_name: $f} | @base64')" \
+            --data-binary @"$1" \
+            "https://eu.tectonic.remarkable.com/doc/v2/files"
+    fi
+}
+
+upload "${1:-}"
