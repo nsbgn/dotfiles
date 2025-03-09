@@ -34,16 +34,13 @@ get_user_token(){
 }
 
 upload() {
-    mime="$(file -b --mime-type "$1")"
     if [ ! -f "$1" ]; then
         echo "File does not exist: $1" >&2
-    elif [ "$mime" != "application/pdf" ]; then
-        echo "Wrong mimetype on $1: $mime" >&2
     else
         echo "Uploading..." >&2
         curl -L -X POST \
             -H "Authorization: Bearer $(get_user_token)" \
-            -H "Content-Type: application/pdf" \
+            -H "Content-Type: $(file -b --mime-type "$1")" \
             -H "rm-meta: $(jq -n --arg f "$1" -r '{file_name: $f} | @base64')" \
             --data-binary @"$1" \
             "https://eu.tectonic.remarkable.com/doc/v2/files"
