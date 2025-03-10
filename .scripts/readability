@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+# Uses <https://github.com/buriy/python-readability>
+# Debian: python3-readability
+# Fedora: python3-readability-lxml
+# Alpine: py3-readability-lxml
+
+import requests
+import sys
+from readability import Document
+
+if __name__ == "__main__":
+    if len(sys.argv) <= 1:
+        print("No argument")
+    else:
+        response = requests.get(sys.argv[1])
+        doc = Document(response.content)
+        print(doc.summary())
