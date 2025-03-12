@@ -297,7 +297,10 @@ require("lazy").setup({
         --   autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
         -- ]])
       end
-    }
+    },
+
+    -- Git merge/diff viewer
+    { 'https://github.com/sindrets/diffview.nvim' }
 
   },
   install = { },
