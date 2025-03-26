@@ -1,0 +1,8 @@
+#!/bin/sh
+# Subtitle synchronisation tool
+# Source: <https://github.com/smacke/ffsubsync>
+# <https://github.com/oseiskar/autosubsync>
+
+sudo dnf install python3-devel
+
+pipx install ffsubsync
