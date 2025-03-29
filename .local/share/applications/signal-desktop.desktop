@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Signal
+GenericName=Messenger
+Comment=Private messaging from your desktop
+Comment[de]=Vertrauliche Kommunikation vom Desktop
+Icon=signal-desktop
+Exec=signal-desktop --use-tray-icon --enable-features=UseOzonePlatform --ozone-platform=wayland %U
+Terminal=false
+StartupWMClass=signal
+Categories=Network;InstantMessaging;Chat;
+MimeType=x-scheme-handler/sgnl;x-scheme-handler/signalcaptcha;
+StartupNotify=true
+SingleMainWindow=true
