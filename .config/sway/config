@@ -5,7 +5,7 @@ include /etc/sway/config-vars.d/*
 
 set $os Mod4
 set $altgr Mod5
-set $menu fuzzel || wofi -I -S drun
+set $menu fuzzel
 
 default_border normal 0
 default_floating_border normal 2
@@ -59,16 +59,16 @@ exec dbus-update-activation-environment --verbose --systemd --all
 exec --no-startup-id lxpolkit
 exec foot --server
 exec gammastep -O 5500K
-exec i3jq -m auto_exit_fullscreen
+exec swayjq -m auto-exit-fullscreen
 
-exec squeekboard
+# exec squeekboard
 
 # Gestures
 # Do: `libinput list-devices`
 # or: `udevadm info --export-db --property-match=ID_INPUT_TOUCHSCREEN=1`
-exec lisgd -d /dev/input/event5 \
-    -s 1.25 \
-    -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
+# exec lisgd -d /dev/input/event5 \
+#     -s 1.25 \
+#     -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
 
 #exec swayidle -w \
 #	timeout 60 'swaymsg "output * power off"' \
@@ -77,11 +77,16 @@ exec lisgd -d /dev/input/event5 \
 
 # Devices ####################################################################
 
+input type:pointer {
+    accel_profile "adaptive"
+    pointer_accel 0.9
+}
+
 input type:keyboard {
     xkb_layout thumbledore,thumbledore
     xkb_variant thumbledore,handalf
     xkb_numlock enabled
-    xkb_options compose:102
+    xkb_options compose:rwin
     repeat_delay 300
     repeat_rate 45
 }
@@ -151,6 +156,7 @@ bindsym --no-repeat --release Super_R exec $menu
 
 bindsym $os+v exec $menu
 bindsym $os+c exec foot-cwd
+bindsym $os+n exec foot-cwd
 bindsym $os+x exec foot-cwd --app-id "foot-lf" lf
 bindsym $os+g exec dmenu-apps
 bindsym $os+q kill
@@ -160,26 +166,26 @@ bindsym $os+f fullscreen
 bindsym $os+a focus mode_toggle
 bindsym $os+Shift+b floating toggle
 bindsym $os+Space input type:keyboard xkb_switch_layout next
-bindsym $os+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
+# bindsym $os+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
 bindsym $os+e exec "dmenu-mpv"
-bindsym $os+u exec "dmenu-thesaurus"
+#bindsym $os+u exec "dmenu-thesaurus"
 bindsym $os+r exec "dmenu-pass"
 
-bindsym F8 focus up
-bindsym F5 focus down
-bindsym F4 focus left
-bindsym F6 focus right
-bindsym F2 workspace prev
-bindsym F3 workspace next
+bindsym $os+i focus up
+bindsym $os+k focus down
+bindsym $os+j focus left
+bindsym $os+l focus right
+bindsym $os+comma workspace prev
+bindsym $os+period workspace next
 
-bindsym $altgr+F1 workspace number 1
-bindsym $altgr+F2 workspace number 2
-bindsym $altgr+F3 workspace number 3
-bindsym $altgr+F4 workspace number 4
-bindsym $altgr+Shift+F1 move container to workspace number 1; workspace number 1
-bindsym $altgr+Shift+F2 move container to workspace number 2; workspace number 2
-bindsym $altgr+Shift+F3 move container to workspace number 3; workspace number 3
-bindsym $altgr+Shift+F4 move container to workspace number 4; workspace number 4
+bindsym F1 workspace number 1
+bindsym F2 workspace number 2
+bindsym F3 workspace number 3
+bindsym F4 workspace number 4
+bindsym Shift+F1 move container to workspace number 1; workspace number 1
+bindsym Shift+F2 move container to workspace number 2; workspace number 2
+bindsym Shift+F3 move container to workspace number 3; workspace number 3
+bindsym Shift+F4 move container to workspace number 4; workspace number 4
 
 bindsym Ctrl+F1 reload
 bindsym Ctrl+F2 exec "npx mira reload"
