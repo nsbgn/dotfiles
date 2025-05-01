@@ -1,0 +1,3 @@
+#!/bin/sh
+
+go install github.com/antonmedv/fx@latest
