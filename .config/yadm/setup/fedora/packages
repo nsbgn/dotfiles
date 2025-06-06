@@ -24,7 +24,6 @@ PACKAGES=(
     system-config-printer
     printer-driver-brlaser
 
-
     # Fonts
     fontawesome-6-free-fonts
     msimonson-anonymouspro-fonts
@@ -47,6 +46,9 @@ PACKAGES=(
     pinentry-qt
     parallel
     puddletag
+    wol
+    udisks2-btrfs
+    gocryptfs
 )
 
 sudo dnf install ${PACKAGES[@]}
