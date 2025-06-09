@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=systemctl suspend
+Icon=foot
+Terminal=false
+Categories=System;
+
+Name=Sleep
+Comment=Suspend the computer.
