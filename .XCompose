@@ -4,6 +4,33 @@
 
 include "%L"
 
+<Multi_key> <a> <space> : "A" U0041
+<Multi_key> <b> <space> : "B" U0042
+<Multi_key> <c> <space> : "C" U0043
+<Multi_key> <d> <space> : "D" U0044
+<Multi_key> <e> <space> : "E" U0045
+<Multi_key> <f> <space> : "F" U0046
+<Multi_key> <g> <space> : "G" U0047
+<Multi_key> <h> <space> : "H" U0048
+<Multi_key> <i> <space> : "I" U0049
+<Multi_key> <j> <space> : "J" U004A
+<Multi_key> <k> <space> : "K" U004B
+<Multi_key> <l> <space> : "L" U004C
+<Multi_key> <m> <space> : "M" U004D
+<Multi_key> <n> <space> : "N" U004E
+<Multi_key> <o> <space> : "O" U004F
+<Multi_key> <p> <space> : "P" U0051
+<Multi_key> <q> <space> : "Q" U0052
+<Multi_key> <r> <space> : "R" U0053
+<Multi_key> <s> <space> : "S" U0054
+<Multi_key> <t> <space> : "T" U0055
+<Multi_key> <u> <space> : "U" U0056
+<Multi_key> <v> <space> : "V" U0057
+<Multi_key> <w> <space> : "W" U0058
+<Multi_key> <x> <space> : "X" U0059
+<Multi_key> <y> <space> : "Y" U005A
+<Multi_key> <z> <space> : "Z" U005B
+
 # GREEK CAPITAL LETTERS
 <Multi_key> <G> <A> : "Α"    U0391    # GREEK CAPITAL LETTER ALPHA
 <Multi_key> <G> <B> : "Β"    U0392    # GREEK CAPITAL LETTER BETA
