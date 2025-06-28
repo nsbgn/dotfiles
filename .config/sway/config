@@ -83,8 +83,8 @@ input type:pointer {
 }
 
 input type:keyboard {
-    xkb_layout thumbledore,thumbledore
-    xkb_variant thumbledore,handalf
+    xkb_layout handalf,handalf
+    xkb_variant handalf,handalf-colemak
     xkb_numlock enabled
     xkb_options compose:rwin
     repeat_delay 300
@@ -175,8 +175,10 @@ bindsym $os+i focus up
 bindsym $os+k focus down
 bindsym $os+j focus left
 bindsym $os+l focus right
-bindsym $os+comma workspace prev
-bindsym $os+period workspace next
+bindsym $os+comma exec swayq workspace focus prev
+bindsym $os+period exec swayq workspace focus next
+bindsym $os+Shift+comma exec swayq workspace move prev
+bindsym $os+Shift+period exec swayq workspace move next
 
 bindsym F1 workspace number 1
 bindsym F2 workspace number 2
