@@ -4,6 +4,7 @@
 include /etc/sway/config-vars.d/*
 
 set $os Mod4
+set $OS Mod4+Shift
 set $altgr Mod5
 set $menu fuzzel
 
@@ -148,37 +149,76 @@ for_window [app_id=^foot-lf$] floating enable; border pixel 5
 
 # Keybinds ###################################################################
 
-bindsym --whole-window BTN_EXTRA workspace prev
-bindsym --whole-window BTN_SIDE workspace next
+bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
+bindsym --whole-window BTN_SIDE exec swayq workspace focus next
 
 bindsym --no-repeat --release Super_L exec $menu
 bindsym --no-repeat --release Super_R exec $menu
 
-bindsym $os+v exec $menu
-bindsym $os+c exec foot-cwd
-bindsym $os+n exec foot-cwd
-bindsym $os+x exec foot-cwd --app-id "foot-lf" lf
-bindsym $os+g exec dmenu-apps
-bindsym $os+q kill
-bindsym $os+m focus floating
-bindsym $os+Shift+m exec i3jq -m float toggle
-bindsym $os+f fullscreen
-bindsym $os+a focus mode_toggle
-bindsym $os+Shift+b floating toggle
-bindsym $os+Space input type:keyboard xkb_switch_layout next
-# bindsym $os+l exec "swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg"
-bindsym $os+e exec "dmenu-mpv"
-#bindsym $os+u exec "dmenu-thesaurus"
-bindsym $os+r exec "dmenu-pass"
+# q
+bindcode $os+24 kill
+# w
+bindcode $os+25 swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg
+# e
+bindcode $os+26 exec dmenu-mpv
+# r
+bindcode $os+27 exec dmenu-pass
+# t
+bindcode $os+28 input type:keyboard xkb_switch_layout next
+# y
+bindcode $os+29 floating toggle
+# u
+bindcode $os+30 exec swayq workspace focus prev
+bindcode $OS+30 exec swayq workspace move prev
+# i
+bindcode $os+31 focus up
+# o
+bindcode $os+32 exec swayq workspace focus next # o
+bindcode $OS+32 exec swayq workspace move next
+# p
+bindcode $os+33 nop # p
 
-bindsym $os+i focus up
-bindsym $os+k focus down
-bindsym $os+j focus left
-bindsym $os+l focus right
-bindsym $os+comma exec swayq workspace focus prev
-bindsym $os+period exec swayq workspace focus next
-bindsym $os+Shift+comma exec swayq workspace move prev
-bindsym $os+Shift+period exec swayq workspace move next
+# a
+bindcode $os+38 focus mode_toggle
+# s
+bindcode $os+39 nop
+# d
+bindcode $os+40 nop
+# f
+bindcode $os+41 fullscreen
+# g
+bindcode $os+42 nop
+# h
+bindcode $os+43 nop
+# j
+bindcode $os+44 focus left
+# k
+bindcode $os+45 focus down
+# l
+bindcode $os+46 focus right
+# ;
+bindcode $os+47 nop
+
+# z
+bindcode $os+52 nop
+# x
+bindcode $os+53 nop
+# c
+bindcode $os+54 exec foot-cwd
+# v
+bindcode $os+55 nop
+# b
+bindcode $os+56 nop
+# n
+bindcode $os+57 nop
+# m
+bindcode $os+58 nop
+# ,
+bindcode $os+59 nop
+# .
+bindcode $os+60 nop
+# /
+bindcode $os+61 nop
 
 bindsym F1 workspace number 1
 bindsym F2 workspace number 2
