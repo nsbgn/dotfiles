@@ -201,7 +201,7 @@ bindcode $OS+45 move down
 bindcode $os+46 focus right
 bindcode $OS+46 move right
 # ;
-bindcode $os+47 nop
+bindcode $os+47 exec $menu
 
 # z
 bindcode $os+52 nop
@@ -216,7 +216,7 @@ bindcode $os+56 nop
 # n
 bindcode $os+57 nop
 # m
-bindcode $os+58 nop
+bindcode $os+58 exec foot-cwd
 # ,
 bindcode $os+59 nop
 # .
