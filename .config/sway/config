@@ -172,8 +172,9 @@ bindcode $os+30 exec swayq workspace focus prev
 bindcode $OS+30 exec swayq workspace move prev
 # i
 bindcode $os+31 focus up
+bindcode $OS+31 move up
 # o
-bindcode $os+32 exec swayq workspace focus next # o
+bindcode $os+32 exec swayq workspace focus next
 bindcode $OS+32 exec swayq workspace move next
 # p
 bindcode $os+33 nop # p
@@ -192,10 +193,13 @@ bindcode $os+42 nop
 bindcode $os+43 nop
 # j
 bindcode $os+44 focus left
+bindcode $OS+44 move left
 # k
 bindcode $os+45 focus down
+bindcode $OS+45 move down
 # l
 bindcode $os+46 focus right
+bindcode $OS+46 move right
 # ;
 bindcode $os+47 nop
 
