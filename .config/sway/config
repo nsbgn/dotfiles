@@ -9,6 +9,7 @@ set $altgr Mod5
 set $menu fuzzel
 
 default_border normal 0
+# default_border pixel 1
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
@@ -44,11 +45,29 @@ client.background       $bg
 
 bar {
    id bar0
-   swaybar_command waybar
-   # hidden_state hide
+   output DP-7
+   status_command swayq bar DP-7
    mode dock
    modifier Mod1
-   position top
+   position bottom
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font Overpass, FontAwesome 10
+}
+bar {
+   id bar1
+   output eDP-1
+   status_command swayq bar eDP-1
+   mode dock
+   modifier Mod1
+   position bottom
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font Overpass, FontAwesome 10
 }
 
 
@@ -60,7 +79,7 @@ exec dbus-update-activation-environment --verbose --systemd --all
 exec --no-startup-id lxpolkit
 exec foot --server
 exec gammastep -O 5500K
-exec swayjq -m auto-exit-fullscreen
+#exec swayq -m auto-exit-fullscreen
 
 # exec squeekboard
 
@@ -190,7 +209,9 @@ bindcode $os+41 fullscreen
 # g
 bindcode $os+42 nop
 # h
-bindcode $os+43 nop
+bindcode $os+43 exec swayq workspace focus prev
+bindcode $OS+43 exec swayq workspace move prev
+
 # j
 bindcode $os+44 focus left
 bindcode $OS+44 move left
@@ -201,7 +222,8 @@ bindcode $OS+45 move down
 bindcode $os+46 focus right
 bindcode $OS+46 move right
 # ;
-bindcode $os+47 exec $menu
+bindcode $os+47 exec swayq workspace focus next
+bindcode $OS+47 exec swayq workspace move next
 
 # z
 bindcode $os+52 nop
@@ -214,13 +236,16 @@ bindcode $os+55 nop
 # b
 bindcode $os+56 nop
 # n
-bindcode $os+57 nop
+bindcode $os+57 exec $menu
 # m
 bindcode $os+58 exec foot-cwd
 # ,
-bindcode $os+59 nop
+bindcode $os+59 exec swayq workspace focus prev
+bindcode $OS+59 exec swayq workspace move prev
 # .
-bindcode $os+60 nop
+bindcode $os+60 exec swayq workspace focus next
+bindcode $OS+60 exec swayq workspace move next
+
 # /
 bindcode $os+61 nop
 
