@@ -8,6 +8,8 @@ set noshowmode
 
 set termguicolors
 
+set breakindent
+
 " Don't show status bar, etc
 set laststatus=0
 set noshowcmd
@@ -67,7 +69,7 @@ set noswapfile
 
 " Show file in window title, with icon 🗒️  
 set title
-set titlestring=\ %(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
+set titlestring=%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
 
 
 " Formatting """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
