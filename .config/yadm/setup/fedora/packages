@@ -30,6 +30,7 @@ PACKAGES=(
     jetbrains-mono-fonts-all
     levien-inconsolata-fonts
     overpass-fonts
+    cascadia-code-nf-fonts
 
     NetworkManager-tui
     whiptail
