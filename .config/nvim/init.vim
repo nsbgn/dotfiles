@@ -69,7 +69,7 @@ set noswapfile
 
 " Show file in window title, with icon 🗒️  
 set title
-set titlestring=%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)\ %m
+set titlestring=%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)%m
 
 
 " Formatting """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -129,8 +129,11 @@ function! ReplaceHomeWithTilde(path) abort
   let l:path = fnamemodify(a:path, ':p')
   let l:path_sep = (!exists('+shellslash') || &shellslash) ? '/' : '\'
   let l:home = fnamemodify('~', ':p')
+  let l:projects = l:home . 'projects' . l:path_sep
 
-  if l:path[0:len(l:home)-1] ==# l:home
+  if l:path[0:len(l:projects)-1] ==# l:projects
+    return l:path[len(l:projects):]
+  elseif l:path[0:len(l:home)-1] ==# l:home
     return '~' . l:path_sep . l:path[len(l:home):]
   elseif l:path == l:home
     return '~' . l:path_sep
