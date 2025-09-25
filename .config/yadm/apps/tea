@@ -1,0 +1,4 @@
+# Communicate with Gitea instances
+# <https://gitea.com/gitea/tea>
+
+go install code.gitea.io/tea@latest
