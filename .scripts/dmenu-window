@@ -1,0 +1,9 @@
+#!/bin/sh
+
+ID="$(swayq con 'import "ipc" as ipc; ipc::get_tree | focused.id')"
+
+echo ' Close
+ Minimize
+  Cancel' | \
+    dmenu -p Window: -i $DMENU_OPTS | sed 's/^.*Close$/[con_id='$ID'] kill/;s/^.*Minimize$/[con_id='$ID'] move to scratchpad;s/^.*Cancel$//' | \
+    xargs swaymsg
