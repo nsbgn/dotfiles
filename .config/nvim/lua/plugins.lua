@@ -9,8 +9,9 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
+    { "https://github.com/neovim/nvim-lspconfig" },
 
-    { "ellisonleao/gruvbox.nvim",
+    { "https://github.com/ellisonleao/gruvbox.nvim",
       priority = 1000 ,
       config = true,
       init = function()
@@ -46,7 +47,7 @@ require("lazy").setup({
             markdownItalicDelimiter = { italic = true, fg="gray" },
             markdownBold = { bold = true },
             markdownBoldDelimiter = { bold = true, fg = "gray" },
-            markdownCode = { bg = "#eeeeee" },
+            markdownCode = { fg = "black", bg = "gray" },
             markdownAutomaticLink = { underline = true },
             yamlBlockMappingKey = { bold = true, fg = "black" },
             yamlDocumentStart = { fg = "gray" },
@@ -55,56 +56,6 @@ require("lazy").setup({
           transparent_mode = true,
         })
         vim.cmd("colorscheme gruvbox")
-      end
-    },
-    { 'https://github.com/YorickPeterse/vim-paper',
-      enabled = false,
-      init = function()
-
-        vim.cmd[[
-
-          set background=light
-          colorscheme paper
-
-          hi Normal guifg=white ctermfg=white ctermbg=black guibg=black
-          hi Visual guifg=#cccccc guibg=#333333
-          hi SignColumn guibg=NONE cterm=NONE term=NONE
-
-          hi Comment gui=italic guifg=gray
-          hi Special gui=NONE guifg=gray
-          hi Statement gui=bold guifg=black
-          hi Constant gui=italic guifg=darkgreen
-          hi Identifier gui=NONE guifg=darkred
-          hi Type gui=italic guifg=black
-          hi PreProc gui=bold guifg=black
-          hi Todo gui=underline,bold
-          hi MatchParen gui=bold guifg=black guibg=lightgray
-
-          hi DiffAdd guifg=darkgreen guibg=NONE
-          hi DiffChange guifg=gray guibg=NONE
-          hi DiffDelete guifg=darkred guibg=NONE
-
-          hi NonText guifg=#888888
-
-          hi LeapBackdrop guifg=gray
-          hi LeapLabelPrimary gui=bold,italic guifg=black guibg=white
-          hi LeapMatch gui=bold guifg=black guibg=white
-          hi ScrollView guifg=red guibg=black
-
-          hi markdownH1 gui=underline,bold
-          hi markdownH2 gui=underline,bold,italic
-          hi markdownH3 gui=underline,italic
-          hi markdownItalic gui=italic
-          hi markdownItalicDelimiter gui=italic guifg=gray
-          hi markdownBold gui=bold
-          hi markdownBoldDelimiter gui=bold guifg=gray
-          hi markdownCode guibg=#eeeeee
-          hi markdownAutomaticLink gui=underline
-          hi yamlBlockMappingKey gui=bold guifg=black
-          hi yamlDocumentStart gui=none guifg=gray
-          hi pythonBuiltin gui=none guifg=black
-          hi pythonFunction gui=bold guifg=darkred
-        ]]
       end
     },
 
@@ -272,7 +223,17 @@ require("lazy").setup({
       opts = {
         -- fill any relevant options here
       },
+      init = function()
+        vim.keymap.set('n', 't', ':Neotree source=filesystem reveal=true position=left toggle<CR>')
+        require("neo-tree").setup({
+          source_selector = {
+            winbar = true,
+          }
+        })
+
+      end
     },
+
 
     { 'https://github.com/folke/zen-mode.nvim',
       init = function()
@@ -317,7 +278,9 @@ require("lazy").setup({
     },
 
     -- Git merge/diff viewer
-    { 'https://github.com/sindrets/diffview.nvim' }
+    { 'https://github.com/sindrets/diffview.nvim' },
+
+    -- 
 
   },
   install = { },

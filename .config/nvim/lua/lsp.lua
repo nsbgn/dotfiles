@@ -39,19 +39,15 @@ local on_attach = function(client, bufnr)
   --vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
-require'lspconfig'.texlab.setup{
-  filetypes = { "latex", "tex" }
-}
-
-
--- require'lspconfig'.marksman.setup{
---   filetypes = { "markdown", "markdown.pandoc" }
--- }
+vim.lsp.config('markdown_oxide', {
+  on_attach = on_attach
+})
+vim.lsp.enable('markdown_oxide')
 
 -- https://github.com/python-lsp/python-lsp-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
 -- $ pip3 install python-lsp-server[all] pylsp-mypy mypy
-require('lspconfig').pylsp.setup {
+vim.lsp.config('pylsp', {
   settings = {
     pylsp = {
       -- configurationSources = {"flake8"},
@@ -82,7 +78,7 @@ require('lspconfig').pylsp.setup {
       }
     }
   }
-}
+})
 
 -- https://vi.stackexchange.com/questions/39074/user-borders-around-lsp-floating-windows
 local _border = "single"

@@ -1,7 +1,6 @@
-" lua require('plugins')
-" lua require('lsp')
 lua require('plugins')
-lua vim.keymap.set('n', '<space><space>', ':')
+lua require('lsp')
+
 
 " Do not write which mode I am in; cursor should make that obvious anyway
 set noshowmode
