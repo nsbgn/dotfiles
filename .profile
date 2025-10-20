@@ -9,6 +9,7 @@ export PASSWORD_STORE_DIR=$HOME/.private/password-store
 export VDIRSYNCER_CONFIG=$HOME/.private/vdirsyncer/config
 export GNUPGHOME=$HOME/.private/gnupg
 
+export ALACRITTY_SOCKET=/run/user/1000/alacritty
 export GOPATH=$HOME/.go
 export EDITOR=nvim
 export BROWSER=firefox
@@ -18,8 +19,8 @@ export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export DMENU_OPTS="-l 20 -fn Inconsolata-13"
-export BAT_THEME="Coldark-Cold"
-export BAT_STYLE="plain"
+# export BAT_THEME="Coldark-Cold"
+# export BAT_STYLE="plain"
 export BEMENU_OPTS="\
     --grab -p '' -l 12 -H 30 --fn 'Inconsolata 15'\
     --no-overlap --scrollbar always\

@@ -6,21 +6,22 @@ include /etc/sway/config-vars.d/*
 set $os Mod4
 set $OS Mod4+Shift
 set $altgr Mod5
-set $menu fuzzel
+set $menu rofi -show drun -show-icons || fuzzel || bemenu-run
 
 default_border normal 0
 # default_border pixel 1
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
-font Overpass, FontAwesome 9
+font Overpass, Cascadia Mono NF, FontAwesome 2
 gaps inner 1
+gaps outer -1
 hide_edge_borders none
 smart_borders off
 smart_gaps off
 title_align center
-titlebar_border_thickness 1
-titlebar_padding 8 5
+titlebar_border_thickness 0
+titlebar_padding 0 0
 # title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
 
 # Lifted from <https://gist.github.com/Cardoso1994/80641d652a4adcf6c8f718ebc3770ab9>
@@ -35,16 +36,16 @@ set $purple   #d3869b
 set $aqua     #89b482
 
 #       Gruvbox Theme   brdr        bg          text    indictr     chld_brdr
-client.focused          $green      $green      $bg     $green      $green
-client.focused_inactive $dgreen     $bg         $fg     $green      $green
-client.unfocused        $bg         $bg         $fg     $bg         $bg
+client.focused          $green      $dgreen     $dgreen $green      $green
+client.focused_inactive $bg         $bg         $bg     $green      $green
+client.unfocused        $bg         $bg         $bg     $bg         $bg
 client.urgent           $red        $red        $bg     $red        $red
 client.placeholder      $bg         $bg         $bg     $bg         $bg
 client.background       $bg
 
 
 bar {
-   id bar0
+   id DP-7
    output DP-7
    status_command swayq bar DP-7
    mode dock
@@ -57,27 +58,32 @@ bar {
    font Overpass, FontAwesome 10
 }
 bar {
-   id bar1
+   id eDP-1
    output eDP-1
    status_command swayq bar eDP-1
    mode dock
    modifier Mod1
-   position bottom
+   position top
    status_padding 2
    status_edge_padding 5
    height 25
    workspace_buttons no
-   font Overpass, FontAwesome 10
+   font FontAwesome, Cascadia Mono NF, Overpass 10
+   colors {
+      statusline $fg
+      focused_workspace $fg $dgreen $fg
+      active_workspace $green $bg $fg
+      inactive_workspace $dgreen $bg $fg
+   }
 }
 
 
 # Startup ####################################################################
 
 exec dbus-update-activation-environment --verbose --systemd --all
-# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-#exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id lxpolkit
 exec foot --server
+exec alacritty --daemon --socket $ALACRITTY_SOCKET
 exec gammastep -O 5500K
 #exec swayq -m auto-exit-fullscreen
 
@@ -103,9 +109,8 @@ input type:pointer {
 }
 
 input type:keyboard {
-    xkb_layout handalf,handalf
-    xkb_variant handalf,handalf-colemak
-    xkb_numlock enabled
+    xkb_layout handalf
+    xkb_variant ,colemak_dh
     xkb_options compose:rwin
     repeat_delay 300
     repeat_rate 45
@@ -116,8 +121,9 @@ input type:touchpad {
     click_method clickfinger
     tap_button_map lrm
 }
-output * bg $bg solid_color
+output * bg "#000000" solid_color
 
+# Personal
 input 1386:18948:Wacom_HID_4A04_Finger map_to_output 'BOE 0x0AEC Unknown'
 output 'BOE 0x0AEC Unknown' {
    # Visible as 1536x1024
@@ -130,6 +136,7 @@ output 'Iiyama North America PL2710HD 11049A0300769' {
    pos 0 -1080
 }
 
+# Boox Mira
 input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
 output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'  {
 # Visible as 825x1100
@@ -148,31 +155,21 @@ output 'Unknown XtendTouch ' {
    transform 0
    scale 1.5
 }
-output Virtual-1 {
-   mode 1920x1080@60.000Hz
-   pos 0 0
-   transform 0
-   scale 1.5
-}
-
-# Titlebars ##################################################################
-
-for_window [app_id=Firefox] title_format " %title"
-for_window [app_id=^mpv$] title_format " %title"
-for_window [app_id=^imv$] title_format " %title"
-for_window [app_id=^org.telegram.desktop$] title_format " %title"
-for_window [app_id=^org.qutebrowser.qutebrowser$] title_format " %title"
-for_window [app_id=^org.pwmt.zathura$] title_format " %title"
-for_window [app_id=^foot-lf$] floating enable; border pixel 5
-
 
 # Keybinds ###################################################################
 
 bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
 bindsym --whole-window BTN_SIDE exec swayq workspace focus next
 
+bindsym --no-repeat --release Control_L exec $menu
 bindsym --no-repeat --release Super_L exec $menu
 bindsym --no-repeat --release Super_R exec $menu
+
+bindsym XF86Launch1 exec $menu
+bindsym XF86Launch2       exec swayq workspace focus prev
+bindsym Shift+XF86Launch2 exec swayq workspace move prev
+bindsym XF86Launch3       exec swayq workspace focus next
+bindsym Shift+XF86Launch3 exec swayq workspace move next
 
 # q
 bindcode $os+24 kill
@@ -249,14 +246,14 @@ bindcode $OS+60 exec swayq workspace move next
 # /
 bindcode $os+61 nop
 
-bindsym F1 workspace number 1
-bindsym F2 workspace number 2
-bindsym F3 workspace number 3
-bindsym F4 workspace number 4
-bindsym Shift+F1 move container to workspace number 1; workspace number 1
-bindsym Shift+F2 move container to workspace number 2; workspace number 2
-bindsym Shift+F3 move container to workspace number 3; workspace number 3
-bindsym Shift+F4 move container to workspace number 4; workspace number 4
+bindsym $os+1 workspace number 1
+bindsym $os+2 workspace number 2
+bindsym $os+3 workspace number 3
+bindsym $os+4 workspace number 4
+bindsym $OS+1 move container to workspace number 1; workspace number 1
+bindsym $OS+2 move container to workspace number 2; workspace number 2
+bindsym $OS+3 move container to workspace number 3; workspace number 3
+bindsym $OS+4 move container to workspace number 4; workspace number 4
 
 bindsym Ctrl+F1 reload
 bindsym Ctrl+F2 exec "npx mira reload"
