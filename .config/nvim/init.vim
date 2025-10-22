@@ -60,7 +60,8 @@ set clipboard=unnamedplus
 set list
 set listchars=tab:⇥\ ,trail:⸱,nbsp:⎵ " 
 
-set fillchars+=vert:*
+set fillchars+=vert:│
+set fillchars+=horiz:─
 set fillchars+=eob:\  " turn off tildes at the end of buffers
 
 " Disable swapfile
@@ -121,7 +122,6 @@ inoremap <silent> <C-S> <C-O>:update<CR>
 " vim.fn.sign_define("DiagnosticSignHint",
 "   {text = "", texthl = "DiagnosticSignHint"})
 " EOF
-
 
 " cf.https://www.jamescherti.com/vim-script-replace-the-home-directory-with-a-tilde/
 function! ReplaceHomeWithTilde(path) abort

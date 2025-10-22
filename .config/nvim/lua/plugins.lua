@@ -13,7 +13,7 @@ require("lazy").setup({
     { "https://github.com/neovim/nvim-lspconfig" },
 
     { "https://github.com/ellisonleao/gruvbox.nvim",
-      priority = 1000 ,
+      priority = 1000,
       config = true,
       init = function()
         require("gruvbox").setup({
@@ -37,18 +37,19 @@ require("lazy").setup({
           contrast = "hard",
           palette_overrides = {},
           overrides = {
-            SignColumn = { bg = "NONE" },
-            DiffAdd = { fg = "green", bg = "NONE" },
-            DiffChange = { fg = "gray", bg = "NONE" },
-            DiffDelete = { fg = "darkred", bg = "NONE" },
+            -- SignColumn = { bg = "NONE" },
+            -- DiffAdd = { fg = "green", bg = "NONE" },
+            -- DiffChange = { fg = "gray", bg = "NONE" },
+            -- DiffDelete = { fg = "darkred", bg = "NONE" },
+            -- markdownH1Delimiter = { standout = true },
             markdownH1 = { underline = true, bold = true },
+            -- markdownH2Delimiter = { standout = true },
             markdownH2 = { underline = true, bold = true, italic = true },
             markdownH3 = { underline = true, italic = true },
             markdownItalic = { italic = true },
-            markdownItalicDelimiter = { italic = true, fg="gray" },
+            markdownItalicDelimiter = { italic = true, fg = "gray" },
             markdownBold = { bold = true },
             markdownBoldDelimiter = { bold = true, fg = "gray" },
-            markdownCode = { fg = "black", bg = "gray" },
             markdownAutomaticLink = { underline = true },
             yamlBlockMappingKey = { bold = true, fg = "black" },
             yamlDocumentStart = { fg = "gray" },
@@ -76,7 +77,7 @@ require("lazy").setup({
     { "https://github.com/tpope/vim-commentary",
       init = function()
         vim.cmd[[
-        autocmd FileType turtle setlocal commentstring=#\ %s
+          autocmd FileType turtle setlocal commentstring=#\ %s
         ]]
       end
     },
@@ -113,8 +114,6 @@ require("lazy").setup({
 
     { 'https://github.com/lewis6991/gitsigns.nvim',
       init = function()
-        -- ● ◼ ▶ ▲ ◆
-        -- ○ ◻ ▷ △ ◇
         require('gitsigns').setup {
           signs = {
             add          = { text = '┋' },
@@ -231,7 +230,7 @@ require("lazy").setup({
           restore_win_options = true,
           skip_confirm_for_simple_edits = false,
           delete_to_trash = false,
-          trash_command = "trash-put",
+          -- trash_command = "trash-put",
           prompt_save_on_select_new_entry = true,
           -- See :help oil-actions for a list of all available actions
           keymaps = {
@@ -280,76 +279,48 @@ require("lazy").setup({
         -- fill any relevant options here
       },
       init = function()
-        vim.keymap.set('n', 't', ':Neotree source=filesystem reveal=true position=left toggle<CR>')
+        vim.keymap.set('n', '<space>f', ':Neotree source=filesystem reveal=true position=left toggle<CR>')
         require("neo-tree").setup({
           source_selector = {
             winbar = true,
           }
         })
-
       end
     },
 
-    { 'https://github.com/folke/zen-mode.nvim',
+    -- Git integration
+    { 'https://github.com/tpope/vim-fugitive',
       enabled = false,
-      init = function()
-        require("zen-mode").setup {
-          window = {
-            width = 82,
-            height = 1,
-            options = {
-            signcolumn = "yes", -- keep signcolumn
-            -- number = false, -- disable number column
-            -- relativenumber = false, -- disable relative numbers
-            -- cursorline = false, -- disable cursorline
-            -- cursorcolumn = false, -- disable cursor column
-            -- foldcolumn = "0", -- disable fold column
-            -- list = false, -- disable whitespace characters
-            },
-          },
-          plugins = {
-            options = {
-              enabled = true,
-              ruler = true,
-              showcmd = true,
-            },
-          },
-          -- cf <https://github.com/folke/zen-mode.nvim/issues/35>
-          -- on_open = function(_)
-          --   vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
-          --   vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
-          -- end,
-          -- on_close = function()
-          --   if vim.b.quitting == 1 then
-          --     vim.b.quitting = 0
-          --     vim.cmd 'q'
-          --   end
-          -- end,
-        }
-
-        -- vim.cmd([[
-        --   autocmd VimEnter * nested if winwidth("%") >= 100 | execute 'ZenMode' | endif
-        -- ]])
-      end
     },
 
     -- Git merge/diff viewer
     { 'https://github.com/sindrets/diffview.nvim' },
 
-    -- Git graph renderer
-    { 'https://github.com/rbong/vim-flog',
+    -- View git branches
+    { 'https://github.com/junegunn/gv.vim',
       enabled = false,
-      lazy = true,
-      cmd = {'Flog', 'Flogsplit', 'Floggit'},
-      dependencies = {
-        'https://github.com/tpope/vim-fugitive'
-      },
     },
 
-    -- Git integration
-    { 'https://github.com/tpope/vim-fugitive' },
-    { 'https://github.com/junegunn/gv.vim' },
+    -- -- Folds
+    { 'https://github.com/kevinhwang91/nvim-ufo',
+      enabled = true,
+      dependencies = {'https://github.com/kevinhwang91/promise-async' },
+      init = function()
+        if vim.version().minor >= 12 or vim.version().major > 0 then
+          vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'
+        end
+        vim.o.foldcolumn = '0'
+        vim.o.foldlevel = 99
+        vim.o.foldlevelstart = 99
+        vim.o.foldenable = true
 
+        require('ufo').setup({
+          provider_selector = function(bufnr, filetype, buftype)
+            return {'treesitter', 'indent'}
+          end,
+        })
+      end
+    },
   },
   install = { },
   checker = { enabled = false },
