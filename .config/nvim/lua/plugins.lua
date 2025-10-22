@@ -14,6 +14,7 @@ require("lazy").setup({
 
     { "https://github.com/ellisonleao/gruvbox.nvim",
       priority = 1000,
+      enabled = true,
       config = true,
       init = function()
         require("gruvbox").setup({
@@ -37,7 +38,8 @@ require("lazy").setup({
           contrast = "hard",
           palette_overrides = {},
           overrides = {
-            -- SignColumn = { bg = "NONE" },
+            Normal = { bg = "NONE" },
+            SignColumn = { bg = "NONE" },
             -- DiffAdd = { fg = "green", bg = "NONE" },
             -- DiffChange = { fg = "gray", bg = "NONE" },
             -- DiffDelete = { fg = "darkred", bg = "NONE" },
@@ -55,9 +57,10 @@ require("lazy").setup({
             yamlDocumentStart = { fg = "gray" },
           },
           dim_inactive = false,
-          transparent_mode = true,
+          transparent_mode = false,
         })
-        vim.cmd("colorscheme gruvbox")
+        vim.cmd.colorscheme "gruvbox"
+        vim.opt.background = "light"
       end
     },
 
