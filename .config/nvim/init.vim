@@ -60,7 +60,7 @@ set clipboard=unnamedplus
 set list
 set listchars=tab:⇥\ ,trail:⸱,nbsp:⎵ " 
 
-set fillchars+=vert:│
+set fillchars+=vert:▏
 set fillchars+=horiz:─
 set fillchars+=eob:\  " turn off tildes at the end of buffers
 

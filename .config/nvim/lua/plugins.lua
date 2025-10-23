@@ -55,12 +55,12 @@ require("lazy").setup({
             markdownAutomaticLink = { underline = true },
             yamlBlockMappingKey = { bold = true, fg = "black" },
             yamlDocumentStart = { fg = "gray" },
+            NeoTreeWinSeparator = { bg = "NONE", fg = "gray" },
           },
           dim_inactive = false,
           transparent_mode = false,
         })
         vim.cmd.colorscheme "gruvbox"
-        vim.opt.background = "light"
       end
     },
 
@@ -98,6 +98,21 @@ require("lazy").setup({
       end
     },
 
+    { 'https://github.com/folke/which-key.nvim',
+      event = "VeryLazy",
+      opts = {
+      },
+      keys = {
+        {
+          "<leader>?",
+          function()
+            require("which-key").show({ global = false })
+          end,
+          desc = "Buffer Local Keymaps (which-key)",
+        },
+      },
+    },
+
     -- Return to last position when editing files
     { 'https://github.com/farmergreg/vim-lastplace' },
 
@@ -119,20 +134,20 @@ require("lazy").setup({
       init = function()
         require('gitsigns').setup {
           signs = {
-            add          = { text = '┋' },
-            change       = { text = '┇' },
-            delete       = { text = '▷' },
-            topdelete    = { text = '△' },
-            changedelete = { text = '┅' },
-            untracked    = { text = '║' },
-          },
-          signs_staged = {
             add          = { text = '┃' },
             change       = { text = '┃' },
             delete       = { text = '▶' },
             topdelete    = { text = '▲' },
             changedelete = { text = '━' },
-            untracked    = { text = '║' },
+            untracked    = { text = '┆' },
+          },
+          signs_staged = {
+            add          = { text = '┋' },
+            change       = { text = '┋' },
+            delete       = { text = '▷' },
+            topdelete    = { text = '△' },
+            changedelete = { text = '┅' },
+            untracked    = { text = '┆' },
           },
           signs_staged_enable = true,
           signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
@@ -165,9 +180,13 @@ require("lazy").setup({
             row = 0,
             col = 1
           },
+          _on_attach_pre = function(bufnr, callback)
+              require("gitsigns-yadm").yadm_signs(callback, { bufnr = bufnr })
+          end,
         }
       end
     },
+    { 'https://github.com/purarue/gitsigns-yadm.nvim' },
 
     { 'https://github.com/smoka7/hop.nvim',
       version = "*",
@@ -293,7 +312,7 @@ require("lazy").setup({
 
     -- Git integration
     { 'https://github.com/tpope/vim-fugitive',
-      enabled = false,
+      enabled = true,
     },
 
     -- Git merge/diff viewer
@@ -301,7 +320,7 @@ require("lazy").setup({
 
     -- View git branches
     { 'https://github.com/junegunn/gv.vim',
-      enabled = false,
+      enabled = true,
     },
 
     -- -- Folds
