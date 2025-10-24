@@ -1,7 +1,6 @@
 #!/bin/sh
 # Shows a text preview of a file.
 
-BAT=$(which batcat || which bat)
 F="$1"
 EXT="$(echo "${F##*.}" | tr '[:upper:]' '[:lower:]' )"
 case "$EXT" in
@@ -50,7 +49,7 @@ case "$EXT" in
         if [ "$(file --brief --mime-encoding "$F")" = "binary" ]; then
             hexyl --length 768 "$F"
         else
-            $BAT --italic-text=always --decorations=always --color=always "$F"
+            cat "$F"
         fi
         ;;
 esac
