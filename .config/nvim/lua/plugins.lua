@@ -12,9 +12,20 @@ require("lazy").setup({
   spec = {
     { "https://github.com/neovim/nvim-lspconfig" },
 
+    { 'https://github.com/yorickpeterse/vim-paper',
+      init = function()
+        vim.cmd.colorscheme 'paper'
+        vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "markdownH1", { underline = true, bold = true })
+        vim.api.nvim_set_hl(0, "markdownH2", { underline = true, bold = true, italic= true })
+        vim.api.nvim_set_hl(0, "markdownH3", { underline = true, italic = true })
+      end
+    },
+
     { "https://github.com/ellisonleao/gruvbox.nvim",
       priority = 1000,
-      enabled = true,
+      enabled = false,
       config = true,
       init = function()
         require("gruvbox").setup({
@@ -38,7 +49,7 @@ require("lazy").setup({
           contrast = "hard",
           palette_overrides = {},
           overrides = {
-            Normal = { bg = "NONE" },
+            -- Normal = { bg = "NONE" },
             SignColumn = { bg = "NONE" },
             -- DiffAdd = { fg = "green", bg = "NONE" },
             -- DiffChange = { fg = "gray", bg = "NONE" },
@@ -56,9 +67,10 @@ require("lazy").setup({
             yamlBlockMappingKey = { bold = true, fg = "black" },
             yamlDocumentStart = { fg = "gray" },
             NeoTreeWinSeparator = { bg = "NONE", fg = "gray" },
+            NeoTreeTabActive = { bg = "NONE" },
           },
           dim_inactive = false,
-          transparent_mode = false,
+          transparent_mode = true,
         })
         vim.cmd.colorscheme "gruvbox"
       end
@@ -225,6 +237,7 @@ require("lazy").setup({
 
     -- Syntax highlighting
     { 'https://github.com/niklasl/vim-rdf' },
+    { 'https://github.com/vim-scripts/sparql.vim' },
     { 'https://github.com/ledger/vim-ledger' },
 
     { 'https://github.com/stevearc/oil.nvim',
