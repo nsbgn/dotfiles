@@ -5,12 +5,12 @@ which keyd || exit 0
 
 cd ~/.builds
 
-if [ -d "thumbledore" ]; then
-    cd thumbledore
+if [ -d "handalf" ]; then
+    cd handalf
     git pull
 else
-    git clone https://github.com/nsbgn/thumbledore.git
-    cd thumbledore
+    git clone https://github.com/nsbgn/handalf.git
+    cd handalf
 fi
 
 sudo make install

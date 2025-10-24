@@ -10,12 +10,12 @@ set -eu
 CUR="$(which nvim || echo)"
 
 OLDVER="$(nvim -v | grep "NVIM v" | cut -d' ' -f2)"
-NEWVER="$(curl -s 'https://api.github.com/repos/neovim/neovim/releases' | \
-    jq -r '[.[] | select(.prerelease == false)] | .[0].tag_name')"
+read -r NEWVER URL << EOF
+$(curl -s 'https://api.github.com/repos/neovim/neovim/releases' | jq -r '[.[] | select(.prerelease == false)] | .[0] | .tag_name + " " + first(.assets[] | .browser_download_url | select(endswith("x86_64.appimage")))')
+EOF
 
 DIR="$HOME/.local/bin"
 BIN="nvim"
-URL="https://github.com/neovim/neovim/releases/download/stable/nvim.appimage"
 
 if [ "$CUR" = "$DIR/$BIN" -a "$OLDVER" = "$NEWVER" ]; then
     echo "Neovim stable ($NEWVER) is installed already." >&2
