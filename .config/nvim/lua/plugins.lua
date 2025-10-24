@@ -13,6 +13,7 @@ require("lazy").setup({
     { "https://github.com/neovim/nvim-lspconfig" },
 
     { 'https://github.com/yorickpeterse/vim-paper',
+      enabled = true,
       init = function()
         vim.cmd.colorscheme 'paper'
         vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
