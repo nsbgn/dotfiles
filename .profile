@@ -19,8 +19,12 @@ export MYPY_CACHE_DIR=/tmp/mypycache
 export LEDGER=$HOME/notes/money/current.ledger
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 export DMENU_OPTS="-l 20 -fn Inconsolata-13"
-# export BAT_THEME="Coldark-Cold"
-# export BAT_STYLE="plain"
+
+export BAT_STYLE="changes"
+export BAT_THEME="auto"
+export BAT_THEME_LIGHT="gruvbox-light"
+export BAT_THEME_DARK="gruvbox-dark"
+
 export BEMENU_OPTS="\
     --grab -p '' -l 12 -H 30 --fn 'Inconsolata 15'\
     --no-overlap --scrollbar always\
