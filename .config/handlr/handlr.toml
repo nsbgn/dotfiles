@@ -1,7 +1,0 @@
-enable_selector = false
-selector = "dmenu -i -p 'Open With: '"
-
-[[handlers]]
-exec = "mpv %u"
-terminal = false
-regexes = ['(https://)?(www\.)?youtu(be\.com|\.be)/*.']

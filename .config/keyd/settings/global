@@ -1,6 +1,0 @@
-[global]
-chord_timeout = 50
-overload_tap_timeout = 300
-oneshot_timeout = 500
-default_layout = qwerty
-disable_modifier_guard = 0
