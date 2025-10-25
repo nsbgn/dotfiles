@@ -1,4 +1,3 @@
-lua require('plugins')
 lua require('lsp')
 
 " Do not write which mode I am in; cursor should make that obvious anyway
@@ -139,3 +138,17 @@ function! ReplaceHomeWithTilde(path) abort
 
   return l:path
 endfunction
+
+lua << EOF
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+end
+vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+require("lazy").setup("plugins")
+EOF
