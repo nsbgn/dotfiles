@@ -1,18 +1,12 @@
 return {
-  { 'https://github.com/smoka7/hop.nvim',
-    version = "*",
-    opts = {
-      keys = 'etovxqpdygfblzhckisuran'
-    }
-  },
-
   -- Comfortable middle ground between hop and sneak
   { 'https://github.com/ggandor/leap.nvim',
+    enabled = false,
     init = function()
       require('leap').opts.highlight_unlabeled_phase_one_targets = true
 
       vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
-      vim.keymap.set('n',             'S', '<Plug>(leap-backward)')
+      vim.keymap.set('n', 'S', '<Plug>(leap-backward)')
 
       -- Highly recommended: define a preview filter to reduce visual noise
       -- and the blinking effect after the first keypress
@@ -45,12 +39,8 @@ return {
       vim.api.nvim_set_hl(0, 'LeapMatch', { fg = 'white', bg = 'black' })
       vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { fg = 'white', bg = 'blue' })
       vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { fg = 'white', bg = 'red' })
-    end
-  },
 
-  { 'https://github.com/ggandor/flit.nvim',
-    init = function()
-      require('flit').setup()
+      -- Also set leap-ft, to go with https://github.com/ggandor/flit.nvim
     end
   },
 }
