@@ -7,6 +7,9 @@ set termguicolors
 
 set breakindent
 
+" for searching and flash.nvim matching
+set ignorecase
+
 " Don't show status bar, etc
 set laststatus=0
 set noshowcmd
