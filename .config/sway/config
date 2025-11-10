@@ -6,7 +6,7 @@ include /etc/sway/config-vars.d/*
 set $os Mod4
 set $OS Mod4+Shift
 set $altgr Mod5
-set $menu rofi -show drun -show-icons || fuzzel || bemenu-run
+set $menu rofi -show drun -show-icons
 
 default_border normal 0
 # default_border pixel 1
@@ -158,114 +158,122 @@ output 'Unknown XtendTouch ' {
 
 # Keybinds ###################################################################
 
-bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
-bindsym --whole-window BTN_SIDE exec swayq workspace focus next
+mode "passthrough" {
+   bindsym Escape mode "default"
+}
 
-bindsym --no-repeat --release Control_L exec $menu
-bindsym --no-repeat --release Super_L exec $menu
-bindsym --no-repeat --release Super_R exec $menu
+mode "default" {
+   bindsym Scroll_Lock mode "passthrough"
 
-bindsym XF86Launch1 exec $menu
-bindsym XF86Launch2       exec swayq workspace focus prev
-bindsym Shift+XF86Launch2 exec swayq workspace move prev
-bindsym XF86Launch3       exec swayq workspace focus next
-bindsym Shift+XF86Launch3 exec swayq workspace move next
+   bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
+   bindsym --whole-window BTN_SIDE exec swayq workspace focus next
 
-# q
-bindcode $os+24 kill
-# w
-bindcode $os+25 swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg
-# e
-bindcode $os+26 exec dmenu-mpv
-# r
-bindcode $os+27 exec dmenu-pass
-# t
-bindcode $os+28 input type:keyboard xkb_switch_layout next
-# y
-bindcode $os+29 floating toggle
-# u
-bindcode $os+30 exec swayq workspace focus prev
-bindcode $OS+30 exec swayq workspace move prev
-# i
-bindcode $os+31 focus up
-bindcode $OS+31 move up
-# o
-bindcode $os+32 exec swayq workspace focus next
-bindcode $OS+32 exec swayq workspace move next
-# p
-bindcode $os+33 nop # p
+   bindsym --no-repeat --release Control_L exec $menu
+   bindsym --no-repeat --release Super_L exec $menu
+   bindsym --no-repeat --release Super_R exec $menu
 
-# a
-bindcode $os+38 focus mode_toggle
-# s
-bindcode $os+39 nop
-# d
-bindcode $os+40 nop
-# f
-bindcode $os+41 fullscreen
-# g
-bindcode $os+42 nop
-# h
-bindcode $os+43 exec swayq workspace focus prev
-bindcode $OS+43 exec swayq workspace move prev
+   bindsym XF86Launch1 exec $menu
+   bindsym XF86Launch2       exec swayq workspace focus prev
+   bindsym Shift+XF86Launch2 exec swayq workspace move prev
+   bindsym XF86Launch3       exec swayq workspace focus next
+   bindsym Shift+XF86Launch3 exec swayq workspace move next
 
-# j
-bindcode $os+44 focus left
-bindcode $OS+44 move left
-# k
-bindcode $os+45 focus down
-bindcode $OS+45 move down
-# l
-bindcode $os+46 focus right
-bindcode $OS+46 move right
-# ;
-bindcode $os+47 exec swayq workspace focus next
-bindcode $OS+47 exec swayq workspace move next
+   # q
+   bindcode $os+24 kill
+   # w
+   bindcode $os+25 swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg
+   # e
+   bindcode $os+26 exec dmenu-mpv
+   # r
+   bindcode $os+27 exec dmenu-pass
+   # t
+   bindcode $os+28 input type:keyboard xkb_switch_layout next
+   # y
+   bindcode $os+29 floating toggle
+   # u
+   bindcode $os+30 exec swayq workspace focus prev
+   bindcode $OS+30 exec swayq workspace move prev
+   # i
+   bindcode $os+31 focus up
+   bindcode $OS+31 move up
+   # o
+   bindcode $os+32 exec swayq workspace focus next
+   bindcode $OS+32 exec swayq workspace move next
+   # p
+   bindcode $os+33 nop # p
 
-# z
-bindcode $os+52 nop
-# x
-bindcode $os+53 nop
-# c
-bindcode $os+54 exec foot-cwd
-# v
-bindcode $os+55 nop
-# b
-bindcode $os+56 nop
-# n
-bindcode $os+57 exec $menu
-# m
-bindcode $os+58 exec foot-cwd
-# ,
-bindcode $os+59 exec swayq workspace focus prev
-bindcode $OS+59 exec swayq workspace move prev
-# .
-bindcode $os+60 exec swayq workspace focus next
-bindcode $OS+60 exec swayq workspace move next
+   # a
+   bindcode $os+38 focus mode_toggle
+   # s
+   bindcode $os+39 nop
+   # d
+   bindcode $os+40 nop
+   # f
+   bindcode $os+41 fullscreen
+   # g
+   bindcode $os+42 nop
+   # h
+   bindcode $os+43 exec swayq workspace focus prev
+   bindcode $OS+43 exec swayq workspace move prev
 
-# /
-bindcode $os+61 nop
+   # j
+   bindcode $os+44 focus left
+   bindcode $OS+44 move left
+   # k
+   bindcode $os+45 focus down
+   bindcode $OS+45 move down
+   # l
+   bindcode $os+46 focus right
+   bindcode $OS+46 move right
+   # ;
+   bindcode $os+47 exec swayq workspace focus next
+   bindcode $OS+47 exec swayq workspace move next
 
-bindsym $os+1 workspace number 1
-bindsym $os+2 workspace number 2
-bindsym $os+3 workspace number 3
-bindsym $os+4 workspace number 4
-bindsym $OS+1 move container to workspace number 1; workspace number 1
-bindsym $OS+2 move container to workspace number 2; workspace number 2
-bindsym $OS+3 move container to workspace number 3; workspace number 3
-bindsym $OS+4 move container to workspace number 4; workspace number 4
+   # z
+   bindcode $os+52 nop
+   # x
+   bindcode $os+53 nop
+   # c
+   bindcode $os+54 exec foot-cwd
+   # v
+   bindcode $os+55 nop
+   # b
+   bindcode $os+56 nop
+   # n
+   bindcode $os+57 exec $menu
+   # m
+   bindcode $os+58 exec foot-cwd
+   # ,
+   bindcode $os+59 exec swayq workspace focus prev
+   bindcode $OS+59 exec swayq workspace move prev
+   # .
+   bindcode $os+60 exec swayq workspace focus next
+   bindcode $OS+60 exec swayq workspace move next
 
-bindsym Ctrl+F1 reload
-bindsym Ctrl+F2 exec "npx mira reload"
+   # /
+   bindcode $os+61 nop
 
-bindsym XF86AudioRaiseVolume exec pamixer -ui 2
-bindsym XF86AudioLowerVolume exec pamixer -ud 2
-bindsym XF86AudioMute exec pamixer --toggle-mute
-bindsym XF86MonBrightnessDown exec brightnessctl set 2%-
-bindsym XF86MonBrightnessUp exec brightnessctl set 2%+
-bindsym XF86AudioRewind exec playerctl position -1
-bindsym XF86AudioForward exec playerctl position +1
-bindsym XF86AudioPrev exec playerctl prev
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioStop exec playerctl stop
+   bindsym $os+1 workspace number 1
+   bindsym $os+2 workspace number 2
+   bindsym $os+3 workspace number 3
+   bindsym $os+4 workspace number 4
+   bindsym $OS+1 move container to workspace number 1; workspace number 1
+   bindsym $OS+2 move container to workspace number 2; workspace number 2
+   bindsym $OS+3 move container to workspace number 3; workspace number 3
+   bindsym $OS+4 move container to workspace number 4; workspace number 4
+
+   bindsym Ctrl+F1 reload
+   bindsym Ctrl+F2 exec "npx mira reload"
+
+   bindsym XF86AudioRaiseVolume exec pamixer -ui 2
+   bindsym XF86AudioLowerVolume exec pamixer -ud 2
+   bindsym XF86AudioMute exec pamixer --toggle-mute
+   bindsym XF86MonBrightnessDown exec brightnessctl set 2%-
+   bindsym XF86MonBrightnessUp exec brightnessctl set 2%+
+   bindsym XF86AudioRewind exec playerctl position -1
+   bindsym XF86AudioForward exec playerctl position +1
+   bindsym XF86AudioPrev exec playerctl prev
+   bindsym XF86AudioNext exec playerctl next
+   bindsym XF86AudioPlay exec playerctl play-pause
+   bindsym XF86AudioStop exec playerctl stop
+}
