@@ -1,0 +1,19 @@
+# $HOME/.config/alacritty/alacritty.toml
+
+[window]
+opacity = 1
+padding.x = 0
+padding.y = 0
+
+[colors.primary]
+background = "#000000"
+
+[font]
+# normal.family = "Cascadia Code PL"
+# bold.family = "Cascadia Code PL"
+# italic.family = "Cascadia Code PL"
+# bold_italic.family = "Cascadia Code PL"
+# size = 15.0
+
+[keyboard]
+bindings = [{key = "Cancel", mods = "None", chars = "\u001b"}]
