@@ -121,7 +121,7 @@ input type:touchpad {
     click_method clickfinger
     tap_button_map lrm
 }
-output * bg "#000000" solid_color
+output * bg "#282828" solid_color
 
 # Personal
 input 1386:18948:Wacom_HID_4A04_Finger map_to_output 'BOE 0x0AEC Unknown'
@@ -214,8 +214,8 @@ mode "default" {
    # g
    bindcode $os+42 nop
    # h
-   # bindcode $os+43 exec swayq workspace focus prev
-   # bindcode $OS+43 exec swayq workspace move prev
+   bindcode $os+43 exec alacritty
+   bindsym  Pause  exec alacritty
 
    # j / keycode 44
    bindsym F4 focus left
