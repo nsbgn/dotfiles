@@ -72,6 +72,8 @@ set noswapfile
 set title
 set titlestring=%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)%m
 
+" See :help key-notation
+inoremap <S-F6> <Esc>
 
 " Formatting """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

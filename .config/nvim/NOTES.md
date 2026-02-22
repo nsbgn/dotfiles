@@ -1,5 +1,8 @@
 # Moving to Lua
 
+https://nathan-long.com/blog/modern-javascript-tooling-in-neovim
+https://vi.stackexchange.com/questions/39074/user-borders-around-lsp-floating-windows
+
 https://github.com/nanotee/nvim-lua-guide/
 https://toroid.org/modern-neovim
 https://joehallenbeck.com/the-glories-of-text-files-on-using-vim-for-code-and-prose/

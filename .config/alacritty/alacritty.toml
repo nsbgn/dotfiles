@@ -13,7 +13,7 @@ background = "#000000"
 # bold.family = "Cascadia Code PL"
 # italic.family = "Cascadia Code PL"
 # bold_italic.family = "Cascadia Code PL"
-# size = 15.0
+size = 13.0
 
 [keyboard]
 bindings = [{key = "Cancel", mods = "None", chars = "\u001b"}]

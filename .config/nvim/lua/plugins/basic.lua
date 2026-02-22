@@ -30,6 +30,11 @@ return {
     end
   },
 
+  -- movement with A-{h,j,k,l}
+  { 'https://github.com/matze/vim-move' },
+  --{ 'https://github.com/nvim-mini/mini.move' },
+  --{ 'https://github.com/booperlv/nvim-gomove' },
+
   -- Integrate direnv; see <https://direnv.net/>
   { 'https://github.com/direnv/direnv.vim' },
 

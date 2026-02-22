@@ -1,7 +1,7 @@
 return {
   { "https://github.com/ellisonleao/gruvbox.nvim",
     priority = 1000,
-    enabled = false,
+    enabled = true,
     config = true,
     init = function()
       require("gruvbox").setup({

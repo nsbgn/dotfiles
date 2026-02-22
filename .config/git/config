@@ -5,8 +5,8 @@
 	email = nsbg@mailbox.org
 [core]
 	editor = nvim
-	; pager = delta --dark --syntax-theme=gruvbox-dark
-	pager = delta --light --syntax-theme=gruvbox-light
+	pager = delta --dark --syntax-theme=gruvbox-dark
+#	pager = delta --light --syntax-theme=gruvbox-light
 [column]
 	ui = auto
 [branch]

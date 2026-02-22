@@ -1,7 +1,7 @@
 return {
 -- Folds
   { 'https://github.com/kevinhwang91/nvim-ufo',
-    enabled = true,
+    enabled = false,
     dependencies = {'https://github.com/kevinhwang91/promise-async' },
     init = function()
       if vim.version().minor >= 12 or vim.version().major > 0 then

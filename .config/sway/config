@@ -109,9 +109,9 @@ input type:pointer {
 }
 
 input type:keyboard {
-    xkb_layout handalf
+    xkb_layout handalf,handalf
     xkb_variant ,colemak_dh
-    xkb_options compose:rwin
+    xkb_options compose:102
     repeat_delay 300
     repeat_rate 45
 }
@@ -168,7 +168,6 @@ mode "default" {
    bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
    bindsym --whole-window BTN_SIDE exec swayq workspace focus next
 
-   bindsym --no-repeat --release Control_L exec $menu
    bindsym --no-repeat --release Super_L exec $menu
    bindsym --no-repeat --release Super_R exec $menu
 
@@ -194,13 +193,15 @@ mode "default" {
    bindcode $os+30 exec swayq workspace focus prev
    bindcode $OS+30 exec swayq workspace move prev
    # i
+   bindsym F8 focus up
+   bindsym Shift+F8 move up
    bindcode $os+31 focus up
    bindcode $OS+31 move up
    # o
    bindcode $os+32 exec swayq workspace focus next
    bindcode $OS+32 exec swayq workspace move next
    # p
-   bindcode $os+33 nop # p
+   bindcode $os+33 nop
 
    # a
    bindcode $os+38 focus mode_toggle
@@ -213,28 +214,34 @@ mode "default" {
    # g
    bindcode $os+42 nop
    # h
-   bindcode $os+43 exec swayq workspace focus prev
-   bindcode $OS+43 exec swayq workspace move prev
+   # bindcode $os+43 exec swayq workspace focus prev
+   # bindcode $OS+43 exec swayq workspace move prev
 
-   # j
+   # j / keycode 44
+   bindsym F4 focus left
+   bindsym Shift+F4 move left
    bindcode $os+44 focus left
    bindcode $OS+44 move left
    # k
+   bindsym F5 focus down
+   bindsym Shift+F5 move down
    bindcode $os+45 focus down
    bindcode $OS+45 move down
    # l
+   bindsym F6 focus right
+   bindsym Shift+F6 move right
    bindcode $os+46 focus right
    bindcode $OS+46 move right
    # ;
-   bindcode $os+47 exec swayq workspace focus next
-   bindcode $OS+47 exec swayq workspace move next
+   # bindcode $os+47 exec swayq workspace focus next
+   # bindcode $OS+47 exec swayq workspace move next
 
    # z
    bindcode $os+52 nop
    # x
    bindcode $os+53 nop
    # c
-   bindcode $os+54 exec foot-cwd
+   bindcode $os+54 exec alacritty
    # v
    bindcode $os+55 nop
    # b
@@ -242,11 +249,15 @@ mode "default" {
    # n
    bindcode $os+57 exec $menu
    # m
-   bindcode $os+58 exec foot-cwd
+   bindcode $os+58 exec alacritty
    # ,
+   bindsym F2       exec swayq workspace focus prev
+   bindsym Shift+F2 exec swayq workspace move prev
    bindcode $os+59 exec swayq workspace focus prev
    bindcode $OS+59 exec swayq workspace move prev
    # .
+   bindsym F3 exec swayq workspace focus next
+   bindsym Shift+F3 exec swayq workspace move next
    bindcode $os+60 exec swayq workspace focus next
    bindcode $OS+60 exec swayq workspace move next
 

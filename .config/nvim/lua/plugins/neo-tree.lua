@@ -17,6 +17,12 @@ return {
     init = function()
       vim.keymap.set('n', '<space>f', ':Neotree source=filesystem reveal=true position=left toggle<CR>')
       require("neo-tree").setup({
+        sources = {
+          "filesystem",
+          "buffers",
+          "git_status",
+          "document_symbols",
+        },
         source_selector = {
           winbar = true,
         }
