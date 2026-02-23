@@ -160,10 +160,11 @@ output 'Unknown XtendTouch ' {
 
 mode "passthrough" {
    bindsym Escape mode "default"
+   bindsym Cancel mode "default"
 }
 
 mode "default" {
-   bindsym Scroll_Lock mode "passthrough"
+   bindsym $os+Cancel mode "passthrough"
 
    bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
    bindsym --whole-window BTN_SIDE exec swayq workspace focus next
@@ -215,7 +216,7 @@ mode "default" {
    bindcode $os+42 nop
    # h
    bindcode $os+43 exec alacritty
-   bindsym  Pause  exec alacritty
+   bindsym  F11    exec alacritty
 
    # j / keycode 44
    bindsym F4 focus left
