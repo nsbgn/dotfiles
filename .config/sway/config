@@ -5,7 +5,6 @@ include /etc/sway/config-vars.d/*
 
 set $os Mod4
 set $fn Mod4+Mod1
-set $OS Mod4+Shift
 set $altgr Mod5
 set $menu rofi -show drun -show-icons
 
@@ -77,9 +76,28 @@ bar {
       inactive_workspace $dgreen $bg $fg
    }
 }
+bar {
+   output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
+   id eink-monitor
+   status_command swayq bar eink-monitor
+   mode dock
+   modifier Mod1
+   position top
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons yes
+   font FontAwesome, Cascadia Mono NF, Overpass 10
+   colors {
+      statusline #000000
+      background #ffffff
+      focused_workspace #bbbbbb #ffffff #000000
+      active_workspace #ffffff #ffffff #000000
+      inactive_workspace #ffffff #ffffff #000000
+   }
+}
 
-
-# Startup ####################################################################
+# Startup ##############################################################
 
 exec dbus-update-activation-environment --verbose --systemd --all
 exec --no-startup-id lxpolkit
@@ -88,31 +106,21 @@ exec alacritty --daemon --socket $ALACRITTY_SOCKET
 exec gammastep -O 5500K
 #exec swayq -m auto-exit-fullscreen
 
-# exec squeekboard
-
-# Gestures
-# Do: `libinput list-devices`
-# or: `udevadm info --export-db --property-match=ID_INPUT_TOUCHSCREEN=1`
-# exec lisgd -d /dev/input/event5 \
-#     -s 1.25 \
-#     -g '1,DU,B,*,R,busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true'
-
 #exec swayidle -w \
 #	timeout 60 'swaymsg "output * power off"' \
 #	timeout 600 'swaylock -f' \
 #	resume 'swaymsg "output * power on"'
 
-# Devices ####################################################################
+# Input devices #######################################################
 
 input type:pointer {
     accel_profile "adaptive"
     pointer_accel 0.9
 }
-
 input type:keyboard {
     xkb_layout handalf,handalf
     xkb_variant ,colemak_dh
-    xkb_options compose:102
+    # xkb_options compose:102
     repeat_delay 300
     repeat_rate 45
 }
@@ -124,6 +132,8 @@ input type:touchpad {
 }
 output * bg "#282828" solid_color
 
+# Monitors & touchscreens #############################################
+
 # Personal
 input 1386:18948:Wacom_HID_4A04_Finger map_to_output 'BOE 0x0AEC Unknown'
 output 'BOE 0x0AEC Unknown' {
@@ -132,12 +142,14 @@ output 'BOE 0x0AEC Unknown' {
    scale 1.25
    pos 0 0
 }
+
+# Second monitor
 output 'Iiyama North America PL2710HD 11049A0300769' {
    mode 1920x1080@60.000Hz
    pos 0 -1080
 }
 
-# Boox Mira
+# Boox Mira e-ink monitor
 input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
 output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'  {
 # Visible as 825x1100
@@ -148,6 +160,7 @@ output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'  {
    bg #ffffff solid_color
 }
 
+# Portable monitor
 input 8746:1:ILITEK_ILITEK-TP map_to_output DP-2
 input 1032:12296:Quanta_OpticalTouchScreen map_to_output DVI-I-1
 output 'Unknown XtendTouch ' {
@@ -157,7 +170,7 @@ output 'Unknown XtendTouch ' {
    scale 1.5
 }
 
-# Keybinds ###################################################################
+# Keybinds #############################################################
 
 mode "passthrough" {
    bindsym Escape mode "default"
@@ -172,12 +185,6 @@ mode "default" {
 
    bindsym --no-repeat --release Super_L exec $menu
    bindsym --no-repeat --release Super_R exec $menu
-
-   bindsym XF86Launch1 exec $menu
-   bindsym XF86Launch2       exec swayq workspace focus prev
-   bindsym Shift+XF86Launch2 exec swayq workspace move prev
-   bindsym XF86Launch3       exec swayq workspace focus next
-   bindsym Shift+XF86Launch3 exec swayq workspace move next
 
    # q
    bindcode $os+24 kill
@@ -270,13 +277,19 @@ mode "default" {
    bindsym $os+2 workspace number 2
    bindsym $os+3 workspace number 3
    bindsym $os+4 workspace number 4
-   bindsym $OS+1 move container to workspace number 1; workspace number 1
-   bindsym $OS+2 move container to workspace number 2; workspace number 2
-   bindsym $OS+3 move container to workspace number 3; workspace number 3
-   bindsym $OS+4 move container to workspace number 4; workspace number 4
+   bindsym $os+Shift+1 move container to workspace number 1; workspace number 1
+   bindsym $os+Shift+2 move container to workspace number 2; workspace number 2
+   bindsym $os+Shift+3 move container to workspace number 3; workspace number 3
+   bindsym $os+Shift+4 move container to workspace number 4; workspace number 4
 
    bindsym Ctrl+F1 reload
    bindsym Ctrl+F2 exec "npx mira reload"
+
+   bindsym XF86Launch1 exec $menu
+   bindsym XF86Launch2       exec swayq workspace focus prev
+   bindsym Shift+XF86Launch2 exec swayq workspace move prev
+   bindsym XF86Launch3       exec swayq workspace focus next
+   bindsym Shift+XF86Launch3 exec swayq workspace move next
 
    bindsym XF86AudioRaiseVolume exec pamixer -ui 2
    bindsym XF86AudioLowerVolume exec pamixer -ud 2
@@ -289,4 +302,5 @@ mode "default" {
    bindsym XF86AudioNext exec playerctl next
    bindsym XF86AudioPlay exec playerctl play-pause
    bindsym XF86AudioStop exec playerctl stop
+   bindsym XF86Close kill
 }
