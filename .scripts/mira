@@ -19,12 +19,12 @@ EOF
 
 if miractl detect; then
     miractl set \
-        --speed 4 \
-        --contrast 5 \
-        --warm 20 \
-        --cold 10 \
-        --refresh-mode grey \
-        --filter 10:96
+        --speed 2 \
+        --contrast 9 \
+        --warm 16 \
+        --cold 8 \
+        --refresh-mode direct \
+        --filter 15:100
 else
     echo Not connected.
 fi
