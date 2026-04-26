@@ -20,6 +20,7 @@ PACKAGES=(
     gnumeric # lightweight spreadsheets
     graphicsmagick # Imagemagick: Graphics processing
     hexyl # CLI hex viewer
+    helix # Editor
     htop # System monitor
     imv # Image viewer
     innoextract # Extract from Windows installers

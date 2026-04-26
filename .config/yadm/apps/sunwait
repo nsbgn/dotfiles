@@ -2,6 +2,7 @@
 # sunwait - Calculating sunrise or sunset times
 # Alpine: https://pkgs.alpinelinux.org/package/edge/testing/x86_64/sunwait
 # Debian: -
+# Fedora: https://packages.fedoraproject.org/pkgs/sunwait/sunwait/
 set -euo pipefail
 
 BUILD="$HOME/.builds/sunwait"

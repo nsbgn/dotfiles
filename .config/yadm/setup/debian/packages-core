@@ -40,6 +40,9 @@ PACKAGES=(
     wvkbd # On-screen keyboard
     xdg-desktop-portal-wlr
     xdg-utils # Open in defaul program via `xdg-open`
+    git-delta
+    mpv-mpris
+    otpclient
 )
 
 sudo apt update -y

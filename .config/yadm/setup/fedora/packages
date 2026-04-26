@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PACKAGES=(
-    gnome-shell
     greetd tuigreet
     sway
     swaylock
@@ -51,6 +50,10 @@ PACKAGES=(
     wol
     udisks2-btrfs
     gocryptfs
+    helix
+    labwc
+    mpv-mpris
+    sunwait
 )
 
 sudo dnf install ${PACKAGES[@]}

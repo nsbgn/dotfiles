@@ -1,5 +1,0 @@
-cd ~/.builds
-git clone https://github.com/rfjakob/gocryptfs.git
-cd gocryptfs
-./build-without-openssl.bash
-cp gocryptfs ~/.local/bin/
