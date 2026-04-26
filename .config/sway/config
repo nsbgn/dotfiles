@@ -86,7 +86,7 @@ bar {
    status_padding 2
    status_edge_padding 5
    height 25
-   workspace_buttons yes
+   workspace_buttons no
    font FontAwesome, Cascadia Mono NF, Overpass 10
    colors {
       statusline #000000
@@ -105,11 +105,6 @@ exec foot --server
 exec alacritty --daemon --socket $ALACRITTY_SOCKET
 exec gammastep -O 5500K
 #exec swayq -m auto-exit-fullscreen
-
-#exec swayidle -w \
-#	timeout 60 'swaymsg "output * power off"' \
-#	timeout 600 'swaylock -f' \
-#	resume 'swaymsg "output * power on"'
 
 # Input devices #######################################################
 
@@ -202,48 +197,38 @@ mode "default" {
    bindcode $fn+30 exec swayq workspace focus prev
    bindcode $fn+Shift+30 exec swayq workspace move prev
    # i
-   bindsym F8 focus up
-   bindsym Shift+F8 move up
    bindcode $fn+31 focus up
    bindcode $fn+Shift+31 move up
    # o
    bindcode $fn+32 exec swayq workspace focus next
    bindcode $fn+Shift+32 exec swayq workspace move next
    # p
-   bindcode $os+33 nop
+   bindcode $fn+33 nop
 
    # a
-   bindcode $os+38 focus mode_toggle
+   bindcode $fn+38 focus mode_toggle
    # s
-   bindcode $os+39 nop
+   bindcode $fn+39 nop
    # d
-   bindcode $os+40 nop
+   bindcode $fn+40 nop
    # f
-   bindcode $os+41 fullscreen
+   bindcode $fn+41 fullscreen
    # g
-   bindcode $os+42 nop
+   bindcode $fn+42 nop
    # h
    bindcode $fn+43 exec alacritty
-   bindsym  F11    exec alacritty
 
    # j / keycode 44
-   bindsym F4 focus left
-   bindsym Shift+F4 move left
    bindcode $fn+44 focus left
    bindcode $fn+Shift+44 move left
    # k
-   bindsym F5 focus down
-   bindsym Shift+F5 move down
    bindcode $fn+45 focus down
    bindcode $fn+Shift+45 move down
    # l
-   bindsym F6 focus right
-   bindsym Shift+F6 move right
    bindcode $fn+46 focus right
    bindcode $fn+Shift+46 move right
    # ;
-   # bindcode $os+47 exec swayq workspace focus next
-   # bindcode $OS+47 exec swayq workspace move next
+   bindcode $fn+47 nop
 
    # z
    bindcode $os+52 nop
@@ -256,17 +241,13 @@ mode "default" {
    # b
    bindcode $os+56 nop
    # n
-   bindcode $os+57 exec $menu
+   bindcode $fn+57 exec $menu
    # m
    bindcode $fn+58 exec alacritty
    # ,
-   bindsym F2       exec swayq workspace focus prev
-   bindsym Shift+F2 exec swayq workspace move prev
    bindcode $fn+59 exec swayq workspace focus prev
    bindcode $fn+Shift+59 exec swayq workspace move prev
    # .
-   bindsym F3 exec swayq workspace focus next
-   bindsym Shift+F3 exec swayq workspace move next
    bindcode $fn+60 exec swayq workspace focus next
    bindcode $fn+Shift+60 exec swayq workspace move next
 
@@ -282,14 +263,7 @@ mode "default" {
    bindsym $os+Shift+3 move container to workspace number 3; workspace number 3
    bindsym $os+Shift+4 move container to workspace number 4; workspace number 4
 
-   bindsym Ctrl+F1 reload
-   bindsym Ctrl+F2 exec "npx mira reload"
-
-   bindsym XF86Launch1 exec $menu
-   bindsym XF86Launch2       exec swayq workspace focus prev
-   bindsym Shift+XF86Launch2 exec swayq workspace move prev
-   bindsym XF86Launch3       exec swayq workspace focus next
-   bindsym Shift+XF86Launch3 exec swayq workspace move next
+   bindsym F9 exec "miractl refresh"
 
    bindsym XF86AudioRaiseVolume exec pamixer -ui 2
    bindsym XF86AudioLowerVolume exec pamixer -ud 2
