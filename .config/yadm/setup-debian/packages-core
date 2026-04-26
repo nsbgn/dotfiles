@@ -43,6 +43,7 @@ PACKAGES=(
     git-delta
     mpv-mpris
     otpclient
+    greetd tuigreet
 )
 
 sudo apt update -y

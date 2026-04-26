@@ -7,7 +7,7 @@ case $(lsb_release -si) in
     Debian)
         echo Bootstrap for Debian... >&2
         cd "$(dirname "$0")"
-        setup/packages-core
+        setup-debian/packages-core
         setup/firewall
     ;;
     *)

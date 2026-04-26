@@ -1,0 +1,2 @@
+sway
+XDG_SESSION_TYPE=wayland /usr/bin/env dbus-run-session gnome-session

@@ -1,5 +1,8 @@
 theme = "github_light_high_contrast"
 
+# Remapping in file explorer picker:
+# https://github.com/helix-editor/helix/issues/5505
+
 [editor]
 text-width = 79
 

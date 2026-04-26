@@ -2,7 +2,6 @@
 vt = 1
 
 [default_session]
-#command = "agreety --cmd /bin/sh"
 command = "tuigreet --cmd 'systemd-cat --identifier=sway sway'"
 user = "greetd"
 
