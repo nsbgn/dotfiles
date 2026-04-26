@@ -25,7 +25,9 @@ set ruler
 
 " Show line numbers in left margin
 set nonumber
-nmap <Tab> :set number!<CR>
+" nmap <Tab> :set number!<CR>
+nmap q :Neotree<CR>
+
 
 set smoothscroll " cf. https://github.com/neovim/neovim/pull/23320
 set scrolloff=5

@@ -24,8 +24,8 @@ return {
         },
         restore_win_options = true,
         skip_confirm_for_simple_edits = false,
-        delete_to_trash = false,
-        -- trash_command = "trash-put",
+        delete_to_trash = true,
+        trash_command = "gio trash",
         prompt_save_on_select_new_entry = true,
         -- See :help oil-actions for a list of all available actions
         keymaps = {
@@ -37,7 +37,8 @@ return {
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
           ["<C-l>"] = "actions.refresh",
-          ["q"] = { callback = oil.parent, desc = "", nowait = true },
+          --["q"] = { callback = oil.parent, desc = "", nowait = true },
+          ["w"] = { "actions.parent", mode = "n" },
           ["_"] = "actions.open_cwd",
           ["`"] = "actions.cd",
           ["~"] = "actions.tcd",
@@ -54,7 +55,7 @@ return {
           end,
         },
       })
-      -- vim.keymap.set('n', 'q', "<CMD>Oil<CR>", {})
+      vim.keymap.set('n', 'q', "<CMD>Oil<CR>", {})
     end
   },
 }

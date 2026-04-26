@@ -40,7 +40,7 @@ return {
           markdownBold = { bold = true },
           markdownBoldDelimiter = { bold = true, fg = "gray" },
           markdownAutomaticLink = { underline = true },
-          yamlBlockMappingKey = { bold = true, fg = "black" },
+          yamlBlockMappingKey = { bold = true }, --, fg = "black" },
           yamlDocumentStart = { fg = "gray" },
           NeoTreeWinSeparator = { bg = "NONE", fg = "gray" },
           NeoTreeTabActive = { bg = "NONE" },

@@ -63,12 +63,12 @@ return {
           col = 1
         },
         _on_attach_pre = function(bufnr, callback)
-            require("gitsigns-yadm").yadm_signs(callback, { bufnr = bufnr })
+            -- require("gitsigns-yadm").yadm_signs(callback, { bufnr = bufnr })
         end,
       }
     end
   },
-  { 'https://github.com/purarue/gitsigns-yadm.nvim' },
+  -- { 'https://github.com/purarue/gitsigns-yadm.nvim' },
 
   -- Git signs, works for both git and svn
   { 'https://github.com/mhinz/vim-signify.git',
