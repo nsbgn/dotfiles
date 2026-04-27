@@ -1,12 +1,13 @@
-# $HOME/.config/alacritty/alacritty.toml
-
 [window]
 opacity = 1
 padding.x = 0
 padding.y = 0
 
 [colors.primary]
-background = "#000000"
+# background = "#000000"
+# foreground = "#ffffff"
+background = "#ffffff"
+foreground = "#000000"
 
 [font]
 # normal.family = "Cascadia Code PL"
@@ -16,4 +17,6 @@ background = "#000000"
 size = 13.0
 
 [keyboard]
-bindings = [{key = "Cancel", mods = "None", chars = "\u001b"}]
+bindings = [
+    {key = "Cancel", mods = "None", chars = "\u001b"},
+    {key = "Cancel", mods = "Shift", chars = "\u001b"}]
