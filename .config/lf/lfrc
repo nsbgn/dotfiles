@@ -40,23 +40,6 @@ cmd trash ${{
 
 # Creating a new directory or file
 cmd mkfile %add "$(echo $* | tr ' ' '\ ')"
-cmd open ${{
-    case $f in
-        *.md|*.txt|*.py|*.ttl)
-            echo $EDITOR \"$f\" | bash -is
-            ;;
-        *.csv)
-            visidata --use-default-colors "$f"
-            ;;
-        *.dot)
-            xdot "$f" 2>&1 >/dev/null &
-            ;;
-        *)
-            ~/.config/lf/open.sh "$f"
-            ;;
-        esac
-}}
-cmd view ${{ ~/.config/lf/open.sh "$f" --view }}
 
 # show disk usage
 #cmd usage :echo !{{du -hs . | more}}<CR>
@@ -132,7 +115,7 @@ cmd on-load &{{
 # Keyboard mappings ##########################################################
 
 map <esc> quit
-map <enter> open
+map <enter> &xdg-open $f
 map ~ cd ~
 map t $bash
 map x trash
