@@ -1,0 +1,6 @@
+#!/bin/sh
+# Evil Helix
+
+cd /opt
+curl -fL "$(curl -sL 'https://api.github.com/repos/usagi-flow/evil-helix/releases/latest' | jq -r '.assets[].browser_download_url | select(endswith("amd64-linux.tar.gz"))')" | sudo tar -xvz
+ln -sv /opt/helix/hx ~/.local/bin/evil-hx
