@@ -2,8 +2,8 @@
 x-scheme-handler/trash=exo-file-manager.desktop
 x-scheme-handler/http=exo-web-browser.desktop;firefox-esr.desktop;
 x-scheme-handler/https=exo-web-browser.desktop;firefox-esr.desktop;
-x-scheme-handler/mailto=exo-mail-reader.desktop
-application/epub+zip=sigil.desktop;FBReader.desktop;userapp-FBReader "%f"-9L2HKZ.desktop;
+x-scheme-handler/mailto=exo-mail-reader.desktop;
+application/epub+zip=sigil.desktop;FBReader.desktop;
 application/pdf=zathura.desktop;org.pwmt.zathura-pdf-poppler.desktop;
 text/html=org.qutebrowser.qutebrowser.desktop;firefox-esr.desktop;
 image/jpeg=imv.desktop;
@@ -14,7 +14,7 @@ text/x-python=vim.desktop;
 text/csv=libreoffice-calc.desktop;
 audio/flac=vlc.desktop;
 audio/mp4=vlc.desktop;
-image/svg+xml=userapp-%f"-UB0FYZ.desktop;userapp-firefox "%f"-1FB9XZ.desktop;
+image/svg+xml=inkscape.desktop;
 audio/x-opus+ogg=mpv.desktop;
 image/png=imv.desktop;
 video/webm=vlc.desktop;
@@ -24,7 +24,6 @@ video/mp4=vlc.desktop;
 video/x-msvideo=vlc.desktop;
 video/x-matroska=vlc.desktop;
 text/plain=mousepad.desktop;
-application/octet-stream=mousepad.desktop;
 x-scheme-handler/ftp=firefox-esr.desktop;
 x-scheme-handler/chrome=firefox-esr.desktop;
 application/x-extension-htm=firefox-esr.desktop;
@@ -34,7 +33,7 @@ application/xhtml+xml=firefox-esr.desktop;
 application/x-extension-xhtml=firefox-esr.desktop;
 application/x-extension-xht=firefox-esr.desktop;
 text/x-shellscript=gvim.desktop;
-x-scheme-handler/magnet=userapp-transmission-gtk-C6VN31.desktop;
+x-scheme-handler/magnet=transmission-gtk.desktop;org.qbittorrent.qBittorrent.desktop;
 
 [Default Applications]
 application/pdf=firefox-esr.desktop
@@ -50,8 +49,7 @@ application/xhtml+xml=firefox-esr.desktop
 application/x-extension-xhtml=firefox-esr.desktop
 application/x-extension-xht=firefox-esr.desktop
 inode/directory=pcmanfm.desktop
-x-scheme-handler/discord-455712169795780630=discord-455712169795780630.desktop
-x-scheme-handler/discord-812421731238019073=discord-812421731238019073.desktop
-x-scheme-handler/magnet=userapp-transmission-gtk-C6VN31.desktop
+x-scheme-handler/magnet=org.qbittorrent.qBittorrent.desktop
+application/epub+zip=mupdf-gl.desktop
 
 [Removed Associations]
