@@ -9,7 +9,7 @@ return {
   { 'https://github.com/tpope/vim-sleuth' },
 
   -- More sensible word motions
-  { 'https://github.com/chaoren/vim-wordmotion' },
+  -- { 'https://github.com/chaoren/vim-wordmotion' },
 
   -- Return to last position when editing files
   { 'https://github.com/farmergreg/vim-lastplace' },
