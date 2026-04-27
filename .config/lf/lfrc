@@ -16,7 +16,7 @@ set findlen 2
 set incsearch
 #cmap <esc> cmd-enter
 #cmap <enter> open
-set hiddenfiles .*:__pycache__:*.egg-info:!~/dotfiles/*:node_modules
+set hiddenfiles .*:__pycache__:*.egg-info:node_modules
 
 
 # Dynamically set number of columns
@@ -102,6 +102,32 @@ cmd fzf_search ${{
     [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
 }}
 map gs :fzf_search
+
+# cf. <https://github.com/gokcehan/lf/issues/1994>
+cmd on-load &{{
+    cd "$(dirname "$1")" || exit 1
+    [ "$(git rev-parse --is-inside-git-dir 2>/dev/null)" = false ] || exit 0
+
+    cmds=""
+
+    for file in "$@"; do
+        case "$file" in
+            */.git|*/.git/*) continue;;
+        esac
+
+        status=$(git status --porcelain --ignored -- "$file" | cut -c1-2 | head -n1)
+
+        if [ -n "$status" ]; then
+            cmds="${cmds}addcustominfo \"${file}\" \"$status\"; "
+        else
+            cmds="${cmds}addcustominfo \"${file}\" ''; "
+        fi
+    done
+
+    if [ -n "$cmds" ]; then
+        lf -remote "send $id :$cmds"
+    fi
+}}
 
 # Keyboard mappings ##########################################################
 
