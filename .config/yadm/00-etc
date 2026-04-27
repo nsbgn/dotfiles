@@ -1,0 +1,7 @@
+#!/bin/sh
+# Install global scripts into /etc/
+
+cd "$(dirname "$0")"
+for F in etc/*; do
+    sudo install -C "$F"/* -t /"$F"/
+done
