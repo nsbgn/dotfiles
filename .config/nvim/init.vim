@@ -116,17 +116,6 @@ noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> <C-C>:update<CR>
 inoremap <silent> <C-S> <C-O>:update<CR>
 
-" lua << EOF
-" vim.fn.sign_define("DiagnosticSignError",
-"   {text = " ", texthl = "DiagnosticSignError"})
-" vim.fn.sign_define("DiagnosticSignWarn",
-"   {text = " ", texthl = "DiagnosticSignWarn"})
-" vim.fn.sign_define("DiagnosticSignInfo",
-"   {text = " ", texthl = "DiagnosticSignInfo"})
-" vim.fn.sign_define("DiagnosticSignHint",
-"   {text = "", texthl = "DiagnosticSignHint"})
-" EOF
-
 " cf.https://www.jamescherti.com/vim-script-replace-the-home-directory-with-a-tilde/
 function! ReplaceHomeWithTilde(path) abort
   let l:path = fnamemodify(a:path, ':p')
@@ -145,16 +134,4 @@ function! ReplaceHomeWithTilde(path) abort
   return l:path
 endfunction
 
-lua << EOF
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
-require("lazy").setup("plugins")
-EOF
+lua require("config.lazy")

@@ -1,12 +1,12 @@
 return {
   'https://github.com/folke/snacks.nvim',
-  enabled = false,
+  enabled = true,
   priority = 1000,
   lazy = false,
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
-    dashboard = { enabled = true },
+    dashboard = { enabled = false },
     debug = { enabled = true },
     explorer = { enabled = true },
     indent = { enabled = false },

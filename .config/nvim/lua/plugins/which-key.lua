@@ -1,7 +1,7 @@
 return {
   { 'https://github.com/folke/which-key.nvim',
     event = "VeryLazy",
-    enabled = false,
+    enabled = true,
     opts = {
     },
     keys = {

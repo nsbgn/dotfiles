@@ -1,7 +1,7 @@
 return {
     "https://github.com/rolv-apneseth/tfm.nvim",
     lazy = false,
-    enabled = true,
+    enabled = false,
     opts = {
         -- TFM to use
         -- Possible choices: "ranger" | "nnn" | "lf" | "vifm" | "yazi" (default)
