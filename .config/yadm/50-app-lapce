@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p ~/.local/opt
+cd ~/.local/opt
+curl -fL https://github.com/lapce/lapce/releases/latest/download/lapce-linux-amd64.tar.gz | tar -xvz
+ln -s ~/.local/opt/Lapce/lapce ~/.local/bin/lapce
