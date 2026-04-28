@@ -47,7 +47,7 @@ fi
 
 # Git prompt. Wrap non-printables in \[\]
 # see <https://unix.stackexchange.com/q/105958>
-if [ $(type -t __git_ps1) == function ]; then
+if [ "$(type -t __git_ps1)" == function ]; then
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 export PS1="\[\033[1;34m\]\w\[\033[0;34m\]\$(__git_ps1) \[\033[1;32m\]\$\[\033[0m\] \[$(tput sgr0)\]" # [\u@\h]
