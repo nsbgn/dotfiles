@@ -1,0 +1,8 @@
+#!/bin/sh
+# Enable Bluetooth in bootloader (to unlock disk)
+
+sudo tee /etc/dracut.conf.d/bluetooth.conf << EOF
+add_dracutmodules+=" bluetooth "
+EOF
+
+sudo dracut -f
