@@ -3,11 +3,10 @@ opacity = 1
 padding.x = 0
 padding.y = 0
 
-[colors.primary]
-# background = "#000000"
-# foreground = "#ffffff"
-background = "#ffffff"
-foreground = "#000000"
+[general]
+import = [
+    "gruvbox-dark.toml"
+]
 
 [font]
 # normal.family = "Cascadia Code PL"

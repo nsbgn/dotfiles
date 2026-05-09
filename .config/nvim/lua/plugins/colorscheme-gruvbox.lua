@@ -1,7 +1,7 @@
 return {
   { "https://github.com/ellisonleao/gruvbox.nvim",
     priority = 1000,
-    enabled = true,
+    enabled = false,
     config = true,
     init = function()
       require("gruvbox").setup({
@@ -25,7 +25,7 @@ return {
         contrast = "hard",
         palette_overrides = {},
         overrides = {
-          -- Normal = { bg = "NONE" },
+          Normal = { bg = "NONE" },
           SignColumn = { bg = "NONE" },
           -- DiffAdd = { fg = "green", bg = "NONE" },
           -- DiffChange = { fg = "gray", bg = "NONE" },
