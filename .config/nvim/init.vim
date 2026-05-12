@@ -1,5 +1,13 @@
 lua require('lsp')
 
+lua << EOF
+vim.api.nvim_set_hl(0, "@markup.heading.1", { underdouble = true, bold = true })
+vim.api.nvim_set_hl(0, "@markup.heading.2", { underline = true, bold = true, italic = true })
+vim.api.nvim_set_hl(0, "@markup.heading.3", { underdotted = true, italic = true })
+vim.api.nvim_set_hl(0, "@markup.heading.4", { underdotted = true })
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+EOF
+
 " Do not write which mode I am in; cursor should make that obvious anyway
 set noshowmode
 
