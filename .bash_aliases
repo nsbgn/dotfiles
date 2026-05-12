@@ -1,5 +1,5 @@
 alias d="docker"
-alias drc="docker compose"
+alias dc="docker compose"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"

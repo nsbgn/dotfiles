@@ -1,0 +1,4 @@
+. ~/.complete_alias
+
+complete -F _complete_alias dc
+complete -F _complete_alias d
