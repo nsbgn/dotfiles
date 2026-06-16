@@ -5,18 +5,19 @@ include /etc/sway/config-vars.d/*
 
 set $os Mod4
 set $fn Mod4+Mod1
+set $alt Mod1
 set $altgr Mod5
 set $menu rofi -show drun -show-icons
 
-default_border normal 0
+default_border normal 1
 # default_border pixel 1
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
 font Overpass, Cascadia Mono NF, FontAwesome 2
-gaps inner 1
+gaps inner -1
 gaps outer -1
-hide_edge_borders none
+hide_edge_borders smart
 smart_borders off
 smart_gaps off
 title_align center
@@ -36,66 +37,13 @@ set $purple   #d3869b
 set $aqua     #89b482
 
 #       Gruvbox Theme   brdr        bg          text    indictr     chld_brdr
-client.focused          $green      $dgreen     $dgreen $green      $green
+client.focused          $dgreen     $dgreen     $dgreen $green      $dgreen
 client.focused_inactive $bg         $bg         $bg     $green      $green
 client.unfocused        $bg         $bg         $bg     $bg         $bg
 client.urgent           $red        $red        $bg     $red        $red
 client.placeholder      $bg         $bg         $bg     $bg         $bg
 client.background       $bg
 
-
-bar {
-   id DP-7
-   output DP-7
-   status_command swayq bar DP-7
-   mode dock
-   modifier Mod1
-   position bottom
-   status_padding 2
-   status_edge_padding 5
-   height 25
-   workspace_buttons no
-   font Overpass, FontAwesome 10
-}
-bar {
-   id eDP-1
-   output eDP-1
-   status_command swayq bar eDP-1
-   mode dock
-   modifier Mod1
-   position top
-   status_padding 2
-   status_edge_padding 5
-   height 25
-   workspace_buttons no
-   font FontAwesome, Cascadia Mono NF, Overpass 10
-   colors {
-      statusline $fg
-      focused_workspace $fg $dgreen $fg
-      active_workspace $green $bg $fg
-      inactive_workspace $dgreen $bg $fg
-   }
-}
-bar {
-   output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
-   id eink-monitor
-   status_command swayq bar eink-monitor
-   mode dock
-   modifier Mod1
-   position top
-   status_padding 2
-   status_edge_padding 5
-   height 25
-   workspace_buttons no
-   font FontAwesome, Cascadia Mono NF, Overpass 10
-   colors {
-      statusline #000000
-      background #ffffff
-      focused_workspace #bbbbbb #ffffff #000000
-      active_workspace #ffffff #ffffff #000000
-      inactive_workspace #ffffff #ffffff #000000
-   }
-}
 
 # Startup ##############################################################
 
@@ -127,9 +75,9 @@ input type:touchpad {
 }
 output * bg "#282828" solid_color
 
-# Monitors & touchscreens #############################################
+# Monitors, bars & touchscreens ########################################
 
-# Personal
+# Internal screen (personal)
 input 1386:18948:Wacom_HID_4A04_Finger map_to_output 'BOE 0x0AEC Unknown'
 output 'BOE 0x0AEC Unknown' {
    # Visible as 1536x1024
@@ -137,23 +85,79 @@ output 'BOE 0x0AEC Unknown' {
    scale 1.25
    pos 0 0
 }
+bar {
+   id eDP-1
+   output eDP-1
+   status_command swayq bar eDP-1
+   mode dock
+   modifier Mod1
+   position top
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font FontAwesome, Cascadia Mono NF, Overpass 10
+   colors {
+      statusline $fg
+      focused_workspace $fg $dgreen $fg
+      active_workspace $green $bg $fg
+      inactive_workspace $dgreen $bg $fg
+   }
+}
+
 
 # Second monitor
 output 'Iiyama North America PL2710HD 11049A0300769' {
    mode 1920x1080@60.000Hz
    pos 0 -1080
 }
+bar {
+   id DP-7
+   output DP-7
+   status_command swayq bar DP-7
+   mode dock
+   modifier Mod1
+   position bottom
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font Overpass, FontAwesome 10
+}
+
 
 # Boox Mira e-ink monitor
 input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
 output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'  {
-# Visible as 825x1100
+   # Visible as 825x1100
    mode 2200x1650@38.002Hz
    pos -825 0
    transform 270
    scale 2
    bg #ffffff solid_color
 }
+bar {
+   output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
+   id eink-monitor
+   status_command swayq bar eink-monitor
+   mode dock
+   modifier Mod1
+   position top
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font FontAwesome, Cascadia Mono NF, Overpass 10
+   colors {
+      statusline #000000
+      background #ffffff
+      focused_workspace #bbbbbb #ffffff #000000
+      active_workspace #ffffff #ffffff #000000
+      inactive_workspace #ffffff #ffffff #000000
+   }
+}
+
+
 
 # Portable monitor
 input 8746:1:ILITEK_ILITEK-TP map_to_output DP-2
@@ -164,6 +168,32 @@ output 'Unknown XtendTouch ' {
    transform 0
    scale 1.5
 }
+
+# Work laptop monitor
+output 'Sharp Corporation 0x1515 Unknown' {
+   mode 1920x1200@59.950Hz
+   pos 0 0
+}
+
+# Work monitor
+output 'Dell Inc. DELL U2518D 3C4YP81NALLL' {
+  mode 2560x1440@59.951Hz
+  pos 0 -1440
+  scale 1
+}
+bar {
+   id dell
+   output 'Dell Inc. DELL U2518D 3C4YP81NALLL'
+   status_command swayq bar dell
+   colors {
+      statusline #000000
+      background #FFFFFF
+      focused_workspace #BBBBBB #FFFFFF #000000
+      active_workspace #FFFFFF #FFFFFF #000000
+      inactive_workspace #FFFFFF #FFFFFF #000000
+   }
+}
+
 
 # Keybinds #############################################################
 
@@ -277,4 +307,5 @@ mode "default" {
    bindsym XF86AudioPlay exec playerctl play-pause
    bindsym XF86AudioStop exec playerctl stop
    bindsym XF86Close kill
+   bindsym $alt+F4 kill
 }
