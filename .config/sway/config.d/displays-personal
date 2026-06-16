@@ -1,0 +1,78 @@
+# Internal screen
+input 1386:18948:Wacom_HID_4A04_Finger map_to_output 'BOE 0x0AEC Unknown'
+output 'BOE 0x0AEC Unknown' {
+   # Visible as 1536x1024
+   mode 1920x1280@48.000Hz
+   scale 1.25
+   pos 0 0
+}
+bar {
+   id eDP-1
+   output eDP-1
+   status_command swayq bar eDP-1
+   mode dock
+   modifier Mod1
+   position top
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   # workspace_buttons no
+   font FontAwesome, Cascadia Mono NF, Overpass 10
+   colors {
+      statusline $fg
+      focused_workspace $fg $dgreen $fg
+      active_workspace $green $bg $fg
+      inactive_workspace $dgreen $bg $fg
+   }
+}
+
+# Big monitor
+output 'Iiyama North America PL2710HD 11049A0300769' {
+   mode 1920x1080@60.000Hz
+   pos 0 -1080
+}
+bar {
+   id DP-7
+   output DP-7
+   status_command swayq bar DP-7
+   mode dock
+   modifier Mod1
+   position bottom
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font Overpass, FontAwesome 10
+}
+
+
+# Boox Mira e-ink monitor
+input 10176:2136:WingCoolTouch_WingCoolTouch map_to_output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
+output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'  {
+   # Visible as 825x1100
+   mode 2200x1650@38.002Hz
+   pos -825 0
+   transform 270
+   scale 2
+   bg #ffffff solid_color
+}
+bar {
+   output 'SOMELEC Z.I. Du Vert Galanta Mira133 202105'
+   id eink-monitor
+   status_command swayq bar eink-monitor
+   mode dock
+   modifier Mod1
+   position top
+   status_padding 2
+   status_edge_padding 5
+   height 25
+   workspace_buttons no
+   font FontAwesome, Cascadia Mono NF, Overpass 10
+   colors {
+      statusline #000000
+      background #ffffff
+      focused_workspace #bbbbbb #ffffff #000000
+      active_workspace #ffffff #ffffff #000000
+      inactive_workspace #ffffff #ffffff #000000
+   }
+}

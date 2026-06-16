@@ -1,0 +1,112 @@
+mode "passthrough" {
+   bindsym Escape mode "default"
+   bindsym Cancel mode "default"
+}
+
+mode "default" {
+   bindsym $os+Cancel mode "passthrough"
+
+   bindsym --whole-window BTN_EXTRA exec swayq workspace focus prev
+   bindsym --whole-window BTN_SIDE exec swayq workspace focus next
+
+   bindsym --no-repeat --release Super_L exec $menu
+   bindsym --no-repeat --release Super_R exec $menu
+
+   # q
+   bindcode $os+24 kill
+   # w
+   bindcode $os+25 swaylock -i ~/.local/share/wallpaper/diagonal-lines.svg
+   # e
+   bindcode $os+26 exec dmenu-mpv
+   # r
+   bindcode $os+27 exec dmenu-pass
+   # t
+   bindcode $os+28 input type:keyboard xkb_switch_layout next
+   # y
+   bindcode $os+29 floating toggle
+   # u
+   bindcode $fn+30 exec swayq workspace focus prev
+   bindcode $fn+Shift+30 exec swayq workspace move prev
+   # i
+   bindcode $fn+31 focus up
+   bindcode $fn+Shift+31 move up
+   # o
+   bindcode $fn+32 exec swayq workspace focus next
+   bindcode $fn+Shift+32 exec swayq workspace move next
+   # p
+   bindcode $fn+33 nop
+
+   # a
+   bindcode $fn+38 focus mode_toggle
+   # s
+   bindcode $fn+39 nop
+   # d
+   bindcode $fn+40 nop
+   # f
+   bindcode $fn+41 fullscreen
+   # g
+   bindcode $fn+42 nop
+   # h
+   bindcode $fn+43 exec alacritty
+
+   # j / keycode 44
+   bindcode $fn+44 focus left
+   bindcode $fn+Shift+44 move left
+   # k
+   bindcode $fn+45 focus down
+   bindcode $fn+Shift+45 move down
+   # l
+   bindcode $fn+46 focus right
+   bindcode $fn+Shift+46 move right
+   # ;
+   bindcode $fn+47 nop
+
+   # z
+   bindcode $os+52 nop
+   # x
+   bindcode $os+53 nop
+   # c
+   bindcode $os+54 exec alacritty
+   # v
+   bindcode $os+55 nop
+   # b
+   bindcode $os+56 nop
+   # n
+   bindcode $fn+57 exec $menu
+   # m
+   bindcode $fn+58 exec alacritty
+   # ,
+   bindcode $fn+59 exec swayq workspace focus prev
+   bindcode $fn+Shift+59 exec swayq workspace move prev
+   # .
+   bindcode $fn+60 exec swayq workspace focus next
+   bindcode $fn+Shift+60 exec swayq workspace move next
+
+   # /
+   bindcode $fn+61 nop
+
+   bindsym $os+1 workspace number 1
+   bindsym $os+2 workspace number 2
+   bindsym $os+3 workspace number 3
+   bindsym $os+4 workspace number 4
+   bindsym $os+Shift+1 move container to workspace number 1; workspace number 1
+   bindsym $os+Shift+2 move container to workspace number 2; workspace number 2
+   bindsym $os+Shift+3 move container to workspace number 3; workspace number 3
+   bindsym $os+Shift+4 move container to workspace number 4; workspace number 4
+
+   bindsym F9 exec "miractl refresh"
+
+   bindsym XF86AudioRaiseVolume exec pamixer -ui 2
+   bindsym XF86AudioLowerVolume exec pamixer -ud 2
+   bindsym XF86AudioMute exec pamixer --toggle-mute
+   bindsym XF86MonBrightnessDown exec brightnessctl set 2%-
+   bindsym XF86MonBrightnessUp exec brightnessctl set 2%+
+   bindsym XF86AudioRewind exec playerctl position -1
+   bindsym XF86AudioForward exec playerctl position +1
+   bindsym XF86AudioPrev exec playerctl prev
+   bindsym XF86AudioNext exec playerctl next
+   bindsym XF86AudioPlay exec playerctl play-pause
+   bindsym XF86AudioStop exec playerctl stop
+   bindsym XF86Close kill
+   bindsym $alt+F4 kill
+}

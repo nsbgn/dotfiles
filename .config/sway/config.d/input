@@ -1,0 +1,18 @@
+input type:pointer {
+    accel_profile "adaptive"
+    pointer_accel 0.9
+}
+input type:keyboard {
+    xkb_layout handalf,handalf
+    xkb_variant ,colemak_dh
+    # xkb_options compose:102
+    repeat_delay 300
+    repeat_rate 45
+}
+input type:touchpad {
+    tap enabled
+    dwt enabled
+    click_method clickfinger
+    tap_button_map lrm
+}
+

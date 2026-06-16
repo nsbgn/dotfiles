@@ -1,0 +1,6 @@
+exec dbus-update-activation-environment --verbose --systemd --all
+exec --no-startup-id lxpolkit
+exec foot --server
+exec alacritty --daemon --socket $ALACRITTY_SOCKET
+exec gammastep -O 5500K
+#exec swayq -m auto-exit-fullscreen

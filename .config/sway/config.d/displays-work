@@ -1,0 +1,24 @@
+# Work laptop monitor
+output 'Sharp Corporation 0x1515 Unknown' {
+   mode 1920x1200@59.950Hz
+   pos 0 0
+}
+
+# Work monitor
+output 'Dell Inc. DELL U2518D 3C4YP81NALLL' {
+  mode 2560x1440@59.951Hz
+  pos 0 -1440
+  scale 1
+}
+bar {
+   id dell
+   output 'Dell Inc. DELL U2518D 3C4YP81NALLL'
+   status_command swayq bar dell
+   colors {
+      statusline #000000
+      background #FFFFFF
+      focused_workspace #BBBBBB #FFFFFF #000000
+      active_workspace #FFFFFF #FFFFFF #000000
+      inactive_workspace #FFFFFF #FFFFFF #000000
+   }
+}
