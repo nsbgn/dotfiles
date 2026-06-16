@@ -18,6 +18,10 @@ export BAT_THEME="auto"
 export BAT_THEME_LIGHT="gruvbox-light"
 export BAT_THEME_DARK="gruvbox-dark"
 
+if [ -f "$HOME/.tokens" ]; then
+    source $HOME/.tokens
+fi
+
 # include .bashrc if running interactively
 if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then
     if [ -f "$HOME/.bashrc" ]; then
