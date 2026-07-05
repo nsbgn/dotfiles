@@ -1,4 +1,19 @@
+# > This command passes environment variables from the window manager to session
+# > dbus. Without this, GUI prompts cannot be triggered over DBus. For example,
+# > this is required for seahorse password prompt.
+# > 
+# > This is required because session dbus is started before graphical environment
+# > is started. Thus, session dbus does not know about the graphical environment
+# > you are in. Someone or something has to teach session dbus about the
+# > graphical environment by passing environment variables describing the
+# > graphical environment to session dbus. 
 exec dbus-update-activation-environment --verbose --systemd --all
+
+# cf. <https://wiki.archlinux.org/title/GNOME/Keyring>
+exec gnome-keyring-daemon --start --components=secrets
+
+# Rest
+
 exec --no-startup-id lxpolkit
 exec foot --server
 exec alacritty --daemon --socket $ALACRITTY_SOCKET

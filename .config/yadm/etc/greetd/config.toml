@@ -2,9 +2,9 @@
 vt = 1
 
 [default_session]
-command = "tuigreet --cmd 'systemd-cat --identifier=sway sway'"
+command = "tuigreet --remember --cmd 'systemd-cat --identifier=sway sway'"
 user = "greetd"
 
-[initial_session]
-command = "systemd-cat --identifier=sway sway"
-user = "nsbg"
+# [initial_session]
+# command = "systemd-cat --identifier=sway sway"
+# user = "nsbg"
