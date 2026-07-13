@@ -19,4 +19,8 @@ size = 12.0
 bindings = [
     {key = "Cancel", mods = "None", chars = "\u001b"},
     {key = "Cancel", mods = "Shift", chars = "\u001b"},
-    {key = "Cancel", mods = "Alt", chars = "\u001b"}]
+    {key = "Cancel", mods = "Alt", chars = "\u001b"},
+    {key = "BrowserBack", mods = "None", chars = "\u001b"},
+    {key = "BrowserBack", mods = "Shift", chars = "\u001b"},
+    {key = "BrowserBack", mods = "Alt", chars = "\u001b"}
+]
