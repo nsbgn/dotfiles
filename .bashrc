@@ -50,7 +50,7 @@ fi
 if [ "$(type -t __git_ps1)" == function ]; then
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
-export PS1="\[\033[1;34m\]\w\[\033[0;34m\]\$(__git_ps1) \[\033[1;32m\]\$\[\033[0m\] \[$(tput sgr0)\]" # [\u@\h]
+export PS1="\[\033[2;3m\]\h\[\033[0m\] \[\033[1;34m\]\w\[\033[0;34m\]\$(__git_ps1) \[\033[1;32m\]\$\[\033[0m\] \[$(tput sgr0)\]"
 fi
 
 # Change directory after browsing with file manager `lf`
