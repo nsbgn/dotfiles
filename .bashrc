@@ -42,7 +42,7 @@ fi
 
 # Show directory in title bar
 if [ ! -z ${TERM} ]; then
-    PROMPT_COMMAND='echo -ne "\033]0;$(dirs -0)\007"'
+    PROMPT_COMMAND='echo -ne "\033]0;$(hostname) $(dirs -0)\007"'
 fi
 
 # Git prompt. Wrap non-printables in \[\]
