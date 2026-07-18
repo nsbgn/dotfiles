@@ -19,3 +19,7 @@ select = "underline"
 [keys.normal]
 C-s = ":w"
 ";" = "command_mode"
+
+
+# cf. <https://github.com/helix-editor/helix/issues/3744#issuecomment-1240726094>
+a = ["ensure_selections_forward", "collapse_selection", "move_char_right", "insert_mode"]
