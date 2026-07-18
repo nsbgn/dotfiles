@@ -1,10 +1,10 @@
 #!/bin/bash
 
 PACKAGES=(
-    greetd tuigreet
+    greetd
+    tuigreet
     sway
     swaylock
-    waybar
     mako # Notifications
     direnv
     foot
@@ -15,6 +15,7 @@ PACKAGES=(
     wdisplays
     xdg-utils # Provides `xdg-open`
     ufw
+    pam_mount
 
     intel-lpmd
     iwlwifi-{m,d}vm-firmware
