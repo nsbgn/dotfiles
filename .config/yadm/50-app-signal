@@ -1,6 +1,9 @@
 #!/bin/sh
 # I'm not a big fan of Signal's approach here. Either Snap or Flatpak or a
-# Debian/Ubuntu repository. Using OpenSUSE's build system for now.
+# Debian/Ubuntu repository. OpenSUSE's build system only supports up to F43
 
-wget https://download.opensuse.org/repositories/network:/im:/signal/Fedora_43/network:im:signal.repo
-sudo dnf config-manager addrepo --from-repofile=network:im:signal.repo --overwrite
+# wget https://download.opensuse.org/repositories/network:/im:/signal/Fedora_43/network:im:signal.repo
+# sudo dnf config-manager addrepo --from-repofile=network:im:signal.repo --overwrite
+
+flatpak install flathub org.signal.Signal
+sudo flatpak override --filesystem=home org.signal.Signal
