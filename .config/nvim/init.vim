@@ -89,6 +89,9 @@ inoremap <S-F6> <Esc>
 " Always move by screen lines, not real lines
 noremap <silent> k gk
 noremap <silent> j gj
+noremap <silent> <up> gk
+noremap <silent> <down> gj
+
 
 " Formatoptions:
 " - a sets our text to automatically wrap when it reaches textwidth
