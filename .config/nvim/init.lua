@@ -1,10 +1,10 @@
 require('lsp')
-
-vim.api.nvim_set_hl(0, "@markup.heading.1", { underdouble = true, bold = true })
-vim.api.nvim_set_hl(0, "@markup.heading.2", { underline = true, bold = true, italic = true })
-vim.api.nvim_set_hl(0, "@markup.heading.3", { underdotted = true, italic = true })
-vim.api.nvim_set_hl(0, "@markup.heading.4", { underdotted = true })
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+require('colorscheme-gruvbox')
+require('basic')
+require('flash-nvim')
+require('plug-cutlass')
+require('plug-oil')
+require('vim-rooter')
 
 -- Do not write which mode I am in; cursor should make that obvious anyway
 vim.o.showmode = false
@@ -50,21 +50,21 @@ vim.o.softtabstop = 4 -- Tab and backspace insert and delete correct number of s
 vim.o.joinspaces = false
 
 -- Backspace over indentations
-vim.o.backspace = "indent,eol,start"
+vim.opt.backspace = "indent,eol,start"
 
 -- Move to previous/next line when pressing left/right at beginning/end
-vim.o.whichwrap="<,>,h,l,[,]"
+vim.opt.whichwrap="b,<,>,h,l,[,]"
 
 -- Show completion menu and, on tab, complete to the longest common command
 vim.o.wildmenu = true
-vim.o.wildmode = "longest,list,full"
+vim.opt.wildmode = "longest,list,full"
 
 -- Copy to system clipboard by default
 vim.o.clipboard = "unnamedplus"
 
 -- Show visible indication for tabs & spaces
 vim.o.list = true
-vim.o.listchars = "tab:⇥ ,trail:⸱,nbsp:⎵"
+vim.opt.listchars = "tab:⇥ ,trail:⸱,nbsp:⎵"
 
 vim.o.fillchars = vim.o.fillchars .. "vert:▏,horiz:─,eob: " -- turn off tildes at the end of buffers
 
@@ -141,4 +141,4 @@ function! ReplaceHomeWithTilde(path) abort
 endfunction
 ]])
 
-require("config.lazy")
+-- require("config.lazy")
