@@ -2,7 +2,8 @@
 vim.pack.add{
   { src = 'https://github.com/stevearc/oil.nvim', version = 'v2.16.0' },
   { src = "https://github.com/nvim-mini/mini.icons", version = 'v0.18.0' },
-  { src = "https://github.com/malewicz1337/oil-git.nvim", version = 'v1.0.1' }
+  -- { src = "https://github.com/malewicz1337/oil-git.nvim", version = 'v1.0.1' },
+  { src = "https://github.com/refractalize/oil-git-status.nvim", version = 'a3e2ccb00cb8822115e28a9a1791eda051d940c9' }
 }
 
 -- cf. <https://github.com/stevearc/oil.nvim/blob/master/doc/recipes.md#show-cwd-in-the-winbar>
@@ -30,7 +31,7 @@ require("oil").setup{
   },
   win_options = {
     wrap = false,
-    signcolumn = "no",
+    signcolumn = "auto:2",
     cursorcolumn = false,
     foldcolumn = "0",
     spell = false,
@@ -39,6 +40,7 @@ require("oil").setup{
     concealcursor = "n",
     winbar = "%!v:lua.get_oil_winbar()",
   },
+  constrain_cursor = "name",
   restore_win_options = true,
   skip_confirm_for_simple_edits = false,
   delete_to_trash = true,
@@ -79,44 +81,50 @@ require("oil").setup{
       return false
     end,
   },
+  -- Configuration for the file preview window
+  preview_win = {
+    -- Whether the preview window is automatically updated when the cursor is moved
+    update_on_cursor_moved = true,
+    -- How to open the preview window "load"|"scratch"|"fast_scratch"
+    preview_method = "fast_scratch",
+    -- A function that returns true to disable preview on a file e.g. to avoid lag
+    disable_preview = function(filename)
+      return false
+    end,
+    -- Window-local options to use for preview window buffers
+    win_options = {},
+  },
 }
 
-require("oil-git").setup{
-  debounce_ms = 50,
-  show_file_highlights = true,
-  show_directory_highlights = true,
-  show_file_symbols = true,
-  show_directory_symbols = true,
-  show_ignored_files = false,       -- Show ignored file status
-  show_ignored_directories = false, -- Show ignored directory status
-  show_branch = true,              -- Show current Git branch in oil buffers
-  branch_format = " %s",           -- Format string for branch display
-  symbol_position = "signcolumn",  -- "eol", "signcolumn", or "none"
-  can_use_signcolumn = true,  -- Optional callback(bufnr): nil|bool|string
-  ignore_gitsigns_update = false,   -- Ignore GitSignsUpdate events (fallback for flickering)
-  debug = false,            -- false, "minimal", or "verbose"
-
+require('oil-git-status').setup({
+  show_ignored = true,
   symbols = {
-    file = { added = "✚", modified = "✱", renamed = "", deleted = "✖",
-             copied = "✚", conflict = "", untracked = "", ignored = "" },
-    directory = { added = "", modified = "", renamed = "", deleted = "",
-                  copied = "", conflict = "", untracked = "", ignored = "" },
+    index = {
+      ["!"] = "", -- ignored
+      ["?"] = "", -- untracked
+      ["A"] = "✚", -- added
+      ["C"] = "", -- copied
+      ["D"] = "✖", -- deleted
+      ["M"] = "✱", -- modified
+      ["R"] = "", -- renamed
+      ["T"] = "", -- type changed
+      ["U"] = "", -- unmerged
+      [" "] = " ", -- unmodified
+    },
+    working_tree = {
+      ["!"] = "", -- ignored
+      ["?"] = "", -- untracked
+      ["A"] = "✚", -- added
+      ["C"] = "", -- copied
+      ["D"] = "✖", -- deleted
+      ["M"] = "✱", -- modified
+      ["R"] = "", -- renamed
+      ["T"] = "", -- type changed
+      ["U"] = "", -- unmerged
+      [" "] = " ", -- unmodified
+    },
   },
-
-  -- Colors (only applied if highlight groups don't exist)
-  highlights = {
-    OilGitAdded = { fg = "#a6e3a1" },
-    OilGitModifiedStaged = { fg = "#f9e2af" },
-    OilGitModifiedUnstaged = { fg = "#e5c890" },
-    OilGitBranch = { fg = "#89b4fa" },
-    OilGitRenamed = { fg = "#cba6f7" },
-    OilGitDeleted = { fg = "#f38ba8" },
-    OilGitCopied = { fg = "#cba6f7" },
-    OilGitConflict = { fg = "#fab387" },
-    OilGitUntracked = { fg = "#89b4fa" },
-    OilGitIgnored = { fg = "#6c7086" },
-  },
-}
+})
 
 vim.keymap.set('n', '<space>e', function()
   local bufname = vim.api.nvim_buf_get_name(0)
