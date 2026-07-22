@@ -84,15 +84,15 @@ vim.api.nvim_set_keymap('i', '<C-S>', '<C-O>:update<CR>', { noremap = true, sile
 vim.api.nvim_set_keymap('n', 'gx', '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>', {})
 
 -- Always move by screen lines, not real lines
-vim.api.nvim_set_keymap('', 'k', 'gk', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'j', 'gj', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<up>', 'gk', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<down>', 'gj', { noremap = true, silent = true })
+vim.keymap.set('', 'k', 'gk')
+vim.keymap.set('', 'j', 'gj')
+vim.keymap.set('', '<Up>', 'gk')
+vim.keymap.set('', '<Down>', 'gj')
 
 -- Open terminal
-vim.keymap.set({'n'}, '<Leader>t', ':terminal<CR>i')
--- vim.keymap.set({'t'}, '<Leader>t', '<C-d>')
-vim.keymap.set({'t'}, '<Esc>', '<C-\\><C-n>')
+vim.keymap.set('n', '<C-t>', ':terminal<CR>i', { nowait = true })
+-- vim.keymap.set('t', '<C-t>', '<C-d>')
+-- vim.keymap.set('t', '<C-t>', '<C-\\><C-n>:bd<CR>')
 
 -- Formatting --
 

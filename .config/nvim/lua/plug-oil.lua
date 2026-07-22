@@ -53,7 +53,7 @@ oil.setup{
   -- See :help oil-actions for a list of all available actions
   keymaps = {
     ["g?"] = "actions.show_help",
-    ["<Leader>e"] = function()
+    ["q"] = { function()
       local oil = require("oil")
       local cwd = oil.get_current_dir(0)
       oil.close()
@@ -61,18 +61,18 @@ oil.setup{
       if is_empty_buf then
         vim.cmd.cd(cwd)
       end
-    end,
+    end, nowait = true },
     ["<CR>"] = "actions.select",
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-h>"] = "actions.select_split",
-    ["<C-t>"] = "actions.select_tab",
+    -- ["<C-t>"] = "actions.select_tab",
     ["<C-p>"] = "actions.preview",
     ["<C-l>"] = "actions.refresh",
     ["<Backspace>"] = { "actions.parent", mode = "n" },
     ["_"] = "actions.open_cwd",
     ["`"] = "actions.cd",
     ["~"] = "actions.tcd",
-    ["t"] = "actions.open_terminal",
+    -- ["t"] = "actions.open_terminal",
     ["f"] = {
       function()
           --find files?
@@ -83,7 +83,7 @@ oil.setup{
     },
     ["g."] = "actions.toggle_hidden",
   },
-  use_default_keymaps = true,
+  use_default_keymaps = false,
   view_options = {
     show_hidden = false,
     is_hidden_file = function(name, bufnr)
@@ -155,9 +155,9 @@ require('oil-git-status').setup({
   },
 })
 
-vim.keymap.set({'n', 'x'}, '<Leader>e', function()
+vim.keymap.set({'n', 'x'}, 'q', function()
   require("oil").open()
-end)
+end, { nowait = true })
 
 vim.api.nvim_create_autocmd("VimEnter", {
   desc = "Open Oil.nvim when launching Neovim with no arguments",
