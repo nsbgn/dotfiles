@@ -52,7 +52,7 @@ require("oil").setup{
   -- See :help oil-actions for a list of all available actions
   keymaps = {
     ["g?"] = "actions.show_help",
-    ["<space>e"] = function()
+    ["<Leader>e"] = function()
       local oil = require("oil")
       local cwd = oil.get_current_dir(0)
       oil.close()
@@ -137,7 +137,7 @@ require('oil-git-status').setup({
   },
 })
 
-vim.keymap.set({'n', 'x'}, '<space>e', function()
+vim.keymap.set({'n', 'x'}, '<Leader>e', function()
   require("oil").open()
 end)
 

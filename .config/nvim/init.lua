@@ -1,11 +1,4 @@
-require('lsp')
-require('colorscheme-gruvbox')
-require('basic')
-require('flash-nvim')
-require('plug-cutlass')
-require('plug-oil')
-require('vim-rooter')
-require('git')
+vim.g.mapleader = ' '
 
 -- Do not write which mode I am in; cursor should make that obvious anyway
 vim.o.showmode = false
@@ -142,4 +135,11 @@ function! ReplaceHomeWithTilde(path) abort
 endfunction
 ]])
 
--- require("config.lazy")
+require('lsp')
+require('colorscheme-gruvbox')
+require('basic')
+require('flash-nvim')
+require('plug-cutlass')
+require('plug-oil')
+require('vim-rooter')
+require('git')
