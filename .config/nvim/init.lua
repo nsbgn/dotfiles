@@ -49,6 +49,8 @@ vim.opt.backspace = "indent,eol,start"
 -- Move to previous/next line when pressing left/right at beginning/end
 vim.opt.whichwrap="b,<,>,h,l,[,]"
 
+vim.o.linebreak = true
+
 -- Show completion menu and, on tab, complete to the longest common command
 vim.o.wildmenu = true
 vim.opt.wildmode = "longest,list,full"
