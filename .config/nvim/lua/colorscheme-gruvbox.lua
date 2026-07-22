@@ -1,5 +1,6 @@
 vim.pack.add({
-  { src = 'https://github.com/ellisonleao/gruvbox.nvim', version = '2.0.0' }
+  { src = 'https://github.com/ellisonleao/gruvbox.nvim', version = '2.0.0' },
+  -- { src = 'https://github.com/sainnhe/gruvbox-material', version = 'v1.2.5' },
 })
 
 require("gruvbox").setup({
@@ -22,28 +23,22 @@ require("gruvbox").setup({
   inverse = true, -- invert background for search, diffs, statuslines and errors
   contrast = "hard",
   palette_overrides = {},
-  overrides = {
-    Normal = { bg = "NONE" },
-    SignColumn = { bg = "NONE" },
-    -- DiffAdd = { fg = "green", bg = "NONE" },
-    -- DiffChange = { fg = "gray", bg = "NONE" },
-    -- DiffDelete = { fg = "darkred", bg = "NONE" },
-    -- markdownH1Delimiter = { standout = true },
-    markdownH1 = { underline = true, bold = true },
-    -- markdownH2Delimiter = { standout = true },
-    markdownH2 = { underline = true, bold = true, italic = true },
-    markdownH3 = { underline = true, italic = true },
-    markdownItalic = { italic = true },
-    markdownItalicDelimiter = { italic = true, fg = "gray" },
-    markdownBold = { bold = true },
-    markdownBoldDelimiter = { bold = true, fg = "gray" },
-    markdownAutomaticLink = { underline = true },
-    yamlBlockMappingKey = { bold = true }, --, fg = "black" },
-    yamlDocumentStart = { fg = "gray" },
-    NeoTreeWinSeparator = { bg = "NONE", fg = "gray" },
-    NeoTreeTabActive = { bg = "NONE" },
-  },
   dim_inactive = false,
   transparent_mode = true,
 })
 vim.cmd.colorscheme("gruvbox")
+
+-- vim.g.gruvbox_material_foreground = 'original'
+-- vim.g.gruvbox_material_background = 'soft'
+-- vim.g.gruvbox_material_better_performance = 1
+-- vim.g.gruvbox_material_enable_bold = 1
+-- vim.g.gruvbox_material_transparent_background = 1
+-- vim.g.gruvbox_material_ui_contrast = 'high'
+-- vim.cmd.colorscheme "gruvbox-material"
+
+vim.api.nvim_set_hl(0, "@markup.heading.1", { underdouble = true, bold = true })
+vim.api.nvim_set_hl(0, "@markup.heading.2", { underline = true, bold = true, italic = true })
+vim.api.nvim_set_hl(0, "@markup.heading.3", { underdotted = true, italic = true })
+vim.api.nvim_set_hl(0, "@markup.heading.4", { underdotted = true })
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
