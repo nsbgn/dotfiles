@@ -20,13 +20,14 @@ end
 
 require("mini.icons").setup()
 
-require("oil").setup{
+local oil = require("oil")
+oil.setup{
   default_file_explorer = true,
   columns = {
     'icon',
     {'permissions', highlight = 'Comment'},
     {'mtime', highlight = 'Comment'},
-    {'size', highlight = 'Special'},
+    {'size', highlight = 'Comment'},
   },
   buf_options = {
     buflisted = true,
@@ -90,6 +91,23 @@ require("oil").setup{
     end,
     is_always_hidden = function(name, bufnr)
       return false
+    end,
+    -- Highlight files that are already open in some buffer
+    -- TODO get inspiration from <https://github.com/malewicz1337/oil-git.nvim>
+    -- to do this more properly: use virtual texts to add buffer number(s), also
+    -- highlight directories, also add option to close buffers, etc
+    highlight_filename = function(entry, is_hidden, is_link_target, is_link_orphan)
+      local cur = vim.api.nvim_get_current_buf()
+      local cwd = oil.get_current_dir(cur)
+      for buf in pairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_is_valid(buf) then
+          local bufname = vim.api.nvim_buf_get_name(buf)
+          if bufname == cwd .. entry.name then
+            return 'Special'
+          end
+        end
+      end
+      return nil
     end,
   },
   -- Configuration for the file preview window
