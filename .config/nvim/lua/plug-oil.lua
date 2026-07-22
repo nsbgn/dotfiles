@@ -23,7 +23,10 @@ require("mini.icons").setup()
 require("oil").setup{
   default_file_explorer = true,
   columns = {
-    "icon", "permissions", "size", "mtime",
+    'icon',
+    {'permissions', highlight = 'Comment'},
+    {'mtime', highlight = 'Comment'},
+    {'size', highlight = 'Special'},
   },
   buf_options = {
     buflisted = true,
@@ -134,3 +137,17 @@ vim.keymap.set('n', '<space>e', function()
     require("oil").open()
   end
 end, {})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Open Oil.nvim when launching Neovim with no arguments",
+  group = vim.api.nvim_create_augroup("oil-start-on-empty", { clear = true }),
+  callback = function(data)
+    local no_args = #vim.fn.argv() == 0
+    local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
+    if no_args and is_empty_buf then
+      vim.defer_fn(function()
+        require("oil").open(vim.fn.getcwd())
+      end, 0)
+    end
+  end,
+})
