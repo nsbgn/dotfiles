@@ -1,5 +1,6 @@
 vim.pack.add({
-  { src = "https://github.com/folke/flash.nvim", version = "v2.1.0" }
+  { src = "https://github.com/folke/flash.nvim", version = "v2.1.0" },
+  -- { 'https://github.com/ggandor/leap.nvim' }
 })
 
 local opts = {

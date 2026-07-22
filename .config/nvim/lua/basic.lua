@@ -11,4 +11,8 @@ vim.pack.add{
   { src = 'https://github.com/direnv/direnv.vim', version = 'ab2a7e08dd630060cd81d7946739ac7442a4f269' },
 -- Automatically detect indentation
   { src = 'https://github.com/tpope/vim-sleuth', version = 'v2.0' },
+-- Syntax highlighting
+  { src = 'https://github.com/niklasl/vim-rdf', version = 'e2af9a7614a9fb9c3fc419135d41700426cad0db' },
+  { src = 'https://github.com/vim-scripts/sparql.vim', version = '4d1d27f3a70510e6c0826c535463b218f4722297' },
+  { src = 'https://github.com/ledger/vim-ledger', version = 'v1.3.0' },
 }
