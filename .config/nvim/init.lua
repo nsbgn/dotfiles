@@ -67,7 +67,8 @@ vim.o.swapfile = false
 
 -- Show file in window title, with icon
 vim.o.title = true
-vim.o.titlestring = "%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)%m"
+-- vim.o.titlestring = "%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)%m"
+vim.o.titlestring = "%f%m%R"
 
 -- Remappings --
 
