@@ -5,6 +5,7 @@ require('flash-nvim')
 require('plug-cutlass')
 require('plug-oil')
 require('vim-rooter')
+require('git')
 
 -- Do not write which mode I am in; cursor should make that obvious anyway
 vim.o.showmode = false
