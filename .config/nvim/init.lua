@@ -89,6 +89,11 @@ vim.api.nvim_set_keymap('', 'j', 'gj', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', '<up>', 'gk', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', '<down>', 'gj', { noremap = true, silent = true })
 
+-- Open terminal
+vim.keymap.set({'n'}, '<Leader>t', ':terminal<CR>i')
+-- vim.keymap.set({'t'}, '<Leader>t', '<C-d>')
+vim.keymap.set({'t'}, '<Esc>', '<C-\\><C-n>')
+
 -- Formatting --
 
 vim.cmd([[
