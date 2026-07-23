@@ -52,16 +52,24 @@ oil.setup{
   prompt_save_on_select_new_entry = true,
   -- See :help oil-actions for a list of all available actions
   keymaps = {
+    -- TODO also allow arrow key navigation?
     ["g?"] = "actions.show_help",
-    ["q"] = { function()
+    ["<Esc>"] = { function()
       local oil = require("oil")
+
+      -- TODO more robust
+      local is_modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
+      if is_modified then
+        return
+      end
+
       local cwd = oil.get_current_dir(0)
       oil.close()
       local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
       if is_empty_buf then
         vim.cmd.cd(cwd)
       end
-    end, nowait = true },
+    end, mode = "n" },
     ["<CR>"] = "actions.select",
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-h>"] = "actions.select_split",
@@ -155,7 +163,9 @@ require('oil-git-status').setup({
   },
 })
 
-vim.keymap.set({'n', 'x'}, 'q', function()
+vim.keymap.set('', 'q', '<Nop>', { nowait = true })
+
+vim.keymap.set({'n', 'x'}, '<Backspace>', function()
   require("oil").open()
 end, { nowait = true })
 
