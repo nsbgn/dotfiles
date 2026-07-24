@@ -67,9 +67,8 @@ vim.o.fillchars = vim.o.fillchars .. "vert:▏,horiz:─,eob: " -- turn off tild
 -- Disable swapfile
 vim.o.swapfile = false
 
--- Show file in window title, with icon
+-- Show file in window title
 vim.o.title = true
--- vim.o.titlestring = "%(%{ReplaceHomeWithTilde(expand(\"%:p\"))}%)%m"
 vim.o.titlestring = "%f%m%R"
 
 -- Remappings --
@@ -124,25 +123,6 @@ augroup latex
     autocmd FileType tex setlocal formatoptions=w2qj
     autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
 augroup END
-
-
-" cf. https://www.jamescherti.com/vim-script-replace-the-home-directory-with-a-tilde/
-function! ReplaceHomeWithTilde(path) abort
-  let l:path = fnamemodify(a:path, ':p')
-  let l:path_sep = (!exists('+shellslash') || &shellslash) ? '/' : '\'
-  let l:home = fnamemodify('~', ':p')
-  let l:projects = l:home . 'projects' . l:path_sep
-
-  if l:path[0:len(l:projects)-1] ==# l:projects
-    return l:path[len(l:projects):]
-  elseif l:path[0:len(l:home)-1] ==# l:home
-    return '~' . l:path_sep . l:path[len(l:home):]
-  elseif l:path == l:home
-    return '~' . l:path_sep
-  endif
-
-  return l:path
-endfunction
 ]])
 
 require('lsp')
