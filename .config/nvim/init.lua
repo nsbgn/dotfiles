@@ -91,6 +91,8 @@ vim.keymap.set('', 'k', 'gk')
 vim.keymap.set('', 'j', 'gj')
 vim.keymap.set('', '<Up>', 'gk')
 vim.keymap.set('', '<Down>', 'gj')
+vim.keymap.set('i', '<Up>', '<C-o>gk')
+vim.keymap.set('i', '<Down>', '<C-o>gj')
 
 -- Open terminal
 vim.keymap.set('n', '<C-t>', ':terminal<CR>i', { nowait = true })
