@@ -10,6 +10,29 @@ require("fzf-lua").setup {
 
 local fzf = require("fzf-lua")
 
+-- cf. https://github.com/ibhagwan/fzf-lua/wiki/Advanced
+-- cf. https://github.com/ibhagwan/fzf-lua/discussions/2289
+_G.projects = function(opts)
+  fzf.fzf_exec(
+    "fd '\\.git$' -H -t d ~/*/ --format '{//}' --relative-path", 
+    {
+      actions = {
+        ['default'] = function(selected)
+          require'oil'.open(selected[1])
+        end
+      },
+      sort_members = true,
+      fn_transform = function(x)
+        -- local fzf = require("fzf-lua")
+        -- return FzfLua.make_entry.file(x, { file_icons = true, color_icons = true })
+        return x
+      end
+    }
+  )
+end
+fzf.register_extension("projects", _G.projects, {})
+
+vim.keymap.set('n', '<Tab>', function() fzf.combine({pickers = 'buffers;projects' }) end)
 vim.keymap.set('n', '<Leader><Space>', fzf.builtin)
 vim.keymap.set('n', '<Leader>a', fzf.buffers)
 vim.keymap.set('n', '<Leader>f', fzf.files)
