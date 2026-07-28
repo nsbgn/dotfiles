@@ -37,10 +37,12 @@ vim.cmd.colorscheme("gruvbox")
 -- vim.g.gruvbox_material_ui_contrast = 'high'
 -- vim.cmd.colorscheme "gruvbox-material"
 
-vim.api.nvim_set_hl(0, "@markup.heading.1", { underdouble = true, bold = true })
-vim.api.nvim_set_hl(0, "@markup.heading.2", { underline = true, bold = true, italic = true })
-vim.api.nvim_set_hl(0, "@markup.heading.3", { underdotted = true, italic = true })
-vim.api.nvim_set_hl(0, "@markup.heading.4", { underdotted = true })
+local set_heading_hl = function(ev)
+  vim.api.nvim_set_hl(0, "@markup.heading.1", { underdouble = true, bold = true })
+  vim.api.nvim_set_hl(0, "@markup.heading.2", { underline = true, bold = true, italic = true })
+  vim.api.nvim_set_hl(0, "@markup.heading.3", { underdotted = true, italic = true })
+  vim.api.nvim_set_hl(0, "@markup.heading.4", { underdotted = true })
+end
 
 -- Always set background to pure black or white
 local update_bg = function(ev)
@@ -56,6 +58,5 @@ vim.api.nvim_create_autocmd({'OptionSet'}, {
   pattern = 'background',
   callback = update_bg
 })
-vim.api.nvim_create_autocmd({'ColorScheme'}, {
-  callback = update_bg
-})
+vim.api.nvim_create_autocmd({'ColorScheme', 'VimEnter'}, { callback = update_bg })
+vim.api.nvim_create_autocmd({'ColorScheme', 'VimEnter'}, { callback = set_heading_hl })

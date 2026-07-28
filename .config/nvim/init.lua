@@ -98,32 +98,35 @@ vim.keymap.set('n', '<C-t>', ':terminal<CR>i', { nowait = true })
 -- vim.keymap.set('t', '<C-t>', '<C-d>')
 -- vim.keymap.set('t', '<C-t>', '<C-\\><C-n>:bd<CR>')
 
+-- Disable the 'q' key
+vim.keymap.set('', 'q', '<Nop>', { nowait = true })
+
 -- Formatting --
 
-vim.cmd([[
-" Formatoptions:
-" - a sets our text to automatically wrap when it reaches textwidth
-" - w defines paragraphs as being separated by a blank line
-" - t sets text to be automatically formatted to textwidth
-" - q allows the gq command to automatically reformat text
-" set formatoptions+=aw2tq
-
-augroup markdown
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-    au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown
-    autocmd FileType markdown setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
-augroup END
-
-augroup latex
-"   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
-"   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
-"   https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
-    au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
-    autocmd FileType tex setlocal conceallevel=0
-    autocmd FileType tex setlocal formatoptions=w2qj
-    autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
-augroup END
-]])
+-- vim.cmd([[
+-- " Formatoptions:
+-- " - a sets our text to automatically wrap when it reaches textwidth
+-- " - w defines paragraphs as being separated by a blank line
+-- " - t sets text to be automatically formatted to textwidth
+-- " - q allows the gq command to automatically reformat text
+-- " set formatoptions+=aw2tq
+--
+-- augroup markdown
+--     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+--     au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown
+--     autocmd FileType markdown setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
+-- augroup END
+--
+-- augroup latex
+-- "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
+-- "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
+-- "   https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
+--     au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
+--     autocmd FileType tex setlocal conceallevel=0
+--     autocmd FileType tex setlocal formatoptions=w2qj
+--     autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
+-- augroup END
+-- ]])
 
 require('lsp')
 require('colorscheme-gruvbox')

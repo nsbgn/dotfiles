@@ -163,22 +163,20 @@ require('oil-git-status').setup({
   },
 })
 
-vim.keymap.set('', 'q', '<Nop>', { nowait = true })
-
 vim.keymap.set({'n', 'x'}, '<Backspace>', function()
   require("oil").open()
 end, { nowait = true })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "Open Oil.nvim when launching Neovim with no arguments",
-  group = vim.api.nvim_create_augroup("oil-start-on-empty", { clear = true }),
-  callback = function(data)
-    local no_args = #vim.fn.argv() == 0
-    local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
-    if no_args and is_empty_buf then
-      vim.defer_fn(function()
-        require("oil").open()
-      end, 0)
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   desc = "Open Oil.nvim when launching Neovim with no arguments",
+--   group = vim.api.nvim_create_augroup("oil-start-on-empty", { clear = true }),
+--   callback = function(data)
+--     local no_args = #vim.fn.argv() == 0
+--     local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
+--     if no_args and is_empty_buf then
+--       vim.defer_fn(function()
+--         require("oil").open()
+--       end, 0)
+--     end
+--   end,
+-- })
