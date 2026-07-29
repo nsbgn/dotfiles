@@ -25,4 +25,5 @@ zen.setup{
 }
 
 vim.api.nvim_set_hl(0, "ZenBg", { bg = "#101010" })
-vim.keymap.set('n', '<Leader>z', zen.toggle)
+vim.keymap.set('n', '<Leader>oz', zen.toggle)
+vim.keymap.set('n', '<Leader>on', function() vim.o.number = not vim.o.number end)

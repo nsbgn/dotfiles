@@ -39,7 +39,7 @@ vim.keymap.set('n', '<Leader><Space>', fzf.builtin)
 vim.keymap.set('n', '<Leader>b', fzf.buffers)
 vim.keymap.set('n', '<Leader>f', fzf.files)
 vim.keymap.set('n', '<Leader>g', fzf.live_grep)
-vim.keymap.set('n', '<Leader>o', fzf.lsp_document_symbols)
+vim.keymap.set('n', '<Leader>d', fzf.lsp_document_symbols)
 vim.keymap.set('n', '<Leader>c', fzf.git_commits)
 vim.keymap.set('n', '<Leader>u', fzf.undotree)
 
