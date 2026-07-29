@@ -9,16 +9,12 @@ vim.o.showcmd = false
 
 vim.o.termguicolors = true
 
-vim.o.breakindent = true
 
 -- for searching and flash.nvim matching
 vim.o.ignorecase = true
 
 -- Enable mouse support
 vim.o.mouse = "a"
-
--- Width is 79 characters by default
-vim.o.textwidth = 79
 
 -- Show column number, line number and relative position in status line
 vim.o.ruler = true
@@ -49,6 +45,10 @@ vim.opt.backspace = "indent,eol,start"
 -- Move to previous/next line when pressing left/right at beginning/end
 vim.opt.whichwrap="b,<,>,h,l,[,]"
 
+-- Wrapping
+vim.o.textwidth = 0
+vim.o.wrap = true
+vim.o.breakindent = true
 vim.o.linebreak = true
 
 -- Show completion menu and, on tab, complete to the longest common command
