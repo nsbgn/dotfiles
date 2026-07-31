@@ -95,11 +95,17 @@ vim.keymap.set('i', '<Down>', '<C-o>gj')
 
 -- Open terminal
 vim.keymap.set('n', '<C-t>', ':terminal<CR>i', { nowait = true })
+vim.keymap.set('n', '<Leader>t', ':terminal<CR>i')
 -- vim.keymap.set('t', '<C-t>', '<C-d>')
 -- vim.keymap.set('t', '<C-t>', '<C-\\><C-n>:bd<CR>')
 
 -- Disable the 'q' key
 vim.keymap.set('', 'q', '<Nop>', { nowait = true })
+
+-- Always start terminal in insert mode
+vim.api.nvim_create_autocmd("TermOpen", {
+  command = "startinsert"
+})
 
 -- Formatting --
 
