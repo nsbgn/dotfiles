@@ -52,38 +52,54 @@ oil.setup{
   prompt_save_on_select_new_entry = true,
   -- See :help oil-actions for a list of all available actions
   keymaps = {
-    -- TODO also allow arrow key navigation?
     ["g?"] = "actions.show_help",
-    ["<Esc>"] = { function()
-      local oil = require("oil")
-
-      -- TODO more robust
-      local is_modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
-      if is_modified then
-        return
-      end
-
-      local cwd = oil.get_current_dir(0)
-      oil.close()
-      local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
-      if is_empty_buf then
-        vim.cmd.cd(cwd)
-      end
-    end, mode = "n" },
+    ["<Left>"] = { "actions.parent", mode = "n" },
+    ["<Right>"] = { function()
+        local oil = require("oil")
+        local entry = oil.get_cursor_entry()
+        if entry ~= nil and entry.type == 'directory' then
+          oil.select()
+          -- local bufnr = vim.fn.bufnr(0)
+          -- oil.select({}, function()
+          --   if bufnr > 0 then
+          --     vim.api.nvim_buf_delete(bufnr, {})
+          --   end
+          -- end)
+        end
+      end, mode = "n"},
+    ["<Home>"] = "actions.open_cwd",
+    ["<End>"] = "actions.open_cwd",
+    -- ["<Esc>"] = { function()
+    --   local oil = require("oil")
+    --
+    --   -- TODO more robust
+    --   local is_modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
+    --   if is_modified then
+    --     return
+    --   end
+    --
+    --   local cwd = oil.get_current_dir(0)
+    --   oil.close()
+    --   local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
+    --   if is_empty_buf then
+    --     vim.cmd.cd(cwd)
+    --   end
+    -- end, mode = "n" },
     ["<CR>"] = "actions.select",
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-h>"] = "actions.select_split",
+    ["<C-c>"] = "actions.close",
     -- ["<C-t>"] = "actions.select_tab",
     ["<C-p>"] = "actions.preview",
     ["<C-l>"] = "actions.refresh",
     ["<Backspace>"] = { "actions.parent", mode = "n" },
-    ["_"] = "actions.open_cwd",
     ["`"] = "actions.cd",
     ["~"] = "actions.tcd",
-    -- ["t"] = "actions.open_terminal",
+    ["t"] = "actions.open_terminal",
+    -- vim.api.nvim_open_term(0)
     ["f"] = {
       function()
-          --find files?
+        require("fzf-lua").files()
       end,
       mode = "n",
       nowait = true,
@@ -166,6 +182,11 @@ require('oil-git-status').setup({
 vim.keymap.set({'n', 'x'}, '<Backspace>', function()
   require("oil").open()
 end, { nowait = true })
+
+-- Always start terminal in insert mode
+vim.api.nvim_create_autocmd("TermOpen", {
+  command = "startinsert"
+})
 
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   desc = "Open Oil.nvim when launching Neovim with no arguments",
