@@ -59,33 +59,41 @@ oil.setup{
         local entry = oil.get_cursor_entry()
         if entry ~= nil and entry.type == 'directory' then
           oil.select()
-          -- local bufnr = vim.fn.bufnr(0)
-          -- oil.select({}, function()
-          --   if bufnr > 0 then
-          --     vim.api.nvim_buf_delete(bufnr, {})
-          --   end
-          -- end)
         end
       end, mode = "n"},
-    ["<Home>"] = "actions.open_cwd",
-    ["<End>"] = "actions.open_cwd",
-    -- ["<Esc>"] = { function()
-    --   local oil = require("oil")
-    --
-    --   -- TODO more robust
-    --   local is_modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
-    --   if is_modified then
-    --     return
-    --   end
-    --
-    --   local cwd = oil.get_current_dir(0)
-    --   oil.close()
-    --   local is_empty_buf = vim.api.nvim_buf_get_name(0) == "" 
-    --   if is_empty_buf then
-    --     vim.cmd.cd(cwd)
-    --   end
-    -- end, mode = "n" },
+    ["<Home>"] = "actions.open_cwd", -- TODO: go to root of previous non-oil buffer
+    ["<End>"] = "actions.open_cwd", -- TODO: go to directory of previous non-oil buffer
+    ["<Esc>"] = { function()
+      local oil = require("oil")
+
+      -- only close if at least one remaining buffer is non-oil and all oil
+      -- buffers are saved
+      local all_oil = true
+      local all_oil_saved = true
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        local is_oil = vim.startswith(vim.api.nvim_buf_get_name(buf), "oil:")
+        local is_modified = vim.api.nvim_buf_get_option(buf, 'modified')
+        if is_modified then
+          all_oil_saved = false
+          break
+        end
+        if not is_oil then
+          all_oil = false
+        end
+      end
+      if not all_oil_saved then
+        oil.save{ confirm = true }
+      elseif all_oil then
+        print("not closing because all remaining buffers are oil buffers")
+      else
+        oil.close()
+      end
+    end, mode = "n" },
     ["<CR>"] = "actions.select",
+    ["<C-space>"] = { function()
+      require("oil").discard_all_changes()
+      print("Discarding all changes to oil.nvim buffers!")
+    end, mode = 'n' },
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-h>"] = "actions.select_split",
     ["<C-c>"] = "actions.close",
@@ -95,8 +103,6 @@ oil.setup{
     ["<Backspace>"] = { "actions.parent", mode = "n" },
     ["`"] = "actions.cd",
     ["~"] = "actions.tcd",
-    ["t"] = "actions.open_terminal",
-    -- vim.api.nvim_open_term(0)
     ["f"] = {
       function()
         require("fzf-lua").files()
@@ -182,11 +188,6 @@ require('oil-git-status').setup({
 vim.keymap.set({'n', 'x'}, '<Backspace>', function()
   require("oil").open()
 end, { nowait = true })
-
--- Always start terminal in insert mode
-vim.api.nvim_create_autocmd("TermOpen", {
-  command = "startinsert"
-})
 
 -- vim.api.nvim_create_autocmd("VimEnter", {
 --   desc = "Open Oil.nvim when launching Neovim with no arguments",
