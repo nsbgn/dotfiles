@@ -60,9 +60,34 @@ oil.setup{
         if entry ~= nil and entry.type == 'directory' then
           oil.select()
         end
-      end, mode = "n"},
-    ["<Home>"] = "actions.open_cwd", -- TODO: go to root of previous non-oil buffer
-    ["<End>"] = "actions.open_cwd", -- TODO: go to directory of previous non-oil buffer
+      end, mode = 'n' },
+    ["<Home>"] = {
+      function()
+        require("oil").open("~")
+        -- go to root of original buffer
+        -- to get original buffer: <https://github.com/stevearc/oil.nvim/blob/b73018b75affd13fa38e2fc94ef753b465f770d7/lua/oil/init.lua#L418>
+        -- local ok, bufnr = pcall(vim.api.nvim_win_get_var, 0, "oil_original_buffer")
+        -- if ok and vim.api.nvim_buf_is_valid(bufnr) then
+        --   local bufname = vim.api.nvim_buf_get_name(bufnr)
+        --   local root = require("autoroot").get_root(bufname)
+        --   print(root)
+        --   -- require("oil").open(root)
+        -- else
+        --   print('there was no original buffer')
+        -- end
+      end, mode = 'n' }, 
+    ["<End>"] = {
+      function() 
+        -- go to directory of original buffer
+        local ok, bufnr = pcall(vim.api.nvim_win_get_var, 0, "oil_original_buffer")
+        if ok and vim.api.nvim_buf_is_valid(bufnr) then
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          -- print(vim.fs.dirname(bufname))
+          require("oil").open(vim.fs.dirname(bufname))
+        else
+          print('there was no original buffer')
+        end
+    end, mode = 'n' }, 
     ["<Esc>"] = { function()
       local oil = require("oil")
 
@@ -71,13 +96,14 @@ oil.setup{
       local all_oil = true
       local all_oil_saved = true
       for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        local is_oil = vim.startswith(vim.api.nvim_buf_get_name(buf), "oil:")
+        local bufname = vim.api.nvim_buf_get_name(buf)
+        local is_oil = vim.startswith(bufname, "oil:")
         local is_modified = vim.api.nvim_buf_get_option(buf, 'modified')
         if is_modified then
           all_oil_saved = false
           break
         end
-        if not is_oil then
+        if not (is_oil or bufname == '') then
           all_oil = false
         end
       end
