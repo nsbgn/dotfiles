@@ -34,8 +34,9 @@ fzf.register_extension("projects", _G.projects, {})
 
 -- Open projects when bufferlist is empty?
 vim.keymap.set('n', '<Tab>', fzf.buffers)
-vim.keymap.set('n', '<Leader><Tab>', _G.projects)
+vim.keymap.set({'n', 'x', 't'}, '<C-Tab>', fzf.buffers)
 vim.keymap.set('n', '<Leader><Space>', fzf.builtin)
+vim.keymap.set('n', '<Leader>p', _G.projects)
 vim.keymap.set('n', '<Leader>b', fzf.buffers)
 vim.keymap.set('n', '<Leader>f', fzf.files)
 vim.keymap.set('n', '<Leader>g', fzf.live_grep)

@@ -94,8 +94,8 @@ vim.keymap.set('i', '<Up>', '<C-o>gk')
 vim.keymap.set('i', '<Down>', '<C-o>gj')
 
 -- Open terminal
-vim.keymap.set('n', '<C-t>', ':terminal<CR>i', { nowait = true })
-vim.keymap.set('n', '<Leader>t', ':terminal<CR>i')
+vim.keymap.set('n', '<C-t>', ':terminal<CR>', { nowait = true })
+-- vim.keymap.set('n', '<Leader>t', ':terminal<CR>i')
 -- vim.keymap.set('t', '<C-t>', '<C-d>')
 -- vim.keymap.set('t', '<C-t>', '<C-\\><C-n>:bd<CR>')
 
