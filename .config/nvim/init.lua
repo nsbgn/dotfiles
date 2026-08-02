@@ -7,9 +7,6 @@ vim.o.showmode = false
 vim.o.laststatus = 0
 vim.o.showcmd = false
 
-vim.o.termguicolors = true
-
-
 -- for searching and flash.nvim matching
 vim.o.ignorecase = true
 
@@ -29,27 +26,14 @@ vim.o.signcolumn = "yes"
 -- Get rid of fileinfo in command line
 vim.o.shortmess = "F"
 
--- Indentation behaviour
-vim.o.autoindent = true -- Copy indentation from previous line
-vim.o.expandtab = true -- Convert tabs to spaces
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4 -- Number of characters for indentation (> and <)
-vim.o.softtabstop = 4 -- Tab and backspace insert and delete correct number of spaces
-
--- Do not automatically put two spaces after a sentence
-vim.o.joinspaces = false
-
 -- Backspace over indentations
 vim.opt.backspace = "indent,eol,start"
 
 -- Move to previous/next line when pressing left/right at beginning/end
 vim.opt.whichwrap="b,<,>,h,l,[,]"
 
--- Wrapping
-vim.o.textwidth = 0
-vim.o.wrap = true
-vim.o.breakindent = true
-vim.o.linebreak = true
+-- Do not automatically put two spaces after a sentence
+vim.o.joinspaces = false
 
 -- Show completion menu and, on tab, complete to the longest common command
 vim.o.wildmenu = true
@@ -107,33 +91,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   command = "startinsert"
 })
 
--- Formatting --
-
--- vim.cmd([[
--- " Formatoptions:
--- " - a sets our text to automatically wrap when it reaches textwidth
--- " - w defines paragraphs as being separated by a blank line
--- " - t sets text to be automatically formatted to textwidth
--- " - q allows the gq command to automatically reformat text
--- " set formatoptions+=aw2tq
---
--- augroup markdown
---     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
---     au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown
---     autocmd FileType markdown setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
--- augroup END
---
--- augroup latex
--- "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
--- "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
--- "   https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
---     au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
---     autocmd FileType tex setlocal conceallevel=0
---     autocmd FileType tex setlocal formatoptions=w2qj
---     autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
--- augroup END
--- ]])
-
 require('lsp')
 require('colorscheme-gruvbox')
 require('basic')
@@ -144,5 +101,5 @@ require('git')
 -- require('mini-pick')
 require('plug-fzf')
 require('plug-zen-mode')
-require('wrap')
-require('autoroot').setup()
+require('formatting')
+require('autoroot')

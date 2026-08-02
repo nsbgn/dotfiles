@@ -35,9 +35,7 @@ local set_buffer_root = function()
   end
 end
 
-M.setup = function()
-  local root_augroup = vim.api.nvim_create_augroup('MyAutoRoot', {})
-  vim.api.nvim_create_autocmd('BufEnter', { group = root_augroup, callback = set_buffer_root })
-end
+local root_augroup = vim.api.nvim_create_augroup('MyAutoRoot', { clear = true })
+vim.api.nvim_create_autocmd('BufEnter', { group = root_augroup, callback = set_buffer_root })
 
 return M
