@@ -2,9 +2,70 @@
 --   { src = 'https://github.com/andrewferrier/wrapping.nvim', version = 'v2.1.3' },
 -- }
 
-local hard = function()
-  -- vim.opt_local.textwidth = 72
-  vim.opt_local.wrap = false
+---------------------
+-- Global settings --
+
+-- Indentation
+vim.o.autoindent = true -- copy indentation from previous line
+vim.o.expandtab = true -- convert tabs to spaces
+vim.o.tabstop = 8 -- number of spaces for the tab character
+vim.o.shiftwidth = 4 -- number of characters for indentation (> and <)
+vim.o.softtabstop = -1 -- tab/bksp insert #spaces ( < 0 → use shiftwidth)
+
+-- Wrapping
+vim.o.textwidth = 72
+vim.o.wrap = false
+vim.o.breakindent = true -- wrapped lines will continue indented
+vim.opt.breakindentopt:append "list:-1" -- list items get additional indent on wrap
+vim.o.linebreak = true -- don't break lines in the middle of words
+
+-- as suggested in `:h wrap`
+vim.o.sidescroll = 5
+vim.opt.listchars:append 'precedes:<,extends:>'
+
+------------------
+-- Autocommands --
+
+local get_max_columns = function(default)
+  local tty = vim.uv.new_tty(1, false)
+  -- tty:write("\x1b[18;;t") -- see `man foot-ctlseqs` 
+  local ok, cols, rows = pcall(vim.uv.tty_get_winsize, tty)
+  tty:close()
+  if ok then
+    return cols
+  else
+    return default
+  end
+end
+
+local soft_wrap = function()
+  local tw = vim.bo.textwidth or vim.o.textwidth or 80
+  if not tw then
+    return
+  end
+
+  vim.b.hard_textwidth = tw
+  vim.bo.textwidth = 0
+  vim.wo.wrap = true
+  vim.opt_local.formatoptions:remove 'at'
+
+  -- When soft wrapping, we just reduce the number of columns so that it
+  -- won't span the whole screen. This is a workaround because
+  -- <https://github.com/neovim/neovim/issues/4386> is still open. It is
+  -- far from ideal as EVERYTHING then has to fit inside here, but it
+  -- feels less janky than the various zen-mode plugins like Goyo,
+  -- <https://github.com/folke/zen-mode.nvim>
+  vim.opt.columns = tw + 8
+end
+
+local hard_wrap = function()
+  local tw = vim.b.hard_textwidth or vim.bo.textwidth or vim.o.textwidth or 80
+  vim.wo.wrap = false
+  vim.bo.textwidth = tw
+  vim.b.hard_textwidth = nil
+
+  -- Reset columns to what it was -- presumably the terminal's max
+  vim.opt.columns = get_max_columns(80)
 
   -- see also `:h fo-table`
   -- - t sets text (but not comments) to be autowrap when reaching textwidth
@@ -14,33 +75,6 @@ local hard = function()
   vim.opt_local.formatoptions:append 'awtq'
 end
 
-local soft = function()
--- vim.opt_local.textwidth = 0
-  vim.opt_local.wrap = false
-  vim.opt_local.breakindent = true
-  vim.opt_local.linebreak = true
--- as suggested in `:h wrap`
-  vim.opt_local.sidescroll = 5
-  vim.opt_local.listchars:append 'precedes:<,extends:>'
-  vim.opt_local.formatoptions:remove 'at'
-end
-
-
--- Global settings ---
-
--- Indentation
-vim.o.autoindent = true -- copy indentation from previous line
-vim.o.expandtab = true -- convert tabs to spaces
-vim.o.tabstop = 8 -- number of spaces for the tab character
-vim.o.shiftwidth = 4 -- number of characters for indentation (> and <)
-vim.o.softtabstop = -1 -- tab and backspace insert spaces (negative number uses shiftwidth)
-
--- Wrapping
-vim.o.textwidth = 72
-vim.o.wrap = false
-vim.o.breakindent = true -- wrapped lines will continue indented
-vim.opt.breakindentopt:append "list:-1" -- list items get additional indent on wrap
-vim.o.linebreak = true -- don't break lines in the middle of words
 
 local group = vim.api.nvim_create_augroup("formatting", { clear = true })
 
@@ -69,17 +103,17 @@ local group = vim.api.nvim_create_augroup("formatting", { clear = true })
 -- augroup END
 
 
-vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = { 'markdown' },
-  group = formatting,
-  callback = soft,
-})
+-- vim.api.nvim_create_autocmd({'FileType'}, {
+--   pattern = { 'markdown' },
+--   group = formatting,
+--   callback = soft,
+-- })
+--
+-- vim.api.nvim_create_autocmd({'FileType'}, {
+--   pattern = { 'markdown' },
+--   group = formatting,
+--   callback = soft,
+-- })
 
-vim.api.nvim_create_autocmd({'FileType'}, {
-  pattern = { 'markdown' },
-  group = formatting,
-  callback = soft,
-})
-
-vim.keymap.set("n", "<Leader>ws", soft)
-vim.keymap.set("n", "<Leader>wh", hard)
+vim.keymap.set("n", "<Leader>ws", soft_wrap)
+vim.keymap.set("n", "<Leader>wh", hard_wrap)
