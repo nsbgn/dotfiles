@@ -46,14 +46,20 @@ end
 
 -- Always set background to pure black or white
 local update_bg = function(ev)
+  local bg
+  local ccbg
   if vim.o.background == 'light' then
     bg = 'white'
+    ccbg = '#eeeeee'
   else
     bg = 'black'
+    ccbg = '#111111'
   end
   vim.api.nvim_set_hl(0, "Normal", { bg = bg })
   vim.api.nvim_set_hl(0, "SignColumn", { bg = bg })
+  vim.api.nvim_set_hl(0, "ColorColumn", { bg = ccbg })
 end
+
 vim.api.nvim_create_autocmd({'OptionSet'}, {
   pattern = 'background',
   callback = update_bg

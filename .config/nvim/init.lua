@@ -48,6 +48,9 @@ vim.opt.listchars = "tab:⇥ ,trail:⸱,nbsp:⎵"
 
 vim.o.fillchars = vim.o.fillchars .. "vert:▏,horiz:─,eob: " -- turn off tildes at the end of buffers
 
+-- Highlight column after textwidth
+vim.opt.colorcolumn = '+1'
+
 -- Disable swapfile
 vim.o.swapfile = false
 
