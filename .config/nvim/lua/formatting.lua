@@ -1,7 +1,9 @@
 -- vim.pack.add{
 --   { src = 'https://github.com/andrewferrier/wrapping.nvim', version = 'v2.1.3' },
 -- }
-
+-- cf. https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
+-- cf. https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
+-- cf. https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
 ---------------------
 -- Global settings --
 
@@ -13,7 +15,7 @@ vim.o.shiftwidth = 4 -- number of characters for indentation (> and <)
 vim.o.softtabstop = -1 -- tab/bksp insert #spaces ( < 0 → use shiftwidth)
 
 -- Wrapping
-vim.o.textwidth = 72
+vim.o.textwidth = 80
 vim.o.wrap = false
 vim.o.breakindent = true -- wrapped lines will continue indented
 vim.opt.breakindentopt:append "list:-1" -- list items get additional indent on wrap
@@ -38,12 +40,8 @@ local get_max_columns = function(default)
   end
 end
 
-local soft_wrap = function()
-  local tw = vim.bo.textwidth or vim.o.textwidth or 80
-  if not tw then
-    return
-  end
-
+local soft_wrap = function(tw)
+  tw = tw or vim.bo.textwidth or vim.o.textwidth or 80
   vim.b.hard_textwidth = tw
   vim.bo.textwidth = 0
   vim.wo.wrap = true
@@ -55,17 +53,18 @@ local soft_wrap = function()
   -- far from ideal as EVERYTHING then has to fit inside here, but it
   -- feels less janky than the various zen-mode plugins like Goyo,
   -- <https://github.com/folke/zen-mode.nvim>
-  vim.opt.columns = tw + 8
+  -- -- never mind, it is very janky
+  -- vim.opt.columns = tw + 8
 end
 
-local hard_wrap = function()
-  local tw = vim.b.hard_textwidth or vim.bo.textwidth or vim.o.textwidth or 80
+local hard_wrap = function(tw)
+  tw = tw or vim.b.hard_textwidth or vim.bo.textwidth or vim.o.textwidth or 80
   vim.wo.wrap = false
   vim.bo.textwidth = tw
   vim.b.hard_textwidth = nil
 
   -- Reset columns to what it was -- presumably the terminal's max
-  vim.opt.columns = get_max_columns(80)
+  -- vim.opt.columns = get_max_columns(80)
 
   -- see also `:h fo-table`
   -- - t sets text (but not comments) to be autowrap when reaching textwidth
@@ -78,42 +77,11 @@ end
 
 local group = vim.api.nvim_create_augroup("formatting", { clear = true })
 
--- augroup markdown
---     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
---     au! BufNewFile,BufFilePre,BufRead *.mail set filetype=markdown
---     autocmd FileType markdown setlocal conceallevel=0 formatoptions+=aw2tq wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4
--- augroup END
-
--- vim.api.nvim_create_autocmd({'BufNewFile', 'BufFilePre', 'BufRead'}, {
---   pattern = { '*.md', '*.mail' },
---   group = formatting,
---   callback = function()
---     vim.o.filetype = 'markdown'
---   end,
--- })
-
--- augroup latex
--- "   https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
--- "   https://vim.fandom.com/wiki/Word_wrap_without_line_breaks
--- "   https://stackoverflow.com/questions/7053550/disable-all-auto-indentation-in-vim
---     au! BufNewFile,BufRead,BufRead *.tex set filetype=tex
---     autocmd FileType tex setlocal conceallevel=0
---     autocmd FileType tex setlocal formatoptions=w2qj
---     autocmd FileType tex setlocal wrap linebreak textwidth=72 wrapmargin=0 tabstop=4 shiftwidth=4 softtabstop=4 indentexpr=no
--- augroup END
-
-
--- vim.api.nvim_create_autocmd({'FileType'}, {
---   pattern = { 'markdown' },
---   group = formatting,
---   callback = soft,
--- })
---
--- vim.api.nvim_create_autocmd({'FileType'}, {
---   pattern = { 'markdown' },
---   group = formatting,
---   callback = soft,
--- })
+vim.api.nvim_create_autocmd({'FileType'}, {
+  pattern = { 'markdown', 'mail' },
+  group = formatting,
+  callback = function() hard_wrap(72) end,
+})
 
 vim.keymap.set("n", "<Leader>ws", soft_wrap)
 vim.keymap.set("n", "<Leader>wh", hard_wrap)

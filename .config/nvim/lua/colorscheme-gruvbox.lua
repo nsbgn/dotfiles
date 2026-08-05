@@ -50,10 +50,10 @@ local update_bg = function(ev)
   local ccbg
   if vim.o.background == 'light' then
     bg = 'white'
-    ccbg = '#eeeeee'
+    ccbg = '#f8f8f8'
   else
     bg = 'black'
-    ccbg = '#111111'
+    ccbg = '#0f0f0f'
   end
   vim.api.nvim_set_hl(0, "Normal", { bg = bg })
   vim.api.nvim_set_hl(0, "SignColumn", { bg = bg })

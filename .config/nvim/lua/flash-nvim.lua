@@ -4,6 +4,9 @@ vim.pack.add({
 })
 
 local opts = {
+  prompt = {
+    enabled = false
+  },
   label = {
     uppercase = false
   }
