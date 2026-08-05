@@ -85,3 +85,29 @@ vim.api.nvim_create_autocmd({'FileType'}, {
 
 vim.keymap.set("n", "<Leader>ws", soft_wrap)
 vim.keymap.set("n", "<Leader>wh", hard_wrap)
+
+local test_split = function()
+
+  local buf = vim.g.marginbuf
+  if not buf or not vim.api.nvim_buf_is_valid(buf) then
+    buf = vim.api.nvim_create_buf(false, false)
+    local opts = {scope = 'local', buf = buf }
+    vim.g.marginbuf = buf
+    vim.api.nvim_set_option_value('buftype', 'nofile', opts)
+    vim.api.nvim_set_option_value('bufhidden', 'hide', opts)
+    vim.api.nvim_set_option_value('modifiable', false, opts)
+    vim.api.nvim_set_option_value('swapfile', false, opts)
+  end
+  assert(vim.g.marginbuf)
+  local win = vim.api.nvim_open_win(
+    vim.g.marginbuf,
+    false,
+    { split = 'right' }
+  )
+  -- See nvim_win_get_width and nvim_win_set_config
+  -- window-local:
+  -- vim.api.nvim_set_option_value('fillchars', 'eob: ', opts) window-local
+  -- vim.api.nvim_set_option_value('winfixwidth', false, opts) window-local
+  -- vim.api.nvim_set_option_value('number', false, opts) window-local
+end
+vim.keymap.set("n", "<Leader>wt", test_split)
