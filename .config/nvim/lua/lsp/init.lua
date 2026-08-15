@@ -34,3 +34,4 @@ end
 
 require 'lsp.python'
 require 'lsp.markdown'
+require 'lsp.lua'
