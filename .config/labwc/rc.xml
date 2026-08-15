@@ -1,34 +1,50 @@
 <?xml version="1.0"?>
 <!-- For a complete set of options with comments, see docs/rc.xml.all -->
-
 <labwc_config>
   <core>
-    <gap>10</gap>
+    <gap>0</gap>
   </core>
   <theme>
-    <name></name>
-    <cornerRadius>10</cornerRadius>
+    <name>Bear2</name>
+    <cornerRadius>0</cornerRadius>
     <keepBorder>yes</keepBorder>
-    <font name="Karla" size="10" />
+    <font name="Open Sans" size="10"/>
+    <dropShadows>no</dropShadows>
+    <icon>Chicago95</icon>
+    <maximizedDecoration>titlebar</maximizedDecoration>
   </theme>
   <keyboard>
     <repeatRate>45</repeatRate>
     <repeatDelay>300</repeatDelay>
-    <keybind key="W-C-t"><action name="Execute" command="footclient" /></keybind>
-    <keybind key="W-C-g"><action name="Execute" command="dmenu-apps" /></keybind>
-    <keybind key="W-C-z"><action name="Close" /></keybind>
-    <keybind key="W-C-v"><action name="ToggleMaximize" /></keybind>
-    <keybind key="W-C-m"><action name="PreviousWindow" /></keybind>
-    <keybind key="W-C-,"><action name="SnapToEdge" direction="left" /></keybind>
-    <keybind key="W-C-."><action name="SnapToEdge" direction="right" /></keybind>
-    <default />
+    <keybind key="W-C-t">
+      <action name="Execute" command="footclient"/>
+    </keybind>
+    <keybind key="W-C-g">
+      <action name="Execute" command="dmenu-apps"/>
+    </keybind>
+    <keybind key="W-C-z">
+      <action name="Close"/>
+    </keybind>
+    <keybind key="W-C-v">
+      <action name="ToggleMaximize"/>
+    </keybind>
+    <keybind key="W-C-m">
+      <action name="PreviousWindow"/>
+    </keybind>
+    <keybind key="W-C-,">
+      <action name="SnapToEdge" direction="left"/>
+    </keybind>
+    <keybind key="W-C-.">
+      <action name="SnapToEdge" direction="right"/>
+    </keybind>
+    <default/>
   </keyboard>
   <mouse>
-    <default />
+    <default/>
     <!-- Show a custom menu on desktop right click -->
     <context name="Root">
       <mousebind button="Right" action="Press">
-        <action name="ShowMenu" menu="some-custom-menu" />
+        <action name="ShowMenu" menu="some-custom-menu"/>
       </mousebind>
     </context>
   </mouse>

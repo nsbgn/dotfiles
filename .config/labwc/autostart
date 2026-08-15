@@ -1,9 +1,13 @@
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=labwc &
-lxpolkit &
-foot --server &
-gammastep -O 5500K &
+
+# Integrate with systemd https://wiki.archlinux.org/title/Labwc
+systemctl -q --no-block --user start labwc-session.target
+
+# lxpolkit &
+# foot --server &
+# gammastep -O 5500K &
 # wvkbd-mobintl --hidden &
-swaybg -c '#113344' >/dev/null 2>&1 &
+swaybg -c '#113344' 2>&1 >/dev/null &
 
 # Configure output directives such as mode, position, scale and transform.
 # Use wlr-randr to get your output names
@@ -14,8 +18,9 @@ swaybg -c '#113344' >/dev/null 2>&1 &
 #   }
 # kanshi >/dev/null 2>&1 &
 
-# Launch a panel such as yambar or waybar.
-waybar >/dev/null 2>&1 &
+# Launch a panel
+# waybar >/dev/null 2>&1 &
+xfce4-panel -d &
 
 # Enable notifications. Typically GNOME/KDE application notifications go
 # through the org.freedesktop.Notifications D-Bus API and require a client such
