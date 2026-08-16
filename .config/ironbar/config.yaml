@@ -1,0 +1,14 @@
+position: "bottom"
+height: 42
+start:
+  - type: menu
+    truncate: null
+  - type: launcher
+center: []
+end: 
+  - type: bluetooth
+  - type: battery
+  - type: volume
+  - type: clock
+  - type: tray
+  # - ["bluetooth", "battery", "volume", "clock", "tray"]
