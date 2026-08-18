@@ -14,7 +14,8 @@ My [scripts][scrp] are added as a [subtree][atla] at
 
 -   Prefer small, composable applications that do one thing well.
 
--   Software that impacts my life should be free and open-source.
+-   Software that impacts my personal life should be free and 
+    open-source.
 
 -   Rely on standard repositories as much as possible, but build from 
     source if there is a good reason. Software that is in the 
@@ -25,8 +26,8 @@ My [scripts][scrp] are added as a [subtree][atla] at
     for setting up a new installation. I don't recommend running them 
     as-is: they're mostly there as a reminder to myself.
 
--   The windowing environments that have my interest are [sway][sway], 
-    [Phosh][phsh] and [labwc][labw].
+-   The windowing environments that have my interest are [sway], [labwc] 
+    and [river].
 
 
 <!-- Footnotes -------------------------------------------------------->

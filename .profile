@@ -18,6 +18,8 @@ export BAT_THEME="auto"
 export BAT_THEME_LIGHT="gruvbox-light"
 export BAT_THEME_DARK="gruvbox-dark"
 
+export QT_QPA_PLATFORMTHEME=qt6ct
+
 if [ -f "$HOME/.tokens" ]; then
     source $HOME/.tokens
 fi

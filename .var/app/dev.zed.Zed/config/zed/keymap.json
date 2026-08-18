@@ -29,5 +29,10 @@
     "bindings": {
       "cancel": "vim::NormalBefore"
     }
+  },
+  {
+    "bindings": {
+      "cancel": "menu::Cancel"
+    }
   }
 ]

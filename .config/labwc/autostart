@@ -7,7 +7,8 @@ systemctl -q --no-block --user start labwc-session.target
 # foot --server &
 # gammastep -O 5500K &
 # wvkbd-mobintl --hidden &
-swaybg -c '#113344' 2>&1 >/dev/null &
+# swaybg -c '#113344' 2>&1 >/dev/null &
+swaybg -c '#008080' 2>&1 >/dev/null &
 
 # Configure output directives such as mode, position, scale and transform.
 # Use wlr-randr to get your output names
@@ -20,7 +21,7 @@ swaybg -c '#113344' 2>&1 >/dev/null &
 
 # Launch a panel
 # waybar >/dev/null 2>&1 &
-xfce4-panel -d &
+# ironbar &
 
 # Enable notifications. Typically GNOME/KDE application notifications go
 # through the org.freedesktop.Notifications D-Bus API and require a client such

@@ -6,11 +6,11 @@
   </core>
   <theme>
     <name>Bear2</name>
-    <cornerRadius>0</cornerRadius>
+    <cornerRadius>2</cornerRadius>
     <keepBorder>yes</keepBorder>
     <font name="Open Sans" size="10"/>
-    <dropShadows>no</dropShadows>
-    <icon>Chicago95</icon>
+    <dropShadows>yes</dropShadows>
+    <icon>Gruvbox-Plus-Light</icon>
     <maximizedDecoration>titlebar</maximizedDecoration>
   </theme>
   <keyboard>

@@ -10,23 +10,23 @@
         "sway/workspaces",
         "sway/mode",
         "sway/scratchpad",
-        "custom/media"
+        "wlr/taskbar"
     ],
     "modules-center": [
         "sway/window"
     ],
     "modules-right": [
-        "mpd",
-        "idle_inhibitor",
+        // "mpd",
+        // "idle_inhibitor",
         "pulseaudio",
-        "network",
-        "power-profiles-daemon",
-        "cpu",
-        "memory",
+        // "network",
+        // "power-profiles-daemon",
+        // "cpu",
+        // "memory",
         "temperature",
-        "backlight",
-        "keyboard-state",
-        "sway/language",
+        // "backlight",
+        // "keyboard-state",
+        // "sway/language",
         "battery",
         "battery#bat2",
         "clock",
@@ -50,26 +50,24 @@
     //         "default": ""
     //     }
     // },
-    "niri/workspaces": {
-        "format": "{icon} {windows}",
-        "format-window-separator": " ",
-        "window-rewrite-default": "",
-        "window-rewrite": {
-            "app_id<firefox>": "",
-            "app_id<dolphin>": "",
-            "app_id<org.gnome.Nautilus>": "",
-            "app_id<thunar>": "",
-            "app_id<foot>": ""
-        },
-        "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "active": "",
-            "default": ""
-        }
+    "wlr/taskbar": {
+            "format": "{icon}",
+            "truncate": true,
+            "icon-size": 14,
+            "icon-theme": "Chicago95",
+            "tooltip-format": "{title}",
+            "on-click": "activate",
+            "on-click-middle": "close",
+            // "ignore-list": [
+            //     "Alacritty"
+            // ],
+            "app_ids-mapping": {
+                    "firefoxdeveloperedition": "firefox-developer-edition"
+            },
+            "rewrite": {
+                    "Firefox Web Browser": "Firefox",
+                    "Foot Server": "Terminal"
+            }
     },
     "keyboard-state": {
         "numlock": true,

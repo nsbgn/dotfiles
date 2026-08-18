@@ -27,7 +27,7 @@ client.unfocused        $bg         $bg         $bg     $bg         $bg
 client.urgent           $red        $red        $bg     $red        $red
 client.placeholder      $bg         $bg         $bg     $bg         $bg
 client.background       $bg
-output * bg $bg solid_color
+output * bg #32302f solid_color
 
 default_border normal 1
 # default_border pixel 1
