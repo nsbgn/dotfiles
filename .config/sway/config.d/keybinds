@@ -10,7 +10,6 @@ mode "default" {
    bindsym --whole-window BTN_SIDE exec swayq workspace focus next
 
    bindsym --no-repeat --release Super_L exec $menu
-   bindsym --no-repeat --release Super_R exec $menu
 
    # q
    bindcode $os+24 kill
@@ -47,7 +46,8 @@ mode "default" {
    # g
    bindcode $fn+42 nop
    # h
-   bindcode $fn+43 exec alacritty
+   bindcode $fn+43 exec foot-cwd
+   bindcode $fn+Shift+43 exec alacritty
 
    # j / keycode 44
    bindcode $fn+44 focus left
@@ -66,7 +66,7 @@ mode "default" {
    # x
    bindcode $os+53 nop
    # c
-   bindcode $os+54 exec alacritty
+   bindcode $os+54 exec foot-cwd
    # v
    bindcode $os+55 nop
    # b
@@ -74,7 +74,7 @@ mode "default" {
    # n
    bindcode $fn+57 exec $menu
    # m
-   bindcode $fn+58 exec alacritty
+   bindcode $fn+58 exec foot-cwd
    # ,
    bindcode $fn+59 exec swayq workspace focus prev
    bindcode $fn+Shift+59 exec swayq workspace move prev

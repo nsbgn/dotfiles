@@ -1,3 +1,5 @@
+@theme "gruvbox-dark-hard"
+
 configuration {
 /*	modes: "window,drun,run,ssh";*/
 /*	font: "mono 12";*/
