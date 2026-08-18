@@ -10,6 +10,7 @@ set $altgr Mod5
 set $menu rofi -show drun -show-icons
 
 # Lifted from <https://gist.github.com/Cardoso1994/80641d652a4adcf6c8f718ebc3770ab9>
+# and https://github.com/morhetz/gruvbox
 set $bg       #282828
 set $fg       #d4be98
 set $red      #ea6962
@@ -18,31 +19,33 @@ set $green    #a9b665
 set $dgreen   #495605
 set $blue     #7daea3
 set $purple   #d3869b
-set $aqua     #89b482
+# set $aqua     #89b482
+set $aqua     #689d6a
 
 #       Gruvbox Theme   brdr        bg          text    indictr     chld_brdr
-client.focused          $dgreen     $dgreen     $dgreen $green      $dgreen
-client.focused_inactive $bg         $bg         $bg     $green      $green
-client.unfocused        $bg         $bg         $bg     $bg         $bg
-client.urgent           $red        $red        $bg     $red        $red
-client.placeholder      $bg         $bg         $bg     $bg         $bg
+client.focused          $dgreen     #689d6a     #1d2021 $green      #689d6a
+client.focused_inactive $bg         $bg         $fg     $green      $green
+client.unfocused        $bg         $bg         $fg     $bg         $bg
+client.urgent           $red        $red        $fg     $red        $red
+client.placeholder      $bg         $bg         $fg     $bg         $bg
 client.background       $bg
 output * bg #32302f solid_color
 
 default_border normal 1
-# default_border pixel 1
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
-font Overpass, Cascadia Mono NF, FontAwesome 2
-gaps inner -1
-gaps outer -1
+font Cascadia Mono NF, FontAwesome 8
+gaps inner 0
+gaps outer 1
 hide_edge_borders smart
-smart_borders off
-smart_gaps off
-title_align center
+smart_borders true
+smart_gaps true
+title_align left
 titlebar_border_thickness 0
-titlebar_padding 0 0
+titlebar_padding 5 0
 # title_window_icon yes # cf <https://github.com/swaywm/sway/issues/4882>
+
+for_window [app_id="org.mozilla.firefox"] border pixel 0
 
 include config.d/*

@@ -12,7 +12,7 @@ bar {
    status_command swayq bar eDP-1
    mode dock
    modifier Mod1
-   position top
+   position bottom
    status_padding 2
    status_edge_padding 5
    height 25
