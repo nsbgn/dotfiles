@@ -44,6 +44,7 @@ PACKAGES=(
     mpv-mpris
     otpclient
     greetd tuigreet
+    blueman # GUI Bluetooth manager
 )
 
 sudo apt update -y

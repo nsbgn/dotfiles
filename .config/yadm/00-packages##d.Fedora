@@ -33,6 +33,7 @@ PACKAGES=(
     overpass-fonts
     cascadia-code-nf-fonts
 
+    blueman # bluetooth manager
     NetworkManager-tui
     whiptail
     git-delta # More readable deltas
