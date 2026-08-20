@@ -56,6 +56,8 @@ PACKAGES=(
     labwc
     mpv-mpris
     sunwait
+
+    smartmontools gsmartcontrol # S.M.A.R.T. monitor & gui
 )
 
 sudo dnf install ${PACKAGES[@]}

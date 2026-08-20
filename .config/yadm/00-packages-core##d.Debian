@@ -45,6 +45,8 @@ PACKAGES=(
     otpclient
     greetd tuigreet
     blueman # GUI Bluetooth manager
+
+    smartmontools gsmartcontrol # S.M.A.R.T. monitor & gui
 )
 
 sudo apt update -y
