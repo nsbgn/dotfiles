@@ -1,0 +1,33 @@
+#!/bin/sh
+# cf. <https://firefox-admin-docs.mozilla.org/guides/policies-configuration/>
+# cf. <https://github.com/mozilla/policy-templates/blob/master/linux/policies.json>
+
+# - <https://github.com/gorhill/uBlock#ublock-origin>
+#   <https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/>
+# - <https://github.com/viacoffee/fxminivim>
+#   <https://addons.mozilla.org/en-US/firefox/addon/fxminivim/>
+
+# DIR=/usr/lib/firefox/distribution/
+DIR=/etc/firefox/policies
+
+sudo mkdir -p "$DIR"
+sudo tee "$DIR/policies.json" << EOF
+{
+  "policies": {
+    "Homepage": {
+      "URL": "about:blank",
+      "Locked": true
+    },
+    "ExtensionSettings": {
+      "uBlock0@raymondhill.net": {
+        "installation_mode": "force_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+      },
+      "fxminivim@viacoffee.github.io": {
+        "installation_mode": "force_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/fxminivim/latest.xpi"
+      }
+    }
+  }
+}
+EOF
