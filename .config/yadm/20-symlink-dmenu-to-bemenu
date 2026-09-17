@@ -1,7 +1,9 @@
 #!/bin/sh
 set -eu
 
-if ! which dmenu > /dev/null; then
-    mkdir -p $HOME/.local/bin
-    ln -s /usr/bin/bemenu $HOME/.local/bin/dmenu
-fi
+# if ! which dmenu > /dev/null; then
+mkdir -p $HOME/.local/bin
+# ln -s /usr/bin/bemenu $HOME/.local/bin/dmenu
+# ln -s /usr/bin/rofi $HOME/.local/bin/dmenu
+ln -sf /usr/bin/fuzzel $HOME/.local/bin/dmenu
+# fi

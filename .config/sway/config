@@ -7,7 +7,8 @@ set $os Mod4
 set $fn Mod4+Mod1
 set $alt Mod1
 set $altgr Mod5
-set $menu rofi -show drun -show-icons
+# set $menu rofi -show drun -show-icons
+set $menu fuzzel
 
 # Lifted from <https://gist.github.com/Cardoso1994/80641d652a4adcf6c8f718ebc3770ab9>
 # and https://github.com/morhetz/gruvbox
@@ -35,7 +36,7 @@ default_border normal 1
 default_floating_border normal 2
 floating_modifier Mod4 normal
 focus_wrapping no
-font Cascadia Mono NF, FontAwesome 8
+font Cascadia Code 10, PowerlineSymbols 10, FontAwesome 8, Cascadia Mono NF 10
 gaps inner 0
 gaps outer 0
 hide_edge_borders smart
