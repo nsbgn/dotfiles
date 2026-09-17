@@ -1,0 +1,12 @@
+#!/bin/sh
+# On-screen keyboard access via touchsreen
+
+# Find out via `cat /proc/bus/input/devices`
+TOUCHSCREEN=/dev/input/by-path/pci-0000\:00\:15.0-platform-i2c_designware.0-event
+
+if ! pgrep wvkbd-deskintl; then
+    wvkbd-deskintl --no-popup --hidden --bg 000000 --fg ffffff --text 000000 &
+fi
+
+lisgd -d "$TOUCHSCREEN" \
+    -g '1,DU,B,*,P,pkill -SIGRTMIN wvkbd-deskintl'
