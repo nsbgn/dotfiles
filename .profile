@@ -30,3 +30,5 @@ if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then
     . "$HOME/.bashrc"
     fi
 fi
+
+export PATH="$HOME/.elan/bin:$PATH"
