@@ -25,30 +25,33 @@
 # "\e]7;file://…\e\\")` on every directory change... but that's only one 
 # application down.
 #
-# I propose instead to start a footclient instance by setting its app_id to 
-# match an environment variable the shell process it starts, allowing us to tie 
-# the window back to the shell process. Once you've found the parent shell, you 
-# can look at its tgpid to find the foreground process and from there the 
-# current directory:
-#   readlink /proc/$(ps p $BASHPID -o tpgid= | tr -d ' ')/cwd
+# I propose instead to put something like this in the .bashrc:
+#
+#     if [[ "$TERM" == foot* ]]; then
+#         echo -en "\033]176;${TERM}:$$\033\\"
+#     fi
+#
+# This changes the app_id of foot to include the process ID of its bash shell.
+# We can use this to find the PID of the current process group leader, from
+# which we can find the current directory.
 set -eu
 
-foot_cwd(){
-    PID=$1
-    APPID=$2
-    NEWAPPID=$3
-    shift 3
-    DIR="$(readlink /proc/$(ps e --ppid "$PID" -o tpgid=,args= \
-        | awk -F' ' "/APPID=$APPID/ {print \$1}")/cwd || echo $HOME)"
-    footclient -o environment.APPID="$NEWAPPID" -a "$NEWAPPID" -D "$DIR" "$@"
+wl-cwd(){
+    local PID=""
+    if [ -e "$SWAYSOCK" ]; then
+        PID="$(swaymsg -t get_tree | jq -r '
+        first(
+            recurse(.nodes[], .floating_nodes[])
+            | select(.focused)
+            | (.app_id | match("^foot.*:([0-9]+)$").captures[0].string | tonumber)
+            // .pid
+        )')"
+    fi
+    readlink /proc/$(ps p "$PID" -o tpgid= --delimiter , 2> /dev/null)/cwd || echo "$HOME"
 }
 
-
-if [ ! -e "$XDG_RUNTIME_DIR/foot-$WAYLAND_DISPLAY.sock" ]; then
-    foot "$@"
-elif [ ! -e "$SWAYSOCK" ]; then
-    footclient "$@"
+if [ -e "$XDG_RUNTIME_DIR/foot-$WAYLAND_DISPLAY.sock" ]; then
+    footclient -D "$(wl-cwd)" "$@"
 else
-    foot_cwd $(swaymsg -t get_tree | jq -r 'first(recurse(.nodes[], .floating_nodes[]) | select(.focused)) |
-        "\(.pid) \(.app_id) foot-\(now)"') "$@"
+    foot -D "$(wl-cwd)" "$@"
 fi

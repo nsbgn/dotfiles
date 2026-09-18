@@ -33,6 +33,11 @@ fi
 
 # Other ###############################################################
 
+# Include top-level process ID in AppID in foot
+if [[ "$TERM" == foot* ]]; then
+    echo -ne "\033]176;${TERM}:$$\033\\"
+fi
+
 # Hook direnv; see <https://direnv.net/>
 eval "$(direnv hook bash)"
 
