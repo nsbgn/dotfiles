@@ -1,0 +1,44 @@
+#!/bin/sh
+# Finds the working directory of the currently focused window, even if that is a
+# footclient terminal window. Takes into account foreground process.
+# This is very much a workaround.
+#
+# Sway version of my `cwd-x11`, and as such also inspired by:
+# - https://github.com/wknapik/lastcwd
+# - https://gist.github.com/viking/5851049
+#
+# To use, put something like this in the .bashrc:
+#
+#     if [[ "$TERM" == foot* ]]; then
+#         echo -en "\033]176;${TERM}:$$\033\\"
+#     fi
+#
+# This changes the app_id of foot to include the process ID of its bash shell.
+# With this, we can find the PID of the foreground process, from which we can
+# find the current directory.
+#
+# Motivation:
+#     To spawn new terminal instances, foot's wiki recommends the following:
+#     <https://codeberg.org/dnkl/foot/wiki#spawning-new-terminal-instances-in-the-current-working-directory>.
+#     That is, you send an OSC-7 escape sequence to notify foot of its working
+#     directory, and then you press Ctrl+Shift+N to open a new window. The first
+#     problem is that this means that you need to have a different shortcut for
+#     when you're not focused on `foot` at all. You can easily solve this by
+#     just checking the current app id and executing something like `wtype -M
+#     ctrl -M shift -k n` if we're already on `foot`. However, this still means
+#     that every terminal process needs to manually send OSC-7. Ideally, we want
+#     to immediately focus on the foreground process.
+set -eu
+
+if [ -e "$SWAYSOCK" ]; then
+    PID="$(swaymsg -t get_tree | jq -r '
+    first(
+        recurse(.nodes[], .floating_nodes[])
+        | select(.focused)
+        | (.app_id | match("^foot.*:([0-9]+)$").captures[0].string | tonumber)
+        // .pid
+    )')"
+else
+    PID=""
+fi
+readlink /proc/$(ps p "$PID" -o tpgid= --delimiter , 2> /dev/null)/cwd || echo "$HOME"
